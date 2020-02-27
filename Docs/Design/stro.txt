@@ -1,0 +1,16 @@
+Story 1:
+A group of colonizers that are in a spaceship discover that in a nearby planet there is a very valuable mineral. In order to get it they decide to land on said planet.
+However they discover they are not alone and that if they really want that mineral they will have to fight for it.
+
+Story 2:
+the earth receives a message from the outer space. The message is a threat from aliens in a distant planet. they say they will destroy the earth.
+The earth sends a group of well prepared people to get to that planet and destroy their civilization before they destroy the earth.
+
+Story 3:
+
+
+Game design:
+The game starts with the starship in the centre of the screen.You are allowed to build a gold mine and a mineral mine if there are mines nearby. 
+From then with the gold and mineral you receive you are allowed to build a weapon industry. The weapon industry is usefull to create weapons for your soldiers.
+Now, thanks to the improvement of building a weapon industry now you are allowed to build barracks to recruit units. Now that you are allowed to recruit soldiers you are able to build a
+special units industry (e.g: tanks, special cannons). 

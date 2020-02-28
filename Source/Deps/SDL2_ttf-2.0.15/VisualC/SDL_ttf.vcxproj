@@ -63,13 +63,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_ttf\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\</IntDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_ttf\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_ttf\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\</IntDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_ttf\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\</IntDir>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
@@ -108,7 +108,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>SDL2.lib;libfreetype-6.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>external\lib\x86;%(AdditionalLibraryDirectories);$(OutDir);$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>external\lib\x86;%(AdditionalLibraryDirectories);$(OutDir);$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL\;$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
     </Link>
@@ -141,7 +141,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>SDL2.lib;libfreetype-6.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>external\lib\x64;%(AdditionalLibraryDirectories);$(OutDir);$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>external\lib\x64;%(AdditionalLibraryDirectories);$(OutDir);$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL\;$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
     </Link>
@@ -172,7 +172,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>SDL2.lib;libfreetype-6.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>external\lib\x86;%(AdditionalLibraryDirectories);$(OutDir);$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>external\lib\x86;%(AdditionalLibraryDirectories);$(OutDir);$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL\;$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>
@@ -202,7 +202,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>SDL2.lib;libfreetype-6.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>external\lib\x64;%(AdditionalLibraryDirectories);$(OutDir);$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>external\lib\x64;%(AdditionalLibraryDirectories);$(OutDir);$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL\;$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>

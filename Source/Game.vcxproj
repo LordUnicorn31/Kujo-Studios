@@ -71,19 +71,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\Game\</OutDir>
+    <OutDir>$(SolutionDir)bin\Game\$(Configuration)\$(PlatformShortName)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\Game\</OutDir>
+    <OutDir>$(SolutionDir)bin\Game\$(Configuration)\$(PlatformShortName)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\Game\</OutDir>
+    <OutDir>$(SolutionDir)bin\Game\$(Configuration)\$(PlatformShortName)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\Game\</OutDir>
+    <OutDir>$(SolutionDir)bin\Game\$(Configuration)\$(PlatformShortName)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -98,10 +98,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL\SDL2.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_Image\SDL2_image.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_Mixer\SDL2_mixer.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_ttf\SDL2_ttf.dll" "$(OutDir)"
+      <Command>copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\SDL2.dll" "$(OutDir)"
+copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\SDL2_image.dll" "$(OutDir)"
+copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\SDL2_mixer.dll" "$(OutDir)"
+copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\SDL2_ttf.dll" "$(OutDir)"
 copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -118,10 +118,10 @@ copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL\SDL2.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_Image\SDL2_image.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_Mixer\SDL2_mixer.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_ttf\SDL2_ttf.dll" "$(OutDir)"
+      <Command>copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\SDL2.dll" "$(OutDir)"
+copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\SDL2_image.dll" "$(OutDir)"
+copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\SDL2_mixer.dll" "$(OutDir)"
+copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\SDL2_ttf.dll" "$(OutDir)"
 copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -142,10 +142,10 @@ copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL\SDL2.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_Image\SDL2_image.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_Mixer\SDL2_mixer.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_ttf\SDL2_ttf.dll" "$(OutDir)"
+      <Command>copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\SDL2.dll" "$(OutDir)"
+copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\SDL2_image.dll" "$(OutDir)"
+copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\SDL2_mixer.dll" "$(OutDir)"
+copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\SDL2_ttf.dll" "$(OutDir)"
 copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -166,10 +166,10 @@ copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL\SDL2.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_Image\SDL2_image.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_Mixer\SDL2_mixer.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_ttf\SDL2_ttf.dll" "$(OutDir)"
+      <Command>copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\SDL2.dll" "$(OutDir)"
+copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\SDL2_image.dll" "$(OutDir)"
+copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\SDL2_mixer.dll" "$(OutDir)"
+copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\SDL2_ttf.dll" "$(OutDir)"
 copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

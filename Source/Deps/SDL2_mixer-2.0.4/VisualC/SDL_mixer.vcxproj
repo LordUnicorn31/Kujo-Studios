@@ -63,13 +63,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_Mixer\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\</IntDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_Mixer\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_Mixer\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\</IntDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL_Mixer\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\</IntDir>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
@@ -111,7 +111,7 @@
       <AdditionalDependencies>winmm.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Source\Deps\SDL2_mixer-2.0.4\VisualC\mixer_libs\native_midi\$(Platform)\$(Configuration)\;$(SolutionDir)Source\Deps\SDL2_mixer-2.0.4\VisualC\mixer_libs\timidity\$(Platform)\$(Configuration)\;$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\Deps\SDL2_mixer-2.0.4\VisualC\mixer_libs\native_midi\$(Platform)\$(Configuration)\;$(SolutionDir)Source\Deps\SDL2_mixer-2.0.4\VisualC\mixer_libs\timidity\$(Platform)\$(Configuration)\;$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake />
     <PostBuildEvent>
@@ -146,7 +146,7 @@
       <AdditionalDependencies>winmm.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Source\Deps\SDL2_mixer-2.0.4\VisualC\mixer_libs\native_midi\$(Platform)\$(Configuration)\;$(SolutionDir)Source\Deps\SDL2_mixer-2.0.4\VisualC\mixer_libs\timidity\$(Platform)\$(Configuration)\;$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\Deps\SDL2_mixer-2.0.4\VisualC\mixer_libs\native_midi\$(Platform)\$(Configuration)\;$(SolutionDir)Source\Deps\SDL2_mixer-2.0.4\VisualC\mixer_libs\timidity\$(Platform)\$(Configuration)\;$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake />
     <PostBuildEvent>
@@ -178,7 +178,7 @@
     <Link>
       <AdditionalDependencies>winmm.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Source\Deps\SDL2_mixer-2.0.4\VisualC\mixer_libs\native_midi\$(Platform)\$(Configuration)\;$(SolutionDir)Source\Deps\SDL2_mixer-2.0.4\VisualC\mixer_libs\timidity\$(Platform)\$(Configuration)\;$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\Deps\SDL2_mixer-2.0.4\VisualC\mixer_libs\native_midi\$(Platform)\$(Configuration)\;$(SolutionDir)Source\Deps\SDL2_mixer-2.0.4\VisualC\mixer_libs\timidity\$(Platform)\$(Configuration)\;$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake />
     <PostBuildEvent>
@@ -210,7 +210,7 @@
     <Link>
       <AdditionalDependencies>winmm.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)Source\Deps\SDL2_mixer-2.0.4\VisualC\mixer_libs\native_midi\$(Platform)\$(Configuration)\;$(SolutionDir)Source\Deps\SDL2_mixer-2.0.4\VisualC\mixer_libs\timidity\$(Platform)\$(Configuration)\;$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\Deps\SDL2_mixer-2.0.4\VisualC\mixer_libs\native_midi\$(Platform)\$(Configuration)\;$(SolutionDir)Source\Deps\SDL2_mixer-2.0.4\VisualC\mixer_libs\timidity\$(Platform)\$(Configuration)\;$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake />
     <PostBuildEvent>

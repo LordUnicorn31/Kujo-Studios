@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug static|Win32">
+      <Configuration>Debug static</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug static|x64">
+      <Configuration>Debug static</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
@@ -51,6 +59,12 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug static|Win32'">
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug static|x64'">
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -89,7 +103,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);FT2_DLLIMPORT</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)Deps\SDL2-2.0.10\include;$(ProjectDir)Deps\SDL2_image-2.0.5;$(ProjectDir)Deps\SDL2_mixer-2.0.4;$(ProjectDir)Deps\SDL2_ttf-2.0.15;$(ProjectDir)Deps\pugixml-1.10\src</AdditionalIncludeDirectories>
     </ClCompile>
@@ -98,18 +112,15 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\SDL2.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\SDL2_image.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\SDL2_mixer.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\SDL2_ttf.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);FT2_DLLIMPORT</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)Deps\SDL2-2.0.10\include;$(ProjectDir)Deps\SDL2_image-2.0.5;$(ProjectDir)Deps\SDL2_mixer-2.0.4;$(ProjectDir)Deps\SDL2_ttf-2.0.15;$(ProjectDir)Deps\pugixml-1.10\src</AdditionalIncludeDirectories>
     </ClCompile>
@@ -118,11 +129,8 @@ copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\SDL2.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\SDL2_image.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\SDL2_mixer.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\SDL2_ttf.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -131,7 +139,7 @@ copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);FT2_DLLIMPORT</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)Deps\SDL2-2.0.10\include;$(ProjectDir)Deps\SDL2_image-2.0.5;$(ProjectDir)Deps\SDL2_mixer-2.0.4;$(ProjectDir)Deps\SDL2_ttf-2.0.15;$(ProjectDir)Deps\pugixml-1.10\src</AdditionalIncludeDirectories>
     </ClCompile>
@@ -142,11 +150,8 @@ copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\SDL2.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\SDL2_image.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\SDL2_mixer.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\SDL2_ttf.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -155,7 +160,7 @@ copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);FT2_DLLIMPORT</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)Deps\SDL2-2.0.10\include;$(ProjectDir)Deps\SDL2_image-2.0.5;$(ProjectDir)Deps\SDL2_mixer-2.0.4;$(ProjectDir)Deps\SDL2_ttf-2.0.15;$(ProjectDir)Deps\pugixml-1.10\src</AdditionalIncludeDirectories>
     </ClCompile>
@@ -166,11 +171,8 @@ copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\SDL2.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\SDL2_image.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\SDL2_mixer.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\SDL2_ttf.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -186,9 +188,6 @@ copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
     </ProjectReference>
     <ProjectReference Include="Deps\SDL2_image-2.0.5\VisualC\SDL_image.vcxproj">
       <Project>{2bd5534e-00e2-4bea-ac96-d9a92ea24696}</Project>
-    </ProjectReference>
-    <ProjectReference Include="Deps\SDL2_mixer-2.0.4\VisualC\SDL_mixer.vcxproj">
-      <Project>{f7e944b3-0815-40cd-b3e4-90b2a15b0e33}</Project>
     </ProjectReference>
     <ProjectReference Include="Deps\SDL2_ttf-2.0.15\VisualC\SDL_ttf.vcxproj">
       <Project>{dddbd07d-dc76-4af6-8d02-3e2deb6ee255}</Project>

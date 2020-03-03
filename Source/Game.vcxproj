@@ -98,11 +98,12 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\SDL2.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\SDL2_image.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\SDL2_mixer.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\SDL2_ttf.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
+      <Command>copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\SDL2.dll" "$(OutDir)"
+copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\SDL2_image.dll" "$(OutDir)"
+copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\SDL2_ttf.dll" "$(OutDir)"
+copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\SDL2_mixer.dll" "$(OutDir)"
+copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\external\freetype.dll" "$(OutDir)"
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -142,11 +143,12 @@ copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\SDL2.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\SDL2_image.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\SDL2_mixer.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\SDL2_ttf.dll" "$(OutDir)"
-copy /Y "$(SolutionDir)$(Platform)\$(Configuration)" "$(OutDir)"</Command>
+      <Command>copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\SDL2.dll" "$(OutDir)"
+copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\SDL2_image.dll" "$(OutDir)"
+copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\SDL2_ttf.dll" "$(OutDir)"
+copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\SDL2_mixer.dll" "$(OutDir)"
+copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\external\freetype.dll" "$(OutDir)"
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

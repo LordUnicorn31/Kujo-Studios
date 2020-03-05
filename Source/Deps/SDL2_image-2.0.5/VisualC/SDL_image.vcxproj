@@ -107,10 +107,10 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>libpng.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpng16.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL;$(SolutionDir)Source\Deps\SDL2_image-2.0.5\external\libpng-1.6.37\projects\visualc71\Win32_DLL_Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL;$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\external;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake />
     <PreBuildEvent>
@@ -145,10 +145,10 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>libpng.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpng16.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL;$(SolutionDir)Source\Deps\SDL2_image-2.0.5\external\libpng-1.6.37\projects\visualc71\Win32_DLL_Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL;$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\external;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake />
     <PreBuildEvent>
@@ -181,9 +181,9 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>libpng.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpng16.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL;$(SolutionDir)Source\Deps\SDL2_image-2.0.5\external\libpng-1.6.37\projects\visualc71\Win32_DLL_Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL;$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\external\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake />
     <PreBuildEvent>
@@ -217,8 +217,8 @@
     </ResourceCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>libpng.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL;$(SolutionDir)Source\Deps\SDL2_image-2.0.5\external\libpng-1.6.37\projects\visualc71\Win32_DLL_Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libpng16.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL;$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\external\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake />
     <PreBuildEvent>

@@ -125,8 +125,8 @@ copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\SDL
 copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\SDL2_ttf.dll" "$(OutDir)"
 copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\SDL2_mixer.dll" "$(OutDir)"
 copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\external\freetype.dll" "$(OutDir)"
-copy "$(SolutionDir)Source\Deps\SDL2_image-2.0.5\external\libpng-1.6.37\projects\visualc71\Win32_DLL_Debug\libpng16.dll" "$(OutDir)"
-copy "$(SolutionDir)Source\Deps\SDL2_image-2.0.5\external\libpng-1.6.37\projects\visualc71\Win32_DLL_Debug\Zlib\zlib1.dll" "$(OutDir)"</Command>
+copy "$(SolutionDir)Source\Deps\SDL2_image-2.0.5\external\libpng-1.6.37\projects\visualc71\Win32_DLL_Debug\libpng16d.dll" "$(OutDir)"
+copy "$(SolutionDir)Source\Deps\SDL2_image-2.0.5\external\libpng-1.6.37\projects\visualc71\Win32_DLL_Debug\Zlib\zlib1d.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

@@ -29,6 +29,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "Source\Deps\SDL2_im
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "external", "external", "{3BE85FFA-BFB9-4F29-A55F-6E6698A7D057}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EASTL", "Source\Deps\EASTL\EASTL.vcxproj", "{679598A7-54D6-468B-B668-E90CACB43668}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -125,6 +127,14 @@ Global
 		{2D4F8105-7D21-454C-9932-B47CAB71A5C0}.Release|x64.Build.0 = LIB Release|Win32
 		{2D4F8105-7D21-454C-9932-B47CAB71A5C0}.Release|x86.ActiveCfg = DLL Release|Win32
 		{2D4F8105-7D21-454C-9932-B47CAB71A5C0}.Release|x86.Build.0 = DLL Release|Win32
+		{679598A7-54D6-468B-B668-E90CACB43668}.Debug|x64.ActiveCfg = Debug|x64
+		{679598A7-54D6-468B-B668-E90CACB43668}.Debug|x64.Build.0 = Debug|x64
+		{679598A7-54D6-468B-B668-E90CACB43668}.Debug|x86.ActiveCfg = Debug|Win32
+		{679598A7-54D6-468B-B668-E90CACB43668}.Debug|x86.Build.0 = Debug|Win32
+		{679598A7-54D6-468B-B668-E90CACB43668}.Release|x64.ActiveCfg = Release|x64
+		{679598A7-54D6-468B-B668-E90CACB43668}.Release|x64.Build.0 = Release|x64
+		{679598A7-54D6-468B-B668-E90CACB43668}.Release|x86.ActiveCfg = Release|Win32
+		{679598A7-54D6-468B-B668-E90CACB43668}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

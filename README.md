@@ -21,7 +21,7 @@
  - [Jordi Bach](https://github.com/bottzo) - Code
  - [Daniel Ruiz](https://github.com/xsiro) - Art
  - [Jordi Espriu](https://github.com/LordUnicorn31) - Design
- - {Dev05} - {Role(s)}
+ - [Oriol Sabaté](https://github.com/urisabate) - QA
 
 ## License
 

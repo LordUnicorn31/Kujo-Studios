@@ -22,6 +22,7 @@
  - [Daniel Ruiz](https://github.com/xsiro) - Art
  - [Jordi Espriu](https://github.com/LordUnicorn31) - Design
  - [Oriol Sabaté](https://github.com/urisabate) - QA
+ - [Adrián Mirabel](https://github.com/M1R4B3L) - Code
 
 ## License
 

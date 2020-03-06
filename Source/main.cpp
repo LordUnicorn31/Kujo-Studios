@@ -5,10 +5,15 @@
 #include <SDL_ttf.h>
 #include "pugixml.hpp"
 #include "EASTL/array.h"
-#include "EASTL/iterator.h"
+#include "EASTL/vector.h"
+#include "EASTL/allocator.h"
 
 void* __cdecl operator new[](size_t size, const char* name, int flags, unsigned debugFlags, const char* file, int line)
 {
+	return new uint8_t[size];
+}
+
+void* __cdecl operator new[](size_t size, size_t alignment, size_t alignmentOffset, const char* pName, int flags, unsigned debugFlags, const char* file, int line) {
 	return new uint8_t[size];
 }
 
@@ -16,6 +21,12 @@ int main(int argc, char* args[]) {
 	eastl::array<int, 5> a = { 0, 1, 2, 3, 4 }; // Strict compilers such as GCC require the double brackets.
 	a[2] = 4;
 	printf("%d,%d\n", a[2],*a.begin());
+	eastl::vector<int> integers;
+	integers.reserve(3);
+	integers.emplace_back(1);
+	integers.emplace_back(2);
+	integers.emplace_back(3);
+	printf("%d \n%d \n%d \n", integers[0], integers[1], integers[2]);
 	pugi::xml_document Entity_doc;
 	SDL_Init(SDL_INIT_EVERYTHING);
 	int flags = IMG_INIT_PNG;

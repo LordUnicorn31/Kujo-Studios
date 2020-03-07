@@ -35,6 +35,8 @@ Unit counter: This game has a counter system for the fighting units. this means 
 
 Fog of war: This game has a fog of war system. It means that a part of the map is shown (where the player starts) and the other is unseen. This mechanics allows us to surprise and make the player explore. The idea is that by putting fog of war the player will have to explore places to find resources and he will get surprisily attacked by the enemy.
 
+Evolution: In this game the player must notice a change between the first minute he plays and the minute 20 of game. This means that the games has to evolve, starting from a point where the decisions don't matter (farming phase) to a point where you have to get an army to destriy the enemies and escape. It is essential that the player feels he has got stronger while playing.
+
 
 # Buildings
 
@@ -105,4 +107,13 @@ All the enemies have the same stats.
 
 # Quests & quests solutions
 
-As quests are one of the most important things in any RTS games, we decided to create a secondary quests systems
+As quests are one of the most important things in any RTS games, we decided to create a secondary quests systems that will help the player in the main goal of the game but won't have any punish if the player doesn't do them.
+
+1st Quest: The player is given the quest of invading 1 enemy village and raid its resources.
+
+Solution: Go to the village and attack theit main building so the village gets instantly invaded.
+
+
+2nd Quest: Steal a map from the enemy. 
+
+Solution: Go to an enemy factory. Destroy it and then the map will be given to you automatically.

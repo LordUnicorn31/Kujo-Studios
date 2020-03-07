@@ -15,3 +15,15 @@ Mining & farming: Thbis game has the intention of having to farm and mine the ma
 # Story
 
 You are the captain in a spaceship. You and your team have been raiding planets to get ores for years now, however, you just had an accident and landed in a mysterious planet. In order to escape you will need to gather resources from the planet and build a new starship that helps you get out of that planet. But be careful! the population of the planet have discovered you, and they don't like the idea of having a bunch of strangers raiding their planet and stealing their ores, so you better protect yourself in order to achieve your main goal.
+
+
+# Controls
+
+Mouse: Move around the map.
+
+Left mouse button: Select (units, building, menus, basically select everything you can press).
+
+Right mouse button: Move units (When a unit is selected and you press right mouse button somewhere, the unit will move to that point).
+
+Mouse button rudder: Zoom out/Zoom in.
+

@@ -1,3 +1,8 @@
+Introduction:
+In this document we will disscus the technical specifications about the game. Our game will be a 2d RTS and it will be rendered on an
+orthoganal prespective. It is writen entirely on C++ language and we will also use external libraries writen in C. (missing lisences)
+
+
 single variable:	`speed`
 
 multiple variable:	`playerSpeed`

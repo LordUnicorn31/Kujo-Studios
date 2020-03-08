@@ -1,4 +1,4 @@
-# GDD for Kujo Studios
+# GDD
 
 
 # Game pillars

@@ -113,11 +113,11 @@ should have their reference symbol next to the type rather than to the name.
 
 `char* name = nullptr;` (VisualStudio's default)
 
-`if()
-
+```
+if()
 {
-
-}`
+}
+```
 
 Classes:
 

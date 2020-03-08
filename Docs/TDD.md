@@ -23,13 +23,13 @@ Should be grouped by their hierarchical position in the system with low levels f
 
 If the variable is a number, use `i`, (and `j`, `k` for nested loops):
 
-If iterators, increase/decrease them using `++variable;`/`--variable;`.
+If iterators, increase/decrease them using `++variable`/`--variable`.
 
-`i++;`
+`i++`
 
-Else, increase/decrease them using `variable++;`/`variable--;`.
+Else, increase/decrease them using `variable++`/`variable--`.
 
-`speed++;`
+`speed++`
 
 Whitespace: VisualStudio's default whitespace
 
@@ -56,7 +56,7 @@ If there is more than one variable of the same type, declarate them in the same 
 
 `int i, j, k, l;`
 
-Pointers with nullptr `char* name = nullptr`
+Pointers with nullptr `char* name = nullptr;`
 
 Floating numbers must be initialized with default 0.0f.
 
@@ -68,7 +68,7 @@ Booleans must be initialized with true or false.
 
 should have their reference symbol next to the type rather than to the name.
 
-`char* name = nullptr` (VisualStudio's default)
+`char* name = nullptr;` (VisualStudio's default)
 
 
 `if()

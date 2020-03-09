@@ -49,9 +49,13 @@ Every thursday morning will take place a playtesting session with the whole team
 
 ## Workflows
 Workflow for QA tests:
-**Photo**
+
+![](https://github.com/LordUnicorn31/Kujo-Studios/blob/master/Docs/QAWorkflow.png)
+
 Workflow for Quality Tests:
-**photo**
+
+![](https://github.com/LordUnicorn31/Kujo-Studios/blob/master/Docs/QTWorkflow.png)
+
 
 ## Processes for QA and Quality Tests
 ---
@@ -77,6 +81,6 @@ First part 30'(External tester required):
 - Post testing questions
 
 Second Part 30'(External tester not required, but useful to give more opinions to take into account):
-- Recopilation of all the information got
+- Review of all the information got
 - Team discussion
 - Task distribution

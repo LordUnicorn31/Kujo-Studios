@@ -1,4 +1,4 @@
-# GDD
+# GAME DESIGN DOCUMENT (GDD)
 
 
 # Game pillars
@@ -100,10 +100,19 @@ Electricity: It is generated in the electric power plant.
 
 # AI
 
+## Enemies in the main map
+
 The AI has the same units the player has. Thanks to this we are able to make the game fair in any aspect and make it feel like the player is playing against another human and not a machine. 
 
 All the enemies have the same stats.
 
+## Enemies in the dungeons
+
+Goblins: Globins have a medium damage.
+
+Minotaur: Slow enemies that have tons of damage.
+
+Sipders: Fast enemies that have low damage.
 
 # Quests & quests solutions
 
@@ -117,3 +126,8 @@ Solution: Go to the village and attack their main building so the village gets i
 2nd Quest: Steal a map from the enemy. 
 
 Solution: Go to an enemy factory. Destroy it and then the map will be given to you automatically.
+
+
+3rd Quest: Go to the cave with the map you achieved in the first quest go to the cave in the map and get the special ore.
+
+Solution: Fight the enemies on the front door, enter, dodge all the enemies (the enemies inside the mine can't be fought), go to the last room and get the ore.

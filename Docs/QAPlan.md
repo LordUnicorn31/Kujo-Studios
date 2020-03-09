@@ -42,7 +42,7 @@ Example:
 - May 19th: **Alpha**
 - June First Week: **Gold**
 
-A week before every milestone the whole team will take a session of intensive playtesting in order to identify the major number of bugs and problems possible to fix it during the last week before the milestone. After these session, the team will decide the needed improvements and the priority of each in order to get a solid and clean build. There will be performed few Quality Tests too, in charge of the QA manager and with the whole team deciding who is going to test the game, it has to be someone external to the team.
+A week before every milestone the whole team and one or two external testers, will take a session of intensive playtesting in order to identify the major number of bugs and problems possible to fix it during the last week before the milestone. After these session, the team will decide the needed improvements and the priority of each in order to get a solid and clean build. There will be performed few Quality Tests too, in charge of the QA manager and with the whole team deciding who is going to test the game, it has to be someone external to the team.
 
 ### Internal
 Every thursday morning will take place a playtesting session with the whole team. It will be focused to the objectives of this week, in order to identify and solve, if it is possible at this moment, all the problems created during the development and making easier to continue with the project comfortably.

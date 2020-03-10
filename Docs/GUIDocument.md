@@ -21,4 +21,10 @@ Last but not least, the bottom part and the left will appear some information ab
 
 At the pause menu, the player can do many thins as save, change the audio options or exit the game to the main title.
 
+#UML
+
 ![](https://github.com/LordUnicorn31/Kujo-Studios/blob/master/Docs/Design/UML_Menus.png)
+
+#Sketch UI
+
+![](https://github.com/LordUnicorn31/Kujo-Studios/blob/master/Docs/Design/U1%20unit.jpg)

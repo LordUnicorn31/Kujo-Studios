@@ -7,6 +7,8 @@ We are creating an RTS game, our audio pillars will focus in 3 important things.
 - Space theme 
 
 ## Music
+We need to define the music during nexts week.
+
 1. Title Music
 
     - Genre:
@@ -33,6 +35,8 @@ We are creating an RTS game, our audio pillars will focus in 3 important things.
     - Implementation:
 
 ## Effects
+We need to define the effects during nexts week.
+
 - Ambience: Not defined
 - Entities:
     - Enemies:

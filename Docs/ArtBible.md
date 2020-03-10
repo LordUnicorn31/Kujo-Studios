@@ -15,3 +15,7 @@ On the other hand, the isometric sprites are more likely classic, we want to mak
 #Example orthogonal sprtites used
 
 ![](https://github.com/LordUnicorn31/Kujo-Studios/blob/master/Docs/Design/mindustry.png)
+
+#Example isometric sprites used
+
+![](https://github.com/LordUnicorn31/Kujo-Studios/blob/master/Docs/Design/caves_preview_small.png)

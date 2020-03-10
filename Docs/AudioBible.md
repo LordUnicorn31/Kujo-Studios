@@ -7,36 +7,36 @@ We are creating an RTS game, our audio pillars will focus in 3 important things.
 - Space theme 
 
 ## Music
-1.Title Music
-2.
-  - Genre:
-  - Style:
-  - Instrumentation:
-  - Implementation:
+1. Title Music
+
+    - Genre:
+    - Style:
+    - Instrumentation:
+    - Implementation:
  
-2.Tutorial Music
-  - Genre:
-  - Style:
-  - Instrumentation:
-  - Implementation:
+2. Tutorial Music
+    - Genre:
+    - Style:
+    - Instrumentation:
+    - Implementation:
   
- 3.In Game Music
-  - Genre:
-  - Style:
-  - Instrumentation:
-  - Implementation:
+ 3. In Game Music
+    - Genre:
+    - Style:
+    - Instrumentation:
+    - Implementation:
   
- 4.Ending Music
-  - Genre:
-  - Style:
-  - Instrumentation:
-  - Implementation:
+ 4. Ending Music
+    - Genre:
+    - Style:
+    - Instrumentation:
+    - Implementation:
 
 ## Effects
 - Ambience: Not defined
 - Entities:
 ```
-  _Enemies_
+  Enemies
   Each enemy will have his own movement effect and voice sound (Growl, Voice...) 
 ```
 - UI: The UI is not compleatelly develop

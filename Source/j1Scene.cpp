@@ -31,6 +31,7 @@ bool j1Scene::Awake(pugi::xml_node&config)
 // Called before the first frame
 bool j1Scene::Start()
 {
+	prova = App->tex->Load("Resources/maps/isometric_grass_and_water.png");
 	return true;
 }
 
@@ -44,9 +45,7 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	bool ret = true;
-	SDL_Texture* prova = App->tex->Load("Resources/isometric_grass_and_water.png");
 	App->render->Blit(prova, 100, 100);
-	App->tex->UnLoad(prova);
 	return ret;
 }
 
@@ -62,6 +61,7 @@ bool j1Scene::PostUpdate()
 bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
+	App->tex->UnLoad(prova);
 
 	return true;
 }

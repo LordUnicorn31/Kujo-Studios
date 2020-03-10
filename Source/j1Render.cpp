@@ -46,10 +46,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 		camera.h = App->win->screen_surface->h;
 		camera.x = config.child("camera").attribute("x").as_int();
 		camera.y = config.child("camera").attribute("y").as_int();
-		initial_camera_y = camera.y;
 	}
-	santa_flip_offset = config.child("santa_flip_offset").attribute("value").as_int();
-	ground_enemy_flip_offset = config.child("ground_enemy_flip_offset").attribute("value").as_int();
 	return ret;
 }
 

@@ -1,6 +1,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "pugixml.hpp"
+#include <SDL.h>
 
 enum MainState
 {

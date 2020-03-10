@@ -1,5 +1,4 @@
-#ifndef __j1SCENE_H__
-#define __j1SCENE_H__
+#pragma once
 
 #include "j1Module.h"
 
@@ -33,6 +32,6 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
-};
 
-#endif // __j1SCENE_H__
+	SDL_Texture* prova;
+};

@@ -50,9 +50,6 @@ public:
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;
-	float initial_camera_y;
-	int santa_flip_offset;
-	int ground_enemy_flip_offset;
 	bool VSync;
 };
 

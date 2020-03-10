@@ -108,10 +108,13 @@ bool j1App::Awake()
 			ret = item->data->Awake(config.child(item->data->name.GetString()));
 			item = item->next;
 		}*/
-
+		
 		eastl::list <j1Module*> ::iterator it;
-		for (it = modules.begin(); it != modules.end()&&ret==true; ++it)
-			it.mpNode->mValue->Awake(config.child(it.mpNode->mValue->name.c_str()));
+		for (it = modules.begin(); it != modules.end() && ret == true; ++it) 
+		{
+			pugi::xml_node config2 = config.child(it.mpNode->mValue->name.c_str());
+			ret = it.mpNode->mValue->Awake(config2);
+		}
 	}
 
 	PERF_PEEK(ptimer);
@@ -174,7 +177,7 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 {
 	pugi::xml_node ret;
 
-	pugi::xml_parse_result result = config_file.load_file("config.xml");
+	pugi::xml_parse_result result = config_file.load_file("Resources/config.xml");
 
 	if (result == NULL)
 		LOG("Could not load map xml file config.xml. pugi error: %s", result.description());

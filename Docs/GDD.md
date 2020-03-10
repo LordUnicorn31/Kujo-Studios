@@ -29,7 +29,7 @@ Mouse button rudder: Zoom out/Zoom in.
 
 # Gameplay features
 
-Unit automataiton: This game has an automatic system that makes the collectors collect and transport materials on their own, without having to tell them to do so. This is basically because we want the player to have the experience of only focusing on mining in the early stage of the game and not focusing that much on the late game (where the player will have a lot of resources and won't be focused on transporting resources to the base).
+Unit automation: This game has an automatic system that makes the collectors collect and transport materials on their own, without having to tell them to do so. This is basically because we want the player to have the experience of only focusing on mining in the early stage of the game and not focusing that much on the late game (where the player will have a lot of resources and won't be focused on transporting resources to the base).
 
 Unit counter: This game has a counter system for the fighting units. this means that each unit goes well against another unit and bad against another unit (like the rock, paper, scissors game). By this we amplify the startegy of the gameplay and make the player think what unit is better in any specific given situation.
 

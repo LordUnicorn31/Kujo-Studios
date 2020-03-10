@@ -455,7 +455,7 @@ bool j1App::SavegameNow() const
 		item = item->next;
 	}*/
 
-	eastl::list<j1Module*>::iterator it;
+	eastl::list<j1Module*>::const_iterator it;
 	for (it = modules.begin(); it != modules.end() && ret == true; ++it)
 		ret = it.mpNode->mValue->Save(root.append_child(it.mpNode->mValue->name.c_str()));
 

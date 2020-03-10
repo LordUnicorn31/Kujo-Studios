@@ -36,7 +36,7 @@ We are creating an RTS game, our audio pillars will focus in 3 important things.
 - Ambience: Not defined
 - Entities:
 ```markdown
-  Enemies
+  - Enemies
   Each enemy will have his own movement effect and voice sound (Growl, Voice...) 
 ```
 - UI: The UI is not compleatelly develop

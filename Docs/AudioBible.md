@@ -15,7 +15,7 @@ We are creating an RTS game, our audio pillars will focus in 3 important things.
 ## Voice Over - Dialog
 Right now we are not sure who the voice over is coming from (Girl, Boy, body type)
 - Applied in the tutorial 
-- Character dialogs
+- Character dialogs in user orders.
 
 ## Technology
 We don't know how we are going to handle audio.

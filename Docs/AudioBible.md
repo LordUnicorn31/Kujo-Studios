@@ -66,7 +66,7 @@ But we are going to use free sounds
     - fonts
     - maps
     - audio
-     - fx
-     - music
-     - voice-over 
+       - fx
+       - music
+       - voice-over 
     

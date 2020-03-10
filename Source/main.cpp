@@ -1,67 +1,102 @@
-#include <SDL.h>
-#include <stdio.h>
-#include <SDL_image.h>
-#include <SDL_Mixer.h>
-#include <SDL_ttf.h>
+#include "p2Log.h"
+#include "j1App.h"
 #include "pugixml.hpp"
-#include "EASTL/array.h"
-#include "EASTL/vector.h"
-#include "EASTL/allocator.h"
 
-void* __cdecl operator new[](size_t size, const char* name, int flags, unsigned debugFlags, const char* file, int line)
+enum MainState
 {
-	return new uint8_t[size];
-}
+	CREATE = 1,
+	AWAKE,
+	START,
+	LOOP,
+	CLEAN,
+	FAIL,
+	EXIT
+};
 
-void* __cdecl operator new[](size_t size, size_t alignment, size_t alignmentOffset, const char* pName, int flags, unsigned debugFlags, const char* file, int line) {
-	return new uint8_t[size];
-}
+j1App* App = NULL;
 
-int main(int argc, char* args[]) {
-	eastl::array<int, 5> a = { 0, 1, 2, 3, 4 }; // Strict compilers such as GCC require the double brackets.
-	a[2] = 4;
-	printf("%d,%d\n", a[2],*a.begin());
-	eastl::vector<int> integers;
-	integers.reserve(3);
-	integers.emplace_back(1);
-	integers.emplace_back(2);
-	integers.emplace_back(3);
-	printf("%d \n%d \n%d \n", integers[0], integers[1], integers[2]);
-	pugi::xml_document Entity_doc;
-	SDL_Init(SDL_INIT_EVERYTHING);
-	int flags = IMG_INIT_PNG;
-	int initted = IMG_Init(flags);
-	if ((initted & flags) != flags) {
-		printf("IMG_Init: Failed to init required jpg and png support!\n");
-		printf("IMG_Init: %s\n", IMG_GetError());
-		// handle error
-	}
-	// load sample.png into image
-	SDL_Surface* image;
-	image = IMG_Load("Resources/maps/isometric_grass_and_water.png");
-	if (!image) {
-		printf("IMG_Load: %s\n", IMG_GetError());
-		// handle error
-	}
-	// Test sample.png to see if it is a PNG
-	SDL_RWops* rwop;
-	rwop = SDL_RWFromFile("Resources/maps/isometric_grass_and_water.png", "rb");
-	if (IMG_isPNG(rwop))
-		printf("sample.png is a PNG file.\n");
-	else
-		printf("sample.png is not a PNG file, or PNG support is not available.\n");
+int main(int argc, char* args[])
+{
+	LOG("Engine starting ... %d");
 
-	flags = MIX_INIT_OGG | MIX_INIT_MOD;
-	initted = Mix_Init(flags);
-	if ((initted & flags) != flags) {
-		printf("Mix_Init: Failed to init required ogg and mod support!\n");
-		printf("Mix_Init: %s\n", Mix_GetError());
-		// handle error
+	MainState state = MainState::CREATE;
+	int result = EXIT_FAILURE;
+
+	while (state != EXIT)
+	{
+		switch (state)
+		{
+
+			// Allocate the engine --------------------------------------------
+		case CREATE:
+			LOG("CREATION PHASE ===============================");
+
+			App = new j1App(argc, args);
+
+			if (App != NULL)
+				state = AWAKE;
+			else
+				state = FAIL;
+
+			break;
+
+			// Awake all modules -----------------------------------------------
+		case AWAKE:
+			LOG("AWAKE PHASE ===============================");
+			if (App->Awake() == true)
+				state = START;
+			else
+			{
+				LOG("ERROR: Awake failed");
+				state = FAIL;
+			}
+
+			break;
+
+			// Call all modules before first frame  ----------------------------
+		case START:
+			LOG("START PHASE ===============================");
+			if (App->Start() == true)
+			{
+				state = LOOP;
+				LOG("UPDATE PHASE ===============================");
+			}
+			else
+			{
+				state = FAIL;
+				LOG("ERROR: Start failed");
+			}
+			break;
+
+			// Loop all modules until we are asked to leave ---------------------
+		case LOOP:
+			if (App->Update() == false)
+				state = CLEAN;
+			break;
+
+			// Cleanup allocated memory -----------------------------------------
+		case CLEAN:
+			LOG("CLEANUP PHASE ===============================");
+			if (App->CleanUp() == true)
+			{
+				RELEASE(App);
+				result = EXIT_SUCCESS;
+				state = EXIT;
+			}
+			else
+				state = FAIL;
+
+			break;
+
+			// Exit with errors and shame ---------------------------------------
+		case FAIL:
+			LOG("Exiting with errors :(");
+			result = EXIT_FAILURE;
+			state = EXIT;
+			break;
+		}
 	}
-	if (TTF_Init() == -1) {
-		printf("TTF_Init: %s\n", TTF_GetError());
-		exit(2);
-	}
-	SDL_Quit();
-	return 0;
+
+	LOG("... Bye! :)\n");
+	return result;
 }

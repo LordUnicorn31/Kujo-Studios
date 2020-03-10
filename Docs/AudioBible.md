@@ -2,8 +2,8 @@
 
 ## Audio Pillars
 We are creating an RTS game, our audio pillars will focus in 3 important things.
-- Constant enemy danger
 - Map explorarion to obtain new resources
+- Constant enemy danger
 - Space theme 
 
 ## Music

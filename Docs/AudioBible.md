@@ -8,6 +8,7 @@ We are creating an RTS game, our audio pillars will focus in 3 important things.
 
 ## Music
 1.Title Music
+2.
   - Genre:
   - Style:
   - Instrumentation:

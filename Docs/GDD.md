@@ -98,6 +98,8 @@ Double beam: the double beam is the weapon that the dualship shoots. Stats (Dama
 
 Cannon: The cannon beam is the weapon that the cannonship shoots. Stats (Damage: 20, range: 300).
 
+Circular beams: the circular beam is the projectile the Laser-Shooters shoot. Stats (Damage: 30 each beam, range: 150).
+
 Gold: Can be found in gold mines.
 
 Ore: Can be found in ore mines.

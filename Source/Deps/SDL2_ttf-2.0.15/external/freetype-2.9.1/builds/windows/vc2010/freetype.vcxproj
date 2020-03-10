@@ -119,7 +119,7 @@
   </ImportGroup>
   <PropertyGroup>
     <OutDir>$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\external\</OutDir>
-    <IntDir>..\..\..\objs\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)obj\lib\$(Configuration)$(PlatformShortName)\SDL_ttf\external\freetype\</IntDir>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules />
     <CodeAnalysisRuleAssemblies />

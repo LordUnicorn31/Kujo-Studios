@@ -58,5 +58,15 @@ But we are going to use free sounds
 
 ### Naming
 
+`Category_Description_Number`
+
 ### Folders
 
+- Resources
+    - fonts
+    - maps
+    - audio
+     - fx
+     - music
+     - voice-over 
+    

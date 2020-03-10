@@ -38,6 +38,13 @@ Fog of war: This game has a fog of war system. It means that a part of the map i
 Evolution: In this game the player must notice a change between the first minute he plays and the minute 20 of game. This means that the game has to evolve, starting from a point where decisions don't matter (farming phase) to a point where you have to get an army to destroy the enemies and escape. It is essential that the player feels he has gotten stronger while playing.
 
 
+# Maps
+
+There are 2 different maps. The first one is the main map which represents the 90% of the game. The map is a representation of a part of the planet where the player is. This map (futuristic style) is where the action will develop and the player will build all his base.
+
+The second map is a special map for some quests. This map is a cave in which the player can enter in order to complete missions or find resources. The idea of this map is that it will work as some kind of mini-game map because of the change in style from the main map.
+
+
 # Buildings
 
 This game has a building system in which every building matters and has its own function on the game. The main buildings are as they follow.

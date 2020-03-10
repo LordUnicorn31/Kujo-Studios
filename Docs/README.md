@@ -1,5 +1,16 @@
 # Stranded in Space
+----
+## Index
 
+- [Game Reference](https://github.com/LordUnicorn31/Kujo-Studios/blob/master/Docs/GameReference.md)
+- [Game Design Document](https://github.com/LordUnicorn31/KujoStudios/blob/master/Docs/GDD.md)
+- [Tech Design Document](https://github.com/LordUnicorn31/Kujo-Studios/blob/master/Docs/TDD.md)
+- [GUI Design Document](https://github.com/LordUnicorn31/Kujo-Studios/blob/master/Docs/GUIDocument.md)
+- [Audio Bible](https://github.com/LordUnicorn31/Kujo-Studios/blob/master/Docs/AudioBible.md)
+- [Art Bible](https://github.com/LordUnicorn31/Kujo-Studios/blob/master/Docs/ArtBible.md)
+- [QA Workflow](https://github.com/LordUnicorn31/Kujo-Studios/blob/master/Docs/QAWorkflow.md)
+- [Production Plan](https://github.com/LordUnicorn31/Kujo-Studios/blob/master/Docs/PreparationPlan.md)
+----
 ## Description
 
 In a distant future, humans have raided planets for centuries. They land, raid any mineral they can gather, and leave. 
@@ -17,7 +28,7 @@ Explore an unfamiliar world, mine its resources and fly away with all you can in
  
 ## Controls
 
- - Mouse: Move around the map.
+- Mouse: Move around the map.
 
 - Left mouse button: Select (units, building, menus, basically select everything you can press).
 

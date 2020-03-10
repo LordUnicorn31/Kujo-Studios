@@ -3,7 +3,7 @@
 ## Index
 
 - [Game Reference](https://github.com/LordUnicorn31/Kujo-Studios/blob/master/Docs/GameReference.md)
-- [Game Design Document](https://github.com/LordUnicorn31/KujoStudios/blob/master/Docs/GDD.md)
+- [Game Design Document](https://github.com/LordUnicorn31/Kujo-Studios/blob/master/Docs/GDD.md)
 - [Tech Design Document](https://github.com/LordUnicorn31/Kujo-Studios/blob/master/Docs/TDD.md)
 - [GUI Design Document](https://github.com/LordUnicorn31/Kujo-Studios/blob/master/Docs/GUIDocument.md)
 - [Audio Bible](https://github.com/LordUnicorn31/Kujo-Studios/blob/master/Docs/AudioBible.md)

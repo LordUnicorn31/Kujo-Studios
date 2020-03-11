@@ -57,6 +57,7 @@ bool j1Textures::CleanUp()
 	for (it = textures.begin(); it != textures.end(); ++it)
 		SDL_DestroyTexture(*it);
 	textures.clear();
+	SDL_DestroyRenderer(App->render->renderer);
 	IMG_Quit();
 	return true;
 }

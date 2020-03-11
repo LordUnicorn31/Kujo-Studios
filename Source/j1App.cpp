@@ -10,7 +10,6 @@
 #include "j1Timer.h"
 #include "j1PerfTimer.h"
 #include "SDL.h"
-#include "EASTL/iterator.h"
 
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {

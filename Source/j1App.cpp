@@ -2,7 +2,7 @@
 #include "p2Log.h"
 
 #include "j1Window.h"
-//#include "j1Input.h"
+#include "j1Input.h"
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Scene.h"
@@ -22,11 +22,13 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	render = new j1Render();
 	tex = new j1Textures();
 	scene = new j1Scene();
+	input = new j1Input();
 
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	//AddModule(input);
+	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
 	AddModule(scene);
@@ -202,6 +204,7 @@ void j1App::PrepareUpdate()
 // ---------------------------------------------
 void j1App::FinishUpdate()
 {
+
 	if (want_to_save == true)
 		SavegameNow();
 
@@ -295,6 +298,7 @@ bool j1App::DoUpdate()
 bool j1App::PostUpdate()
 {
 	bool ret = true;
+
 	/*p2List_item<j1Module*>* item;
 	j1Module* pModule = NULL;
 
@@ -316,6 +320,9 @@ bool j1App::PostUpdate()
 			continue;
 		ret = it.mpNode->mValue->PostUpdate();
 	}
+
+	if (input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		ret = false;
 
 	return ret;
 }

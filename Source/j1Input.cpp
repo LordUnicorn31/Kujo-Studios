@@ -3,13 +3,13 @@
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Window.h"
-#include "SDL/include/SDL.h"
+#include <SDL.h>
 
 #define MAX_KEYS 300
 
 j1Input::j1Input() : j1Module()
 {
-	name.create("input");
+	name = "input";
 
 	keyboard = new j1KeyState[MAX_KEYS];
 	memset(keyboard, KEY_IDLE, sizeof(j1KeyState) * MAX_KEYS);
@@ -60,7 +60,7 @@ bool j1Input::Start()
 // Called each loop iteration
 bool j1Input::PreUpdate()
 {
-	BROFILER_CATEGORY("Input->PreUpdate", Profiler::Color::Yellow)
+	//BROFILER_CATEGORY("Input->PreUpdate", Profiler::Color::Yellow)
 	static SDL_Event event;
 	
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
@@ -106,7 +106,7 @@ bool j1Input::PreUpdate()
 				switch(event.window.event)
 				{
 					case SDL_WINDOWEVENT_SIZE_CHANGED:
-						App->CalculateGuiPositions();
+						//App->CalculateGuiPositions();
 						break;
 					//case SDL_WINDOWEVENT_LEAVE:
 					case SDL_WINDOWEVENT_HIDDEN:
@@ -152,7 +152,7 @@ bool j1Input::PreUpdate()
 // Called before quitting
 bool j1Input::CleanUp()
 {
-	BROFILER_CATEGORY("Input->CleanUp", Profiler::Color::Yellow)
+	//BROFILER_CATEGORY("Input->CleanUp", Profiler::Color::Yellow)
 	LOG("Quitting SDL event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;

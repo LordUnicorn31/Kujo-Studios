@@ -10,6 +10,7 @@
 #include "j1Timer.h"
 #include "j1PerfTimer.h"
 #include "SDL.h"
+#include "EASTL/iterator.h"
 
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
@@ -27,7 +28,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
-	//AddModule(input);
+
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
@@ -57,11 +58,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 j1App::~j1App()
 {
 	// release modules
-	eastl::list <j1Module*> ::iterator it;
-	for (it = modules.end(); it != modules.begin(); --it) 
+	eastl::list <j1Module*> ::reverse_iterator it;
+	for (it = modules.rbegin(); it != modules.rend(); it++) 
 	{
-		RELEASE(modules.back());
-		modules.pop_back();
+		RELEASE(*it);
 	}
 	modules.clear();
 }
@@ -69,7 +69,8 @@ j1App::~j1App()
 void j1App::AddModule(j1Module* module)
 {
 	module->Init();
-	modules.emplace_back(module);
+	bool a=modules.empty();
+	modules.push_back(module);
 }
 
 // Called before render is available
@@ -158,8 +159,8 @@ bool j1App::Update()
 	bool ret = true;
 	PrepareUpdate();
 
-	/*if (input->GetWindowEvent(WE_QUIT) == true)
-		ret = false;*/
+	if (input->GetWindowEvent(WE_QUIT) == true)
+		ret = false;
 
 	if (ret == true)
 		ret = PreUpdate();
@@ -342,11 +343,14 @@ bool j1App::CleanUp()
 		item = item->prev;
 	}*/
 
-	eastl::list <j1Module*> ::iterator it;
-	for (it = modules.end(); it != modules.begin(); --it)
+	/*eastl::list<j1Module*>::reverse_iterator it;
+	eastl::list<j1Module*>::reverse_iterator it2=modules.rend();*/
+	eastl::list<j1Module*>::reverse_iterator it = ++ modules.rbegin();
+	eastl::list<j1Module*>::reverse_iterator itend = ++ modules.rend();
+	for (it; it != itend; it++)
 	{
-		if (it.mpNode->mValue->IsEneabled())
-			ret = it.mpNode->mValue->CleanUp();
+		if (it.base().mpNode->mValue->IsEneabled())
+			ret = it.base().mpNode->mValue->CleanUp();
 	}
 
 	PERF_PEEK(ptimer);

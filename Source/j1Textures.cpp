@@ -54,7 +54,7 @@ bool j1Textures::CleanUp()
 
 	textures.clear();*/
 	eastl::list <SDL_Texture*> ::iterator it;
-	for (it = textures.begin(); it != textures.end(); --it)
+	for (it = textures.begin(); it != textures.end(); ++it)
 		SDL_DestroyTexture(*it);
 	textures.clear();
 	IMG_Quit();
@@ -96,7 +96,7 @@ bool j1Textures::UnLoad(SDL_Texture* texture)
 	}*/
 
 	eastl::list <SDL_Texture*> ::iterator it;
-	for (it = textures.begin(); it != textures.end(); --it)
+	for (it = textures.begin(); it != textures.end(); ++it)
 	{
 		if (texture == *it)
 		{

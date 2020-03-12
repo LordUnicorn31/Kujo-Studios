@@ -30,7 +30,7 @@
 
 #include "asm_arm.h"
 #include <stdlib.h> /* for abs() */
-#include <endian.h>
+#include <SDL_endian.h>
   
 #ifndef _V_WIDE_MATH
 #define _V_WIDE_MATH

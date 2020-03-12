@@ -107,8 +107,8 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>SDL2.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>external\lib\x86;%(AdditionalLibraryDirectories);$(OutDir);$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\;$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\external\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
     </Link>
@@ -140,7 +140,7 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>SDL2.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>external\lib\x64;%(AdditionalLibraryDirectories);$(OutDir);$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL\;$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\;$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\external\</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -171,8 +171,8 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>SDL2.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>external\lib\x86;%(AdditionalLibraryDirectories);$(OutDir);$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\;$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\external\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>
@@ -201,7 +201,7 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>SDL2.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>external\lib\x64;%(AdditionalLibraryDirectories);$(OutDir);$(SolutionDir)bin\$(Platform)\$(Configuration)\lib\SDL\;$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\;$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\external\</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>

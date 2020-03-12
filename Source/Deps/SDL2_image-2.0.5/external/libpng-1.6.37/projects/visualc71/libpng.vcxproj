@@ -77,7 +77,7 @@
     <TargetName>$(ProjectName)16</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">
-    <OutDir>$(SolutionDir)bin\libs\Debug\$(PlatformShortName)\SDL_Image\external</OutDir>
+    <OutDir>$(SolutionDir)bin\libs\Debug\$(PlatformShortName)\SDL_Image\external\</OutDir>
     <IntDir>.\Debug\</IntDir>
     <TargetName>$(ProjectName)16</TargetName>
   </PropertyGroup>

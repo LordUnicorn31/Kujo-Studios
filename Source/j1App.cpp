@@ -9,6 +9,8 @@
 #include "j1App.h"
 #include "j1Timer.h"
 #include "j1PerfTimer.h"
+#include "j1Audio.h"
+
 #include "SDL.h"
 
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -17,17 +19,17 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	freeze = false;
 	want_to_save = want_to_load = false;
 
-	//input = new j1Input();
+	input = new j1Input();
 	win = new j1Window();
 	render = new j1Render();
 	tex = new j1Textures();
 	scene = new j1Scene();
-	input = new j1Input();
-
+	audio = new j1Audio();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 
+	AddModule(audio);
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);

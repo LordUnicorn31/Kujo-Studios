@@ -13,7 +13,15 @@
   <fonts>
     <default_font file="fonts/open_sans/OpenSans-Regular.ttf" size="32"/>
   </fonts>
+  
 
+  <audio>
+    <music name ="audio/music/music_sadpiano.ogg">
+    </music>
+    <fx name ="">
+    </fx>
+  </audio>
+  
   <window>
     <resolution width="1280" height="720" scale="1"/>
     <fullscreen value="false"/>

@@ -48,6 +48,9 @@
     <ClCompile Include="j1Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="j1Audio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -81,6 +84,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="j1Input.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Audio.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

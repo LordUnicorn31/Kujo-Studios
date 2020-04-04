@@ -49,19 +49,20 @@ The second map is a special map for some quests. This map is a cave in which the
 
 This game has a building system in which every building matters and has its own function on the game. The main buildings are as they follow.
 
-Spaceship: It is your base, where everything starts and it is given to you at the beggining of the game.
+Spaceship: It is your base, where everything starts and it is given to you at the beggining of the game. (HP: 5000)
 
-Gold mine:Tthe gold mine is the place where you can extract gold to be able to build and buy stuff.
+Gold mine:Tthe gold mine is the place where you can extract gold to be able to build and buy stuff. (HP: 1500) (time: 30s)
 
-Ore mine: The ore mine is the place where ore is extracted in order to be able to build buildings and create weapons.
+Ore mine: The ore mine is the place where ore is extracted in order to be able to build buildings and create weapons. (HP: 1500) (time: 30s)
+Cable: It connects the electric power plants with the rest of building. (HP: 750) 
 
-Electric power plant: the electric power plant is the building that generates electricity.
+Electric power plant: the electric power plant is the building that generates electricity. (HP: 3000) (Energy: 100) (time: 40s) 
 
-Weapon industry: the weapon industry is where all the main weapons are created.
+Weapon industry: the weapon industry is where all the main weapons are created. (HP: 3500) (time: 50s) (items investigation time: 60s)
 
-spaceship factory: The spaceship factory is the place where all the basic units are recruited.
+spaceship factory: The spaceship factory is the place where all the basic units are recruited. (HP: 3500) (time: 50s) (production time: 30s)
 
-Special factory: The special factory is the building in which the special units are recruited.
+Special factory: The special factory is the building in which the special units are recruited. (HP: 4000) (time: 60s) (production time: 60s)
 
 
 # Units
@@ -69,36 +70,36 @@ Special factory: The special factory is the building in which the special units 
 Units can be and should be separated in 3 big groups.
 
 ## Collectors
-The collectors are robots that work on the gold and ore mines, their job is to collect gold and ores and then bring them to the spaceship. (unit cost: 50 gold) (unit value 1:1)
+The collectors are robots that work on the gold and ore mines, their job is to collect gold and ores and then bring them to the spaceship. (unit cost: 50 gold) (unit value 1:1) (speed: 100)
 
 ## Basic units (recruited at the barracks)
 
 This units are the most basic warriors and the ones that will most likely be the backbone of your army. Their cost is not very expensive and the number of units you can recruit is more than the one for the special units. There are 3 basic units:
 
-Lazership: Spaceships that shoot a single beam. (unit cost: 100 gold) (unit value 1:1) (HP: 100)
+Lazership: Spaceships that shoot a single beam. (unit cost: 100 gold) (unit value 1:1) (HP: 100) (attack:40) (range: 200) (speed: 100)
 
-Dualship: Spaceships that shoot 2 beams. (unit cost: 150 gold) (unit value 1:1) (HP: 100)
+Dualship: Spaceships that shoot 2 beams. (unit cost: 150 gold) (unit value 1:1) (HP: 100) (attack: 60 total, 30 each beam) (range 200) (speed: 100)
 
-Cannonship: Spaceships that shoot a beam that goes through enemies (unit cost: 300 gold) (unit value 1:2) (HP: 120)
+Cannonship: Spaceships that shoot a beam that goes through enemies (unit cost: 300 gold) (unit value 1:2) (HP: 120) (attack:50) (range 250) (speed: 90)
 
 ## Special units
 
 This units can only be recruited in the special barracks. they are far more expensive than the basic units and the maximum number of units you can recruit is way lower than the basic units ones. The special units are:
 
-Laser-Shooters: Spaceship that shoots beams in a circular area. (unit cost: 500 gold) (unit value 1:5) (HP: 180)
+Laser-Shooters: Spaceship that shoots beams in a circular area. (unit cost: 500 gold) (unit value 1:5) (HP: 180) (attack: 50) (range: 350)
 
 
 # Items
 
 Weapons are the most important thing when recruiting units. Depending on the weapons you investigate and create you will be able to recruit one kind of unit or another. This is why in this game items are an important part of the strategy. Here is the list of the items:
 
-Single beam: The single beam is the weapon that the lazerships shoot. Stats (Damage: 20, range: 100).
+Single beam: The single beam is the weapon that the lazerships shoot.
 
-Double beam: the double beam is the weapon that the dualship shoots. Stats (Damage: 30 each beam, range: 100).
+Double beam: the double beam is the weapon that the dualship shoots. 
 
-Cannon: The cannon beam is the weapon that the cannonship shoots. Stats (Damage: 20, range: 300).
+Cannon: The cannon beam is the weapon that the cannonship shoots. Stats 
 
-Circular beams: the circular beam is the projectile the Laser-Shooters shoot. Stats (Damage: 30 each beam, range: 150).
+Circular beams: the circular beam is the projectile the Laser-Shooters shoot. Stats 
 
 Gold: Can be found in gold mines.
 
@@ -117,11 +118,11 @@ All the enemies have the same stats.
 
 ## Enemies in the dungeons
 
-Goblins: Globins have a medium damage.
+Goblins: Globins have a medium damage. (HP: 100) (attack: 40) (range: 20) (speed: 100)
 
-Minotaur: Slow enemies that have tons of damage.
+Minotaur: Slow enemies that have tons of damage. (HP: 150) (attack: 60) (range: 30) (speed: 60)
 
-Sipders: Fast enemies that have low damage.
+Sipders: Fast enemies that have low damage. (HP: 70) (attack: 25) (speed: 120)
 
 # Quests & quests solutions
 

@@ -38,6 +38,6 @@
     <folder>Resources/maps/</folder>
   </map>
 
-  <minimap size="6" position.x="0" position.y="0"/>
+  <minimap size="4" position.x="0" position.y="0"/>
 
 </config>

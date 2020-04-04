@@ -128,7 +128,7 @@ void j1Minimap::Load() {
 		//The scale must always be a divider of the tile_height. 
 		//If not, we will get floats when drawing the map that will get approximated to integers when creating the SDL_Rect to blit each tile and the minimap will not be blited correctly
 		//The minimap_scale variable is already initialized on the minimap class
-		minimap_scale = (float)size / (float)App->map->data.tile_height;
+		minimap_scale = (float)size / (float)(App->map->data.tile_height*0.5f);
 
 		//TODO 2: Once we obtained the minimap scale we can calculate the minimap width and height 
 		float map_width = App->map->data.width * App->map->data.tile_width;

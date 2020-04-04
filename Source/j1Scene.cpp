@@ -33,7 +33,7 @@ bool j1Scene::Awake(pugi::xml_node&config)
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("iso.tmx");
+	App->map->Load("iso_walk.tmx");
 	return true;
 }
 
@@ -47,16 +47,16 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	bool ret = true;
-	if (App->input->GetKey(SDL_SCANCODE_A)) {
+	if (App->input->GetKey(SDL_SCANCODE_LEFT)) {
 		App->render->camera.x+=5;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_D)) {
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT)) {
 		App->render->camera.x-=5;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_W)) {
+	if (App->input->GetKey(SDL_SCANCODE_UP)) {
 		App->render->camera.y+=5;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_S)) {
+	if (App->input->GetKey(SDL_SCANCODE_DOWN)) {
 		App->render->camera.y-=5;
 	}
 

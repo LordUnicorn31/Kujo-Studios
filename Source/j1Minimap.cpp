@@ -1,4 +1,3 @@
-/*
 #include "j1Minimap.h"
 
 #include "j1App.h"
@@ -38,7 +37,7 @@ bool j1Minimap::Awake(pugi::xml_node & config)
 bool j1Minimap::Start()
 {
 	display = true;
-	entities_mode = entity_display::DISPLAY_RECT;
+	//entities_mode = entity_display::DISPLAY_RECT;
 	Load();
 
 	return true;
@@ -61,6 +60,35 @@ bool j1Minimap::Update(float dt)
 		}
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		position.x -= 5;
+
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		position.x += 5;
+
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+		position.y += 5;
+
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		position.y -= 5;
+
+	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_REPEAT) {
+		position.y = 0;
+		position.x = 0;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+		Scale();
+
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+		Descale();
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		if (display == true)
+			display = false;
+		else
+			display = true;
+	}
 	return true;
 }
 
@@ -69,7 +97,7 @@ bool j1Minimap::PostUpdate()
 	if (display) {
 		App->render->Blit(minimap_tex, position.x, position.y, NULL, false);
 		MinimapBorders();
-		switch (entities_mode) {
+		/*switch (entities_mode) {
 		case entity_display::DISPLAY_RECT:
 			DrawEntitiesRectangle();
 			break;
@@ -79,7 +107,7 @@ bool j1Minimap::PostUpdate()
 		case entity_display::DISPLAY_ICON:
 			DrawEntitiesIcon();
 			break;
-		}
+		}*/
 		DrawCamera();
 	}
 	
@@ -230,7 +258,7 @@ void j1Minimap::MinimapBorders()
 
 }
 
-void j1Minimap::DrawEntitiesRectangle()
+/*void j1Minimap::DrawEntitiesRectangle()
 {
 	// TODO 6: Represent entities on the minimap
 	// To do so you just need to draw a square with the scaled proportions of the entity
@@ -330,6 +358,7 @@ void j1Minimap::DrawEntitiesIcon() {
 		}
 	}
 }
+*/
 
 void j1Minimap::Scale() {
 	if (size < (App->map->data.tile_height / 2)) {
@@ -346,4 +375,3 @@ void j1Minimap::Descale() {
 		Load();
 	}
 }
-*/

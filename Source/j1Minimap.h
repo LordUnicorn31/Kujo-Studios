@@ -7,7 +7,7 @@
 struct SDL_Texture;
 struct SDL_Rect;
 
-enum class entity_display{DISPLAY_RECT,DISPLAY_ENTITY,DISPLAY_ICON};
+//enum class entity_display{DISPLAY_RECT,DISPLAY_ENTITY,DISPLAY_ICON};
 
 class j1Minimap : public j1Module
 {
@@ -28,16 +28,16 @@ public:
 public:
 	bool display;
 	iPoint position;
-	entity_display entities_mode;
+	//entity_display entities_mode;
 
 private:
 	void Load();
 	bool MinimapCoords(int& map_x, int& map_y);
 	void DrawCamera();
 	void MinimapBorders();
-	void DrawEntitiesRectangle();
-	void DrawEntities();
-	void DrawEntitiesIcon();
+	//void DrawEntitiesRectangle();
+	//void DrawEntities();
+	//void DrawEntitiesIcon();
 	void DrawMinimap();
 
 private:

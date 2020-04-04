@@ -5,6 +5,7 @@
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Textures.h"
+#include "j1Map.h"
 #include "j1Scene.h"
 #include "j1App.h"
 #include "j1Timer.h"
@@ -25,6 +26,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new j1Textures();
 	scene = new j1Scene();
 	audio = new j1Audio();
+	map = new j1Map();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -34,6 +36,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(scene);
+	AddModule(map);
 
 	// render last to swap buffer
 	AddModule(render);
@@ -116,8 +119,8 @@ bool j1App::Awake()
 		eastl::list <j1Module*> ::iterator it;
 		for (it = modules.begin(); it != modules.end() && ret == true; ++it) 
 		{
-			pugi::xml_node config2 = config.child(it.mpNode->mValue->name.c_str());
-			ret = it.mpNode->mValue->Awake(config2);
+			pugi::xml_node config2 = config.child((*it)->name.c_str());
+			ret = (*it)->Awake(config2);
 		}
 	}
 
@@ -144,8 +147,8 @@ bool j1App::Start()
 	eastl::list <j1Module*> ::iterator it;
 	for (it = modules.begin(); it != modules.end() && ret == true; ++it)
 	{
-		if (it.mpNode->mValue->IsEneabled())
-			ret = it.mpNode->mValue->Start();
+		if ((*it)->IsEneabled())
+			ret = (*it)->Start();
 	}
 
 	PERF_PEEK(ptimer);
@@ -258,9 +261,9 @@ bool j1App::PreUpdate()
 	eastl::list <j1Module*> ::iterator it;
 	for (it = modules.begin(); it != modules.end() && ret == true; ++it)
 	{
-		if (it.mpNode->mValue->active == false || !it.mpNode->mValue->IsEneabled())
+		if ((*it)->active == false || !(*it)->IsEneabled())
 			continue;
-		ret = it.mpNode->mValue->PreUpdate();
+		ret = (*it)->PreUpdate();
 	}
 
 	return ret;
@@ -288,9 +291,9 @@ bool j1App::DoUpdate()
 	eastl::list <j1Module*> ::iterator it;
 	for (it = modules.begin(); it != modules.end() && ret == true; ++it)
 	{
-		if (it.mpNode->mValue->active == false || !it.mpNode->mValue->IsEneabled())
+		if ((*it)->active == false || !(*it)->IsEneabled())
 			continue;
-		ret = it.mpNode->mValue->Update(dt);
+		ret = (*it)->Update(dt);
 	}
 
 	return ret;
@@ -318,9 +321,9 @@ bool j1App::PostUpdate()
 	eastl::list <j1Module*> ::iterator it;
 	for (it = modules.begin(); it != modules.end() && ret == true; ++it)
 	{
-		if (it.mpNode->mValue->active == false || !it.mpNode->mValue->IsEneabled())
+		if ((*it)->active == false || !(*it)->IsEneabled())
 			continue;
-		ret = it.mpNode->mValue->PostUpdate();
+		ret = (*it)->PostUpdate();
 	}
 
 	if (input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
@@ -435,13 +438,13 @@ bool j1App::LoadGameNow()
 
 		eastl::list<j1Module*>::iterator it;
 		for (it = modules.begin(); it != modules.end() && ret == true; ++it)
-			ret = it.mpNode->mValue->Load(root.child(it.mpNode->mValue->name.c_str()));
+			ret = (*it)->Load(root.child((*it)->name.c_str()));
 
 		data.reset();
 		if (ret == true)
 			LOG("...finished loading");
 		else
-			LOG("...loading process interrupted with error on module %s", (it.mpNode->mValue != NULL) ? it.mpNode->mValue->name.c_str() : "unknown");
+			LOG("...loading process interrupted with error on module %s", (it.mpNode->mValue != NULL) ? (*it)->name.c_str() : "unknown");
 	}
 	else
 		LOG("Could not parse game state xml file %s. pugi error: %s", load_game.c_str(), result.description());
@@ -472,7 +475,7 @@ bool j1App::SavegameNow() const
 
 	eastl::list<j1Module*>::const_iterator it;
 	for (it = modules.begin(); it != modules.end() && ret == true; ++it)
-		ret = it.mpNode->mValue->Save(root.append_child(it.mpNode->mValue->name.c_str()));
+		ret = (*it)->Save(root.append_child((*it)->name.c_str()));
 
 	if (ret == true)
 	{
@@ -480,7 +483,7 @@ bool j1App::SavegameNow() const
 		LOG("... finished saving", );
 	}
 	else
-		LOG("Save process halted from an error in module %s", (it.mpNode->mValue != NULL) ? it.mpNode->mValue->name.c_str() : "unknown");
+		LOG("Save process halted from an error in module %s", (it.mpNode->mValue != NULL) ? (*it)->name.c_str() : "unknown");
 
 	data.reset();
 	want_to_save = false;

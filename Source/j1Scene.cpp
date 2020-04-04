@@ -5,6 +5,8 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Scene.h"
+#include "j1Input.h"
+#include "j1Map.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -31,7 +33,7 @@ bool j1Scene::Awake(pugi::xml_node&config)
 // Called before the first frame
 bool j1Scene::Start()
 {
-	prova = App->tex->Load("Resources/maps/isometric_grass_and_water.png");
+	App->map->Load("iso.tmx");
 	return true;
 }
 
@@ -45,7 +47,20 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	bool ret = true;
-	App->render->Blit(prova, 100, 100);
+	if (App->input->GetKey(SDL_SCANCODE_A)) {
+		App->render->camera.x+=5;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_D)) {
+		App->render->camera.x-=5;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_W)) {
+		App->render->camera.y+=5;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_S)) {
+		App->render->camera.y-=5;
+	}
+
+	App->map->Draw();
 	return ret;
 }
 
@@ -61,7 +76,6 @@ bool j1Scene::PostUpdate()
 bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
-	App->tex->UnLoad(prova);
 
 	return true;
 }

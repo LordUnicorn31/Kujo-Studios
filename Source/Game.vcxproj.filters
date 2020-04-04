@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Programacio2">
+      <UniqueIdentifier>{ad8e12ce-54ff-4f77-a7c3-95c82f114342}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -22,9 +25,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="j1App.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="p2Log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="j1PerfTimer.cpp">
@@ -51,15 +51,18 @@
     <ClCompile Include="j1Audio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="j1Map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Minimap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="p2Log.cpp">
+      <Filter>Programacio2</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Defs.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Log.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="j1PerfTimer.h">
@@ -88,6 +91,21 @@
     </ClInclude>
     <ClInclude Include="j1Audio.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Map.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Minimap.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Log.h">
+      <Filter>Programacio2</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Defs.h">
+      <Filter>Programacio2</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Point.h">
+      <Filter>Programacio2</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

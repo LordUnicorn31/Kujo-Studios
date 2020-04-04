@@ -15,6 +15,7 @@ class j1Scene;
 class j1Map;
 class j1Module;
 class j1Audio;
+class j1Map;
 
 
 class j1App
@@ -86,6 +87,7 @@ public:
 	j1Scene* scene;
 	j1Input* input;
 	j1Audio* audio;
+	j1Map* map;
 
 private:
 

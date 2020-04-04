@@ -208,6 +208,8 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClCompile Include="Deps\pugixml-1.10\src\pugixml.cpp" />
     <ClCompile Include="j1Audio.cpp" />
     <ClCompile Include="j1Input.cpp" />
+    <ClCompile Include="j1Map.cpp" />
+    <ClCompile Include="j1Minimap.cpp" />
     <ClCompile Include="j1PerfTimer.cpp" />
     <ClCompile Include="j1Render.cpp" />
     <ClCompile Include="j1Scene.cpp" />
@@ -241,6 +243,8 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClInclude Include="j1App.h" />
     <ClInclude Include="j1Audio.h" />
     <ClInclude Include="j1Input.h" />
+    <ClInclude Include="j1Map.h" />
+    <ClInclude Include="j1Minimap.h" />
     <ClInclude Include="j1Module.h" />
     <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="j1Render.h" />
@@ -250,6 +254,7 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClInclude Include="j1Window.h" />
     <ClInclude Include="p2Defs.h" />
     <ClInclude Include="p2Log.h" />
+    <ClInclude Include="p2Point.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

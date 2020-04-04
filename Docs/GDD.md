@@ -70,7 +70,7 @@ Special factory: The special factory is the building in which the special units 
 Units can be and should be separated in 3 big groups.
 
 ## Collectors
-The collectors are robots that work on the gold and ore mines, their job is to collect gold and ores and then bring them to the spaceship. (unit cost: 50 gold) (unit value 1:1) (speed: 100)
+The collectors are robots that work on the gold and ore mines, their job is to collect gold and ores and then bring them to the spaceship. (unit cost: 50 gold) (unit value 1:1) (speed: 100) (weight: 20gold)
 
 ## Basic units (recruited at the barracks)
 

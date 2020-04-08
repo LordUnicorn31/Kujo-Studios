@@ -125,6 +125,12 @@ TileSet* j1Map::GetTilesetFromTileId(int id) const
 	return set;
 }
 
+void j1Map::GetMapSize(int& w, int& h) const
+{
+	w = App->map->data.width * App->map->data.tile_width;
+	h = App->map->data.height * App->map->data.tile_height;
+}
+
 iPoint j1Map::MapToWorld(int x, int y) const
 {
 	iPoint ret;

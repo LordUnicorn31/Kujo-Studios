@@ -11,7 +11,7 @@ class j1Window;
 class j1Input;
 class j1Render;
 class j1Textures;
-class j1Scene;
+class SceneManager;
 class j1Map;
 class j1Module;
 class j1Audio;
@@ -85,7 +85,7 @@ public:
 	j1Window* win;
 	j1Render* render;
 	j1Textures* tex;
-	j1Scene* scene;
+	SceneManager* scenemanager;
 	j1Input* input;
 	j1Audio* audio;
 	j1Map* map;

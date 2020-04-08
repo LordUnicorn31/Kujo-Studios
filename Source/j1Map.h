@@ -124,6 +124,8 @@ public:
 	iPoint WorldToMap(int x, int y) const;
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 
+	void GetMapSize(int& w, int& h) const;
+
 	TileSet* GetTilesetFromTileId(int id) const;
 
 private:

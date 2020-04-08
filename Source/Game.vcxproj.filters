@@ -16,6 +16,12 @@
     <Filter Include="Programacio2">
       <UniqueIdentifier>{ad8e12ce-54ff-4f77-a7c3-95c82f114342}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{88eabb7b-6c3b-4ac2-80d5-775dee8b511c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes\Managers">
+      <UniqueIdentifier>{f9966423-accb-4559-ba29-f91f5119c4f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,9 +45,6 @@
     <ClCompile Include="j1Render.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="j1Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="j1Textures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -59,6 +62,15 @@
     </ClCompile>
     <ClCompile Include="p2Log.cpp">
       <Filter>Programacio2</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneMap.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source Files\Scenes\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files\Scenes\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -78,9 +90,6 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="j1Render.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Scene.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="j1Textures.h">
@@ -106,6 +115,15 @@
     </ClInclude>
     <ClInclude Include="p2Point.h">
       <Filter>Programacio2</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneMap.h">
+      <Filter>Source Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Source Files\Scenes\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Source Files\Scenes\Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

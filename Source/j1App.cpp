@@ -6,7 +6,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
-#include "j1Scene.h"
+#include "SceneManager.h"
 #include "j1App.h"
 #include "j1Timer.h"
 #include "j1PerfTimer.h"
@@ -25,7 +25,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	win = new j1Window();
 	render = new j1Render();
 	tex = new j1Textures();
-	scene = new j1Scene();
+	scenemanager = new SceneManager();
 	audio = new j1Audio();
 	map = new j1Map();
 	minimap = new j1Minimap();
@@ -37,7 +37,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
-	AddModule(scene);
+	AddModule(scenemanager);
 	AddModule(map);
 	AddModule(minimap);
 

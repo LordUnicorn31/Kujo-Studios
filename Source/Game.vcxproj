@@ -212,7 +212,9 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClCompile Include="j1Minimap.cpp" />
     <ClCompile Include="j1PerfTimer.cpp" />
     <ClCompile Include="j1Render.cpp" />
-    <ClCompile Include="j1Scene.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SceneMap.cpp" />
     <ClCompile Include="j1Textures.cpp" />
     <ClCompile Include="j1Timer.cpp" />
     <ClCompile Include="j1Window.cpp" />
@@ -248,7 +250,9 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClInclude Include="j1Module.h" />
     <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="j1Render.h" />
-    <ClInclude Include="j1Scene.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SceneMap.h" />
     <ClInclude Include="j1Textures.h" />
     <ClInclude Include="j1Timer.h" />
     <ClInclude Include="j1Window.h" />

@@ -30,7 +30,7 @@ bool SceneMap::Awake(pugi::xml_node&config)
 // Called before the first frame
 bool SceneMap::Start()
 {
-	App->map->Load("iso_walk.tmx");
+	App->map->Load("Mainmap.tmx");
 
 	InitScene();
 

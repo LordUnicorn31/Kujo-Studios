@@ -72,6 +72,15 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Source Files\Scenes\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="SceneLogo.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneTitle.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneWinOrLose.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -124,6 +133,15 @@
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Source Files\Scenes\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneLogo.h">
+      <Filter>Source Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneTitle.h">
+      <Filter>Source Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneWinOrLose.h">
+      <Filter>Source Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

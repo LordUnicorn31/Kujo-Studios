@@ -20,20 +20,20 @@ public:
 
 
 public:
-	void	ScenePushbacks();										
+	void	ScenePushbacks();										// The pushbacks must be made in the order in which the scenes will appear.
 	
-	void	SwitchScene(SCENES scene_name);							
-	void	LoadScene(SCENES scene_name);							
-	void	UnloadScene(Scene* scene_to_unload);					
+	void	SwitchScene(SCENES scene_name);							// Unloads the current scene and then loads the next one.
+	void	LoadScene(SCENES scene_name);							// Loads a new scene. Can be called even while there is another one already running.
+	void	UnloadScene(Scene* scene_to_unload);					// Unloads a scene. Only use when there is another scene loaded already. Ex. current_scene & next_scene are active.
 
 	Scene* CreateScene(SCENES scene_name);
 
 public:
-	Scene* current_scene;							
-	Scene* next_scene;								
+	Scene* current_scene;							// The scene that is being currently loaded.
+	Scene* next_scene;								// Buffer for the scene that will be loaded next.
 
 private:
-	eastl::vector<Scene*>		scenes;								
+	eastl::vector<Scene*>		scenes;									// All the scenes of the game.
 };
 
 #endif // !__SCENE_MANAGER_H__

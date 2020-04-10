@@ -3,6 +3,10 @@
 #include "j1Input.h"
 
 Scene::Scene(SCENES scene_name) : scene_name(scene_name)
+, scene_surface(nullptr)
+, scene_renderer(nullptr)
+, scene_texture(nullptr)
+, tileset_texture(nullptr)
 {
 
 }

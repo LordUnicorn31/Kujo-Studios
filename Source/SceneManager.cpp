@@ -1,5 +1,8 @@
 #include "SceneManager.h"
+#include "SceneTitle.h"
+#include "SceneLogo.h"
 #include "SceneMap.h"
+#include "SceneWinOrLose.h"
 #include "j1Render.h"
 #include "j1Input.h"
 
@@ -181,12 +184,26 @@ Scene* SceneManager::CreateScene(SCENES scene_name)
 
 	switch (scene_name)
 	{
+	case SCENES::SCENE_TITLE:
+
+		item = new SceneTitle();
+
+		break;
+
 	case SCENES::SCENE_MAP:
 
 		item = new SceneMap();
 
 		break;
+
+	case SCENES::SCENE_LOGO:
+		
+		item = new SceneLogo();
+
+		break;
+
 	}
+
 
 	if (item != nullptr)
 	{
@@ -198,5 +215,8 @@ Scene* SceneManager::CreateScene(SCENES scene_name)
 
 void SceneManager::ScenePushbacks()
 {
+	CreateScene(SCENES::SCENE_TITLE);
+	CreateScene(SCENES::SCENE_LOGO);
 	CreateScene(SCENES::SCENE_MAP);
+	CreateScene(SCENES::SCENE_WINORLOSE);
 }

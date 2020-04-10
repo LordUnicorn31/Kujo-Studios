@@ -47,18 +47,8 @@ bool SceneMap::PreUpdate()
 bool SceneMap::Update(float dt)
 {
 	bool ret = true;
-	if (App->input->GetKey(SDL_SCANCODE_LEFT)) {
-		App->render->camera.x+=5;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT)) {
-		App->render->camera.x-=5;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_UP)) {
-		App->render->camera.y+=5;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_DOWN)) {
-		App->render->camera.y-=5;
-	}
+
+	CameraDebugMovement(dt);
 
 	DrawScene();
 	return ret;
@@ -88,8 +78,8 @@ void SceneMap::InitScene()
 {
 	App->map->GetMapSize(map_width, map_height);
 
-	App->render->camera.x = map_width * 0.3f;										// This camera position gets the camera close to the center of the map.
-	App->render->camera.y = -40;
+	App->render->camera.x = 0;										// Hem de decidir on comenza el player.
+	App->render->camera.y = 0;
 }
 
 void SceneMap::DrawScene()

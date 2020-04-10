@@ -1,18 +1,17 @@
 #pragma once
 
 #include "j1Module.h"
-#include "Scene.h"
 
 struct SDL_Texture;
 
-class SceneMap : public Scene
+class j1Scene : public j1Module
 {
 public:
 
-	SceneMap();
+	j1Scene();
 
 	// Destructor
-	virtual ~SceneMap();
+	virtual ~j1Scene();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&config);
@@ -32,11 +31,5 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-public:
-	void InitScene();								
-
-	void DrawScene();								
-
-	void ExecuteTransition();
 
 };

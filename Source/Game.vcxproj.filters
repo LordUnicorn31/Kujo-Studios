@@ -19,9 +19,6 @@
     <Filter Include="Source Files\Scenes">
       <UniqueIdentifier>{88eabb7b-6c3b-4ac2-80d5-775dee8b511c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Scenes\Managers">
-      <UniqueIdentifier>{f9966423-accb-4559-ba29-f91f5119c4f9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Entities">
       <UniqueIdentifier>{1dfba12f-3433-4fff-aea9-b0d11123abdd}</UniqueIdentifier>
     </Filter>
@@ -66,29 +63,14 @@
     <ClCompile Include="p2Log.cpp">
       <Filter>Programacio2</Filter>
     </ClCompile>
-    <ClCompile Include="SceneMap.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Source Files\Scenes\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Source Files\Scenes\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneLogo.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneTitle.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneWinOrLose.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="EntityManager.cpp">
       <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Scene.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,29 +116,14 @@
     <ClInclude Include="p2Point.h">
       <Filter>Programacio2</Filter>
     </ClInclude>
-    <ClInclude Include="SceneMap.h">
-      <Filter>Source Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Source Files\Scenes\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Source Files\Scenes\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneLogo.h">
-      <Filter>Source Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneTitle.h">
-      <Filter>Source Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneWinOrLose.h">
-      <Filter>Source Files\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="EntityManager.h">
       <Filter>Source Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Scene.h">
+      <Filter>Source Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -214,17 +214,12 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClCompile Include="j1Minimap.cpp" />
     <ClCompile Include="j1PerfTimer.cpp" />
     <ClCompile Include="j1Render.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SceneLogo.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="SceneMap.cpp" />
+    <ClCompile Include="j1Scene.cpp" />
     <ClCompile Include="j1Textures.cpp" />
     <ClCompile Include="j1Timer.cpp" />
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="p2Log.cpp" />
-    <ClCompile Include="SceneTitle.cpp" />
-    <ClCompile Include="SceneWinOrLose.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Deps\EASTL\EASTL.vcxproj">
@@ -257,18 +252,13 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClInclude Include="j1Module.h" />
     <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="j1Render.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="SceneLogo.h" />
-    <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="SceneMap.h" />
+    <ClInclude Include="j1Scene.h" />
     <ClInclude Include="j1Textures.h" />
     <ClInclude Include="j1Timer.h" />
     <ClInclude Include="j1Window.h" />
     <ClInclude Include="p2Defs.h" />
     <ClInclude Include="p2Log.h" />
     <ClInclude Include="p2Point.h" />
-    <ClInclude Include="SceneTitle.h" />
-    <ClInclude Include="SceneWinOrLose.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

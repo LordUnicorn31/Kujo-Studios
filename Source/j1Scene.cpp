@@ -4,23 +4,22 @@
 #include "j1Textures.h"
 #include "j1Render.h"
 #include "j1Window.h"
-#include "SceneMap.h"
+#include "j1Scene.h"
 #include "j1Input.h"
 #include "j1Map.h"
 
-SceneMap::SceneMap() : Scene(SCENES::SCENE_MAP)
-{
-	
+j1Scene::j1Scene() : j1Module()
+{	
 }
 
 // Destructor
-SceneMap::~SceneMap()
+j1Scene::~j1Scene()
 {
 }
 
 
 // Called before render is available
-bool SceneMap::Awake(pugi::xml_node&config)
+bool j1Scene::Awake(pugi::xml_node&config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
@@ -28,23 +27,21 @@ bool SceneMap::Awake(pugi::xml_node&config)
 }
 
 // Called before the first frame
-bool SceneMap::Start()
+bool j1Scene::Start()
 {
 	App->map->Load("Mainmap.tmx");
 
-	InitScene();
-
 	return true;
 }
 
 // Called each loop iteration
-bool SceneMap::PreUpdate()
+bool j1Scene::PreUpdate()
 {
 	return true;
 }
 
 // Called each loop iteration
-bool SceneMap::Update(float dt)
+bool j1Scene::Update(float dt)
 {
 	bool ret = true;
 	if (App->input->GetKey(SDL_SCANCODE_LEFT)) {
@@ -60,22 +57,21 @@ bool SceneMap::Update(float dt)
 		App->render->camera.y-=5;
 	}
 
-	DrawScene();
+	App->map->Draw();
 	return ret;
 }
 
 // Called each loop iteration
-bool SceneMap::PostUpdate()
+bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	ExecuteTransition();
 	return ret;
 }
 
 
 // Called before quitting
-bool SceneMap::CleanUp()
+bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
 
@@ -84,20 +80,3 @@ bool SceneMap::CleanUp()
 	return true;
 }
 
-void SceneMap::InitScene()
-{
-	App->map->GetMapSize(map_width, map_height);
-
-	App->render->camera.x = map_width * 0.3f;										// This camera position gets the camera close to the center of the map.
-	App->render->camera.y = -40;
-}
-
-void SceneMap::DrawScene()
-{
-	App->map->Draw();
-}
-
-void SceneMap::ExecuteTransition()
-{
-	
-}

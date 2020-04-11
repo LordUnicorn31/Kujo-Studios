@@ -25,13 +25,17 @@ public:
 	void Scale();
 	void Descale();
 
+	void Load();
+
+	void Init();
+
 public:
 	bool display;
 	iPoint position;
 	//entity_display entities_mode;
 
 private:
-	void Load();
+	
 	bool MinimapCoords(int& map_x, int& map_y);
 	void DrawCamera();
 	void MinimapBorders();

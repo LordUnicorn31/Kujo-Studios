@@ -1,19 +1,21 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 
+#include "j1App.h"
 #include "j1Window.h"
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Scene.h"
-#include "j1App.h"
+#include "j1SceneTitle.h"
 #include "j1Timer.h"
 #include "j1PerfTimer.h"
 #include "j1Audio.h"
 #include "j1Minimap.h"
 #include "j1Fonts.h"
 #include "j1Gui.h"
+#include "j1Transitions.h"
 
 #include "SDL.h"
 
@@ -27,12 +29,14 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	win = new j1Window();
 	render = new j1Render();
 	tex = new j1Textures();
+	sceneTitle = new j1SceneTitle();
 	scene = new j1Scene();
 	audio = new j1Audio();
 	map = new j1Map();
 	minimap = new j1Minimap();
 	font = new j1Fonts();
 	gui = new j1Gui();
+	transition = new j1Transitions();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -42,10 +46,12 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(scene);
+	AddModule(sceneTitle);
 	AddModule(map);
 	AddModule(minimap);
 	AddModule(font);
 	AddModule(gui);
+	AddModule(transition);
 
 	// render last to swap buffer
 	AddModule(render);
@@ -63,6 +69,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	modules[4]->Init();
 	modules.emplace_back(render);
 	modules[5]->Init();*/
+
+
 
 	PERF_PEEK(ptimer);
 }

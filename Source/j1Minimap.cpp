@@ -36,8 +36,10 @@ bool j1Minimap::Awake(pugi::xml_node & config)
 
 bool j1Minimap::Start()
 {
-	display = true;
 	//entities_mode = entity_display::DISPLAY_RECT;
+
+	display = true;
+
 	Load();
 
 	return true;
@@ -116,7 +118,8 @@ bool j1Minimap::PostUpdate()
 
 bool j1Minimap::CleanUp()
 {
-	SDL_DestroyTexture(minimap_tex);
+	if (IsEneabled()) 
+		SDL_DestroyTexture(minimap_tex);
 
 	return true;
 }
@@ -374,4 +377,11 @@ void j1Minimap::Descale() {
 		CleanUp();
 		Load();
 	}
+}
+
+void j1Minimap::Init()
+{
+	active = true;
+	
+	Disable();
 }

@@ -78,6 +78,12 @@
     <ClCompile Include="j1Gui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="j1SceneTitle.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Transitions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -135,6 +141,12 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="j1Gui.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="j1SceneTitle.h">
+      <Filter>Source Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Transitions.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

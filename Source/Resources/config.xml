@@ -40,4 +40,8 @@
 
   <minimap size="1" position.x="0" position.y="0"/>
 
+  <gui>
+    <atlas file="gui/atlas.png"/>
+  </gui>
+
 </config>

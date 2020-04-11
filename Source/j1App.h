@@ -17,6 +17,7 @@ class j1Module;
 class j1Audio;
 class j1Map;
 class j1Minimap;
+class j1Fonts;
 
 
 class j1App
@@ -90,6 +91,7 @@ public:
 	j1Audio* audio;
 	j1Map* map;
 	j1Minimap* minimap;
+	j1Fonts* font;
 
 private:
 

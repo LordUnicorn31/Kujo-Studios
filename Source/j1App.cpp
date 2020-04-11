@@ -12,6 +12,7 @@
 #include "j1PerfTimer.h"
 #include "j1Audio.h"
 #include "j1Minimap.h"
+#include "j1Fonts.h"
 
 #include "SDL.h"
 
@@ -29,6 +30,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new j1Audio();
 	map = new j1Map();
 	minimap = new j1Minimap();
+	font = new j1Fonts();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -40,6 +42,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(map);
 	AddModule(minimap);
+	AddModule(font);
 
 	// render last to swap buffer
 	AddModule(render);

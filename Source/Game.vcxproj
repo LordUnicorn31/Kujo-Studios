@@ -209,6 +209,8 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="Deps\pugixml-1.10\src\pugixml.cpp" />
     <ClCompile Include="j1Audio.cpp" />
+    <ClCompile Include="j1Fonts.cpp" />
+    <ClCompile Include="j1Gui.cpp" />
     <ClCompile Include="j1Input.cpp" />
     <ClCompile Include="j1Map.cpp" />
     <ClCompile Include="j1Minimap.cpp" />
@@ -246,6 +248,8 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="j1App.h" />
     <ClInclude Include="j1Audio.h" />
+    <ClInclude Include="j1Fonts.h" />
+    <ClInclude Include="j1Gui.h" />
     <ClInclude Include="j1Input.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Minimap.h" />

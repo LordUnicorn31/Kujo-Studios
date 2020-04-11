@@ -1,10 +1,10 @@
-/*#pragma once
+#pragma once
 
 #include "j1Module.h"
-#include "p2DynArray.h"
+#include "EASTL/list.h"
 #include "p2Point.h"
 #include "j1App.h"
-#include "SDL/include/SDL.h"
+#include "SDL.h"
 
 
 struct SDL_Texture;
@@ -89,14 +89,15 @@ public:
 	const SDL_Texture* GetAtlas() const;
 
 private:
-	p2List<UiElement*> UiElementList;
+	eastl::list<UiElement*> UiElementList;
 	SDL_Texture* atlas;
-	p2SString atlas_file_name;
+	eastl::string atlas_file_name;
 };
 
 class UiImage :public UiElement {
 public:
 	UiImage(int x, int y, SDL_Rect source_rect, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule);
+	~UiImage();
 	void Draw(SDL_Texture* atlas)override;
 	void Update(int dx, int dy)override;
 	SDL_Rect atlas_rect;
@@ -111,6 +112,7 @@ enum class Button_state {
 class UiButton :public UiElement {
 public:
 	UiButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule);
+	~UiButton();
 	void Draw(SDL_Texture* atlas)override;
 	void Update(int dx, int dy)override;
 	SDL_Rect unhover;
@@ -122,6 +124,7 @@ public:
 class UiText :public UiElement {
 public:
 	UiText(int x, int y, const char*text, int size, SDL_Color color, bool interactuable, bool draggeable, _TTF_Font*font = nullptr, UiElement* parent = nullptr, j1Module* elementmodule = nullptr);
+	~UiText();
 	void Draw(SDL_Texture* atlas)override;
 	void Update(int dx, int dy)override;
 	_TTF_Font*font_type;
@@ -129,4 +132,3 @@ public:
 	SDL_Color color;
 	SDL_Texture* texture;
 };
-*/

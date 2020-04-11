@@ -18,6 +18,7 @@ class j1Audio;
 class j1Map;
 class j1Minimap;
 class j1Fonts;
+class j1Gui;
 
 
 class j1App
@@ -92,6 +93,7 @@ public:
 	j1Map* map;
 	j1Minimap* minimap;
 	j1Fonts* font;
+	j1Gui* gui;
 
 private:
 

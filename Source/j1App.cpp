@@ -13,6 +13,7 @@
 #include "j1Audio.h"
 #include "j1Minimap.h"
 #include "j1Fonts.h"
+#include "j1Gui.h"
 
 #include "SDL.h"
 
@@ -31,6 +32,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	map = new j1Map();
 	minimap = new j1Minimap();
 	font = new j1Fonts();
+	gui = new j1Gui();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -43,6 +45,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(minimap);
 	AddModule(font);
+	AddModule(gui);
 
 	// render last to swap buffer
 	AddModule(render);

@@ -7,6 +7,7 @@
 #include "j1Scene.h"
 #include "j1Input.h"
 #include "j1Map.h"
+#include "j1Gui.h"
 
 j1Scene::j1Scene() : j1Module()
 {	
@@ -30,7 +31,6 @@ bool j1Scene::Awake(pugi::xml_node&config)
 bool j1Scene::Start()
 {
 	App->map->Load("Mainmap.tmx");
-
 	return true;
 }
 

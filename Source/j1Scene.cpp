@@ -7,6 +7,7 @@
 #include "j1Scene.h"
 #include "j1Input.h"
 #include "j1Map.h"
+#include "j1Minimap.h"
 
 j1Scene::j1Scene() : j1Module()
 {	
@@ -30,6 +31,8 @@ bool j1Scene::Awake(pugi::xml_node&config)
 bool j1Scene::Start()
 {
 	App->map->Load("Mainmap.tmx");
+
+	App->minimap->Enable();
 
 	return true;
 }
@@ -80,3 +83,9 @@ bool j1Scene::CleanUp()
 	return true;
 }
 
+void j1Scene::Init()
+{
+	enabled = false;
+
+	active = true;
+}

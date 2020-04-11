@@ -1,18 +1,19 @@
+
 #include "j1Module.h"
 
 struct SDL_Texture;
 
-class j1Scene : public j1Module
+class j1SceneTitle : public j1Module
 {
 public:
 
-	j1Scene();
+	j1SceneTitle();
 
 	// Destructor
-	virtual ~j1Scene();
+	virtual ~j1SceneTitle();
 
 	// Called before render is available
-	bool Awake(pugi::xml_node&config);
+	bool Awake(pugi::xml_node& config);
 
 	// Called before the first frame
 	bool Start();
@@ -30,5 +31,11 @@ public:
 	bool CleanUp();
 
 	void Init();
+
+private:
+
+	SDL_Texture*	background;
+	SDL_Texture*	titleLogo;
+
 
 };

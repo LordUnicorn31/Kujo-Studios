@@ -29,6 +29,10 @@ public:
 	// Retrieve window scale
 	uint GetScale() const;
 
+	int GetWidth() const;
+
+	int GetHeight() const;
+
 public:
 	//The window we'll be rendering to
 	SDL_Window* window;
@@ -36,6 +40,7 @@ public:
 	//The surface contained by the window
 	SDL_Surface* screen_surface;
 	eastl::string	title;
+
 	int		        width;
 	int		        height;
 	int		        scale;

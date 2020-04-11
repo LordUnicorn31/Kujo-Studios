@@ -222,6 +222,8 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="p2Log.cpp" />
+    <ClCompile Include="j1SceneTitle.cpp" />
+    <ClCompile Include="j1Transitions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Deps\EASTL\EASTL.vcxproj">
@@ -263,6 +265,8 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClInclude Include="p2Defs.h" />
     <ClInclude Include="p2Log.h" />
     <ClInclude Include="p2Point.h" />
+    <ClInclude Include="j1SceneTitle.h" />
+    <ClInclude Include="j1Transitions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

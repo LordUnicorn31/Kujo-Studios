@@ -60,7 +60,8 @@ bool j1Transitions::Update(float dt)
 	case fade_step::slide_in:
 
 		normalized = 1.0f;
-		screen.x += screen.w / total_time;
+
+		screen.x += screen.w / (total_time/8.0f);
 
 		if (now >= total_time)
 		{
@@ -76,21 +77,25 @@ bool j1Transitions::Update(float dt)
 
 		if (now >= total_time)
 		{
-			
 			Moduleoff->Disable();
 			Moduleon->Enable();
 			total_time += total_time;
 			start_time = SDL_GetTicks();
-			current_step = fade_step::slide_in;
+			current_step = fade_step::slide_out;
 		}
+
+		break;
 
 	case fade_step::slide_out:
 
 		normalized = 1.0f;
-		screen.x += screen.w / total_time;
-		if (now >= total_time)
+		screen.x += screen.w / (total_time/16.0f);
+		if (now >= total_time) {
+			
 			current_step = fade_step::none;
-
+		}
+			
+		break;
 	}
 
 	SDL_SetRenderDrawColor(App->render->renderer, 0.0f, 0.0f, 0.0f, (Uint8)(normalized * 255.0f));

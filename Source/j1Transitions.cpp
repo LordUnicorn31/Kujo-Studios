@@ -60,8 +60,10 @@ bool j1Transitions::Update(float dt)
 	case fade_step::slide_in:
 
 		normalized = 1.0f;
-
-		screen.x += screen.w / (total_time/8.0f);
+		if (screen.x >= 0)
+			screen.x = 0;
+		else
+			screen.x += ((float)(screen.w) / (float)total_time)* dt * (float)now * 2;
 
 		if (now >= total_time)
 		{
@@ -73,25 +75,20 @@ bool j1Transitions::Update(float dt)
 	case fade_step::slide_change:
 
 		normalized = 1.0f;
-		screen.x += screen.w / total_time;
-
-		if (now >= total_time)
-		{
-			Moduleoff->Disable();
-			Moduleon->Enable();
-			total_time += total_time;
-			start_time = SDL_GetTicks();
-			current_step = fade_step::slide_out;
-		}
+		screen.x;
+		Moduleoff->Disable();
+		Moduleon->Enable();
+		total_time += total_time;
+		start_time = SDL_GetTicks();
+		current_step = fade_step::slide_out;
 
 		break;
 
 	case fade_step::slide_out:
 
 		normalized = 1.0f;
-		screen.x += screen.w / (total_time/16.0f);
+		screen.x += ((float)(screen.w) / (float)total_time) * dt * (float)now * 2;
 		if (now >= total_time) {
-			
 			current_step = fade_step::none;
 		}
 			
@@ -110,6 +107,7 @@ bool j1Transitions::FadeToBlack(j1Module* j1Module_off, j1Module* j1Module_on, f
 	bool ret = false;
 	if (current_step == fade_step::none)
 	{
+		screen.x = 0;
 		current_step = fade_step::fade_to_black;
 		start_time = SDL_GetTicks();
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
@@ -127,9 +125,10 @@ bool j1Transitions::Slide(j1Module* j1Module_off, j1Module* j1Module_on, float t
 
 	if (current_step == fade_step::none)
 	{
+		screen.x -= App->win->width;
 		current_step = fade_step::slide_in;
 		start_time = SDL_GetTicks();
-		total_time = (Uint32) (time * 0.5f* 1000.0f);
+		total_time = (Uint32) (time *0.5* 1000.0f);
 		Moduleoff = j1Module_off;
 		Moduleon = j1Module_on;
 		ret = true;

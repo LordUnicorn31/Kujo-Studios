@@ -91,11 +91,7 @@ bool j1Minimap::Update(float dt)
 		else
 			display = true;
 	}
-	return true;
-}
 
-bool j1Minimap::PostUpdate()
-{	
 	if (display) {
 		App->render->Blit(minimap_tex, position.x, position.y, NULL, false);
 		MinimapBorders();
@@ -112,7 +108,12 @@ bool j1Minimap::PostUpdate()
 		}*/
 		DrawCamera();
 	}
-	
+
+	return true;
+}
+
+bool j1Minimap::PostUpdate()
+{	
 	return true;
 }
 

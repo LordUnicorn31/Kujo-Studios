@@ -126,9 +126,9 @@ void j1SceneTitle::Init()
 
 void j1SceneTitle::ui_callback(UiElement* element) {
 	if (element == Play_button) {
-		App->transition->FadeToBlack(App->sceneTitle, App->scene, 2.0f);
+		//App->transition->FadeToBlack(App->sceneTitle, App->scene, 2.0f);
 
-		//App->transition->Slide(App->sceneTitle, App->scene, 2.0f);
+		App->transition->Slide(App->sceneTitle, App->scene, 2.0f);
 	}
 	if (element == Exit_button) {
 		Exit = true;

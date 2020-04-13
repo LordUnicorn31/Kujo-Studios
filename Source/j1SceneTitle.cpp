@@ -10,6 +10,8 @@
 #include "j1Map.h"
 #include "j1Minimap.h"
 #include "j1Transitions.h"
+#include "j1Gui.h"
+#include "j1Fonts.h"
 
 j1SceneTitle::j1SceneTitle() : j1Module()
 {
@@ -32,9 +34,13 @@ bool j1SceneTitle::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1SceneTitle::Start()
 {
+	Exit = false;
 	background = App->tex->Load("Resources/Title_menu/Fondo.png");
 	titleLogo = App->tex->Load("Resources/Title_menu/LOGOJUEGO.png");
-
+	Play_button = App->gui->AddButton(500, 430, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+	App->gui->AddText(68, 16, "PLAY", nullptr, { 0,0,255,255 }, 42, false, false, Play_button);
+	Exit_button = App->gui->AddButton(500, 530, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+	App->gui->AddText(75, 16, "EXIT", nullptr, { 0,0,255,255 }, 42, false, false, Exit_button);
 	return true;
 }
 
@@ -69,8 +75,12 @@ bool j1SceneTitle::Update(float dt)
 	App->render->Blit(titleLogo, w*1.55f, h, NULL, true, App->render->renderer, 0.2);
 
 	//Need to create a timer
-	if (App->input->GetKey(SDL_SCANCODE_RETURN)) {
+	/*if (App->input->GetKey(SDL_SCANCODE_RETURN)) {
 		App->transition->FadeToBlack(App->sceneTitle, App->scene, 2.0f);
+	}*/
+	if (Exit) {
+		ret = false;
+		Exit = false;
 	}
 	
 	/*
@@ -100,6 +110,9 @@ bool j1SceneTitle::CleanUp()
 
 	App->tex->UnLoad(background);
 	App->tex->UnLoad(titleLogo);
+	App->gui->DeleteAllUiElements();
+	Play_button = nullptr;
+	Exit_button = nullptr;
 	
 	return true;
 }
@@ -109,4 +122,13 @@ void j1SceneTitle::Init()
 	enabled = true;
 	
 	active = true;
+}
+
+void j1SceneTitle::ui_callback(UiElement* element) {
+	if (element == Play_button) {
+		App->transition->FadeToBlack(App->sceneTitle, App->scene, 2.0f);
+	}
+	if (element == Exit_button) {
+		Exit = true;
+	}
 }

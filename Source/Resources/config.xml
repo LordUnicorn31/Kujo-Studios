@@ -11,7 +11,7 @@
   </renderer>
 
   <fonts>
-    <default_font file="fonts/open_sans/OpenSans-Regular.ttf" size="32"/>
+    <default_font file="Resources/fonts/Mindustry/fonts/font.ttf" size="32"/>
   </fonts>
   
 

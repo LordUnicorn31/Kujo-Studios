@@ -84,6 +84,11 @@ const SDL_Texture* j1Gui::GetAtlas() const
 }
 
 void j1Gui::DeleteAllUiElements() {
+	eastl::list <UiElement*> ::iterator it;
+	for (it = UiElementList.begin(); it != UiElementList.end(); it++)
+	{
+		delete (*it);
+	}
 	UiElementList.clear();
 }
 

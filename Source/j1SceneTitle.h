@@ -1,7 +1,9 @@
 
+#pragma once
 #include "j1Module.h"
 
 struct SDL_Texture;
+class UiElement;
 
 class j1SceneTitle : public j1Module
 {
@@ -32,10 +34,14 @@ public:
 
 	void Init();
 
-private:
+	void ui_callback(UiElement* element);
 
+private:
+	UiElement* Play_button;
+	UiElement* Exit_button;
 	SDL_Texture*	background;
 	SDL_Texture*	titleLogo;
+	bool Exit;
 
 
 };

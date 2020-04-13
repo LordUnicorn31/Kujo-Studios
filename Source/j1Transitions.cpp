@@ -54,11 +54,46 @@ bool j1Transitions::Update(float dt)
 
 		if (now >= total_time)
 			current_step = fade_step::none;
+
 	} break;
+
+	case fade_step::slide_in:
+
+		normalized = 1.0f;
+		screen.x += screen.w / total_time;
+
+		if (now >= total_time)
+		{
+			current_step = fade_step::slide_change;
+		}
+
+		break;
+
+	case fade_step::slide_change:
+
+		normalized = 1.0f;
+		screen.x += screen.w / total_time;
+
+		if (now >= total_time)
+		{
+			
+			Moduleoff->Disable();
+			Moduleon->Enable();
+			total_time += total_time;
+			start_time = SDL_GetTicks();
+			current_step = fade_step::slide_in;
+		}
+
+	case fade_step::slide_out:
+
+		normalized = 1.0f;
+		screen.x += screen.w / total_time;
+		if (now >= total_time)
+			current_step = fade_step::none;
+
 	}
 
-	// Finally render the black square with alpha on the screen
-	SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, (Uint8)(normalized * 255.0f));
+	SDL_SetRenderDrawColor(App->render->renderer, 0.0f, 0.0f, 0.0f, (Uint8)(normalized * 255.0f));
 	SDL_RenderFillRect(App->render->renderer, &screen);
 
 	return true;
@@ -80,6 +115,24 @@ bool j1Transitions::FadeToBlack(j1Module* j1Module_off, j1Module* j1Module_on, f
 
 	return ret;
 }
+
+bool j1Transitions::Slide(j1Module* j1Module_off, j1Module* j1Module_on, float time)
+{
+	bool ret = false;
+
+	if (current_step == fade_step::none)
+	{
+		current_step = fade_step::slide_in;
+		start_time = SDL_GetTicks();
+		total_time = (Uint32) (time * 0.5f* 1000.0f);
+		Moduleoff = j1Module_off;
+		Moduleon = j1Module_on;
+		ret = true;
+	}
+	return ret;
+}
+
+
 
 bool j1Transitions::IsFading() const
 {

@@ -53,6 +53,8 @@ public:
 	const char* GetArgv(int index) const;
 	const char* GetTitle() const;
 	const char* GetOrganization() const;
+	float GetDT() const;
+
 
 	void LoadGame();
 	void SaveGame() const;

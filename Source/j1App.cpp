@@ -406,6 +406,12 @@ const char* j1App::GetOrganization() const
 	return organization.c_str();
 }
 
+// ---------------------------------------
+float j1App::GetDT() const
+{
+	return dt;
+}
+
 // Load / Save
 void j1App::LoadGame()
 {

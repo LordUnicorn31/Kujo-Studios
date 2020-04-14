@@ -89,6 +89,8 @@
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Source Files\Animations</Filter>
+    <ClCompile Include="j1SceneLogo.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +159,8 @@
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Source Files\Animations</Filter>
+    <ClInclude Include="j1SceneLogo.h">
+      <Filter>Source Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

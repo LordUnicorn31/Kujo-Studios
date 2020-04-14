@@ -121,7 +121,7 @@ bool j1SceneTitle::CleanUp()
 
 void j1SceneTitle::Init()
 {
-	enabled = true;
+	enabled = false;
 	
 	active = true;
 }

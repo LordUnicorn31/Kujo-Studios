@@ -54,11 +54,6 @@ private:
 	float currentMusicVolume;
 	float currentFxVolume;
 
-public:
-
-	eastl::string fxFiles;
-	eastl::string musicFiles;
-
 
 };
 

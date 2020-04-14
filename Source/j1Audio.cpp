@@ -54,9 +54,6 @@ bool j1Audio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
-	musicFiles = config.child("music").attribute("name").as_string();
-	fxFiles = config.child("fx").attribute("name").as_string();
-
 	return ret;
 }
 

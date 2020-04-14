@@ -12,6 +12,7 @@
 #include "j1Transitions.h"
 #include "j1Gui.h"
 #include "j1Fonts.h"
+#include "j1Audio.h"
 
 j1SceneTitle::j1SceneTitle() : j1Module()
 {
@@ -41,6 +42,7 @@ bool j1SceneTitle::Start()
 	App->gui->AddText(68, 16, "PLAY", nullptr, { 0,0,255,255 }, 42, false, false, Play_button);
 	Exit_button = App->gui->AddButton(500, 530, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
 	App->gui->AddText(75, 16, "EXIT", nullptr, { 0,0,255,255 }, 42, false, false, Exit_button);
+	App->audio->PlayMusic("Resources/audio/Mindustry/music/menu.ogg");
 	return true;
 }
 
@@ -127,7 +129,6 @@ void j1SceneTitle::Init()
 void j1SceneTitle::ui_callback(UiElement* element) {
 	if (element == Play_button) {
 		//App->transition->FadeToBlack(App->sceneTitle, App->scene, 2.0f);
-
 		App->transition->Slide(App->sceneTitle, App->scene, 2.0f);
 	}
 	if (element == Exit_button) {

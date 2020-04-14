@@ -39,9 +39,9 @@ bool j1SceneTitle::Start()
 	background = App->tex->Load("Resources/Title_menu/Fondo.png");
 	titleLogo = App->tex->Load("Resources/Title_menu/LOGOJUEGO.png");
 	Play_button = App->gui->AddButton(500, 430, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(68, 16, "PLAY", nullptr, { 0,0,255,255 }, 42, false, false, Play_button);
+	App->gui->AddText(68, 16, "PLAY", nullptr, { 0,255,0,255 }, 42, false, false, Play_button);
 	Exit_button = App->gui->AddButton(500, 530, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(75, 16, "EXIT", nullptr, { 0,0,255,255 }, 42, false, false, Exit_button);
+	App->gui->AddText(75, 16, "EXIT", nullptr, { 255,0,0,255 }, 42, false, false, Exit_button);
 	App->audio->PlayMusic("Resources/audio/Mindustry/music/menu.ogg");
 	return true;
 }

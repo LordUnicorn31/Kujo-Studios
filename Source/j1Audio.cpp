@@ -169,6 +169,7 @@ unsigned int j1Audio::LoadFx(const char* path)
 	}
 
 	LOG("Load wav %s", path);
+	return ret;
 }
 
 // Play WAV

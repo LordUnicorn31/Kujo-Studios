@@ -106,7 +106,12 @@ bool j1SceneLogo::PostUpdate()
 bool j1SceneLogo::CleanUp()
 {
 	LOG("Freeing scene");
-
+	App->tex->UnLoad(hat);
+	App->tex->UnLoad(kujo);
+	App->tex->UnLoad(studios);
+	hat = nullptr;
+	kujo = nullptr;
+	studios = nullptr;
 	return true;
 }
 

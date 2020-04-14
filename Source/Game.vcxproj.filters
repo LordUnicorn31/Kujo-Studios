@@ -84,6 +84,9 @@
     <ClCompile Include="j1Transitions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="j1SceneLogo.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="j1Transitions.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="j1SceneLogo.h">
+      <Filter>Source Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

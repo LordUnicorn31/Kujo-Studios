@@ -1,166 +1,87 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Programacio2">
-      <UniqueIdentifier>{ad8e12ce-54ff-4f77-a7c3-95c82f114342}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Scenes">
-      <UniqueIdentifier>{88eabb7b-6c3b-4ac2-80d5-775dee8b511c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Entities">
-      <UniqueIdentifier>{1dfba12f-3433-4fff-aea9-b0d11123abdd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Animations">
-      <UniqueIdentifier>{155ba3ca-06cf-4f72-93e5-c21a5498b3f5}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Deps\pugixml-1.10\src\pugixml.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="j1App.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="j1PerfTimer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Timer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Render.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Textures.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Input.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Audio.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Minimap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="p2Log.cpp">
-      <Filter>Programacio2</Filter>
+    <ClCompile Include="j1App.cpp" />
+    <ClCompile Include="Deps\pugixml-1.10\src\pugixml.cpp" />
+    <ClCompile Include="j1Audio.cpp" />
+    <ClCompile Include="j1Fonts.cpp" />
+    <ClCompile Include="j1Gui.cpp" />
+    <ClCompile Include="j1Input.cpp" />
+    <ClCompile Include="j1Map.cpp" />
+    <ClCompile Include="j1Minimap.cpp" />
+    <ClCompile Include="j1PerfTimer.cpp" />
+    <ClCompile Include="j1Render.cpp" />
+    <ClCompile Include="j1Textures.cpp" />
+    <ClCompile Include="j1Timer.cpp" />
+    <ClCompile Include="j1Window.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="p2Log.cpp" />
+    <ClCompile Include="j1Transitions.cpp" />
+    <ClCompile Include="Animation.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Source Files\Entities</Filter>
+      <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="EntityManager.cpp">
-      <Filter>Source Files\Entities</Filter>
+      <Filter>Entities</Filter>
     </ClCompile>
     <ClCompile Include="j1Scene.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="j1Fonts.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Gui.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="j1SceneLogo.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="j1SceneTitle.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Transitions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Source Files\Animations</Filter>
-    <ClCompile Include="j1SceneLogo.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="j1App.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="j1PerfTimer.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Timer.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Module.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Window.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Render.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Textures.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Input.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Audio.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Map.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Minimap.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Log.h">
-      <Filter>Programacio2</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Defs.h">
-      <Filter>Programacio2</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Point.h">
-      <Filter>Programacio2</Filter>
+    <ClInclude Include="j1App.h" />
+    <ClInclude Include="j1Audio.h" />
+    <ClInclude Include="j1Fonts.h" />
+    <ClInclude Include="j1Gui.h" />
+    <ClInclude Include="j1Input.h" />
+    <ClInclude Include="j1Map.h" />
+    <ClInclude Include="j1Minimap.h" />
+    <ClInclude Include="j1Module.h" />
+    <ClInclude Include="j1PerfTimer.h" />
+    <ClInclude Include="j1Render.h" />
+    <ClInclude Include="j1Textures.h" />
+    <ClInclude Include="j1Timer.h" />
+    <ClInclude Include="j1Window.h" />
+    <ClInclude Include="p2Defs.h" />
+    <ClInclude Include="p2Log.h" />
+    <ClInclude Include="p2Point.h" />
+    <ClInclude Include="j1Transitions.h" />
+    <ClInclude Include="Animation.h">
+      <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Source Files\Entities</Filter>
+      <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="EntityManager.h">
-      <Filter>Source Files\Entities</Filter>
+      <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="j1Scene.h">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="j1Fonts.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Gui.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="j1SceneLogo.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="j1SceneTitle.h">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="j1Transitions.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Source Files\Animations</Filter>
-    <ClInclude Include="j1SceneLogo.h">
-      <Filter>Source Files\Scenes</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{511d3817-d780-45d5-8b18-17dc8da48064}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{08ac9ef4-560f-4f34-8595-3fff070581bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{31cfa9db-d74e-4a76-b284-0491bedbe81e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

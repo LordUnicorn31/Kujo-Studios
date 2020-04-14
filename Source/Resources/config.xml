@@ -16,7 +16,7 @@
   
 
   <audio>
-    <music name ="audio/music/music_sadpiano.ogg">
+    <music name ="Resources/audio/music_sadpiano.ogg">
     </music>
     <fx name ="">
     </fx>

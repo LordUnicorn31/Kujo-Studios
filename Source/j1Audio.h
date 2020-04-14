@@ -56,9 +56,6 @@ private:
 
 public:
 
-	eastl::string fxFiles;
-	eastl::string musicFiles;
-
 
 };
 

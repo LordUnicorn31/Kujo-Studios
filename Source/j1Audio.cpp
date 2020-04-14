@@ -54,6 +54,9 @@ bool j1Audio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
+	musicFiles = config.child("music").attribute("name").as_string();
+	fxFiles = config.child("fx").attribute("name").as_string();
+
 	return ret;
 }
 
@@ -103,6 +106,7 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 			Mix_HaltMusic();
 		}
 
+		// this call blocks until fade out is done
 		Mix_FreeMusic(music);
 	}
 
@@ -185,7 +189,6 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
-
 
 void j1Audio::MusicVolume(float vol)
 {

@@ -42,7 +42,7 @@ bool j1SceneTitle::Start()
 	App->gui->AddText(68, 16, "PLAY", nullptr, { 0,0,255,255 }, 42, false, false, Play_button);
 	Exit_button = App->gui->AddButton(500, 530, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
 	App->gui->AddText(75, 16, "EXIT", nullptr, { 0,0,255,255 }, 42, false, false, Exit_button);
-	App->audio->PlayMusic("Resources/audio/Mindustry/music/menu.ogg",1);
+	App->audio->PlayMusic("Resources/audio/Mindustry/music/menu.ogg");
 	return true;
 }
 
@@ -108,7 +108,6 @@ bool j1SceneTitle::PostUpdate()
 // Called before quitting
 bool j1SceneTitle::CleanUp()
 {
-	App->audio->PlayMusic("Resources/audio/Mindustry/music/game1.ogg", 1);
 	LOG("Freeing scene");
 
 	App->tex->UnLoad(background);

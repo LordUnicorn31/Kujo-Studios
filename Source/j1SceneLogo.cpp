@@ -43,6 +43,7 @@ bool j1SceneLogo::Start()
 	kujo = App->tex->Load("Resources/Logo/LOGOkujo.png");
 	studios = App->tex->Load("Resources/Logo/LOGOstudios.png");
 
+
 	return true;
 }
 

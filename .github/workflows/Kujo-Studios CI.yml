@@ -27,4 +27,4 @@ jobs:
       uses: warrenbuckley/Setup-MSBuild@v1
 
     - name: MSBuild
-      run: msbuild Game.vcxproj
+      run: msbuild Game_Solution.sln

@@ -124,6 +124,9 @@ Minotaur: Slow enemies that have tons of damage. (HP: 150) (attack: 60) (range: 
 
 Sipders: Fast enemies that have low damage. (HP: 70) (attack: 25) (speed: 120)
 
+## Rounds system
+The enemies in the main map will attack by rounds. the first round of attack is going to be at minute 10 of the game and the attackers will be 5 lazerships, the second one at minute 20 and it will be 5 lazerships and 5 cannonships, by minute 30 it will be 5 lazerships, 5 cannonships, 5 dualships and 1 laser-shooter.
+
 # Quests & quests solutions
 
 As quests are one of the most important things in any RTS games, we decided to create a secondary quests systems that will help the player in the main goal of the game but won't have any punish if the player doesn't do them.

@@ -113,7 +113,7 @@ bool j1SceneTitle::CleanUp()
 	App->tex->UnLoad(background);
 	App->tex->UnLoad(titleLogo);
 	App->gui->DeleteAllUiElements();
-	App->audio->CleanUp();
+	/*App->audio->CleanUp();*/
 	Play_button = nullptr;
 	Exit_button = nullptr;
 	

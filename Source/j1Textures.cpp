@@ -84,25 +84,13 @@ SDL_Texture* const j1Textures::Load(const char* path)
 // Unload texture
 bool j1Textures::UnLoad(SDL_Texture* texture)
 {
-	/*p2List_item<SDL_Texture*>* item;
-
-	for(item = textures.start; item != NULL; item = item->next)
-	{
-		if(texture == item->data)
-		{
-			SDL_DestroyTexture(item->data);
-			textures.del(item);
-			return true;
-		}
-	}*/
-
 	eastl::list <SDL_Texture*> ::iterator it;
 	for (it = textures.begin(); it != textures.end(); ++it)
 	{
 		if (texture == *it)
 		{
 			SDL_DestroyTexture(*it);
-			it.mpNode->remove();
+			textures.erase(it);
 			return true;
 		}
 	}

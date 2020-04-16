@@ -17,6 +17,7 @@
 #include "j1Fonts.h"
 #include "j1Gui.h"
 #include "j1Transitions.h"
+#include "j1Pathfinding.h"
 
 #include "SDL.h"
 
@@ -35,6 +36,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new j1Scene();
 	audio = new j1Audio();
 	map = new j1Map();
+	pathfinding = new j1PathFinding();
 	minimap = new j1Minimap();
 	font = new j1Fonts();
 	gui = new j1Gui();
@@ -51,6 +53,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(sceneTitle);
 	AddModule(sceneLogo);
 	AddModule(map);
+	AddModule(pathfinding);
 	AddModule(minimap);
 	AddModule(font);
 	AddModule(gui);

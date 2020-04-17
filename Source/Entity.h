@@ -1,30 +1,30 @@
 #pragma once
 #include "p2Point.h"
 
-enum EntityType {
-	Ai,
-	Building,
-	Resource
-};
-
 class SDL_Texture;
+
+enum class EntityType : unsigned char {
+	TypeAi,
+	TypeBuilding,
+	TypeResource
+};
 
 class Entity {
 public:
-	Entity();
+	Entity(EntityType type, iPoint position);
 	virtual ~Entity();
-	iPoint Position;
-	EntityType type;
+	iPoint position;
+	EntityType etype;
 	int health;
-	int CreationTime;
 	SDL_Texture* sprite;
 	bool selected;
-	Collider* collider;
+	//Collider* collider;
+
 	//eastl::array cost[3];
 	//SDL_Rect entity_rect;
 	//bool available;
 public:
 	virtual void Draw(); 
 	virtual void Update();
-	virtual void Die();
+	//virtual void Die();
 };

@@ -1,13 +1,16 @@
 #pragma once
 #include "Entity.h"
 
-enum ResourceType {
+enum class ResourceType : unsigned char {
 	Ore,
 	Gold
 };
 
 class Resource : public Entity {
-	ResourceType type;
+public:
+	Resource(ResourceType type, iPoint position);
+	~Resource();
+	ResourceType Rtype;
 	void Update();
 	void Draw();
 };

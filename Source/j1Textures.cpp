@@ -109,7 +109,7 @@ SDL_Texture* const j1Textures::LoadSurface(SDL_Surface* surface)
 	}
 	else
 	{
-		textures.emplace_back(texture);
+		textures.push_back(texture);
 	}
 
 	return texture;

@@ -1,16 +1,17 @@
 #pragma once
 #include "Entity.h"
 
-enum AiType {
+enum class AiType : unsigned char {
 	Collector,
 	Constructor,
 	Basic_Unit
 };
 
 class Ai :public Entity {
-	Ai();
+public:
+	Ai(AiType type, iPoint Position);
 	~Ai();
-	AiType type;
+	AiType Atype;
 	uint direction;
 	float speed;
 	iPoint Destination;

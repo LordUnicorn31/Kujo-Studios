@@ -42,7 +42,7 @@ bool j1SceneLogo::Start()
 	hat = App->tex->Load("Resources/Logo/LOGOgorra.png");
 	kujo = App->tex->Load("Resources/Logo/LOGOkujo.png");
 	studios = App->tex->Load("Resources/Logo/LOGOstudios.png");
-
+	App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/intro.wav"));
 	return true;
 }
 

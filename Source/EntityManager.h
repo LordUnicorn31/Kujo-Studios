@@ -7,20 +7,18 @@ class EntityManager :public j1Module {
 public:
 
 	EntityManager();
+	~EntityManager();
 
-	virtual ~EntityManager();
-
-	bool Awake(pugi::xml_node&);
+	void Init();
 	bool Start();
-	bool PreUpdate();
 	bool Update(float dt);
-	void UpdateEntity(float dt);
-	bool PostUpdate(float dt);
+	void UpdateEntities(float dt);
 	bool CleanUp();
 
-	//Entity* CreateEntity(type);
-	//bool DestroyEntity(Entity*);
+	Entity* CreateEntity(EntityType type);
+	void DestroyEntity(Entity*entity);
 private:
-	//eastl::list <Entity*>entities;
-	//eastl::list <Entity*>ia_entities;
+	eastl::list <Entity*>entities;
+	//max_resouces[]
+	//current_resouces[]
 };

@@ -40,6 +40,15 @@
       <Filter>Tools</Filter>
     </ClCompile>
     <ClCompile Include="j1Pathfinding.cpp" />
+    <ClCompile Include="Ai.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Building.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h" />
@@ -84,6 +93,15 @@
       <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="j1Pathfinding.h" />
+    <ClInclude Include="Ai.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Building.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Animation">

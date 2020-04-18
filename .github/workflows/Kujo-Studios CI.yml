@@ -28,13 +28,13 @@ jobs:
       with:
         vs-version: "[16.4,16.6]"
         
-    - name: echo msbuild path
+    - name: Checking msbuild path
       run: echo "${{ steps.setup_msbuild.outputs.msbuildPath }}"
 
-    - name: echo MSBuild
+    - name: Checking MSBuild
       run: msbuild -version
     
-    - name: Building the project on the host
-      run: msbuild Game_Solution.sln
+    - name: Building the project with release configuration
+      run: MSBuild Game_Solution.sln /property:Configuration=Release
 
       

@@ -1,14 +1,31 @@
+#include "j1Textures.h"
 #include "EntityManager.h"
 #include "Entity.h"
 #include "Building.h"
 #include "Ai.h"
 #include "Resources.h"
+#include "j1App.h"
+#include "Animation.h"
 
-EntityManager::EntityManager(): j1Module() {
+EntityManager::EntityManager(): j1Module(),MineSprite(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1000.0f / 20.0f)),AccumulatedTime(0.0f) {
 	name = "EntityManager";
-	MineSprite = nullptr;
-	Base = nullptr;
-	Ships = nullptr;
+
+	//Loading all the entities animations
+	//BaseIdle
+	Animations.BaseIdle.PushBack({ 0,0,64,64 });
+	//MineIdle
+	Animations.MineIdle.PushBack({ 0,0,64,64 });
+	Animations.MineIdle.PushBack({ 64,0,64,64 });
+	Animations.MineIdle.PushBack({ 128,0,64,64 });
+	Animations.MineIdle.PushBack({ 192,0,64,64 });
+	Animations.MineIdle.PushBack({ 256,0,64,64 });
+	Animations.MineIdle.PushBack({ 320,0,64,64 });
+	Animations.MineIdle.PushBack({ 384,0,64,64 });
+	Animations.MineIdle.PushBack({ 448,0,64,64 });
+	Animations.MineIdle.PushBack({ 0,64,64,64 });
+	Animations.MineIdle.PushBack({ 64,64,64,64 });
+	Animations.MineIdle.PushBack({ 128,64,64,64 });
+	Animations.MineIdle.speed = 2.0f;
 }
 
 EntityManager::~EntityManager() {
@@ -22,6 +39,11 @@ void EntityManager::Init() {
 
 bool EntityManager::Start() {
 	//Load the initial entities
+	MineSprite =App->tex->Load("Resources/entities/drills/MineSprite.png");
+	ShipsSprite =App->tex->Load("Resources/entities/ships/ships_spritesheet.png");
+	BaseSprite =App->tex->Load("Resources/entities/bases/bases.png");
+
+	CreateEntity(AvibleEntities::mine, iPoint(640, 360));
 
 	return true;
 }
@@ -30,18 +52,18 @@ void EntityManager::UpdateAll(float dt,bool DoLogic) {
 	if (DoLogic) {
 		eastl::list<Entity*>::iterator it;
 		for (it = entities.begin(); it != entities.end(); ++it) {
-			(*it)->Update();
+			(*it)->Update(dt);
 			//(*it)->Kill();
 		}
 	}
 	eastl::list<Entity*>::iterator it;
 	for (it = entities.begin(); it != entities.end(); ++it) {
-		(*it)->Draw();
+		(*it)->Draw(dt);
 	}
 }
 
 bool EntityManager::Update(float dt) {
-	AccumulatedTime += dt;
+	AccumulatedTime += (dt*1000.0f);
 	if (AccumulatedTime >= UpdateMsCycle)
 		DoLogic = true;
 	UpdateAll(dt, DoLogic);
@@ -53,7 +75,12 @@ bool EntityManager::Update(float dt) {
 }
 
 bool EntityManager::CleanUp() {
-
+	App->tex->UnLoad(MineSprite);
+	App->tex->UnLoad(BaseSprite);
+	App->tex->UnLoad(ShipsSprite);
+	MineSprite = nullptr;
+	BaseSprite = nullptr;
+	ShipsSprite = nullptr;
 	return true;
 }
 
@@ -62,7 +89,7 @@ Entity* EntityManager::CreateEntity(AvibleEntities type,iPoint position) {
 	switch (type) {
 	case AvibleEntities::base:
 		ret = new Building(BuildingType::Base, position);
-		ret->sprite = Base;
+		ret->sprite = BaseSprite;
 		break;
 	case AvibleEntities::mine:
 		ret = new Building(BuildingType::Mine, position);

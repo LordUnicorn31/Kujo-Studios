@@ -1,4 +1,4 @@
-#include "Animation.h"
+/*#include "Animation.h"
 
 SDL_Rect& Animation::GetCurrentFrame(float dt) {
 	current_frame_time += dt;
@@ -21,6 +21,8 @@ SDL_Rect& Animation::DoOneLoop(float dt) {
 		current_frame = total_frames - 1;
 	return frames[current_frame].rect;
 }
+*/
+
 
 /*
 entity_node = entity_node.child("tile");

@@ -2,6 +2,8 @@
 #include "j1Module.h"
 #include "EASTL/list.h"
 #include "p2Point.h"
+#include "j1Render.h"
+#include "Animation.h"
 
 class Entity;
 class SDL_Texture;
@@ -15,6 +17,11 @@ enum class AvibleEntities: unsigned char {
 	basicunit,
 	gold,
 	ore
+};
+
+struct EntitiesAnimations {
+	Animation MineIdle;
+	Animation BaseIdle;
 };
 
 class EntityManager :public j1Module {
@@ -31,14 +38,17 @@ public:
 
 	Entity* CreateEntity(AvibleEntities type,iPoint position);
 	void DestroyEntity(Entity*entity);
+
+	EntitiesAnimations Animations;
+
 private:
 	eastl::list <Entity*>entities;
 	bool DoLogic;
 	float AccumulatedTime;
 	float UpdateMsCycle;
 	SDL_Texture* MineSprite;
-	SDL_Texture* Base;
-	SDL_Texture* Ships;
+	SDL_Texture* BaseSprite;
+	SDL_Texture* ShipsSprite;
 	//max_resouces[]
 	//current_resouces[]
 };

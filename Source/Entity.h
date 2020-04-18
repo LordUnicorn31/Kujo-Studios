@@ -15,16 +15,18 @@ public:
 	virtual ~Entity();
 	iPoint position;
 	EntityType etype;
+	uint MaxHealth;
 	int health;
+	float HealthRegen;
 	SDL_Texture* sprite;
 	bool selected;
+	bool selectable;
 	//Collider* collider;
 
 	//eastl::array cost[3];
 	//SDL_Rect entity_rect;
-	//bool available;
 public:
-	virtual void Draw(); 
-	virtual void Update();
+	virtual void Draw(float dt); 
+	virtual void Update(float dt);
 	//virtual void Die();
 };

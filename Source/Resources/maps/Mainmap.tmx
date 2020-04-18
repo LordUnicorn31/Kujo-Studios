@@ -51,6 +51,7 @@
  <tileset firstgid="39" name="snowrocks-large" tilewidth="32" tileheight="32" tilecount="4" columns="2">
   <image source="snowrocks-large.png" width="64" height="64"/>
  </tileset>
+ <tileset firstgid="43" source="bases.tsx"/>
  <layer id="1" name="Delimitaciones" width="100" height="100">
   <data>
    <tile/>
@@ -40930,8 +40931,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="43"/>
+   <tile gid="44"/>
    <tile/>
    <tile/>
    <tile/>
@@ -41030,8 +41031,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="59"/>
+   <tile gid="60"/>
    <tile/>
    <tile/>
    <tile/>

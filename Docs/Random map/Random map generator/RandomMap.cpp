@@ -385,7 +385,7 @@ private:
 	bool MakeDungeon(Map& map, RngT& rng) const
 	{
 		// Make one room in the middle to start things off.
-		MakeRoom(map, rng, XSize / 2, YSize / 2, 8, 6, GetRandomDirection(rng));
+		MakeRoom(map, rng, XSize / 2, YSize / 2, 20, 20, GetRandomDirection(rng));
 		MakeFeature(map, rng);
 
 		for (auto features = 1; features != MaxFeatures; ++features)

@@ -86,8 +86,8 @@ bool j1SceneLogo::Update(float dt)
 
 	if (r == 255)
 	{
-		App->transition->FadeToBlack(App->sceneLogo, App->sceneTitle, 2.0f);
 		r--;
+		App->transition->FadeToBlack(App->sceneLogo, App->sceneTitle, 2.0f);
 	}
 
 	return ret;

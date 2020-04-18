@@ -1,6 +1,6 @@
 #include "Ai.h"
 
-Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, Position) {
+Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, Position),Atype(type) {
 
 }
 
@@ -8,11 +8,11 @@ Ai::~Ai() {
 
 }
 
-void Ai::Update() {
+void Ai::Update(float dt) {
 
 }
 
-void Ai::Draw() {
+void Ai::Draw(float dt) {
 
 }
 

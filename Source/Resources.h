@@ -11,6 +11,6 @@ public:
 	Resource(ResourceType type, iPoint position);
 	~Resource();
 	ResourceType Rtype;
-	void Update();
-	void Draw();
+	void Update(float dt);
+	void Draw(float dt);
 };

@@ -15,8 +15,8 @@ public:
 	uint direction;
 	float speed;
 	iPoint Destination;
-	void Update();
-	void Draw();
+	void Update(float dt);
+	void Draw(float dt);
 	void Move();
 	void UpdateLogic();
 };

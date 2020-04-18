@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "EASTL/list.h"
+#include "p2Defs.h"
 
 struct SDL_Texture;
 struct SDL_Surface;

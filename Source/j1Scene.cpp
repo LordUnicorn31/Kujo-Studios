@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1Minimap.h"
 #include "j1Audio.h"
+#include "EntityManager.h"
 
 j1Scene::j1Scene() : j1Module()
 {	
@@ -33,6 +34,7 @@ bool j1Scene::Start()
 {
 	App->map->Load("Mainmap.tmx");
 	App->minimap->Enable();
+	App->entity->Enable();
 	App->audio->PlayMusic("Resources/audio/music/Space.ogg");
 	return true;
 }

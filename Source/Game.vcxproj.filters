@@ -49,6 +49,9 @@
     <ClCompile Include="Resources.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="j1Particles.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h" />
@@ -102,6 +105,9 @@
     <ClInclude Include="Resources.h">
       <Filter>Entities</Filter>
     </ClInclude>
+    <ClInclude Include="j1Particles.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Animation">
@@ -115,6 +121,9 @@
     </Filter>
     <Filter Include="Tools">
       <UniqueIdentifier>{13dd870e-aad2-498f-832d-cc327d43fa66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particles">
+      <UniqueIdentifier>{59482e2f-eec6-4811-9cde-b4d02e656450}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

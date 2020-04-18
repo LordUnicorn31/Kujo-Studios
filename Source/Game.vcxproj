@@ -115,7 +115,8 @@ copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\ext
 copy "$(SolutionDir)\bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\external\libogg\libogg.dll" "$(OutDir)"
 copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\external\libvorbis\libvorbis.dll" "$(OutDir)"
 copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\external\libvorbisfile\libvorbisfile-3.dll" "$(OutDir)"
-Xcopy $(SolutionDir)Source\Resources $(SolutionDir)bin\Game\$(Configuration)\$(PlatformShortName)\Resources\ /s</Command>
+Xcopy $(SolutionDir)Source\Resources $(SolutionDir)bin\Game\$(Configuration)\$(PlatformShortName)\Resources\ /s
+copy "$(SolutionDir)Docs\README.md" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -173,7 +174,8 @@ copy "$(SolutionDir)\bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\ex
 copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\external\libpng16.dll" "$(OutDir)"
 copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\external\libvorbis\libvorbis.dll" "$(OutDir)"
 copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\external\libvorbisfile\libvorbisfile-3.dll" "$(OutDir)"
-Xcopy $(SolutionDir)Source\Resources $(SolutionDir)bin\Game\$(Configuration)\$(PlatformShortName)\Resources\ /s</Command>
+Xcopy $(SolutionDir)Source\Resources $(SolutionDir)bin\Game\$(Configuration)\$(PlatformShortName)\Resources\ /s
+copy "$(SolutionDir)Docs\README.md" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

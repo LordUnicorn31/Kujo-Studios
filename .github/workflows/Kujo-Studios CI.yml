@@ -26,5 +26,5 @@ jobs:
     - name: Setup MSBuild.exe
       uses: warrenbuckley/Setup-MSBuild@v1
 
-    - name: MSBuild
+    - name: Run MSBuild.exe
       run: msbuild Game_Solution.sln

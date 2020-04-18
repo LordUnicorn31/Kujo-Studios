@@ -159,8 +159,8 @@ public:
 	DungeonGenerator() :
 		Seed(std::random_device()()),
 		XSize(80), YSize(25),
-		MaxFeatures(100),
-		ChanceRoom(75), ChanceCorridor(25) { }
+		MaxFeatures(1),
+		ChanceRoom(100), ChanceCorridor(0) { }
 
 	Map Generate()
 	{
@@ -273,6 +273,7 @@ private:
 
 		map.SetCells(xStart, yStart, xEnd, yEnd, Tile::DirtWall);
 		map.SetCells(xStart + 1, yStart + 1, xEnd - 1, yEnd - 1, Tile::DirtFloor);
+		
 
 		//std::cout << "Room: ( " << xStart << ", " << yStart << " ) to ( " << xEnd << ", " << yEnd << " )" << std::endl;
 
@@ -286,7 +287,7 @@ private:
 
 		if (chance <= ChanceRoom)
 		{
-			if (MakeRoom(map, rng, x + xmod, y + ymod, 8, 6, direction))
+			if (MakeRoom(map, rng, x + xmod, y + ymod, 20, 20, direction))
 			{
 				map.SetCell(x, y, Tile::Dungeon);
 
@@ -367,7 +368,7 @@ private:
 			int x = GetRandomInt(rng, 1, XSize - 2);
 			int y = GetRandomInt(rng, 1, YSize - 2);
 
-			if (!map.IsAdjacent(x, y, Tile::DirtFloor) && !map.IsAdjacent(x, y, Tile::Corridor))
+			if (!map.IsAdjacent(x, y, Tile::DirtFloor))
 				continue;
 
 			if (map.IsAdjacent(x, y, Tile::Dungeon))
@@ -385,6 +386,7 @@ private:
 	{
 		// Make one room in the middle to start things off.
 		MakeRoom(map, rng, XSize / 2, YSize / 2, 8, 6, GetRandomDirection(rng));
+		MakeFeature(map, rng);
 
 		for (auto features = 1; features != MaxFeatures; ++features)
 		{

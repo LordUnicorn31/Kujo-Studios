@@ -94,13 +94,31 @@ void j1Gui::DeleteAllUiElements() {
 
 void j1Gui::RemoveUiElement(UiElement* element) {
 	if (element->parent != nullptr) {
-		UiElementList.remove(element);
+		eastl::list <UiElement*>::iterator it = UiElementList.begin();
+		while (it != UiElementList.end())
+		{
+			if (&(*it) == &(element))
+			{
+				delete (*it);
+				UiElementList.erase(it);
+				break;
+			}
+			it++;
+		}
 		RemoveUiElement(element->parent);
-		delete element;
 	}
 	else if (element->parent == nullptr) {
-		UiElementList.remove(element);
-		delete element;
+		eastl::list <UiElement*>::iterator item = UiElementList.begin();
+		while (item != UiElementList.end())
+		{
+			if (&(*item) == &(element))
+			{
+				delete (*item);
+				UiElementList.erase(item);
+				break;
+			}
+			item++;
+		}
 	}
 		
 }

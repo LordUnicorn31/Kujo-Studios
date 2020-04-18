@@ -1,65 +1,30 @@
 #pragma once
-//Creo una struct entity info?
+#include "p2Point.h"
+
+class SDL_Texture;
+
+enum class EntityType : unsigned char {
+	TypeAi,
+	TypeBuilding,
+	TypeResource
+};
+
 class Entity {
 public:
-	Entity();
-	~Entity();
+	Entity(EntityType type, iPoint position);
+	virtual ~Entity();
+	iPoint position;
+	EntityType etype;
+	int health;
+	SDL_Texture* sprite;
+	bool selected;
+	//Collider* collider;
+
+	//eastl::array cost[3];
 	//SDL_Rect entity_rect;
-	//inagroup?/selected?
-	int health;//total health?
-	//type?
-	//state (constructing/training/collecting...)
-	//intendencia?
-	//construction time
-	//speed???
+	//bool available;
 public:
 	virtual void Draw(); 
 	virtual void Update();
+	//virtual void Die();
 };
-
-class Building :public Entity {
-public:
-	Building();
-	~Building();
-	//state (constructing/aviable...)
-	//construction time
-	//SDL_Texture/Animation texture;
-	//SDL_Texture/Animation constructing_texture;
-	void Draw();
-	void Update();
-};
-
-//class x :public Building {};
-//Building x;
-
-class Collector :public Entity {
-public:
-	Collector();
-	~Collector();
-	//state (working/free)
-	//SDL_Texture/Animation texture;
-	//path intendencia->mina
-	//wight (capacitat que pot transportar)
-	//speed
-	void Draw();
-	void Update();
-};
-
-class CombatUnit :public Entity {
-public:
-	CombatUnit();
-	~CombatUnit();
-	//state (selected?)
-	//bool training
-	//training time
-	//SDL_Texture/Animation texture; (per cada accio)
-	//attack
-	//range
-	//cost
-	//speed
-	void Draw();
-	void Update();
-};
-
-//class y :public CombatUnit{};
-//CombatUnit a;

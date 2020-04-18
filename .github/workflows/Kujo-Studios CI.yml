@@ -31,7 +31,7 @@ jobs:
     - name: Checking msbuild path
       run: echo "${{ steps.setup_msbuild.outputs.msbuildPath }}"
 
-    - name: Checking MSBuild
+    - name: Checking MSBuild version
       run: msbuild -version
     
     - name: Building the project with release configuration

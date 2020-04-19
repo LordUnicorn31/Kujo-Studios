@@ -14,20 +14,25 @@ EntityManager::EntityManager(): j1Module(),MineSprite(NULL),BaseSprite(NULL),Shi
 	//BaseIdle1
 	Animations.Base1Idle.PushBack({ 0,0,64,64 });
 	Animations.Base1Idle.PushBack({ 64,0,64,64 });
+	Animations.Base1Idle.speed = 2.0f;
 	//Base2
 	Animations.Base2Idle.PushBack({ 0,64,96,96 });
 	Animations.Base2Idle.PushBack({ 96,64,96,96 });
 	Animations.Base2Idle.PushBack({ 192,64,96,96 });
+	Animations.Base2Idle.speed = 2.0f;
 	//base3
 	Animations.Base3Idle.PushBack({ 0,160,96,96 });
 	Animations.Base3Idle.PushBack({ 96,160,96,96 });
 	Animations.Base3Idle.PushBack({ 192,160,96,96 });
+	Animations.Base3Idle.speed = 2.0f;
 	//base4
 	Animations.Base4Idle.PushBack({ 0,256,128,128 });
 	Animations.Base4Idle.PushBack({ 128,256,128,128 });
+	Animations.Base4Idle.speed = 2.0f;
 	//base5
 	Animations.Base5Idle.PushBack({ 0,384,128,128 });
 	Animations.Base5Idle.PushBack({ 128,384,128,128 });
+	Animations.Base5Idle.speed = 2.0f;
 	//1st upgrade
 	Animations.Upgrade1.PushBack({ 288,64,96,96 });
 	//2nd upgrade

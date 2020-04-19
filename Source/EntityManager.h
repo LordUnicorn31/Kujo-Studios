@@ -30,6 +30,7 @@ struct EntitiesAnimations {
 	Animation Upgrade2;
 	Animation Upgrade3;
 	Animation Upgrade4;
+	Animation Cuartel;
 };
 
 class EntityManager :public j1Module {

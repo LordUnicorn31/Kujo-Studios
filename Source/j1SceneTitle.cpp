@@ -136,6 +136,10 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 		App->transition->Slide(App->sceneTitle, App->scene, 2.0f);
 	}
 	if (element == Exit_button) {
+		App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/beep.wav"));
 		Exit = true;
+	}
+	if (element == Options_button) {
+		App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/beep.wav"));
 	}
 }

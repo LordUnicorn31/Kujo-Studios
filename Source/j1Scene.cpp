@@ -37,7 +37,7 @@ bool j1Scene::Start()
 	App->minimap->Enable();
 	App->entity->Enable();
 	App->audio->PlayMusic("Resources/audio/music/Space.ogg");
-	Pause = App->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 755, 527, 39,39 }, { 755, 527, 39,39 }, true, false, nullptr, this);
+	Pause = App->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 871, 736, 39,39 }, { 755, 527, 39,39 }, true, false, nullptr, this);
 	return true;
 }
 
@@ -92,4 +92,10 @@ void j1Scene::Init()
 	enabled = false;
 
 	active = true;
+}
+
+void j1Scene::ui_callback(UiElement* element) {
+	if (element == Pause) {
+		App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/beep.wav"));
+	}
 }

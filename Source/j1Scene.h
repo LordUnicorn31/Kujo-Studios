@@ -31,6 +31,8 @@ public:
 	bool CleanUp();
 
 	void Init();
+
+	void ui_callback(UiElement* element);
 private:
 	UiElement* Pause;
 };

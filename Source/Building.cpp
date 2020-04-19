@@ -11,7 +11,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		health = 5000;
 		HealthRegen = 5.0f;
 		selected = false;
-		IdleAnimation = &App->entity->Animations.BaseIdle;
+		IdleAnimation = &App->entity->Animations.Base1Idle;
 		level = 1;
 		OnConstruction = true;
 		ConstructionTime = 0.0f;

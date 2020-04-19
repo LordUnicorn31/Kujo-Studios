@@ -2,6 +2,7 @@
 #include "Building.h"
 #include "j1Input.h"
 #include "j1App.h"
+#include "j1Audio.h"
 
 Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeBuilding, Position), Btype(type) {
 	switch (type) {
@@ -57,7 +58,7 @@ void Building::Update(float dt) {
 
 void Building::Draw(float dt) {
 	if (OnConstruction) {
-
+		App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/Building.wav"));
 	}
 	else {
 		App->render->Blit(sprite, position.x, position.y, &IdleAnimation->GetCurrentFrame(dt));

@@ -21,7 +21,15 @@ enum class AvibleEntities: unsigned char {
 
 struct EntitiesAnimations {
 	Animation MineIdle;
-	Animation BaseIdle;
+	Animation Base1Idle;
+	Animation Base2Idle;
+	Animation Base3Idle;
+	Animation Base4Idle;
+	Animation Base5Idle;
+	Animation Upgrade1;
+	Animation Upgrade2;
+	Animation Upgrade3;
+	Animation Upgrade4;
 };
 
 class EntityManager :public j1Module {

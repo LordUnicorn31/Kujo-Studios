@@ -11,8 +11,31 @@ EntityManager::EntityManager(): j1Module(),MineSprite(NULL),BaseSprite(NULL),Shi
 	name = "EntityManager";
 
 	//Loading all the entities animations
-	//BaseIdle
-	Animations.BaseIdle.PushBack({ 0,0,64,64 });
+	//BaseIdle1
+	Animations.Base1Idle.PushBack({ 0,0,64,64 });
+	Animations.Base1Idle.PushBack({ 64,0,64,64 });
+	//Base2
+	Animations.Base2Idle.PushBack({ 0,64,96,96 });
+	Animations.Base2Idle.PushBack({ 96,64,96,96 });
+	Animations.Base2Idle.PushBack({ 192,64,96,96 });
+	//base3
+	Animations.Base3Idle.PushBack({ 0,160,96,96 });
+	Animations.Base3Idle.PushBack({ 96,160,96,96 });
+	Animations.Base3Idle.PushBack({ 192,160,96,96 });
+	//base4
+	Animations.Base4Idle.PushBack({ 0,256,128,128 });
+	Animations.Base4Idle.PushBack({ 128,256,128,128 });
+	//base5
+	Animations.Base5Idle.PushBack({ 0,384,128,128 });
+	Animations.Base5Idle.PushBack({ 128,384,128,128 });
+	//1st upgrade
+	Animations.Upgrade1.PushBack({ 288,64,96,96 });
+	//2nd upgrade
+	Animations.Upgrade2.PushBack({ 288,160,96,96 });
+	//3rd upgrade
+	Animations.Upgrade3.PushBack({ 256,256,128,128 });
+	//last upgrade
+	Animations.Upgrade4.PushBack({ 264,392,112,112 });
 	//MineIdle
 	Animations.MineIdle.PushBack({ 0,0,64,64 });
 	Animations.MineIdle.PushBack({ 64,0,64,64 });

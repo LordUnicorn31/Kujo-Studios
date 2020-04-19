@@ -2,6 +2,7 @@
 
 struct SDL_Texture;
 
+
 class j1Scene : public j1Module
 {
 public:
@@ -30,5 +31,6 @@ public:
 	bool CleanUp();
 
 	void Init();
-
+private:
+	UiElement* Pause;
 };

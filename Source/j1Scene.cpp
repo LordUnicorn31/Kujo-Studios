@@ -10,6 +10,7 @@
 #include "j1Minimap.h"
 #include "j1Audio.h"
 #include "EntityManager.h"
+#include "j1Gui.h"
 
 j1Scene::j1Scene() : j1Module()
 {	
@@ -36,6 +37,7 @@ bool j1Scene::Start()
 	App->minimap->Enable();
 	App->entity->Enable();
 	App->audio->PlayMusic("Resources/audio/music/Space.ogg");
+	Pause = App->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 755, 527, 39,39 }, { 755, 527, 39,39 }, true, false, nullptr, this);
 	return true;
 }
 

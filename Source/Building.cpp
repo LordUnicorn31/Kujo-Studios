@@ -58,7 +58,7 @@ void Building::Update(float dt) {
 
 void Building::Draw(float dt) {
 	if (OnConstruction) {
-		App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/Building.wav"));
+		//App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/Building.wav"));
 	}
 	else {
 		App->render->Blit(sprite, position.x, position.y, &IdleAnimation->GetCurrentFrame(dt));

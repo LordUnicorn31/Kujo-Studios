@@ -142,4 +142,11 @@ void j1Scene::ui_callback(UiElement* element) {
 	if (element == yesButton) {
 		exitGame = true;
 	}
+	if (element == noButton) {
+		
+		App->gui->RemoveUiElement(yesButton);
+		App->gui->RemoveUiElement(noButton);
+		App->gui->RemoveUiElement(Exit);
+		App->gui->RemoveUiElement(optionsMenu);
+	}
 }

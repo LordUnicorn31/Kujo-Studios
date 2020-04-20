@@ -16,6 +16,7 @@
 #include "j1Transitions.h"
 #include "j1Transitions.h"
 #include "j1WinScene.h"
+#include "j1LoseScene.h"
 
 
 j1Scene::j1Scene() : j1Module()
@@ -79,6 +80,9 @@ bool j1Scene::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_L)) {
 		App->transition->FadeToBlack(App->scene, App->winscene, 2.0f);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_M)) {
+		App->transition->FadeToBlack(App->scene, App->losescene, 2.0f);
 	}
 	
 

@@ -38,6 +38,10 @@ bool j1Scene::Start()
 	App->entity->Enable();
 	App->audio->PlayMusic("Resources/audio/music/Space.ogg");
 	Pause = App->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 871, 736, 39,39 }, { 755, 527, 39,39 }, true, false, nullptr, this);
+	Info = App->gui->AddButton(750, 10, { 494,640,332,52 }, { 494,574,332,52 }, { 494,640,332,52 }, true, false, nullptr, this);
+	//People = App->gui->AddImage(780, 15, { 714,528,32,42 }, false, false, nullptr, this);
+	Copper = App->gui->AddImage(880, 22, { 679,501,28,29 }, false, false, nullptr, this);
+	Titanium = App->gui->AddImage(980, 22, { 641,498,30,31 }, false, false, nullptr, this);
 	return true;
 }
 

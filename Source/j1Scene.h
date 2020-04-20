@@ -35,4 +35,8 @@ public:
 	void ui_callback(UiElement* element);
 private:
 	UiElement* Pause;
+	UiElement* Info;
+	UiElement* People;
+	UiElement* Copper;
+	UiElement* Titanium;
 };

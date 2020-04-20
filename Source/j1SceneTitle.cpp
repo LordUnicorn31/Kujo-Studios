@@ -45,6 +45,7 @@ bool j1SceneTitle::Start()
 	Options_button = App->gui->AddButton(500, 530, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
 	App->gui->AddText(32, 16, "OPTIONS", nullptr, { 0, 255, 255 }, 42, false, false, Options_button);
 	App->audio->PlayMusic("Resources/audio/music/ObservingTheStar.ogg");
+	App->gui->AddText(10, 670, "2020 KUJO STUDIOS", nullptr, { 255,255,255 }, 42, false, false);
 	return true;
 }
 

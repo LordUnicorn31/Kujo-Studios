@@ -39,9 +39,11 @@ public:
 private:
 	UiElement* Play_button;
 	UiElement* Exit_button;
+	SDL_Texture* Copy;
 	UiElement* Options_button;
 	SDL_Texture*	background;
 	SDL_Texture*	titleLogo;
+	
 	bool Exit;
 
 

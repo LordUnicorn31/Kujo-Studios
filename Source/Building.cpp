@@ -12,6 +12,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		HealthRegen = 5.0f;
 		selected = false;
 		IdleAnimation = &App->entity->Animations.Base1Idle;
+		ConstructionAnimation = &App->entity->Animations.Base1Idle;
 		level = 1;
 		OnConstruction = true;
 		ConstructionTime = 0.0f;
@@ -23,6 +24,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		HealthRegen = 2.5f;
 		selected = false;
 		IdleAnimation= &App->entity->Animations.MineIdle;
+		ConstructionAnimation = &App->entity->Animations.BuildMine;
 		level = 1;
 		ConstructionTime = 5.0f;
 		OnConstruction = true;
@@ -61,6 +63,7 @@ void Building::Update(float dt) {
 void Building::Draw(float dt) {
 	if (OnConstruction) {
 		//App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/Building.wav"));
+		App->render->Blit(sprite, position.x, position.y, &ConstructionAnimation->GetCurrentFrame(dt));
 	}
 	else {
 		App->render->Blit(sprite, position.x, position.y, &IdleAnimation->GetCurrentFrame(dt));

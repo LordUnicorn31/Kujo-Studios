@@ -53,6 +53,9 @@
       <Filter>Particles</Filter>
     </ClCompile>
     <ClCompile Include="j1Collisions.cpp" />
+    <ClCompile Include="j1WinScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h" />
@@ -110,6 +113,9 @@
       <Filter>Particles</Filter>
     </ClInclude>
     <ClInclude Include="j1Collisions.h" />
+    <ClInclude Include="j1WinScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Animation">

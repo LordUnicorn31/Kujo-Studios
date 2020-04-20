@@ -25,6 +25,8 @@ class j1Transitions;
 class j1PathFinding;
 class EntityManager;
 class j1Collisions;
+class j1WinScene;
+
 
 
 class j1App
@@ -108,6 +110,7 @@ public:
 	j1PathFinding* pathfinding;
 	EntityManager* entity;
 	j1Collisions* collisions;
+	j1WinScene* winscene;
 
 private:
 

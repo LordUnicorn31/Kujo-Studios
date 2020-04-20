@@ -142,5 +142,6 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 	}
 	if (element == Options_button) {
 		App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/beep.wav"));
+		Options=App->gui->AddButton(500, 200, { 20,540,446,465 }, { 20,540,446,465 }, { 20,540,446,465 }, true, false, nullptr, this);
 	}
 }

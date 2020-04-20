@@ -31,6 +31,8 @@ struct EntitiesAnimations {
 	Animation Upgrade3;
 	Animation Upgrade4;
 	Animation Cuartel;
+	Animation FarmerShip;
+	Animation AttackShip;
 };
 
 class EntityManager :public j1Module {

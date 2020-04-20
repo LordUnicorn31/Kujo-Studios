@@ -39,10 +39,10 @@ bool j1Scene::Start()
 	App->audio->PlayMusic("Resources/audio/music/Space.ogg");
 	Pause = App->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 871, 736, 39,39 }, { 755, 527, 39,39 }, true, false, nullptr, this);
 	Info = App->gui->AddButton(750, 10, { 494,640,332,52 }, { 494,574,332,52 }, { 494,640,332,52 }, true, false, nullptr, this);
-	//People = App->gui->AddImage(780, 15, { 714,528,32,42 }, false, false, nullptr, this);
+	People = App->gui->AddImage(780, 15, { 591,494,40,37 }, false, false, nullptr, this);
 	Copper = App->gui->AddImage(880, 22, { 679,501,28,29 }, false, false, nullptr, this);
 	Titanium = App->gui->AddImage(980, 22, { 641,498,30,31 }, false, false, nullptr, this);
-	Unit1 = App->gui->AddButton(227, 650, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+	//Unit1 = App->gui->AddButton(227, 650, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
 
 	return true;
 }
@@ -104,8 +104,5 @@ void j1Scene::ui_callback(UiElement* element) {
 	if (element == Pause) {
 		App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/beep.wav"));
 	}
-	if (element == Unit1) {
-		Unit2 = App->gui->AddButton(227, 220, { 31,543,421,449 }, { 31,543,421,449 }, { 31,543,421,449 }, true, false, nullptr, this);
-		App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/beep.wav"));
-	}
+	
 }

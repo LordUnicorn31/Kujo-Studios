@@ -1,5 +1,6 @@
-#include "Ai.h"
 #include "EntityManager.h"
+#include "Ai.h"
+#include "j1App.h"
 
 Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, Position),Atype(type) {
 	switch (Atype) {
@@ -31,7 +32,7 @@ void Ai::Update(float dt) {
 }
 
 void Ai::Draw(float dt) {
-
+	App->render->Blit(sprite, position.x, position.y, &IdleAnimaiton->GetCurrentFrame(dt));
 }
 
 void Ai::Move() {

@@ -48,5 +48,4 @@ private:
 	
 	bool Exit;
 
-
 };

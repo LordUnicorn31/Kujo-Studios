@@ -42,7 +42,7 @@ bool j1Scene::Start()
 	People = App->gui->AddImage(780, 15, { 591,494,40,37 }, false, false, nullptr, this);
 	Copper = App->gui->AddImage(880, 22, { 679,501,28,29 }, false, false, nullptr, this);
 	Titanium = App->gui->AddImage(980, 22, { 641,498,30,31 }, false, false, nullptr, this);
-	//Unit1 = App->gui->AddButton(227, 650, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+	Unit1 = App->gui->AddButton(0, 600, { 32,544,430,208}, { 32,544,440,208 }, { 32,544,440,208 }, true, false, nullptr, this);
 
 	return true;
 }

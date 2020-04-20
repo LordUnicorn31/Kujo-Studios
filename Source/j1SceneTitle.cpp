@@ -144,7 +144,10 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 		App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/beep.wav"));
 		App->gui->AddText(360, 250, "OPTIONS MENU", nullptr, { 0,255,0,255 }, 42, false, false, Options);
 		Options=App->gui->AddButton(400, 200, { 20,540,446,465 }, { 20,540,446,465 }, { 20,540,446,465 }, true, false, nullptr, this);
-		Back_Button= App->gui->AddButton(600, 220, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, nullptr, this);
+		Back_Button= App->gui->AddButton(430, 220, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, nullptr, this);
+	}
+	if (element == Back_Button) {
+		
 	}
 	
 }

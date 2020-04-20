@@ -1,6 +1,8 @@
 #pragma once
 #include "Entity.h"
 
+struct Animation;
+
 enum class AiType : unsigned char {
 	Collector,
 	Constructor,

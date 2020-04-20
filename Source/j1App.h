@@ -24,6 +24,7 @@ class j1Gui;
 class j1Transitions;
 class j1PathFinding;
 class EntityManager;
+class j1Collisions;
 
 
 class j1App
@@ -106,6 +107,7 @@ public:
 	j1Transitions* transition;
 	j1PathFinding* pathfinding;
 	EntityManager* entity;
+	j1Collisions* collisions;
 
 private:
 

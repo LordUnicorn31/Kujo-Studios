@@ -193,6 +193,8 @@ void j1Minimap::DrawMinimap()
 	for (; item != App->map->data.layers.end(); item = next(item))
 	{
 		MapLayer* layer = *item;
+		if (layer->properties.Get("Navigation", 0) == 1)
+			continue;
 
 		for (int y = 0; y < App->map->data.height; ++y)
 		{

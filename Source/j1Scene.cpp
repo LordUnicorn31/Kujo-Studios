@@ -14,6 +14,9 @@
 #include "j1SceneTitle.h"
 #include "j1Fonts.h"
 #include "j1Transitions.h"
+#include "j1Transitions.h"
+#include "j1WinScene.h"
+
 
 j1Scene::j1Scene() : j1Module()
 {	
@@ -74,6 +77,10 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_DOWN)) {
 		App->render->camera.y-=5;
 	}
+	if (App->input->GetKey(SDL_SCANCODE_L)) {
+		App->transition->FadeToBlack(App->scene, App->winscene, 2.0f);
+	}
+	
 
 	if (exitGame) {
 		ret = false;

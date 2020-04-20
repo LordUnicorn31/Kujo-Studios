@@ -37,7 +37,13 @@ Explore an unfamiliar world, mine its resources and fly away with all you can in
 - Mouse button rudder: Zoom out/Zoom in.
 
 -L: Win scene.
--M: Lose scene
+
+-M: Lose scene.
+
+Minimap controls
+-E:scale
+-R:descale
+-Space: put or take away
 
 ## Developers
 

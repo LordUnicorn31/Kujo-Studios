@@ -144,7 +144,6 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 		/*if (exitButton !=nullptr) {
 			App->gui->RemoveUiElement(exitButton);
 			exitButton = nullptr;
-
 		}*/
 	}
 	if (element == exitButton) {

@@ -15,6 +15,8 @@ public:
 	uint direction;
 	float speed;
 	iPoint Destination;
+	uint Damage;
+	uint Range;
 	void Update(float dt);
 	void Draw(float dt);
 	void Move();

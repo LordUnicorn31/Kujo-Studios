@@ -76,9 +76,7 @@ bool EntityManager::Start() {
 	MineSprite =App->tex->Load("Resources/entities/drills/MineSprite.png");
 	ShipsSprite =App->tex->Load("Resources/entities/ships/ships_spritesheet.png");
 	BaseSprite =App->tex->Load("Resources/entities/bases/bases.png");
-
-	CreateEntity(AvibleEntities::mine, iPoint(640, 360));
-
+	CreateEntity(AvibleEntities::mine, iPoint(400, 300));
 	return true;
 }
 
@@ -130,7 +128,8 @@ Entity* EntityManager::CreateEntity(AvibleEntities type,iPoint position) {
 		ret->sprite = MineSprite;
 		break;
 	case AvibleEntities::collector:
-		//ret = new Resource(ResourceType::);
+		ret = new Ai(AiType::Collector,position);
+		ret->sprite = ShipsSprite;
 		break;
 	case AvibleEntities::gold:
 		//ret = new Resource(ResourceType::);
@@ -139,7 +138,8 @@ Entity* EntityManager::CreateEntity(AvibleEntities type,iPoint position) {
 		//ret = new Resource(ResourceType::);
 		break;
 	case AvibleEntities::basicunit:
-		//ret = new Resource(ResourceType::);
+		ret = new Ai(AiType::Basic_Unit,position);
+		ret->sprite = ShipsSprite;
 		break;
 	}
 

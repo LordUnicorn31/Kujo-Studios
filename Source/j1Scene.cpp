@@ -109,6 +109,7 @@ void j1Scene::Init()
 void j1Scene::ui_callback(UiElement* element) {
 	if (element == Pause) {
 		App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/beep.wav"));
+		App->freeze = !App->freeze;
 	}
 	
 }

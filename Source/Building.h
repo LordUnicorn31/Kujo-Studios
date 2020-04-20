@@ -19,6 +19,7 @@ public:
 	BuildingType Btype;
 	//uint tile_size;
 	Animation* IdleAnimation;
+	Animation* ConstructionAnimation;
 	float ConstructionTime;
 	//float ConstructionSpeed;
 	uint level;

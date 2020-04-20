@@ -80,6 +80,7 @@ bool EntityManager::Start() {
 	BaseSprite =App->tex->Load("Resources/entities/bases/bases.png");
 	CreateEntity(AvibleEntities::mine, iPoint(400, 300));
 	CreateEntity(AvibleEntities::collector, iPoint(450, 300));
+	CreateEntity(AvibleEntities::basicunit, iPoint(450, 370));
 	return true;
 }
 

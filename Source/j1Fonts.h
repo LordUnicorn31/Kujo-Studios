@@ -37,4 +37,6 @@ public:
 
 	eastl::list<_TTF_Font*>	fonts;
 	_TTF_Font*			Default;
+
+	_TTF_Font*			Small;
 };

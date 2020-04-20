@@ -47,6 +47,8 @@ private:
 
 	SDL_Texture*	background;
 	SDL_Texture*	titleLogo;
+
+	int buttonFx;
 	
 	bool Exit;
 

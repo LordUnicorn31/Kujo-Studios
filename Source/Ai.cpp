@@ -12,6 +12,7 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, Position),Atyp
 		Range = 200;
 		speed = 100;
 		IdleAnimaiton = &App->entity->Animations.AttackShip;
+		cost = { 1,50,0 };
 	case AiType::Collector:
 		MaxHealth = 50;
 		HealthRegen = 1.0f;
@@ -20,6 +21,7 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, Position),Atyp
 		Range = 100;
 		speed = 200;
 		IdleAnimaiton = &App->entity->Animations.FarmerShip;
+		cost = { 1,50,0 };
 	}
 }
 

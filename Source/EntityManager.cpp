@@ -79,7 +79,7 @@ bool EntityManager::Start() {
 	ShipsSprite =App->tex->Load("Resources/entities/ships/ships_spritesheet.png");
 	BaseSprite =App->tex->Load("Resources/entities/bases/bases.png");
 	CreateEntity(AvibleEntities::mine, iPoint(400, 300));
-	CreateEntity(AvibleEntities::basicunit, iPoint(450, 300));
+	CreateEntity(AvibleEntities::collector, iPoint(450, 300));
 	return true;
 }
 

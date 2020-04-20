@@ -1,5 +1,6 @@
 #pragma once
 #include "p2Point.h"
+#include "EASTL/array.h"
 
 class SDL_Texture;
 
@@ -7,6 +8,10 @@ enum class EntityType : unsigned char {
 	TypeAi,
 	TypeBuilding,
 	TypeResource
+};
+
+struct AvailableMaterials {
+	eastl::array<int, 3> ShipsCopperTitanium;
 };
 
 class Entity {
@@ -19,6 +24,7 @@ public:
 	int health;
 	float HealthRegen;
 	SDL_Texture* sprite;
+	AvailableMaterials cost;
 	bool selected;
 	bool selectable;
 	//Collider* collider;

@@ -36,6 +36,9 @@ Explore an unfamiliar world, mine its resources and fly away with all you can in
 
 - Mouse button rudder: Zoom out/Zoom in.
 
+-L: Win scene.
+-M: Lose scene
+
 ## Developers
 
  - [Victor Nisa](https://github.com/VictorNisa) - Team Lead / Design

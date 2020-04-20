@@ -89,6 +89,12 @@ bool j1Scene::CleanUp()
 	LOG("Freeing scene");
 
 	App->map->CleanUp();
+	App->gui->DeleteAllUiElements();
+	Pause = nullptr;
+	Info = nullptr;
+	People = nullptr;
+	Copper = nullptr;
+	Titanium = nullptr;
 
 	return true;
 }

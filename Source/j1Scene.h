@@ -39,4 +39,7 @@ private:
 	UiElement* People;
 	UiElement* Copper;
 	UiElement* Titanium;
+	UiElement* Unit1;
+	UiElement* Unit2;
+	UiElement* Unit3;
 };

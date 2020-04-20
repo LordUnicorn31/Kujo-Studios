@@ -39,7 +39,7 @@ bool j1WinScene::Start()
 
 	background = App->tex->Load("Resources/Title_menu/Fondo.png");
 	wintext = App->tex->Load("Resources/Win_screen/win_text.png");
-
+	App->audio->PlayMusic("Resources/Win_screen/InterstellarOdyssey.ogg");
 	return true;
 }
 

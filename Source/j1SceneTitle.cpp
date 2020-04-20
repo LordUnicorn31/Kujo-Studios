@@ -38,12 +38,12 @@ bool j1SceneTitle::Start()
 	Exit = false;
 	background = App->tex->Load("Resources/Title_menu/Fondo.png");
 	titleLogo = App->tex->Load("Resources/Title_menu/LOGOJUEGO.png");
-	Play_button = App->gui->AddButton(500, 430, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(68, 16, "PLAY", nullptr, { 0,255,0,255 }, 42, false, false, Play_button);
-	Exit_button = App->gui->AddButton(500, 630, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(75, 16, "EXIT", nullptr, { 255,0,0,255 }, 42, false, false, Exit_button);
-	Options_button = App->gui->AddButton(500, 530, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(32, 16, "OPTIONS", nullptr, { 0, 255, 255 }, 42, false, false, Options_button);
+	playButton = App->gui->AddButton(500, 430, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+	App->gui->AddText(68, 16, "PLAY", nullptr, { 0,255,0,255 }, 42, false, false, playButton);
+	exitButton = App->gui->AddButton(500, 630, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+	App->gui->AddText(75, 16, "EXIT", nullptr, { 255,0,0,255 }, 42, false, false, exitButton);
+	optionsButton = App->gui->AddButton(500, 530, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+	App->gui->AddText(32, 16, "OPTIONS", nullptr, { 0, 255, 255 }, 42, false, false, optionsButton);
 	App->audio->PlayMusic("Resources/audio/music/ObservingTheStar.ogg");
 	App->gui->AddText(10, 670, "2020 KUJO STUDIOS", nullptr, { 255,255,255 }, 10, false, false);
 	return true;
@@ -117,8 +117,8 @@ bool j1SceneTitle::CleanUp()
 	App->tex->UnLoad(titleLogo);
 	App->gui->DeleteAllUiElements();
 	/*App->audio->CleanUp();*/
-	Play_button = nullptr;
-	Exit_button = nullptr;
+	playButton = nullptr;
+	exitButton = nullptr;
 	
 	return true;
 }
@@ -131,22 +131,22 @@ void j1SceneTitle::Init()
 }
 
 void j1SceneTitle::ui_callback(UiElement* element) {
-	if (element == Play_button) {	
+	if (element == playButton) {	
 		App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/beep.wav"));
 		//App->transition->FadeToBlack(App->sceneTitle, App->scene, 2.0f);
 		App->transition->Slide(App->sceneTitle, App->scene, 2.0f);
 	}
-	if (element == Exit_button) {
+	if (element == exitButton) {
 		App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/beep.wav"));
 		Exit = true;
 	}
-	if (element == Options_button) {
+	if (element == optionsButton) {
 		App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/beep.wav"));
-		App->gui->AddText(360, 250, "OPTIONS MENU", nullptr, { 0,255,0,255 }, 42, false, false, Options);
-		Options=App->gui->AddButton(400, 200, { 20,540,446,465 }, { 20,540,446,465 }, { 20,540,446,465 }, true, false, nullptr, this);
-		Back_Button= App->gui->AddButton(430, 220, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, nullptr, this);
+		App->gui->AddText(360, 250, "OPTIONS MENU", nullptr, { 0,255,0,255 }, 42, false, false, optionsMenu);
+		optionsMenu=App->gui->AddButton(400, 200, { 20,540,446,465 }, { 20,540,446,465 }, { 20,540,446,465 }, true, false, nullptr, this);
+		backButton= App->gui->AddButton(430, 220, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, nullptr, this);
 	}
-	if (element == Back_Button) {
+	if (element == backButton) {
 		
 	}
 	

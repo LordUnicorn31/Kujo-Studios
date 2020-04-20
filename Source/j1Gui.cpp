@@ -144,10 +144,10 @@ void j1Gui::Draw_Ui() {
 UiElement* j1Gui::UiUnderMouse() {
 	int x, y;
 	App->input->GetMousePosition(x, y);
-	if (App->scene->IsEneabled()) {
+	/*if (App->scene->IsEneabled()) {
 		x -= App->render->camera.x;
 		y -= App->render->camera.y;
-	}
+	}*/
 	UiElement*Element = nullptr;
 	eastl::list <UiElement*> ::iterator it;
 	for (it = UiElementList.begin(); it != UiElementList.end(); it++)
@@ -279,7 +279,7 @@ void UiImage::Update(int dx, int dy) {
 
 void UiImage::Draw(SDL_Texture* atlas) {
 	if (parent == nullptr || !outofparent())
-		App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &atlas_rect);
+		App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &atlas_rect,false);
 }
 
 UiText::UiText(int x, int y, const char*text, int size, SDL_Color color, bool interactuable, bool draggeable, _TTF_Font*font, UiElement* parent, j1Module* elementmodule) : UiElement(x, y, size, size, interactuable, draggeable, UiTypes::Text, parent, elementmodule), font_type(font), message(text), color(color), texture(App->font->Print(message, color, font_type)) {}
@@ -287,7 +287,7 @@ UiText::~UiText() {}
 
 void UiText::Draw(SDL_Texture* atlas) {
 	if (parent == nullptr || !outofparent())
-		App->render->Blit(texture, GetScreenPos().x, GetScreenPos().y);
+		App->render->Blit(texture, GetScreenPos().x, GetScreenPos().y, NULL,false);
 }
 
 void UiText::Update(int dx, int dy) {
@@ -330,13 +330,13 @@ void UiButton::Draw(SDL_Texture*atlas) {
 	if (parent == nullptr || !outofparent()) {
 		switch (current_state) {
 		case Button_state::unhovered:
-			App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &unhover);
+			App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &unhover,false);
 			break;
 		case Button_state::hovered:
-			App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &hover);
+			App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &hover,false);
 			break;
 		case Button_state::clicked:
-			App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &click);
+			App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &click,false);
 			break;
 		}
 	}

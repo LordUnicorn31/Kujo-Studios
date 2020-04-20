@@ -161,8 +161,8 @@ bool j1Minimap::MinimapCoords(int& map_x, int& map_y)
 	int mouse_x, mouse_y;
 	App->input->GetMousePosition(mouse_x, mouse_y);
 
-	//if we click inside the minimap
-	if (mouse_x >= position.x && mouse_x <= minimap_width +position.x	&&	mouse_y >= position.y && mouse_y <= minimap_height+position.y) 
+	//if we click inside the minimap and it is active 
+	if (mouse_x >= position.x && mouse_x <= minimap_width +position.x	&&	mouse_y >= position.y && mouse_y <= minimap_height+position.y && display) 
 	{
 		// TODO 8: Translate the minimap click coordinates to map coordinates
 		//Remember that we multiply for the scale to translate from map to minimap so to translate backwards we should do the opposite

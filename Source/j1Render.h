@@ -5,6 +5,7 @@
 #include "j1Module.h"
 #include "j1App.h"
 #include "j1window.h"
+#include "p2Point.h"
 
 class j1Render : public j1Module
 {
@@ -51,6 +52,11 @@ public:
 	SDL_Rect		viewport;
 	SDL_Color		background;
 	bool VSync;
+	fPoint dCamera;
+
+private:
+	fPoint PreaviousFrameCamera;
+	
 };
 
 #endif // __j1RENDER_H__

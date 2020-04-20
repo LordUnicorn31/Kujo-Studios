@@ -15,6 +15,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		level = 1;
 		OnConstruction = true;
 		ConstructionTime = 0.0f;
+		cost = { 0,0,0 };
 		break;
 	case BuildingType::Mine:
 		MaxHealth = 500;
@@ -25,6 +26,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		level = 1;
 		ConstructionTime = 5.0f;
 		OnConstruction = true;
+		cost = { 0,1500,0 };
 		break;
 	}
 }

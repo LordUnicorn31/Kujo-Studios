@@ -11,6 +11,7 @@
 #include "j1Audio.h"
 #include "EntityManager.h"
 #include "j1Gui.h"
+#include "j1SceneTitle.h"
 
 j1Scene::j1Scene() : j1Module()
 {	
@@ -43,6 +44,8 @@ bool j1Scene::Start()
 	Copper = App->gui->AddImage(880, 22, { 679,501,28,29 }, false, false, nullptr, this);
 	Titanium = App->gui->AddImage(980, 22, { 641,498,30,31 }, false, false, nullptr, this);
 	//Unit1 = App->gui->AddButton(0, 600, { 32,544,430,208}, { 32,544,440,208 }, { 32,544,440,208 }, true, false, nullptr, this);
+
+	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");
 
 	return true;
 }
@@ -108,7 +111,7 @@ void j1Scene::Init()
 
 void j1Scene::ui_callback(UiElement* element) {
 	if (element == Pause) {
-		App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/beep.wav"));
+		App->audio->PlayFx(buttonFx);
 		App->freeze = !App->freeze;
 	}
 }

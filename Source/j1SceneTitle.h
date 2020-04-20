@@ -42,6 +42,7 @@ private:
 	SDL_Texture* Copy;
 	UiElement* Options;
 	UiElement* Options_button;
+	UiElement* Back_Button;
 	SDL_Texture*	background;
 	SDL_Texture*	titleLogo;
 	

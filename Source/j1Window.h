@@ -33,6 +33,8 @@ public:
 
 	int GetHeight() const;
 
+	void Fullscreen();
+
 public:
 	//The window we'll be rendering to
 	SDL_Window* window;
@@ -44,4 +46,6 @@ public:
 	int		        width;
 	int		        height;
 	int		        scale;
+
+	bool fullscreen;
 };

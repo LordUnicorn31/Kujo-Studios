@@ -164,5 +164,9 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 		App->gui->RemoveUiElement(optionsMenu);
 		App->gui->RemoveUiElement(fullScreen);
 	}
+	if (element == fullScreen) {
+
+		App->win->Fullscreen();
+	}
 	
 }

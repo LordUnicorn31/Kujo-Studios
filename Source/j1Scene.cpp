@@ -51,6 +51,9 @@ bool j1Scene::Start()
 	Titanium = App->gui->AddImage(980, 22, { 641,498,30,31 }, false, false, nullptr, this);
 	//Unit1 = App->gui->AddButton(0, 600, { 32,544,430,208}, { 32,544,440,208 }, { 32,544,440,208 }, true, false, nullptr, this);
 
+	noButton = nullptr;
+	yesButton = nullptr;
+
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");
 
 	return true;
@@ -84,6 +87,7 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_M)) {
 		App->transition->FadeToBlack(App->scene, App->losescene, 2.0f);
 	}
+	
 	
 
 	if (exitGame) {
@@ -129,28 +133,44 @@ void j1Scene::Init()
 
 void j1Scene::ui_callback(UiElement* element) {
 	if (element == Pause) {
-		App->audio->PlayFx(buttonFx);
-		App->freeze = !App->freeze;
-		optionsMenu = App->gui->AddButton(400, 100, { 20,540,446,465 }, { 20,540,446,465 }, { 20,540,446,465 }, true, false, nullptr, this);
-		App->gui->AddText(150, 20, "PAUSE MENU", App->font->Small, { 255,255,255 }, 42, false, false, optionsMenu);
-		Exit = App->gui->AddButton(500, 200, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-		App->gui->AddText(100, 25, "EXIT", App->font->Small, { 255,255,255 }, 42, false, false, Exit);
+		if (Pause != nullptr) {
+			App->audio->PlayFx(buttonFx);
+			App->freeze = !App->freeze;
+			optionsMenu = App->gui->AddButton(400, 100, { 20,540,446,465 }, { 20,540,446,465 }, { 20,540,446,465 }, true, false, nullptr, this);
+			App->gui->AddText(150, 20, "PAUSE MENU", App->font->Small, { 255,255,255 }, 42, false, false, optionsMenu);
+			Exit = App->gui->AddButton(500, 200, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+			App->gui->AddText(100, 25, "EXIT", App->font->Small, { 255,255,255 }, 42, false, false, Exit);
+		}
 	}
 	if (element == Exit) {
-		App->gui->AddText(140, 200, "ARE YOU SURE?", App->font->Small, { 255,255,255 }, 42, false, false, optionsMenu);
-		yesButton = App->gui->AddButton(500, 350, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-		App->gui->AddText(95, 20, "YES", App->font->Small, { 255,255,255 }, 42, false, false, yesButton);
-		noButton = App->gui->AddButton(500, 450, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-		App->gui->AddText(100, 20, "NO", App->font->Small, { 255,255,255 }, 42, false, false, noButton);
+		if (Exit != nullptr) {
+			App->gui->AddText(140, 200, "ARE YOU SURE?", App->font->Small, { 255,255,255 }, 42, false, false, optionsMenu);
+			yesButton = App->gui->AddButton(500, 350, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+			App->gui->AddText(95, 20, "YES", App->font->Small, { 255,255,255 }, 42, false, false, yesButton);
+			noButton = App->gui->AddButton(500, 450, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+			App->gui->AddText(100, 20, "NO", App->font->Small, { 255,255,255 }, 42, false, false, noButton);
+		}
 	}
 	if (element == yesButton) {
 		exitGame = true;
 	}
 	if (element == noButton) {
-		
-		App->gui->RemoveUiElement(yesButton);
-		App->gui->RemoveUiElement(noButton);
-		App->gui->RemoveUiElement(Exit);
-		App->gui->RemoveUiElement(optionsMenu);
+
+		if (yesButton != nullptr) {
+			App->gui->RemoveUiElement(yesButton);
+			yesButton = nullptr;
+		}
+		if (noButton != nullptr) {
+			App->gui->RemoveUiElement(noButton);
+			noButton = nullptr;
+		}
+		if (Exit != nullptr) {
+			App->gui->RemoveUiElement(Exit);
+			Exit = nullptr;
+		}
+		if (optionsMenu != nullptr) {
+			App->gui->RemoveUiElement(optionsMenu);
+			optionsMenu = nullptr;
+		}
 	}
 }

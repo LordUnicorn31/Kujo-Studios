@@ -38,4 +38,6 @@ public:
 
 	float r = 0;
 	SDL_Rect rect;
+
+	UiElement* mouseImage;
 };

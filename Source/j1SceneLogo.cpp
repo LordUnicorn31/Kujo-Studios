@@ -71,6 +71,7 @@ bool j1SceneLogo::Update(float dt)
 	}
 
 
+
 	int w = App->win->GetWidth();
 	int h = App->win->GetHeight();
 

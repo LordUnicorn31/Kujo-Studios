@@ -97,7 +97,7 @@ void j1Gui::RemoveUiElement(UiElement* element) {
 		eastl::list <UiElement*>::iterator it = UiElementList.begin();
 		while (it != UiElementList.end())
 		{
-			if (&(*it) == &(element))
+			if ((*it) == (element))
 			{
 				delete (*it);
 				UiElementList.erase(it);
@@ -111,7 +111,7 @@ void j1Gui::RemoveUiElement(UiElement* element) {
 		eastl::list <UiElement*>::iterator item = UiElementList.begin();
 		while (item != UiElementList.end())
 		{
-			if (&(*item) == &(element))
+			if ((*item) == (element))
 			{
 				delete (*item);
 				UiElementList.erase(item);

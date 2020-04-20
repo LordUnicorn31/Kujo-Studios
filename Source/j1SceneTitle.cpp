@@ -140,7 +140,11 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 	if (element == playButton) {	
 		App->audio->PlayFx(buttonFx);
 		//App->transition->FadeToBlack(App->sceneTitle, App->scene, 2.0f);
-		App->transition->Slide(App->sceneTitle, App->scene, 2.0f);
+		//App->transition->Slide(App->sceneTitle, App->scene, 2.0f);
+		if (exitButton !=nullptr) {
+			App->gui->RemoveUiElement(exitButton);
+			exitButton = nullptr;
+		}
 	}
 	if (element == exitButton) {
 		App->audio->PlayFx(buttonFx);

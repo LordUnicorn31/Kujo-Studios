@@ -44,6 +44,7 @@ private:
 	//Options Menu
 	UiElement* optionsMenu;
 	UiElement* backButton;
+	UiElement* fullScreen;
 
 	SDL_Texture*	background;
 	SDL_Texture*	titleLogo;

@@ -46,7 +46,8 @@ bool j1SceneTitle::Start()
 	App->gui->AddText(75, 16, "EXIT", nullptr, { 255,0,0,255 }, 42, false, false, exitButton);
 	optionsButton = App->gui->AddButton(500, 530, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
 	App->gui->AddText(32, 16, "OPTIONS", nullptr, { 0, 255, 255 }, 42, false, false, optionsButton);
-	App->gui->AddText(10, 670, "2020 KUJO STUDIOS", App->font->Small, { 255,255,255 }, 42, false, false);
+	App->gui->AddText(10, 690, "2020 KUJO STUDIOS", App->font->Small, { 255,255,255 }, 42, false, false);
+	
 
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");
 
@@ -147,9 +148,12 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 	}
 	if (element == optionsButton) {
 		App->audio->PlayFx(buttonFx);
-		App->gui->AddText(360, 250, "OPTIONS MENU", nullptr, { 0,255,0,255 }, 42, false, false, optionsMenu);
+		
 		optionsMenu=App->gui->AddButton(400, 200, { 20,540,446,465 }, { 20,540,446,465 }, { 20,540,446,465 }, true, false, nullptr, this);
 		backButton= App->gui->AddButton(430, 220, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, nullptr, this);
+		fullScreen = App->gui->AddButton(500, 400, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+		App->gui->AddText(55, 25, "FULLSCREEN", App->font->Small, { 255,255,255 }, 42, false, false, fullScreen);
+		App->gui->AddText(150, 20, "OPTIONS MENU", App->font->Small, { 255,255,255 }, 42, false, false, optionsMenu);
 	}
 	if (element == backButton) {
 		

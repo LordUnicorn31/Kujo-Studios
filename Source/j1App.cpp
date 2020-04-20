@@ -19,6 +19,7 @@
 #include "j1Transitions.h"
 #include "j1Pathfinding.h"
 #include "EntityManager.h"
+#include "j1Collisions.h"
 
 #include "SDL.h"
 
@@ -43,6 +44,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	gui = new j1Gui();
 	transition = new j1Transitions();
 	entity = new EntityManager();
+	collisions = new j1Collisions();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -57,6 +59,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(pathfinding);
 	AddModule(entity);
+	AddModule(collisions);
 	AddModule(minimap);
 	AddModule(font);
 	AddModule(gui);

@@ -52,6 +52,7 @@
     <ClCompile Include="j1Particles.cpp">
       <Filter>Particles</Filter>
     </ClCompile>
+    <ClCompile Include="j1Collisions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h" />
@@ -108,6 +109,7 @@
     <ClInclude Include="j1Particles.h">
       <Filter>Particles</Filter>
     </ClInclude>
+    <ClInclude Include="j1Collisions.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Animation">

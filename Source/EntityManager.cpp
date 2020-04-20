@@ -60,6 +60,8 @@ EntityManager::EntityManager(): j1Module(),MineSprite(NULL),BaseSprite(NULL),Shi
 	Animations.MineIdle.PushBack({ 64,64,64,64 });
 	Animations.MineIdle.PushBack({ 128,64,64,64 });
 	Animations.MineIdle.speed = 2.0f;
+	//building mine
+	Animations.BuildMine.PushBack({ 256,64,64,64});
 }
 
 EntityManager::~EntityManager() {

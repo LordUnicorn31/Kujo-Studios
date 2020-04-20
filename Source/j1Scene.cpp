@@ -106,5 +106,6 @@ void j1Scene::ui_callback(UiElement* element) {
 	}
 	if (element == Unit1) {
 		Unit2 = App->gui->AddButton(227, 220, { 31,543,421,449 }, { 31,543,421,449 }, { 31,543,421,449 }, true, false, nullptr, this);
+		App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/beep.wav"));
 	}
 }

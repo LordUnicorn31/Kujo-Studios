@@ -37,12 +37,14 @@ public:
 	void ui_callback(UiElement* element);
 
 private:
-	UiElement* Play_button;
-	UiElement* Exit_button;
-	SDL_Texture* Copy;
-	UiElement* Options;
-	UiElement* Options_button;
-	UiElement* Back_Button;
+	//Main Buttons
+	UiElement* playButton;
+	UiElement* exitButton;
+	UiElement* optionsButton;
+	//Options Menu
+	UiElement* optionsMenu;
+	UiElement* backButton;
+
 	SDL_Texture*	background;
 	SDL_Texture*	titleLogo;
 	

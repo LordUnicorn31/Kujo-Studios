@@ -1,4 +1,5 @@
 #include "Ai.h"
+#include "EntityManager.h"
 
 Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, Position),Atype(type) {
 	switch (Atype) {
@@ -9,7 +10,7 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, Position),Atyp
 		Damage = 40;
 		Range = 200;
 		speed = 100;
-		break;
+		IdleAnimaiton = &App->entity->Animations.AttackShip;
 	case AiType::Collector:
 		MaxHealth = 50;
 		HealthRegen = 1.0f;
@@ -17,6 +18,7 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, Position),Atyp
 		Damage = 0;
 		Range = 100;
 		speed = 200;
+		IdleAnimaiton = &App->entity->Animations.FarmerShip;
 	}
 }
 

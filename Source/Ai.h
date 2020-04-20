@@ -17,6 +17,7 @@ public:
 	iPoint Destination;
 	uint Damage;
 	uint Range;
+	Animation* IdleAnimaiton;
 	void Update(float dt);
 	void Draw(float dt);
 	void Move();

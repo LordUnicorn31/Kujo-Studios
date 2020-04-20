@@ -1,19 +1,20 @@
+#pragma once
 #include "j1Module.h"
 
 struct SDL_Texture;
+class UiElement;
 
-
-class j1Scene : public j1Module
+class j1WinScene : public j1Module
 {
 public:
 
-	j1Scene();
+	j1WinScene();
 
 	// Destructor
-	virtual ~j1Scene();
+	virtual ~j1WinScene();
 
 	// Called before render is available
-	bool Awake(pugi::xml_node&config);
+	bool Awake(pugi::xml_node& config);
 
 	// Called before the first frame
 	bool Start();
@@ -32,18 +33,15 @@ public:
 
 	void Init();
 
-	void ui_callback(UiElement* element);
-private:
-	UiElement* Pause;
-	UiElement* Info;
-	UiElement* People;
-	UiElement* Copper;
-	UiElement* Titanium;
-	UiElement* optionsMenu;
-	UiElement* Exit;
-	UiElement* yesButton;
-	UiElement* noButton;
 
-	int buttonFx;
-	bool exitGame;
+
+private:
+
+	SDL_Texture* Copy;
+	SDL_Texture* background;
+	SDL_Texture* wintext;
+
+	bool Exit;
+
+
 };

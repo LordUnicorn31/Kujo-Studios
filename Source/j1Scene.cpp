@@ -12,6 +12,11 @@
 #include "EntityManager.h"
 #include "j1Gui.h"
 #include "j1SceneTitle.h"
+#include "j1Fonts.h"
+#include "j1Transitions.h"
+#include "j1Transitions.h"
+#include "j1WinScene.h"
+
 
 j1Scene::j1Scene() : j1Module()
 {	
@@ -72,6 +77,15 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_DOWN)) {
 		App->render->camera.y-=5;
 	}
+	if (App->input->GetKey(SDL_SCANCODE_L)) {
+		App->transition->FadeToBlack(App->scene, App->winscene, 2.0f);
+	}
+	
+
+	if (exitGame) {
+		ret = false;
+		exitGame = false;
+	}
 
 	App->map->Draw();
 	return ret;
@@ -113,5 +127,19 @@ void j1Scene::ui_callback(UiElement* element) {
 	if (element == Pause) {
 		App->audio->PlayFx(buttonFx);
 		App->freeze = !App->freeze;
+		optionsMenu = App->gui->AddButton(400, 100, { 20,540,446,465 }, { 20,540,446,465 }, { 20,540,446,465 }, true, false, nullptr, this);
+		App->gui->AddText(150, 20, "PAUSE MENU", App->font->Small, { 255,255,255 }, 42, false, false, optionsMenu);
+		Exit = App->gui->AddButton(500, 200, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+		App->gui->AddText(100, 25, "EXIT", App->font->Small, { 255,255,255 }, 42, false, false, Exit);
+	}
+	if (element == Exit) {
+		App->gui->AddText(140, 200, "ARE YOU SURE?", App->font->Small, { 255,255,255 }, 42, false, false, optionsMenu);
+		yesButton = App->gui->AddButton(500, 350, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+		App->gui->AddText(95, 20, "YES", App->font->Small, { 255,255,255 }, 42, false, false, yesButton);
+		noButton = App->gui->AddButton(500, 450, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+		App->gui->AddText(100, 20, "NO", App->font->Small, { 255,255,255 }, 42, false, false, noButton);
+	}
+	if (element == yesButton) {
+		exitGame = true;
 	}
 }

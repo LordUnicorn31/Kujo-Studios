@@ -27,6 +27,7 @@ public:
 	AvailableMaterials cost;
 	bool selected;
 	bool selectable;
+	int size;
 	//Collider* collider;
 
 	//eastl::array cost[3];

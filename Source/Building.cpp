@@ -28,6 +28,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		level = 1;
 		ConstructionTime = 5.0f;
 		OnConstruction = true;
+		size = 64;
 		cost = { 0,1500,0 };
 		break;
 	}
@@ -57,6 +58,9 @@ void Building::Update(float dt) {
 	else{
 	//level up
 	//functionallity
+	}
+	if (selected) {
+		App->render->DrawQuad({position.x,position.y,size,size},255,255,255,255);
 	}
 }
 

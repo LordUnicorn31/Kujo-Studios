@@ -30,7 +30,9 @@ Ai::~Ai() {
 }
 
 void Ai::Update(float dt) {
-
+	if (selected) {
+		App->render->DrawQuad({ position.x,position.y,size,size }, 255, 255, 255, 255);
+	}
 }
 
 void Ai::Draw(float dt) {

@@ -158,5 +158,9 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 	if (element == backButton) {
 		
 	}
+	if (element == fullScreen) {
+
+		App->win->Fullscreen();
+	}
 	
 }

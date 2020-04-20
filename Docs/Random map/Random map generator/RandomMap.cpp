@@ -154,20 +154,20 @@ public:
 
 	int MaxFeatures;
 
-	int ChanceRoom, ChanceCorridor;
+	int ChanceRoom, ChanceCorridor, Chancedirt, ChanceGold, ChanceOre;
 
 	DungeonGenerator() :
 		Seed(std::random_device()()),
 		XSize(80), YSize(25),
 		MaxFeatures(1),
-		ChanceRoom(100), ChanceCorridor(0) { }
+		ChanceRoom(100), ChanceCorridor(0), Chancedirt(80), ChanceGold(10), ChanceOre(10) { }
 
 	Map Generate()
 	{
 		// TODO: proper input validation.
 		assert(MaxFeatures > 0 && MaxFeatures <= 100);
 		assert(XSize > 3 && XSize <= 80);
-		assert(YSize > 3 && YSize <= 25);
+		assert(YSize > 3 && YSize <= 65);
 
 		auto rng = RngT(Seed);
 		auto map = Map(XSize, YSize, Tile::Unused);
@@ -191,48 +191,48 @@ private:
 		return Direction(std::uniform_int_distribution<int>(0, 3)(rng));
 	}
 
-	bool MakeCorridor(Map& map, RngT& rng, int x, int y, int maxLength, Direction direction) const
-	{
-		assert(x >= 0 && x < XSize);
-		assert(y >= 0 && y < YSize);
+	//bool MakeCorridor(Map& map, RngT& rng, int x, int y, int maxLength, Direction direction) const
+	//{
+	//	assert(x >= 0 && x < XSize);
+	//	assert(y >= 0 && y < YSize);
 
-		assert(maxLength > 0 && maxLength <= std::max(XSize, YSize));
+	//	assert(maxLength > 0 && maxLength <= std::max(XSize, YSize));
 
-		auto length = GetRandomInt(rng, 2, maxLength);
+	//	auto length = GetRandomInt(rng, 2, maxLength);
 
-		auto xStart = x;
-		auto yStart = y;
+	//	auto xStart = x;
+	//	auto yStart = y;
 
-		auto xEnd = x;
-		auto yEnd = y;
+	//	auto xEnd = x;
+	//	auto yEnd = y;
 
-		if (direction == Direction::North)
-			yStart = y - length;
-		else if (direction == Direction::East)
-			xEnd = x + length;
-		else if (direction == Direction::South)
-			yEnd = y + length;
-		else if (direction == Direction::West)
-			xStart = x - length;
+	//	if (direction == Direction::North)
+	//		yStart = y - length;
+	//	else if (direction == Direction::East)
+	//		xEnd = x + length;
+	//	else if (direction == Direction::South)
+	//		yEnd = y + length;
+	//	else if (direction == Direction::West)
+	//		xStart = x - length;
 
-		if (!map.IsXInBounds(xStart) || !map.IsXInBounds(xEnd) || !map.IsYInBounds(yStart) || !map.IsYInBounds(yEnd))
-			return false;
+	//	if (!map.IsXInBounds(xStart) || !map.IsXInBounds(xEnd) || !map.IsYInBounds(yStart) || !map.IsYInBounds(yEnd))
+	//		return false;
 
-		if (!map.IsAreaUnused(xStart, yStart, xEnd, yEnd))
-			return false;
+	//	if (!map.IsAreaUnused(xStart, yStart, xEnd, yEnd))
+	//		return false;
 
-		map.SetCells(xStart, yStart, xEnd, yEnd, Tile::Unused);
+	//	map.SetCells(xStart, yStart, xEnd, yEnd, Tile::Unused);
 
-		//std::cout << "Corridor: ( " << xStart << ", " << yStart << " ) to ( " << xEnd << ", " << yEnd << " )" << std::endl;
+	//	//std::cout << "Corridor: ( " << xStart << ", " << yStart << " ) to ( " << xEnd << ", " << yEnd << " )" << std::endl;
 
-		return true;
-	}
+	//	return true;
+	//}
 
 	bool MakeRoom(Map& map, RngT& rng, int x, int y, int xMaxLength, int yMaxLength, Direction direction) const
 	{
 		// Minimum room size of 4x4 tiles (2x2 for walking on, the rest is walls)
-		auto xLength = GetRandomInt(rng, 4, xMaxLength);
-		auto yLength = GetRandomInt(rng, 4, yMaxLength);
+		auto xLength = 20;
+		auto yLength = 20;
 
 		auto xStart = x;
 		auto yStart = y;
@@ -272,11 +272,29 @@ private:
 			return false;
 
 		map.SetCells(xStart, yStart, xEnd, yEnd, Tile::DirtWall);
+		auto chance = GetRandomInt(rng, 0, 100);
+		if(chance < Chancedirt){
 		map.SetCells(xStart + 1, yStart + 1, xEnd - 1, yEnd - 1, Tile::DirtFloor);
-		
+		}
+		if (chance < ChanceGold) {
+			map.SetCells(xStart + 10, yStart + 10, xEnd - 10, yEnd - 10, Tile::UpStairs);
+		}
+		if (chance < ChanceOre) {
+			map.SetCells(xStart + 1, yStart + 10, xEnd - 10, yEnd - 10, Tile::DownStairs);
+		}
 
 		//std::cout << "Room: ( " << xStart << ", " << yStart << " ) to ( " << xEnd << ", " << yEnd << " )" << std::endl;
 
+		return true;
+	}
+	bool MakeGold(Map& map, RngT& rng, int x, int y) const
+	{
+		
+
+		auto xStart = x;
+		auto yStart = y;
+
+		map.SetCells(x, y, x, y, Tile::DirtWall);
 		return true;
 	}
 
@@ -287,7 +305,7 @@ private:
 
 		if (chance <= ChanceRoom)
 		{
-			if (MakeRoom(map, rng, x + xmod, y + ymod, 20, 20, direction))
+			if (MakeRoom(map, rng, x + xmod, y + ymod, 8, 6, direction))
 			{
 				map.SetCell(x, y, Tile::Dungeon);
 
@@ -299,7 +317,15 @@ private:
 
 			return false;
 		}
-		else
+		if (chance <= ChanceGold)
+		{
+			if (MakeGold(map, rng, x, y)) {
+				map.SetCell(x, y, Tile::DirtWall);
+					return true;
+			}
+		}
+		else return false;
+		/*else
 		{
 			if (MakeCorridor(map, rng, x + xmod, y + ymod, 6, direction))
 			{
@@ -309,7 +335,7 @@ private:
 			}
 
 			return false;
-		}
+		}*/
 	}
 
 	bool MakeFeature(Map& map, RngT& rng) const
@@ -385,7 +411,7 @@ private:
 	bool MakeDungeon(Map& map, RngT& rng) const
 	{
 		// Make one room in the middle to start things off.
-		MakeRoom(map, rng, XSize / 2, YSize / 2, 20, 20, GetRandomDirection(rng));
+		MakeRoom(map, rng, XSize / 2, YSize / 2 , 8, 6, GetRandomDirection(rng));
 		MakeFeature(map, rng);
 
 		for (auto features = 1; features != MaxFeatures; ++features)

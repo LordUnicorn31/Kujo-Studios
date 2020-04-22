@@ -51,18 +51,18 @@ This game has a building system in which every building matters and has its own 
 
 Spaceship: It is your base, where everything starts and it is given to you at the beggining of the game. (HP: 5000)
 
-Gold mine:Tthe gold mine is the place where you can extract gold to be able to build and buy stuff. (HP: 1500) (time: 30s)
+Gold mine:Tthe gold mine is the place where you can extract gold to be able to build and buy stuff. (HP: 1500) (time: 30s) (1000 gold)
 
-Ore mine: The ore mine is the place where ore is extracted in order to be able to build buildings and create weapons. (HP: 1500) (time: 30s)
-Cable: It connects the electric power plants with the rest of building. (HP: 750) 
+Ore mine: The ore mine is the place where ore is extracted in order to be able to build buildings and create weapons. (HP: 1500) (time: 30s) (1000 gold)
+Cable: It connects the electric power plants with the rest of building. (HP: 750) (500 gold)
 
-Electric power plant: the electric power plant is the building that generates electricity. (HP: 3000) (Energy: 100) (time: 40s) 
+Electric power plant: the electric power plant is the building that generates electricity. (HP: 3000) (Energy: 100) (time: 40s) (1250 gold)
 
-Weapon industry: the weapon industry is where all the main weapons are created. (HP: 3500) (time: 50s) (items investigation time: 60s)
+Weapon industry: the weapon industry is where all the main weapons are created. (HP: 3500) (time: 50s) (items investigation time: 60s) (1500 gold)
 
-spaceship factory: The spaceship factory is the place where all the basic units are recruited. (HP: 3500) (time: 50s) (production time: 30s)
+spaceship factory: The spaceship factory is the place where all the basic units are recruited. (HP: 3500) (time: 50s) (production time: 30s) (1500 gold)
 
-Special factory: The special factory is the building in which the special units are recruited. (HP: 4000) (time: 60s) (production time: 60s)
+Special factory: The special factory is the building in which the special units are recruited. (HP: 4000) (time: 60s) (production time: 60s) (20000 gold)
 
 
 # Units

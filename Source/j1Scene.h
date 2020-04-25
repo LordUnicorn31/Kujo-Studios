@@ -39,11 +39,10 @@ private:
 	UiElement* People;
 	UiElement* Copper;
 	UiElement* Titanium;
-	UiElement* optionsMenu;
-	UiElement* Exit;
-	UiElement* yesButton;
-	UiElement* noButton;
-
+	UiElement* Settings_window;
+	UiElement* Exit_button;
+	UiElement* Continue_button;
+	UiElement* fullScreen;
 	int buttonFx;
 	bool exitGame;
 };

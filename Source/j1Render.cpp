@@ -32,7 +32,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 		flags |= SDL_RENDERER_PRESENTVSYNC;
 		LOG("Using vsync");
 	}
-
+	SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
 	renderer = SDL_CreateRenderer(App->win->window, -1, flags);
 
 	if(renderer == NULL)
@@ -169,7 +169,6 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		ret = false;
 	}
-
 	return ret;
 }
 

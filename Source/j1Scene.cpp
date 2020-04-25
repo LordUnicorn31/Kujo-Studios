@@ -51,9 +51,6 @@ bool j1Scene::Start()
 	Titanium = App->gui->AddImage(980, 22, { 641,498,30,31 }, false, false, nullptr, this);
 	//Unit1 = App->gui->AddButton(0, 600, { 32,544,430,208}, { 32,544,440,208 }, { 32,544,440,208 }, true, false, nullptr, this);
 
-	noButton = nullptr;
-	yesButton = nullptr;
-
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");
 
 	return true;
@@ -134,43 +131,36 @@ void j1Scene::Init()
 void j1Scene::ui_callback(UiElement* element) {
 	if (element == Pause) {
 		if (Pause != nullptr) {
-			App->audio->PlayFx(buttonFx);
-			App->freeze = !App->freeze;
-			optionsMenu = App->gui->AddButton(400, 100, { 20,540,446,465 }, { 20,540,446,465 }, { 20,540,446,465 }, true, false, nullptr, this);
-			App->gui->AddText(150, 20, "PAUSE MENU", App->font->Small, { 255,255,255 }, 42, false, false, optionsMenu);
-			Exit = App->gui->AddButton(500, 200, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-			App->gui->AddText(100, 25, "EXIT", App->font->Small, { 255,255,255 }, 42, false, false, Exit);
+			if (Settings_window == nullptr) {
+				Settings_window = App->gui->AddImage(400, 150, { 0, 512, 483, 512 }, false, false);
+				App->gui->AddText(170, 50, "PAUSE", NULL, { 0,0,255,255 }, 42, false, false, Settings_window);
+				Exit_button = App->gui->AddButton(120, 330, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, Settings_window, this);
+				App->gui->AddText(78, 16, "EXIT", NULL, { 0,0,255,255 }, 42, false, false, Exit_button);
+				Continue_button = App->gui->AddButton(120, 130, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, Settings_window, this);
+				App->gui->AddText(23, 15, "CONTINUE", NULL, { 0,0,255,255 }, 36, false, false, Continue_button);
+				fullScreen = App->gui->AddButton(120, 230, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, Settings_window, this);
+				App->gui->AddText(55, 25, "FULLSCREEN", App->font->Small, { 255,255,255 }, 42, false, false, fullScreen);
+				App->freeze = true;
+			}
+			else {
+				App->freeze = false;
+				App->gui->RemoveUiElement(Settings_window);
+				Settings_window = nullptr;
+			}
 		}
 	}
-	if (element == Exit) {
-		if (Exit != nullptr) {
-			App->gui->AddText(140, 200, "ARE YOU SURE?", App->font->Small, { 255,255,255 }, 42, false, false, optionsMenu);
-			yesButton = App->gui->AddButton(500, 350, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-			App->gui->AddText(95, 20, "YES", App->font->Small, { 255,255,255 }, 42, false, false, yesButton);
-			noButton = App->gui->AddButton(500, 450, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-			App->gui->AddText(100, 20, "NO", App->font->Small, { 255,255,255 }, 42, false, false, noButton);
-		}
-	}
-	if (element == yesButton) {
+	if (element == Exit_button) {
 		exitGame = true;
 	}
-	if (element == noButton) {
+	if (element == Continue_button) {
+		App->freeze = false;
+		if (Settings_window != nullptr) {
+			App->gui->RemoveUiElement(Settings_window);
+			Settings_window = nullptr;
+		}
+	}
+	if (element == fullScreen) {
 
-		if (yesButton != nullptr) {
-			App->gui->RemoveUiElement(yesButton);
-			yesButton = nullptr;
-		}
-		if (noButton != nullptr) {
-			App->gui->RemoveUiElement(noButton);
-			noButton = nullptr;
-		}
-		if (Exit != nullptr) {
-			App->gui->RemoveUiElement(Exit);
-			Exit = nullptr;
-		}
-		if (optionsMenu != nullptr) {
-			App->gui->RemoveUiElement(optionsMenu);
-			optionsMenu = nullptr;
-		}
+		App->win->Fullscreen();
 	}
 }

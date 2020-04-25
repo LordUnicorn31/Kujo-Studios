@@ -87,40 +87,63 @@ void j1Gui::DeleteAllUiElements() {
 	eastl::list <UiElement*> ::iterator it;
 	for (it = UiElementList.begin(); it != UiElementList.end(); it++)
 	{
-		delete (*it);
+		switch ((*it)->type) {
+		case UiTypes::Image:
+			delete (UiImage*)(*it);
+			break;
+		case UiTypes::Button:
+			delete (UiButton*)(*it);
+			break;
+		case UiTypes::Text:
+			delete (UiText*)(*it);
+			break;
+		}
+		//delete (*it);
 	}
 	UiElementList.clear();
 }
 
 void j1Gui::RemoveUiElement(UiElement* element) {
-	if (element->parent != nullptr) {
-		eastl::list <UiElement*>::iterator it = UiElementList.begin();
-		while (it != UiElementList.end())
-		{
-			if ((*it) == (element))
-			{
-				delete (*it);
-				UiElementList.erase(it);
+	RemoveUiParents(element);
+	eastl::list<UiElement*>::iterator it = eastl::find(UiElementList.begin(), UiElementList.end(), element);
+	switch ((*it)->type) {
+	case UiTypes::Image:
+		delete (UiImage*)(*it);
+		break;
+	case UiTypes::Button:
+		delete (UiButton*)(*it);
+		break;
+	case UiTypes::Text:
+		delete (UiText*)(*it);
+		break;
+	}
+	//delete (*it);
+	UiElementList.erase(it);
+}
+
+void j1Gui::RemoveUiParents(UiElement* element)
+{
+	eastl::list<UiElement*>::iterator it;
+	for (it = UiElementList.begin(); it != UiElementList.end();) {
+		if ((*it)->parent == element) {
+			App->gui->RemoveUiParents((*it));
+			switch ((*it)->type) {
+			case UiTypes::Image:
+				delete (UiImage*)(*it);
+				break;
+			case UiTypes::Button:
+				delete (UiButton*)(*it);
+				break;
+			case UiTypes::Text:
+				delete (UiText*)(*it);
 				break;
 			}
+			//delete (*it);
+			it = UiElementList.erase(it);
+		}
+		else
 			it++;
-		}
-		RemoveUiElement(element->parent);
 	}
-	else if (element->parent == nullptr) {
-		eastl::list <UiElement*>::iterator item = UiElementList.begin();
-		while (item != UiElementList.end())
-		{
-			if ((*item) == (element))
-			{
-				delete (*item);
-				UiElementList.erase(item);
-				break;
-			}
-			item++;
-		}
-	}
-		
 }
 
 void j1Gui::Update_Ui() {
@@ -159,7 +182,7 @@ UiElement* j1Gui::UiUnderMouse() {
 }
 
 bool j1Gui::MouseClick() {
-	return (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT);
+	return (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN);
 }
 
 void j1Gui::DraggUiElements(UiElement*parent, int dx, int dy) {
@@ -263,7 +286,7 @@ void UiElement::SetLocalPos(int x, int y) {
 
 
 UiImage::UiImage(int x, int y, SDL_Rect source_rect, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule) :UiElement(x, y, source_rect.w, source_rect.h, interactuable, draggeable, UiTypes::Image, parent, elementmodule), atlas_rect(source_rect) {}
-UiImage::~UiImage(){}
+UiImage::~UiImage() {}
 
 void UiImage::Update(int dx, int dy) {
 	//fer que la imatge es mogui amb la camera

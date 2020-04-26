@@ -87,18 +87,7 @@ void j1Gui::DeleteAllUiElements() {
 	eastl::list <UiElement*> ::iterator it;
 	for (it = UiElementList.begin(); it != UiElementList.end(); it++)
 	{
-		switch ((*it)->type) {
-		case UiTypes::Image:
-			delete (UiImage*)(*it);
-			break;
-		case UiTypes::Button:
-			delete (UiButton*)(*it);
-			break;
-		case UiTypes::Text:
-			delete (UiText*)(*it);
-			break;
-		}
-		//delete (*it);
+		delete (*it);
 	}
 	UiElementList.clear();
 }
@@ -106,18 +95,7 @@ void j1Gui::DeleteAllUiElements() {
 void j1Gui::RemoveUiElement(UiElement* element) {
 	RemoveUiParents(element);
 	eastl::list<UiElement*>::iterator it = eastl::find(UiElementList.begin(), UiElementList.end(), element);
-	switch ((*it)->type) {
-	case UiTypes::Image:
-		delete (UiImage*)(*it);
-		break;
-	case UiTypes::Button:
-		delete (UiButton*)(*it);
-		break;
-	case UiTypes::Text:
-		delete (UiText*)(*it);
-		break;
-	}
-	//delete (*it);
+	delete (*it);
 	UiElementList.erase(it);
 }
 
@@ -127,18 +105,7 @@ void j1Gui::RemoveUiParents(UiElement* element)
 	for (it = UiElementList.begin(); it != UiElementList.end();) {
 		if ((*it)->parent == element) {
 			App->gui->RemoveUiParents((*it));
-			switch ((*it)->type) {
-			case UiTypes::Image:
-				delete (UiImage*)(*it);
-				break;
-			case UiTypes::Button:
-				delete (UiButton*)(*it);
-				break;
-			case UiTypes::Text:
-				delete (UiText*)(*it);
-				break;
-			}
-			//delete (*it);
+			delete (*it);
 			it = UiElementList.erase(it);
 		}
 		else

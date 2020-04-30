@@ -17,6 +17,8 @@
 #include "j1Transitions.h"
 #include "j1WinScene.h"
 #include "j1LoseScene.h"
+#include "j1Collisions.h"
+#include "j1Pathfinding.h"
 
 
 j1Scene::j1Scene() : j1Module()
@@ -41,8 +43,14 @@ bool j1Scene::Awake(pugi::xml_node&config)
 bool j1Scene::Start()
 {
 	App->map->Load("Mainmap.tmx");
+	int w, h;
+	uchar* data = NULL;
+	if (App->map->CreateWalkabilityMap(w, h, &data))
+		App->pathfinding->SetMap(w, h, data);
+	RELEASE_ARRAY(data);
 	App->minimap->Enable();
 	App->entity->Enable();
+	App->collisions->Enable();
 	App->audio->PlayMusic("Resources/audio/music/Space.ogg");
 	Pause = App->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 871, 736, 39,39 }, { 755, 527, 39,39 }, true, false, nullptr, this);
 	Info = App->gui->AddButton(750, 10, { 494,640,332,52 }, { 494,574,332,52 }, { 494,640,332,52 }, true, false, nullptr, this);

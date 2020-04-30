@@ -6,8 +6,9 @@
 #include "Resources.h"
 #include "j1App.h"
 #include "Animation.h"
+#include "j1Input.h"
 
-EntityManager::EntityManager(): j1Module(),MineSprite(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1000.0f / 20.0f)),AccumulatedTime(0.0f) {
+EntityManager::EntityManager(): j1Module(),MineSprite(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1.0f / 60.0f)),AccumulatedTime(0.0f) {
 	name = "EntityManager";
 
 	//Loading all the entities animations
@@ -85,7 +86,15 @@ bool EntityManager::Start() {
 }
 
 void EntityManager::UpdateAll(float dt,bool DoLogic) {
-	if (DoLogic) {
+	eastl::list<Entity*>::iterator it;
+	for (it = entities.begin(); it != entities.end(); ++it) {
+		(*it)->Update(dt);
+		if (DoLogic)
+			(*it)->UpdateLogic();
+		(*it)->Draw(dt);
+		//(*it)->Kill();
+	}
+	/*if (DoLogic) {
 		eastl::list<Entity*>::iterator it;
 		for (it = entities.begin(); it != entities.end(); ++it) {
 			(*it)->Update(dt);
@@ -95,11 +104,51 @@ void EntityManager::UpdateAll(float dt,bool DoLogic) {
 	eastl::list<Entity*>::iterator it;
 	for (it = entities.begin(); it != entities.end(); ++it) {
 		(*it)->Draw(dt);
-	}
+	}*/
+}
+
+bool EntityManager::PreUpdate() {
+
+	return true;
 }
 
 bool EntityManager::Update(float dt) {
-	AccumulatedTime += (dt*1000.0f);
+	static iPoint origin, mouse;
+	SDL_Rect rect;
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		App->input->GetMousePosition(origin.x, origin.y);
+	}
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
+	{
+		App->input->GetMousePosition(mouse.x, mouse.y);
+		App->render->DrawQuad({ origin.x - App->render->camera.x, origin.y - App->render->camera.y, mouse.x - origin.x, mouse.y - origin.y }, 0, 200, 0, 100, false);
+		App->render->DrawQuad({ origin.x - App->render->camera.x, origin.y - App->render->camera.y, mouse.x - origin.x, mouse.y - origin.y }, 0, 200, 0, 50);
+	}
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
+		rect = { origin.x - App->render->camera.x, origin.y - App->render->camera.y, mouse.x - origin.x, mouse.y - origin.y };
+		if (rect.w < 0) {
+			rect.w = abs(rect.w);
+			rect.x -= rect.w;
+		}
+		if (rect.h < 0) {
+			rect.h = abs(rect.h);
+			rect.y -= rect.h;
+		}
+		eastl::list<Entity*>::iterator it;
+		for (it = entities.begin(); it != entities.end(); ++it) {
+			if ((*it)->selectable) {
+				(*it)->selected = false;
+				if (SDL_HasIntersection(&rect, &(*it)->EntityRect)) {
+					(*it)->selected = true;
+				}
+			}
+		}
+	}
+
+	AccumulatedTime += (dt);
 	if (AccumulatedTime >= UpdateMsCycle)
 		DoLogic = true;
 	UpdateAll(dt, DoLogic);

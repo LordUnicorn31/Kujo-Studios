@@ -4,7 +4,7 @@
 #include "j1App.h"
 #include "j1Audio.h"
 
-Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeBuilding, Position), Btype(type) {
+Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeBuilding, { Position.x,Position.y,0,0 }), Btype(type) {
 	switch (type) {
 	case BuildingType::Base:
 		MaxHealth = 5000;
@@ -28,7 +28,6 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		level = 1;
 		ConstructionTime = 5.0f;
 		OnConstruction = true;
-		size = 64;
 		cost = { 0,1500,0 };
 		break;
 	}
@@ -59,18 +58,18 @@ void Building::Update(float dt) {
 	//level up
 	//functionallity
 	}
-	if (selected) {
-		App->render->DrawQuad({position.x,position.y,size,size},255,255,255,255);
-	}
 }
 
 void Building::Draw(float dt) {
 	if (OnConstruction) {
 		//App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/Building.wav"));
-		App->render->Blit(sprite, position.x, position.y, &ConstructionAnimation->GetCurrentFrame(dt));
+		App->render->Blit(sprite, EntityRect.x, EntityRect.y, &ConstructionAnimation->GetCurrentFrame(dt));
 	}
 	else {
-		App->render->Blit(sprite, position.x, position.y, &IdleAnimation->GetCurrentFrame(dt));
+		App->render->Blit(sprite, EntityRect.x, EntityRect.y, &IdleAnimation->GetCurrentFrame(dt));
+		if (selected) {
+			App->render->DrawQuad(EntityRect, 255, 255, 255, 255);
+		}
 	}
 }
 

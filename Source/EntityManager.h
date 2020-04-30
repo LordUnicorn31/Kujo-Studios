@@ -44,6 +44,7 @@ public:
 
 	void Init();
 	bool Start();
+	bool PreUpdate();
 	bool Update(float dt);
 	void UpdateAll(float dt,bool DoLogic);
 	bool CleanUp();
@@ -55,6 +56,7 @@ public:
 
 private:
 	eastl::list <Entity*>entities;
+	bool AiGroupMoving;
 	bool DoLogic;
 	float AccumulatedTime;
 	float UpdateMsCycle;

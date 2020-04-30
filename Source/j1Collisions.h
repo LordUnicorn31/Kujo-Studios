@@ -17,7 +17,7 @@ enum COLLIDER_TYPE
 	COLLIDER_BACKGROUND,
 	COLLIDER_ENEMY,
 
-	COLLIDER_MAX
+	NUM_COLLIDER_TYPES
 };
 
 struct Collider
@@ -62,7 +62,7 @@ public:
 private:
 
 	Collider* colliders[MAX_COLLIDERS];
-	bool matrix[COLLIDER_MAX][COLLIDER_MAX];
+	bool matrix[NUM_COLLIDER_TYPES][NUM_COLLIDER_TYPES];
 	bool debug = false;
 	
 };

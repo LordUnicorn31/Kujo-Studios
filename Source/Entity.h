@@ -1,6 +1,6 @@
 #pragma once
-#include "p2Point.h"
 #include "EASTL/array.h"
+#include "SDL_rect.h"
 
 class SDL_Texture;
 
@@ -16,18 +16,17 @@ struct AvailableMaterials {
 
 class Entity {
 public:
-	Entity(EntityType type, iPoint position);
+	Entity(EntityType type, SDL_Rect entityrect);
 	virtual ~Entity();
-	iPoint position;
+	SDL_Rect EntityRect;
 	EntityType etype;
-	uint MaxHealth;
+	unsigned int MaxHealth;
 	int health;
 	float HealthRegen;
 	SDL_Texture* sprite;
 	AvailableMaterials cost;
 	bool selected;
 	bool selectable;
-	int size;
 	//Collider* collider;
 
 	//eastl::array cost[3];
@@ -35,5 +34,6 @@ public:
 public:
 	virtual void Draw(float dt); 
 	virtual void Update(float dt);
+	virtual void UpdateLogic();
 	//virtual void Die();
 };

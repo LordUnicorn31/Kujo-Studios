@@ -234,6 +234,7 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="j1WinScene.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MovementManager.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="j1SceneTitle.cpp" />
     <ClCompile Include="j1Transitions.cpp" />
@@ -285,6 +286,7 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClInclude Include="j1Window.h" />
     <ClInclude Include="j1WinScene.h" />
     <ClInclude Include="j1LoseScene.h" />
+    <ClInclude Include="MovementManager.h" />
     <ClInclude Include="p2Defs.h" />
     <ClInclude Include="p2Log.h" />
     <ClInclude Include="p2Point.h" />

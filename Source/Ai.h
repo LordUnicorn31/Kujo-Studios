@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "EASTL/vector.h"
 
 struct Animation;
 
@@ -19,9 +20,17 @@ public:
 	iPoint Destination;
 	uint Damage;
 	uint Range;
+	bool IsMoving;
+	bool OnDestination;
+	iPoint TilePos;
+	iPoint FinalGoal;
+	iPoint NextTile;
 	Animation* IdleAnimaiton;
+	eastl::vector<iPoint> path;
 	void Update(float dt);
 	void Draw(float dt);
-	void Move();
+	void Move(int x,int y);
+	void DoMovement();
+	void UpdateMovement();
 	void UpdateLogic();
 };

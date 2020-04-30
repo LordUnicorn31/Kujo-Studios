@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "p2Point.h"
 
 enum class ResourceType : unsigned char {
 	Ore,

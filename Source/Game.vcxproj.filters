@@ -59,7 +59,6 @@
     <ClCompile Include="j1LoseScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="MovementManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h" />
@@ -123,7 +122,6 @@
     <ClInclude Include="j1LoseScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="MovementManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Animation">

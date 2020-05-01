@@ -17,6 +17,7 @@ public:
 	AiType Atype;
 	uint direction;
 	float speed;
+	float DirectionAngle;
 	iPoint Destination;
 	uint Damage;
 	uint Range;

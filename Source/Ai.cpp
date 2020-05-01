@@ -4,8 +4,9 @@
 #include "j1Pathfinding.h"
 #include "j1Input.h"
 #include "j1Map.h"
+#include "j1Window.h"
 
-Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), IsMoving(false) {
+Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), IsMoving(false), DirectionAngle(270.0f) {
 	switch (Atype) {
 	case AiType::Basic_Unit:
 		MaxHealth = 100;
@@ -76,15 +77,22 @@ void Ai::UpdateLogic() {
 }
 
 void Ai::Draw(float dt) {
-	App->render->Blit(sprite, EntityRect.x, EntityRect.y, &IdleAnimaiton->GetCurrentFrame(dt));
+	App->render->Blit(sprite, EntityRect.x, EntityRect.y, &IdleAnimaiton->GetCurrentFrame(dt),true,App->render->renderer,App->win->GetScale(),1.0f,DirectionAngle);
 	if (selected) {
 		App->render->DrawQuad(EntityRect, 0, 255, 0, 255,false);
 	}
+    for (int i = 0; i != path.size(); ++i) {
+        App->render->DrawQuad({path[i].x*32,path[i].y*32,32,32}, 255, 0, 0, 127,true);
+    }
 }
 
 void Ai::DoMovement() {
+    //state = movestate::movenon
+    bool MovementPerformed= false;
     if (NextTile.x < TilePos.x)
     {
+        DirectionAngle = 270.0f;
+        MovementPerformed = true;
         EntityRect.x -= speed;
         if ((EntityRect.x - NextTile.x * App->map->data.tile_width) <= 0)
         {
@@ -93,14 +101,25 @@ void Ai::DoMovement() {
     }
     else if (NextTile.x > TilePos.x)
     {
+        DirectionAngle = 90.0f;
+        MovementPerformed = true;
         EntityRect.x += speed;
         if ((EntityRect.x - NextTile.x * App->map->data.tile_width) >= 0)
         {
             TilePos.x++;
         }
     }
-    else if (NextTile.y < TilePos.y)
+    if (NextTile.y < TilePos.y)
     {
+        if (MovementPerformed && DirectionAngle == 90.0f) {
+            DirectionAngle = 45.0f;
+        }
+        else if (MovementPerformed && DirectionAngle == 270.0f) {
+            DirectionAngle = 315.0f;
+        }
+        else
+            DirectionAngle = 0.0f;
+        MovementPerformed = true;
         EntityRect.y -= speed;
         if ((EntityRect.y - NextTile.y * App->map->data.tile_height) <= 0)
         {
@@ -109,21 +128,30 @@ void Ai::DoMovement() {
     }
     else if (NextTile.y > TilePos.y)
     {
+        if (MovementPerformed && DirectionAngle == 90.0f) {
+            DirectionAngle = 135.0f;
+        }
+        else if (MovementPerformed && DirectionAngle == 270.0f) {
+            DirectionAngle = 225.0f;
+        }
+        else
+            DirectionAngle = 180.0f;
+        MovementPerformed = true;
         EntityRect.y += speed;
         if ((EntityRect.y - NextTile.y * App->map->data.tile_height) >= 0)
         {
             TilePos.y++;
         }
     }
-    else
-    {
+
+    if (!MovementPerformed) {
         IsMoving = false;
     }
 }
 
 void Ai::Move(int x, int y) {
-    NextTile.x = TilePos.x + x;
-    NextTile.y = TilePos.y + y;
+    NextTile.x += x;
+    NextTile.y += y;
     IsMoving = true;
     //_speed = speed;
 }
@@ -137,7 +165,6 @@ void Ai::UpdateMovement()
             int wantedXTile = path[0].x;
             int wantedYTile = path[0].y;
 
-
             if (TilePos.x < wantedXTile)
             {
                 Move(1, 0);
@@ -146,7 +173,7 @@ void Ai::UpdateMovement()
             {
                 Move(-1, 0);
             }
-            else if (TilePos.y < wantedYTile)
+            if (TilePos.y < wantedYTile)
             {
                 Move(0, 1);
             }

@@ -170,15 +170,6 @@ bool j1App::Start()
 {
 	PERF_START(ptimer);
 	bool ret = true;
-	/*p2List_item<j1Module*>* item;
-	item = modules.start;
-
-	while (item != NULL && ret == true)
-	{
-		if (item->data->IsEneabled())
-			ret = item->data->Start();
-		item = item->next;
-	}*/
 
 	eastl::list <j1Module*> ::iterator it;
 	for (it = modules.begin(); it != modules.end() && ret == true; ++it)
@@ -279,20 +270,6 @@ void j1App::FinishUpdate()
 bool j1App::PreUpdate()
 {
 	bool ret = true;
-	/*p2List_item<j1Module*>* item;
-	item = modules.start;
-	j1Module* pModule = NULL;
-
-	for (item = modules.start; item != NULL && ret == true; item = item->next)
-	{
-		pModule = item->data;
-
-		if (pModule->active == false || !pModule->IsEneabled()) {
-			continue;
-		}
-
-		ret = item->data->PreUpdate();
-	}*/
 
 	eastl::list <j1Module*> ::iterator it;
 	for (it = modules.begin(); it != modules.end() && ret == true; ++it)
@@ -340,20 +317,6 @@ bool j1App::PostUpdate()
 {
 	bool ret = true;
 
-	/*p2List_item<j1Module*>* item;
-	j1Module* pModule = NULL;
-
-	for (item = modules.start; item != NULL && ret == true; item = item->next)
-	{
-		pModule = item->data;
-
-		if (pModule->active == false || !pModule->IsEneabled()) {
-			continue;
-		}
-
-		ret = item->data->PostUpdate();
-	}*/
-
 	eastl::list <j1Module*> ::iterator it;
 	for (it = modules.begin(); it != modules.end() && ret == true; ++it)
 	{
@@ -373,24 +336,12 @@ bool j1App::CleanUp()
 {
 	PERF_START(ptimer);
 	bool ret = true;
-	/*p2List_item<j1Module*>* item;
-	item = modules.end;
 
-	while (item != NULL && ret == true)
+	eastl::list<j1Module*>::reverse_iterator it;
+	for (it= modules.rbegin(); it != modules.rend(); it++)
 	{
-		if (item->data->IsEneabled())
-			ret = item->data->CleanUp();
-		item = item->prev;
-	}*/
-
-	/*eastl::list<j1Module*>::reverse_iterator it;
-	eastl::list<j1Module*>::reverse_iterator it2=modules.rend();*/
-	eastl::list<j1Module*>::reverse_iterator it = ++ modules.rbegin();
-	eastl::list<j1Module*>::reverse_iterator itend = ++ modules.rend();
-	for (it; it != itend; it++)
-	{
-		if (it.base().mpNode->mValue->IsEneabled())
-			ret = it.base().mpNode->mValue->CleanUp();
+		if ((*it)->IsEneabled())
+			ret = (*it)->CleanUp();
 	}
 
 	PERF_PEEK(ptimer);

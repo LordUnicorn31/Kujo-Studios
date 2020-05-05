@@ -78,16 +78,20 @@ void EntityManager::Init() {
 
 bool EntityManager::Start() {
 	//Load the initial entities
-	MineSprite =App->tex->Load("Resources/entities/drills/MineSprite.png");
-	ShipsSprite =App->tex->Load("Resources/entities/ships/ships_spritesheet.png");
-	BaseSprite =App->tex->Load("Resources/entities/bases/bases.png");
-	CreateEntity(AvibleEntities::mine, iPoint(400, 300));
-	CreateEntity(AvibleEntities::collector, iPoint(450, 300));
-	CreateEntity(AvibleEntities::basicunit, iPoint(450, 370));
-	CreateEntity(AvibleEntities::collector, iPoint(500, 300));
-	CreateEntity(AvibleEntities::basicunit, iPoint(560, 370));
-	CreateEntity(AvibleEntities::collector, iPoint(610, 300));
-	CreateEntity(AvibleEntities::basicunit, iPoint(660, 370));
+	MineSprite = App->tex->Load("Resources/entities/drills/MineSprite.png");
+	ShipsSprite = App->tex->Load("Resources/entities/ships/ships_spritesheet.png");
+	BaseSprite = App->tex->Load("Resources/entities/bases/bases.png");
+	Titanium= App->tex->Load("Resources/entities/Minerals/titanium1.png");
+	Copper = App->tex->Load("Resources/entities/Minerals/copper1.png");
+	CreateEntity(AviableEntities::mine, iPoint(400, 300));
+	CreateEntity(AviableEntities::collector, iPoint(450, 300));
+	CreateEntity(AviableEntities::basicunit, iPoint(450, 370));
+	CreateEntity(AviableEntities::collector, iPoint(500, 300));
+	CreateEntity(AviableEntities::basicunit, iPoint(560, 370));
+	CreateEntity(AviableEntities::collector, iPoint(610, 300));
+	CreateEntity(AviableEntities::basicunit, iPoint(660, 370));
+	CreateEntity(AviableEntities::ore, iPoint(320, 0));
+	CreateEntity(AviableEntities::gold, iPoint(320, 32));
 	return true;
 }
 
@@ -197,34 +201,40 @@ bool EntityManager::CleanUp() {
 	App->tex->UnLoad(MineSprite);
 	App->tex->UnLoad(BaseSprite);
 	App->tex->UnLoad(ShipsSprite);
+	App->tex->UnLoad(Titanium);
+	App->tex->UnLoad(Copper);
 	MineSprite = nullptr;
 	BaseSprite = nullptr;
 	ShipsSprite = nullptr;
+	Titanium = nullptr;
+	Copper = nullptr;
 	return true;
 }
 
-Entity* EntityManager::CreateEntity(AvibleEntities type,iPoint position) {
+Entity* EntityManager::CreateEntity(AviableEntities type,iPoint position) {
 	Entity* ret = nullptr;
 	switch (type) {
-	case AvibleEntities::base:
+	case AviableEntities::base:
 		ret = new Building(BuildingType::Base, position);
 		ret->sprite = BaseSprite;
 		break;
-	case AvibleEntities::mine:
+	case AviableEntities::mine:
 		ret = new Building(BuildingType::Mine, position);
 		ret->sprite = MineSprite;
 		break;
-	case AvibleEntities::collector:
+	case AviableEntities::collector:
 		ret = new Ai(AiType::Collector,position);
 		ret->sprite = ShipsSprite;
 		break;
-	case AvibleEntities::gold:
-		//ret = new Resource(ResourceType::);
+	case AviableEntities::gold:
+		ret = new Resource(ResourceType::Gold,position);
+		ret->sprite = Copper;
 		break;
-	case AvibleEntities::ore:
-		//ret = new Resource(ResourceType::);
+	case AviableEntities::ore:
+		ret = new Resource(ResourceType::Ore,position);
+		ret->sprite = Titanium;
 		break;
-	case AvibleEntities::basicunit:
+	case AviableEntities::basicunit:
 		ret = new Ai(AiType::Basic_Unit,position);
 		ret->sprite = ShipsSprite;
 		break;

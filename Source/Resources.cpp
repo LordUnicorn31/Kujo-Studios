@@ -1,6 +1,7 @@
+#include "EntityManager.h"
 #include "Resources.h"
 
-Resource::Resource(ResourceType type, iPoint Position) : Entity(EntityType::TypeResource, {Position.x,Position.y,0,0}), Rtype(type) {
+Resource::Resource(ResourceType type, iPoint Position) : Entity(EntityType::TypeResource, {Position.x,Position.y,32,32}), Rtype(type) {
 
 }
 
@@ -13,5 +14,5 @@ void Resource::Update(float dt) {
 }
 
 void Resource::Draw(float dt) {
-
+	App->render->Blit(sprite, EntityRect.x, EntityRect.y);
 }

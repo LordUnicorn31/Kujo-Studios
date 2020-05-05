@@ -2,6 +2,8 @@
 #include "Entity.h"
 #include "p2Point.h"
 
+class SDL_Texture;
+
 enum class ResourceType : unsigned char {
 	Ore,
 	Gold

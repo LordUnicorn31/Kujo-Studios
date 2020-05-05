@@ -9,7 +9,7 @@ class Entity;
 class SDL_Texture;
 enum class EntityType : unsigned char;
 
-enum class AvibleEntities: unsigned char {
+enum class AviableEntities: unsigned char {
 	base,
 	mine,
 	ship_factory,
@@ -48,7 +48,7 @@ public:
 	void UpdateAll(float dt,bool DoLogic);
 	bool CleanUp();
 
-	Entity* CreateEntity(AvibleEntities type, iPoint position);
+	Entity* CreateEntity(AviableEntities type, iPoint position);
 	void DestroyEntity(Entity* entity);
 
 	EntitiesAnimations Animations;
@@ -61,6 +61,8 @@ private:
 	SDL_Texture* MineSprite;
 	SDL_Texture* BaseSprite;
 	SDL_Texture* ShipsSprite;
+	SDL_Texture* Copper;
+	SDL_Texture* Titanium;
 	void HandleInput();
 	//max_resouces[]
 	//current_resouces[]

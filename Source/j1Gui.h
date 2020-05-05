@@ -12,7 +12,6 @@ struct _TTF_Font;
 
 #define CURSOR_WIDTH 2
 
-// TODO 1: Create your structure of classes
 
 enum class UiTypes {
 	Unknown,
@@ -69,7 +68,6 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	// TODO 2: Create the factory methods
 	// Gui creation functions
 	void DeleteAllUiElements();
 	void RemoveUiElement(UiElement*element);

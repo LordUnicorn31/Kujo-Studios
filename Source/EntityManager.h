@@ -44,25 +44,24 @@ public:
 
 	void Init();
 	bool Start();
-	bool PreUpdate();
 	bool Update(float dt);
 	void UpdateAll(float dt,bool DoLogic);
 	bool CleanUp();
 
-	Entity* CreateEntity(AvibleEntities type,iPoint position);
-	void DestroyEntity(Entity*entity);
+	Entity* CreateEntity(AvibleEntities type, iPoint position);
+	void DestroyEntity(Entity* entity);
 
 	EntitiesAnimations Animations;
 
 private:
 	eastl::list <Entity*>entities;
-	bool AiGroupMoving;
 	bool DoLogic;
 	float AccumulatedTime;
 	float UpdateMsCycle;
 	SDL_Texture* MineSprite;
 	SDL_Texture* BaseSprite;
 	SDL_Texture* ShipsSprite;
+	void HandleInput();
 	//max_resouces[]
 	//current_resouces[]
 };

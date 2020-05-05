@@ -48,24 +48,6 @@ Ai::~Ai() {
 }
 
 void Ai::Update(float dt) {
-    if (selected && App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN) {
-        int xTile, yTile;
-        App->input->GetMousePosition(xTile,yTile);
-        xTile -= App->render->camera.x;
-        yTile -= App->render->camera.y;
-        iPoint MouseTile(App->map->WorldToMap(xTile,yTile));
-
-        if (TilePos != MouseTile) {
-            //path = App->pathfinding->FindPath(MouseTile);
-            if (App->pathfinding->CreatePath(TilePos, MouseTile) != -1) {
-                path = *App->pathfinding->GetLastPath();
-                FinalGoal.x = path.back().x;
-                FinalGoal.y = path.back().y;
-                path.erase(path.begin());
-                OnDestination = false;
-            }
-        }
-    }
 
     if (!OnDestination)
         UpdateMovement();
@@ -77,6 +59,7 @@ void Ai::UpdateLogic() {
 }
 
 void Ai::Draw(float dt) {
+    //TODO: quan la nau recorre a vegades les diagonals va tremolant al canviar d'angles molt rapid
 	App->render->Blit(sprite, EntityRect.x, EntityRect.y, &IdleAnimaiton->GetCurrentFrame(dt),true,App->render->renderer,App->win->GetScale(),1.0f,DirectionAngle);
 	if (selected) {
 		App->render->DrawQuad(EntityRect, 0, 255, 0, 255,false);
@@ -162,6 +145,7 @@ void Ai::UpdateMovement()
 
         if (!path.empty())
         {
+            //TODO: Update units walkabilitiy position in the pathfinder
             int wantedXTile = path[0].x;
             int wantedYTile = path[0].y;
 
@@ -186,6 +170,7 @@ void Ai::UpdateMovement()
             if (path.empty()) {
                 /*if (App->pathfinding->CreatePath(_goalX, _goalY) !=- 1)
                     path = App->pathfinding->GetLastPath();*/
+                //TODO: Arreglar aquest if i el que calgui de aquesta classe per el correcte funcionament del group movement
             }
         }
         else

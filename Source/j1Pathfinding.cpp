@@ -2,6 +2,8 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1PathFinding.h"
+#include "Ai.h"
+#include "p2Defs.h"
 
 j1PathFinding::j1PathFinding() : j1Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH),width(0), height(0)
 {
@@ -181,23 +183,39 @@ int PathNode::CalculateF(const iPoint& destination)
 	return g + h;
 }
 
+int PathNode::OctileDistance(const iPoint& destination) {
+	int dx = abs(pos.x - destination.x);
+	int dy = abs(pos.y - destination.y);
+	/*
+	if (dx > dy)
+		(32 * (dx - dy) + sqrt(32 * 32 + 32 * 32) * dy);
+	else
+		(32 * (dy - dx) + sqrt(32 * 32 + 32 * 32) * dx);
+	*/
+	//TODO: Investigar mes sobre aquesta heuristica (utilitzar la de 32 o 1 i arrel de 2?Es millor que utilitzar la heuristca de la distancia euclideana?)
+	if (dx > dy)
+		return (1 * (dx - dy) + sqrt(2) * dy);
+	else
+		return (1 * (dy - dx) + sqrt(2) * dx);
+}
+
 // ----------------------------------------------------------------------------------
 // Actual A* algorithm: return number of steps in the creation of the path or -1 ----
 // ----------------------------------------------------------------------------------
 int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
 	int ret = -1;
-	// TODO 1: if origin or destination are not walkable, return -1
+	//if origin or destination are not walkable, return -1
 	if (!(IsWalkable(origin) && IsWalkable(destination) && origin!=destination))
 		return ret;
-	// TODO 2: Create two lists: open, close
+	//Create two lists: open, close
 	// Add the origin tile to open
 	// Iterate while we have tile in the open list
 	PathList open;
 	PathList closed;
 	open.list.push_back(PathNode(0,0,origin,nullptr));
 	while (open.list.size() > 0) {
-	// TODO 3: Move the lowest score cell from open list to the closed list
+	//Move the lowest score cell from open list to the closed list
 		PathNode* lowest = (PathNode*) open.GetNodeLowestScore();
 		closed.list.push_back(*lowest);
 
@@ -210,7 +228,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 			it++;
 		}
 		
-	// TODO 4: If we just added the destination, we are done!
+	//If we just added the destination, we are done!
 	// Backtrack to create the final path
 	// Use the Pathnode::parent and Flip() the path when you are finish
 		if (closed.list.back().pos == destination) {
@@ -224,10 +242,10 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 			ret = last_path.size();
 			break;
 		}
-	// TODO 5: Fill a list of all adjancent nodes
+	//Fill a list of all adjancent nodes
 		PathList adjacent;
 		closed.list.back().FindWalkableAdjacents(adjacent);
-	// TODO 6: Iterate adjancent nodes:
+	//Iterate adjancent nodes:
 		//p2List_item<PathNode>*item = adjacent.list.start;
 		eastl::list<PathNode>::iterator item = adjacent.list.begin();
 		for (; item != adjacent.list.end(); item++){
@@ -254,4 +272,112 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	}
 
 	return ret;
+}
+
+void j1PathFinding::CalculateGroupPath(eastl::list<Ai*>group,iPoint destination) {
+	PERF_START(timer);
+	eastl::list<Ai*>::iterator it;
+	iPoint AveragePos(0,0);
+	for (it = group.begin(); it != group.end(); ++it) {
+		AveragePos += (*it)->TilePos;
+		(*it)->OnDestination = false;
+	}
+	AveragePos = iPoint(AveragePos.x/group.size(), AveragePos.y / group.size());
+	//IsWalkable(AveragePos);
+	if (CreatePath(AveragePos, destination) != -1) {
+		//FindTileWalkableAdjacents();
+
+		eastl::vector<iPoint> ShearedPath = *GetLastPath();
+		eastl::list<Ai*>::iterator item;
+		for (item = group.begin(); item != group.end(); ++item) {
+			CreatePath((*item)->TilePos, ShearedPath[10]);
+			(*item)->path = *GetLastPath();
+			(*item)->path.insert((*item)->path.end(), ShearedPath.begin() + 10, ShearedPath.end());
+		}
+	}
+	PERF_PEEK(timer);
+}
+
+eastl::vector<iPoint> j1PathFinding::FindTileWalkableAdjacents(iPoint tile, int quantity) {
+	iPoint cell;
+	eastl::vector<iPoint> Tiles;
+	Tiles.reserve(quantity);
+	while (quantity != 0) {
+
+		//Tile
+		if (quantity == 1) {
+			Tiles.emplace_back(tile);
+			--quantity;
+		}
+		// north
+		if (quantity > 1) {
+			cell.create(tile.x, tile.y + 1);
+			if (IsWalkable(cell)) {
+				Tiles.emplace_back(cell);
+				--quantity;
+			}
+		}
+
+		// south
+		if (quantity > 1) {
+			cell.create(tile.x, tile.y - 1);
+			if (IsWalkable(cell)) {
+				Tiles.emplace_back(cell);
+				--quantity;
+			}
+		}
+
+		// east
+		if (quantity > 1) {
+			cell.create(tile.x + 1, tile.y);
+			if (IsWalkable(cell)) {
+				Tiles.emplace_back(cell);
+				--quantity;
+			}
+		}
+
+		// west
+		if (quantity > 1) {
+			cell.create(tile.x - 1, tile.y);
+			if (IsWalkable(cell)) {
+				Tiles.emplace_back(cell);
+				--quantity;
+			}
+		}
+
+		//diagonals
+		if (quantity > 1) {
+			cell.create(tile.x + 1, tile.y + 1);
+			if (IsWalkable(cell)) {
+				Tiles.emplace_back(cell);
+				--quantity;
+			}
+		}
+
+		if (quantity > 1) {
+			cell.create(tile.x + 1, tile.y - 1);
+			if (IsWalkable(cell)) {
+				Tiles.emplace_back(cell);
+				--quantity;
+			}
+		}
+
+		if (quantity > 1) {
+			cell.create(tile.x - 1, tile.y + 1);
+			if (IsWalkable(cell)) {
+				Tiles.emplace_back(cell);
+				--quantity;
+			}
+		}
+
+		if (quantity > 1) {
+			cell.create(tile.x - 1, tile.y - 1);
+			if (IsWalkable(cell)) {
+				Tiles.emplace_back(cell);
+				--quantity;
+			}
+		}
+	}
+
+	return Tiles;
 }

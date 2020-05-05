@@ -89,7 +89,7 @@ bool j1Collisions::PreUpdate()
 
 			c2 = colliders[k];
 
-			if (c1->CheckCollision(c2->rect) == true)
+			if (c1->CheckCollision(c2->rect))
 			{
 				if (matrix[c1->type][c2->type] && c1->callback&&c1->active)
 					c1->callback->OnCollision(c1, c2);

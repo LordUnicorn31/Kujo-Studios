@@ -7,6 +7,8 @@
 #include "j1App.h"
 #include "Animation.h"
 #include "j1Input.h"
+#include "j1Pathfinding.h"
+#include "j1Map.h"
 
 EntityManager::EntityManager(): j1Module(),MineSprite(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1.0f / 60.0f)),AccumulatedTime(0.0f) {
 	name = "EntityManager";
@@ -82,37 +84,15 @@ bool EntityManager::Start() {
 	CreateEntity(AvibleEntities::mine, iPoint(400, 300));
 	CreateEntity(AvibleEntities::collector, iPoint(450, 300));
 	CreateEntity(AvibleEntities::basicunit, iPoint(450, 370));
+	CreateEntity(AvibleEntities::collector, iPoint(500, 300));
+	CreateEntity(AvibleEntities::basicunit, iPoint(560, 370));
+	CreateEntity(AvibleEntities::collector, iPoint(610, 300));
+	CreateEntity(AvibleEntities::basicunit, iPoint(660, 370));
 	return true;
 }
 
-void EntityManager::UpdateAll(float dt,bool DoLogic) {
-	eastl::list<Entity*>::iterator it;
-	for (it = entities.begin(); it != entities.end(); ++it) {
-		(*it)->Update(dt);
-		if (DoLogic)
-			(*it)->UpdateLogic();
-		(*it)->Draw(dt);
-		//(*it)->Kill();
-	}
-	/*if (DoLogic) {
-		eastl::list<Entity*>::iterator it;
-		for (it = entities.begin(); it != entities.end(); ++it) {
-			(*it)->Update(dt);
-			//(*it)->Kill();
-		}
-	}
-	eastl::list<Entity*>::iterator it;
-	for (it = entities.begin(); it != entities.end(); ++it) {
-		(*it)->Draw(dt);
-	}*/
-}
-
-bool EntityManager::PreUpdate() {
-
-	return true;
-}
-
-bool EntityManager::Update(float dt) {
+void EntityManager::HandleInput() {
+	//TODO: Ordenar el handle input del entity manager
 	static iPoint origin, mouse;
 	SDL_Rect rect;
 
@@ -147,7 +127,39 @@ bool EntityManager::Update(float dt) {
 			}
 		}
 	}
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN) {
+		int xTile, yTile;
+		App->input->GetMousePosition(xTile, yTile);
+		xTile -= App->render->camera.x;
+		yTile -= App->render->camera.y;
+		iPoint MouseTile(App->map->WorldToMap(xTile, yTile));
+		eastl::list<Entity*>::iterator it;
+		eastl::list<Ai*> GroupAi;
+		for (it = entities.begin(); it != entities.end(); ++it) {
+			if ((*it)->etype == EntityType::TypeAi && (*it)->selected) {
+				GroupAi.push_back((Ai*)(*it));
+			}
+		}
+		//TODO: ARA CREAR LA FUNCIO AL MODUL PATHFINDING K REBI LA LLISTA I ENS CALCULI EL PATH PER TOTS
+		if(GroupAi.size()>1)
+			App->pathfinding->CalculateGroupPath(GroupAi,MouseTile);
+		else if (GroupAi.size() == 1) {
+			Ai* ai = (*GroupAi.begin());
+			if (ai->TilePos != MouseTile) {
+				if (App->pathfinding->CreatePath(ai->TilePos, MouseTile) != -1) {
+					ai->path = *App->pathfinding->GetLastPath();
+					//FinalGoal.x = path.back().x;
+					//FinalGoal.y = path.back().y;
+					ai->path.erase((*GroupAi.begin())->path.begin());
+					ai->OnDestination = false;
+				}
+			}
+		}
+	}
+}
 
+bool EntityManager::Update(float dt) {
+	HandleInput();
 	AccumulatedTime += (dt);
 	if (AccumulatedTime >= UpdateMsCycle)
 		DoLogic = true;
@@ -157,6 +169,28 @@ bool EntityManager::Update(float dt) {
 		DoLogic = false;
 	}
 	return true;
+}
+
+void EntityManager::UpdateAll(float dt, bool DoLogic) {
+	eastl::list<Entity*>::iterator it;
+	for (it = entities.begin(); it != entities.end(); ++it) {
+		(*it)->Update(dt);
+		if (DoLogic)
+			(*it)->UpdateLogic();
+		(*it)->Draw(dt);
+		//(*it)->Kill();
+	}
+	/*if (DoLogic) {
+		eastl::list<Entity*>::iterator it;
+		for (it = entities.begin(); it != entities.end(); ++it) {
+			(*it)->Update(dt);
+			//(*it)->Kill();
+		}
+	}
+	eastl::list<Entity*>::iterator it;
+	for (it = entities.begin(); it != entities.end(); ++it) {
+		(*it)->Draw(dt);
+	}*/
 }
 
 bool EntityManager::CleanUp() {

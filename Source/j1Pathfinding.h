@@ -5,6 +5,7 @@
 #include "p2Point.h"
 #include "EASTL/vector.h"
 #include "EASTL/list.h"
+#include "j1PerfTimer.h"
 
 #define DEFAULT_PATH_LENGTH 50
 #define INVALID_WALK_CODE 255
@@ -15,7 +16,7 @@
 // Details: http://theory.stanford.edu/~amitp/GameProgramming/
 // --------------------------------------------------
 
-class Entity;
+class Ai;
 
 class j1PathFinding : public j1Module
 {
@@ -47,6 +48,14 @@ public:
 	// Utility: return the walkability value of a tile
 	uchar GetTileAt(const iPoint& pos) const;
 
+	//TODO: Find the path when requested from an ai group (calcular un path mitja per a tots)
+	void CalculateGroupPath(eastl::list<Ai*>group,iPoint destination);
+
+	eastl::vector<iPoint> FindTileWalkableAdjacents(iPoint tile,int quantity);
+	//TODO: Update	walkability map based on units position and add it to the pathfinding algorithm
+	//bool IsTileOccupied();
+	//UpdateUnitsLocations();
+	//TODO: Find path request manager
 private:
 
 	// size of the map
@@ -55,7 +64,11 @@ private:
 	// all map walkability values [0..255]
 	uchar* map;
 	// we store the created path here
+	//TODO:Llista de tots els pathos
+	eastl::list<eastl::vector<iPoint>>CurrentPaths;
 	eastl::vector<iPoint> last_path;
+	j1PerfTimer timer;
+	
 };
 
 // forward declaration
@@ -78,6 +91,8 @@ struct PathNode
 	// Calculate the F for a specific destination tile
 	int CalculateF(const iPoint& destination);
 
+	int OctileDistance(const iPoint& destination);
+
 	// -----------
 	int g;
 	int h;
@@ -93,6 +108,7 @@ struct PathList
 	// Looks for a node in this list and returns it's list node or NULL
 	const PathNode* Find(const iPoint& point) const;
 
+	//TODO: Implement the heap to find the lowest node
 	// Returns the Pathnode with lowest score in this list or NULL if empty
 	const PathNode* GetNodeLowestScore() const;
 

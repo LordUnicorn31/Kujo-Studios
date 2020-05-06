@@ -74,7 +74,6 @@ private:
 	eastl::vector<iPoint> last_path;
 	eastl::list<iPoint>OccupiedTiles;
 	j1PerfTimer timer;
-	
 };
 
 // forward declaration
@@ -99,6 +98,16 @@ struct PathNode
 
 	int OctileDistance(const iPoint& destination);
 
+	bool operator>(const PathNode& node) const{
+		return Score() > node.Score();
+	}
+	bool operator<(const PathNode& node) const {
+		return Score() < node.Score();
+	}
+	bool operator==(const PathNode& node) {
+		return pos == node.pos;
+	}
+
 	// -----------
 	int g;
 	int h;
@@ -122,7 +131,4 @@ struct PathList
 	// The list itself, note they are not pointers!
 	eastl::list<PathNode> list;
 };
-
-
-
 #endif // __j1PATHFINDING_H__

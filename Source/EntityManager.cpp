@@ -143,6 +143,11 @@ bool EntityManager::Start() {
 	CreateEntity(AviableEntities::basicunit, iPoint(560, 370));
 	CreateEntity(AviableEntities::collector, iPoint(610, 300));
 	CreateEntity(AviableEntities::basicunit, iPoint(660, 370));
+	CreateEntity(AviableEntities::collector, iPoint(710, 300));
+	CreateEntity(AviableEntities::basicunit, iPoint(770, 370));
+	CreateEntity(AviableEntities::collector, iPoint(840, 300));
+	CreateEntity(AviableEntities::basicunit, iPoint(910, 370));
+
 	return true;
 }
 

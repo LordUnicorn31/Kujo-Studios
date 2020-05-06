@@ -3,7 +3,6 @@
 #include "j1App.h"
 #include "j1PathFinding.h"
 #include "Ai.h"
-#include "p2Defs.h"
 
 j1PathFinding::j1PathFinding() : j1Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH),width(0), height(0)
 {
@@ -247,6 +246,7 @@ int PathNode::OctileDistance(const iPoint& destination) {
 // ----------------------------------------------------------------------------------
 int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
+	PERF_START(timer);
 	int ret = -1;
 	//if origin or destination are not walkable, return -1
 	if (!(IsWalkable(origin) && IsWalkable(destination) && origin!=destination))
@@ -313,10 +313,28 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 			}
 		}
 	}
-
+	PERF_PEEK(timer);
 	return ret;
 }
 
+
+/*			// If it is NOT found, calculate its F and add it to the open list
+			if (open.Find((*item).pos) == NULL) {
+				(*item).CalculateF(destination);
+				open.list.push_back((*item));
+			}
+			else {
+				// If it is already in the open list, check if it is a better path (compare G)
+				// If it is a better path, Update the parent
+				PathNode adjacent_in_open = *open.Find((*item).pos);
+				// --- We compare walkable cost and if the neighbor's is bigger than current + offset we know this is a better path and update neighbor's parent and F ---
+				//if (adjacent_in_open.diagonal == false)
+				if (adjacent_in_open.g > (*item).g + 1){
+					adjacent_in_open.parent = (*item).parent;
+					adjacent_in_open.CalculateF(destination);
+				}
+			}
+		}*/
 bool j1PathFinding::IsOccupied(iPoint tile) {
 	return eastl::find(OccupiedTiles.begin(), OccupiedTiles.end(), tile) != OccupiedTiles.end();
 }

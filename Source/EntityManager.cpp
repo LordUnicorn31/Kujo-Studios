@@ -94,8 +94,11 @@ void EntityManager::GenerateResources(int n_gold, int n_ore) {
 			eastl::vector<iPoint>adjacent=App->pathfinding->FindWalkableAdjacents(randompostile);
 			eastl::vector<iPoint>::iterator it;
 			for (it = adjacent.begin(); it != adjacent.end(); ++it) {
-				CreateEntity(AviableEntities::gold, App->map->MapToWorld((*it).x,(*it).y));
-				UsedTiles.push_back(randompostile);
+				if (rand()%2) {
+					iPoint adjacentscreen = App->map->MapToWorld((*it).x, (*it).y);
+					CreateEntity(AviableEntities::gold, adjacentscreen);
+					UsedTiles.push_back(adjacentscreen);
+				}
 			}
 			UsedTiles.push_back(randompostile);
 			++i;
@@ -112,8 +115,11 @@ void EntityManager::GenerateResources(int n_gold, int n_ore) {
 			eastl::vector<iPoint>adjacent = App->pathfinding->FindWalkableAdjacents(randompostile);
 			eastl::vector<iPoint>::iterator it;
 			for (it = adjacent.begin(); it != adjacent.end(); ++it) {
-				CreateEntity(AviableEntities::ore, App->map->MapToWorld((*it).x, (*it).y));
-				UsedTiles.push_back(randompostile);
+				if (rand() % 2) {
+					iPoint adjacentscreen = App->map->MapToWorld((*it).x, (*it).y);
+					CreateEntity(AviableEntities::ore, adjacentscreen);
+					UsedTiles.push_back(adjacentscreen);
+				}
 			}
 			UsedTiles.push_back(randompostile);
 			++i;

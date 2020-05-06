@@ -88,13 +88,13 @@ bool EntityManager::Start() {
 	Copper = App->tex->Load("Resources/entities/Minerals/copper1.png");
 	iPoint randompos(1+(rand() %100), 1+(rand() %100));
 	 
-	 if(App->pathfinding->IsWalkable(randompos)){
-		 randompos = App->map->MapToWorld(randompos.x, randompos.y);
+	if(App->pathfinding->IsWalkable(randompos)){
+		randompos = App->map->MapToWorld(randompos.x, randompos.y);
 		
-		 CreateEntity(AviableEntities::ore, randompos);
-		 CreateEntity(AviableEntities::gold, randompos);
-		 LOG("Mine is in a walkable tile");
-	 } 
+		CreateEntity(AviableEntities::ore, randompos);
+		CreateEntity(AviableEntities::gold, randompos);
+		LOG("Mine is in a walkable tile");
+	} 
 	CreateEntity(AviableEntities::mine, iPoint(350, 300));
 	CreateEntity(AviableEntities::collector, iPoint(400, 370));
 	CreateEntity(AviableEntities::basicunit, iPoint(450, 370));
@@ -102,14 +102,6 @@ bool EntityManager::Start() {
 	CreateEntity(AviableEntities::basicunit, iPoint(560, 370));
 	CreateEntity(AviableEntities::collector, iPoint(610, 300));
 	CreateEntity(AviableEntities::basicunit, iPoint(660, 370));
-<<<<<<< HEAD
-	CreateEntity(AviableEntities::collector, iPoint(450, 300));
-	CreateEntity(AviableEntities::ore, iPoint(320, 0));
-	CreateEntity(AviableEntities::gold, iPoint(320, 32));
-=======
-	
-	
->>>>>>> a5aa375db93aad85b74bfe19c79c8465fc2cc098
 	return true;
 }
 

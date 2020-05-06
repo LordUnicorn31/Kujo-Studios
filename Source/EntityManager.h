@@ -54,6 +54,7 @@ public:
 	EntitiesAnimations Animations;
 
 private:
+	void GenerateResources(int n_gold, int n_ore);
 	eastl::list <Entity*>entities;
 	bool DoLogic;
 	float AccumulatedTime;

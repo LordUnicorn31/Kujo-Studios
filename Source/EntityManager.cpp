@@ -11,6 +11,7 @@
 #include "j1Map.h"
 #include "p2Log.h"
 #include <time.h>
+#include "EASTL/vector.h"
 
 EntityManager::EntityManager(): j1Module(),MineSprite(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1.0f / 60.0f)),AccumulatedTime(0.0f) {
 	name = "EntityManager";
@@ -78,23 +79,46 @@ void EntityManager::Init() {
 	enabled = false;
 }
 
+void EntityManager::GenerateResources(int n_gold, int n_ore) {
+	eastl::vector<iPoint> UsedTiles;
+	int i = 0;
+	iPoint randompostile;
+	iPoint randomposmap;
+	while (i < n_gold) {
+		srand(time(0));
+		randompostile=iPoint(1 + (rand() % 100), 1 + (rand() % 100));
+
+		if (App->pathfinding->IsWalkable(randompostile)&& eastl::find(UsedTiles.begin(),UsedTiles.end(), randompostile)!=UsedTiles.end()) {
+			randomposmap = App->map->MapToWorld(randompostile.x, randompostile.y);
+			CreateEntity(AviableEntities::gold, randompostile);
+			UsedTiles.push_back(randompostile);
+			++i;
+			LOG("Gold number %d created", i);
+		}
+	}
+	i = 0;
+	while (i < n_ore) {
+		srand(time(0));
+		randompostile = iPoint(1 + (rand() % 100), 1 + (rand() % 100));
+
+		if (App->pathfinding->IsWalkable(randompostile) && eastl::find(UsedTiles.begin(), UsedTiles.end(), randompostile) != UsedTiles.end()) {
+			randomposmap = App->map->MapToWorld(randompostile.x, randompostile.y);
+			CreateEntity(AviableEntities::gold, randompostile);
+			UsedTiles.push_back(randompostile);
+			++i;
+			LOG("Ore number %d created", i);
+		}
+	}
+}
+
 bool EntityManager::Start() {
 	//Load the initial entities
-	srand(time(0));
 	MineSprite = App->tex->Load("Resources/entities/drills/MineSprite.png");
 	ShipsSprite = App->tex->Load("Resources/entities/ships/ships_spritesheet.png");
 	BaseSprite = App->tex->Load("Resources/entities/bases/bases.png");
 	Titanium= App->tex->Load("Resources/entities/Minerals/titanium1.png");
 	Copper = App->tex->Load("Resources/entities/Minerals/copper1.png");
-	iPoint randompos(1+(rand() %100), 1+(rand() %100));
-	 
-	if(App->pathfinding->IsWalkable(randompos)){
-		randompos = App->map->MapToWorld(randompos.x, randompos.y);
-		
-		CreateEntity(AviableEntities::ore, randompos);
-		CreateEntity(AviableEntities::gold, randompos);
-		LOG("Mine is in a walkable tile");
-	} 
+	
 	CreateEntity(AviableEntities::mine, iPoint(350, 300));
 	CreateEntity(AviableEntities::collector, iPoint(400, 370));
 	CreateEntity(AviableEntities::basicunit, iPoint(450, 370));

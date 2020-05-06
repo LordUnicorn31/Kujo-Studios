@@ -9,6 +9,8 @@
 #include "j1Input.h"
 #include "j1Pathfinding.h"
 #include "j1Map.h"
+#include "p2Log.h"
+#include <time.h>
 
 EntityManager::EntityManager(): j1Module(),MineSprite(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1.0f / 60.0f)),AccumulatedTime(0.0f) {
 	name = "EntityManager";
@@ -78,20 +80,30 @@ void EntityManager::Init() {
 
 bool EntityManager::Start() {
 	//Load the initial entities
+	srand(time(0));
 	MineSprite = App->tex->Load("Resources/entities/drills/MineSprite.png");
 	ShipsSprite = App->tex->Load("Resources/entities/ships/ships_spritesheet.png");
 	BaseSprite = App->tex->Load("Resources/entities/bases/bases.png");
 	Titanium= App->tex->Load("Resources/entities/Minerals/titanium1.png");
 	Copper = App->tex->Load("Resources/entities/Minerals/copper1.png");
-	CreateEntity(AviableEntities::mine, iPoint(400, 300));
-	CreateEntity(AviableEntities::collector, iPoint(450, 300));
+	iPoint randompos(1+(rand() %100), 1+(rand() %100));
+	 
+	 if(App->pathfinding->IsWalkable(randompos)){
+		 randompos = App->map->MapToWorld(randompos.x, randompos.y);
+		
+		 CreateEntity(AviableEntities::ore, randompos);
+		 CreateEntity(AviableEntities::gold, randompos);
+		 LOG("Mine is in a walkable tile");
+	 } 
+	CreateEntity(AviableEntities::mine, iPoint(350, 300));
+	CreateEntity(AviableEntities::collector, iPoint(400, 370));
 	CreateEntity(AviableEntities::basicunit, iPoint(450, 370));
 	CreateEntity(AviableEntities::collector, iPoint(500, 300));
 	CreateEntity(AviableEntities::basicunit, iPoint(560, 370));
 	CreateEntity(AviableEntities::collector, iPoint(610, 300));
 	CreateEntity(AviableEntities::basicunit, iPoint(660, 370));
-	CreateEntity(AviableEntities::ore, iPoint(320, 0));
-	CreateEntity(AviableEntities::gold, iPoint(320, 32));
+	
+	
 	return true;
 }
 
@@ -227,7 +239,7 @@ Entity* EntityManager::CreateEntity(AviableEntities type,iPoint position) {
 		ret->sprite = ShipsSprite;
 		break;
 	case AviableEntities::gold:
-		ret = new Resource(ResourceType::Gold,position);
+		ret = new Resource(ResourceType::Gold, position);
 		ret->sprite = Copper;
 		break;
 	case AviableEntities::ore:

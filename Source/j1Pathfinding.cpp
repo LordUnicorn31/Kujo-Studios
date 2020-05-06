@@ -20,7 +20,7 @@ j1PathFinding::~j1PathFinding()
 bool j1PathFinding::CleanUp()
 {
 	LOG("Freeing pathfinding library");
-
+	OccupiedTiles.clear();
 	last_path.clear();
 	RELEASE_ARRAY(map);
 	return true;
@@ -274,110 +274,130 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	return ret;
 }
 
-void j1PathFinding::CalculateGroupPath(eastl::list<Ai*>group,iPoint destination) {
+bool j1PathFinding::IsOccupied(iPoint tile) {
+	return eastl::find(OccupiedTiles.begin(), OccupiedTiles.end(), tile) != OccupiedTiles.end();
+}
+
+bool j1PathFinding::CalculateGroupPath(eastl::list<Ai*>group,iPoint destination) {
 	PERF_START(timer);
 	eastl::list<Ai*>::iterator it;
 	iPoint AveragePos(0,0);
 	for (it = group.begin(); it != group.end(); ++it) {
 		AveragePos += (*it)->TilePos;
-		(*it)->OnDestination = false;
 	}
 	AveragePos = iPoint(AveragePos.x/group.size(), AveragePos.y / group.size());
-	//IsWalkable(AveragePos);
 	if (CreatePath(AveragePos, destination) != -1) {
-		//FindTileWalkableAdjacents();
-
-		eastl::vector<iPoint> ShearedPath = *GetLastPath();
-		eastl::list<Ai*>::iterator item;
-		for (item = group.begin(); item != group.end(); ++item) {
-			CreatePath((*item)->TilePos, ShearedPath[10]);
-			(*item)->path = *GetLastPath();
-			(*item)->path.insert((*item)->path.end(), ShearedPath.begin() + 10, ShearedPath.end());
+		if (GetLastPath()->size() > 10) {
+			eastl::vector<iPoint> ShearedPath = *GetLastPath();
+			eastl::list<Ai*>::iterator item;
+			for (item = group.begin(); item != group.end(); ++item) {
+				(*item)->OnDestination = false;
+				CreatePath((*item)->TilePos, ShearedPath[10]);
+				(*item)->path = *GetLastPath();
+				(*item)->path.insert((*item)->path.end(), ShearedPath.begin() + 10, ShearedPath.end());
+				eastl::list<Ai*>::const_iterator cit;
+				for (cit = group.cbegin(); cit != group.cend(); ++cit) {
+					if (AssignGoalTile(*((*cit)->path.end() - 1), (*item)))
+						break;
+				}
+			}
+			OccupiedTiles.clear();
+		}
+		else {
+			return false;
 		}
 	}
 	PERF_PEEK(timer);
+	return true;
 }
 
-eastl::vector<iPoint> j1PathFinding::FindTileWalkableAdjacents(iPoint tile, int quantity) {
+bool j1PathFinding::AssignGoalTile(iPoint tile,Ai*ai) {
 	iPoint cell;
-	eastl::vector<iPoint> Tiles;
-	Tiles.reserve(quantity);
-	while (quantity != 0) {
 
-		//Tile
-		if (quantity == 1) {
-			Tiles.emplace_back(tile);
-			--quantity;
-		}
-		// north
-		if (quantity > 1) {
-			cell.create(tile.x, tile.y + 1);
-			if (IsWalkable(cell)) {
-				Tiles.emplace_back(cell);
-				--quantity;
-			}
-		}
-
-		// south
-		if (quantity > 1) {
-			cell.create(tile.x, tile.y - 1);
-			if (IsWalkable(cell)) {
-				Tiles.emplace_back(cell);
-				--quantity;
-			}
-		}
-
-		// east
-		if (quantity > 1) {
-			cell.create(tile.x + 1, tile.y);
-			if (IsWalkable(cell)) {
-				Tiles.emplace_back(cell);
-				--quantity;
-			}
-		}
-
-		// west
-		if (quantity > 1) {
-			cell.create(tile.x - 1, tile.y);
-			if (IsWalkable(cell)) {
-				Tiles.emplace_back(cell);
-				--quantity;
-			}
-		}
-
-		//diagonals
-		if (quantity > 1) {
-			cell.create(tile.x + 1, tile.y + 1);
-			if (IsWalkable(cell)) {
-				Tiles.emplace_back(cell);
-				--quantity;
-			}
-		}
-
-		if (quantity > 1) {
-			cell.create(tile.x + 1, tile.y - 1);
-			if (IsWalkable(cell)) {
-				Tiles.emplace_back(cell);
-				--quantity;
-			}
-		}
-
-		if (quantity > 1) {
-			cell.create(tile.x - 1, tile.y + 1);
-			if (IsWalkable(cell)) {
-				Tiles.emplace_back(cell);
-				--quantity;
-			}
-		}
-
-		if (quantity > 1) {
-			cell.create(tile.x - 1, tile.y - 1);
-			if (IsWalkable(cell)) {
-				Tiles.emplace_back(cell);
-				--quantity;
-			}
-		}
+	// north
+	cell.create(tile.x, tile.y + 1);
+	if (App->pathfinding->IsWalkable(cell)&& !IsOccupied(cell)) {
+		ai->path.erase(ai->path.end() - 10, ai->path.end());
+		CreatePath(ai->path.back(), cell);
+		eastl::vector<iPoint>endingpath = *GetLastPath();
+		ai->path.insert(ai->path.end(), endingpath.begin(), endingpath.end());
+		OccupiedTiles.push_back(cell);
+		return true;
 	}
 
-	return Tiles;
+	// south
+	cell.create(tile.x, tile.y - 1);
+	if (App->pathfinding->IsWalkable(cell)&& !IsOccupied(cell)) {
+		ai->path.erase(ai->path.end() - 10, ai->path.end());
+		CreatePath(ai->path.back(), cell);
+		eastl::vector<iPoint>endingpath = *GetLastPath();
+		ai->path.insert(ai->path.end(), endingpath.begin(), endingpath.end());
+		OccupiedTiles.push_back(cell);
+		return true;
+	}
+
+	// east
+	cell.create(tile.x + 1, tile.y);
+	if (App->pathfinding->IsWalkable(cell) && !IsOccupied(cell)) {
+		ai->path.erase(ai->path.end() - 10, ai->path.end());
+		CreatePath(ai->path.back(), cell);
+		eastl::vector<iPoint>endingpath = *GetLastPath();
+		ai->path.insert(ai->path.end(), endingpath.begin(), endingpath.end());
+		OccupiedTiles.push_back(cell);
+		return true;
+	}
+
+	// west
+	cell.create(tile.x - 1, tile.y);
+	if (App->pathfinding->IsWalkable(cell) && !IsOccupied(cell)) {
+		ai->path.erase(ai->path.end() - 10, ai->path.end());
+		CreatePath(ai->path.back(), cell);
+		eastl::vector<iPoint>endingpath = *GetLastPath();
+		ai->path.insert(ai->path.end(), endingpath.begin(), endingpath.end());
+		OccupiedTiles.push_back(cell);
+		return true;
+	}
+
+	//diagonals
+	cell.create(tile.x + 1, tile.y + 1);
+	if (App->pathfinding->IsWalkable(cell) && !IsOccupied(cell)) {
+		ai->path.erase(ai->path.end() - 10, ai->path.end());
+		CreatePath(ai->path.back(), cell);
+		eastl::vector<iPoint>endingpath = *GetLastPath();
+		ai->path.insert(ai->path.end(), endingpath.begin(), endingpath.end());
+		OccupiedTiles.push_back(cell);
+		return true;
+	}
+
+	cell.create(tile.x + 1, tile.y - 1);
+	if (App->pathfinding->IsWalkable(cell) && !IsOccupied(cell)) {
+		ai->path.erase(ai->path.end() - 10, ai->path.end());
+		CreatePath(ai->path.back(), cell);
+		eastl::vector<iPoint>endingpath = *GetLastPath();
+		ai->path.insert(ai->path.end(), endingpath.begin(), endingpath.end());
+		OccupiedTiles.push_back(cell);
+		return true;
+	}
+
+	cell.create(tile.x - 1, tile.y + 1);
+	if (App->pathfinding->IsWalkable(cell) && !IsOccupied(cell)) {
+		ai->path.erase(ai->path.end() - 10, ai->path.end());
+		CreatePath(ai->path.back(), cell);
+		eastl::vector<iPoint>endingpath = *GetLastPath();
+		ai->path.insert(ai->path.end(), endingpath.begin(), endingpath.end());
+		OccupiedTiles.push_back(cell);
+		return true;
+	}
+
+	cell.create(tile.x - 1, tile.y - 1);
+	if (App->pathfinding->IsWalkable(cell) && !IsOccupied(cell)) {
+		ai->path.erase(ai->path.end() - 10, ai->path.end());
+		CreatePath(ai->path.back(), cell);
+		eastl::vector<iPoint>endingpath = *GetLastPath();
+		ai->path.insert(ai->path.end(), endingpath.begin(), endingpath.end());
+		OccupiedTiles.push_back(cell);
+		return true;
+	}
+
+	return false;
 }

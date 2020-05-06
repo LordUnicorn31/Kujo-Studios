@@ -90,6 +90,7 @@ bool EntityManager::Start() {
 	CreateEntity(AviableEntities::basicunit, iPoint(560, 370));
 	CreateEntity(AviableEntities::collector, iPoint(610, 300));
 	CreateEntity(AviableEntities::basicunit, iPoint(660, 370));
+	CreateEntity(AviableEntities::collector, iPoint(450, 300));
 	CreateEntity(AviableEntities::ore, iPoint(320, 0));
 	CreateEntity(AviableEntities::gold, iPoint(320, 32));
 	return true;
@@ -145,8 +146,22 @@ void EntityManager::HandleInput() {
 			}
 		}
 		//TODO: ARA CREAR LA FUNCIO AL MODUL PATHFINDING K REBI LA LLISTA I ENS CALCULI EL PATH PER TOTS
-		if(GroupAi.size()>1)
-			App->pathfinding->CalculateGroupPath(GroupAi,MouseTile);
+		if (GroupAi.size() > 1) {
+			if (!App->pathfinding->CalculateGroupPath(GroupAi, MouseTile)) {
+				eastl::list<Ai*>::iterator i;
+				for (i = GroupAi.begin(); i != GroupAi.end(); ++i) {
+					if ((*i)->TilePos != MouseTile) {
+						if (App->pathfinding->CreatePath((*i)->TilePos, MouseTile) != -1) {
+							(*i)->path = *App->pathfinding->GetLastPath();
+							//FinalGoal.x = path.back().x;
+							//FinalGoal.y = path.back().y;
+							(*i)->path.erase((*i)->path.begin());
+							(*i)->OnDestination = false;
+						}
+					}
+				}
+			}
+		}
 		else if (GroupAi.size() == 1) {
 			Ai* ai = (*GroupAi.begin());
 			if (ai->TilePos != MouseTile) {

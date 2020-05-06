@@ -49,9 +49,11 @@ public:
 	uchar GetTileAt(const iPoint& pos) const;
 
 	//TODO: Find the path when requested from an ai group (calcular un path mitja per a tots)
-	void CalculateGroupPath(eastl::list<Ai*>group,iPoint destination);
+	bool CalculateGroupPath(eastl::list<Ai*>group,iPoint destination);
 
-	eastl::vector<iPoint> FindTileWalkableAdjacents(iPoint tile,int quantity);
+	bool AssignGoalTile(iPoint tile,Ai*ai);
+
+	bool IsOccupied(iPoint tile);
 	//TODO: Update	walkability map based on units position and add it to the pathfinding algorithm
 	//bool IsTileOccupied();
 	//UpdateUnitsLocations();
@@ -67,6 +69,7 @@ private:
 	//TODO:Llista de tots els pathos
 	eastl::list<eastl::vector<iPoint>>CurrentPaths;
 	eastl::vector<iPoint> last_path;
+	eastl::list<iPoint>OccupiedTiles;
 	j1PerfTimer timer;
 	
 };

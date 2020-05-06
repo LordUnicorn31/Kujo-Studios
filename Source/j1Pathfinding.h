@@ -54,6 +54,9 @@ public:
 	bool AssignGoalTile(iPoint tile,Ai*ai);
 
 	bool IsOccupied(iPoint tile);
+
+	eastl::vector<iPoint> FindWalkableAdjacents(iPoint currentpoint);
+
 	//TODO: Update	walkability map based on units position and add it to the pathfinding algorithm
 	//bool IsTileOccupied();
 	//UpdateUnitsLocations();

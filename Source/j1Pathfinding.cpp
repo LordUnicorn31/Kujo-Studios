@@ -26,6 +26,49 @@ bool j1PathFinding::CleanUp()
 	return true;
 }
 
+eastl::vector<iPoint> j1PathFinding::FindWalkableAdjacents(iPoint currentpoint) {
+	iPoint cell;
+	eastl::vector<iPoint>adjacent;
+	//diagonals
+	cell.create(currentpoint.x + 1, currentpoint.y + 1);
+	if (App->pathfinding->IsWalkable(cell))
+		adjacent.push_back(cell);
+
+	cell.create(currentpoint.x + 1, currentpoint.y - 1);
+	if (App->pathfinding->IsWalkable(cell))
+		adjacent.push_back(cell);
+
+	cell.create(currentpoint.x - 1, currentpoint.y + 1);
+	if (App->pathfinding->IsWalkable(cell))
+		adjacent.push_back(cell);
+
+	cell.create(currentpoint.x - 1, currentpoint.y - 1);
+	if (App->pathfinding->IsWalkable(cell))
+		adjacent.push_back(cell);
+
+	// north
+	cell.create(currentpoint.x, currentpoint.y + 1);
+	if (App->pathfinding->IsWalkable(cell))
+		adjacent.push_back(cell);
+
+	// south
+	cell.create(currentpoint.x, currentpoint.y - 1);
+	if (App->pathfinding->IsWalkable(cell))
+		adjacent.push_back(cell);
+
+	// east
+	cell.create(currentpoint.x + 1, currentpoint.y);
+	if (App->pathfinding->IsWalkable(cell))
+		adjacent.push_back(cell);
+
+	// west
+	cell.create(currentpoint.x - 1, currentpoint.y);
+	if (App->pathfinding->IsWalkable(cell))
+		adjacent.push_back(cell);
+
+	return adjacent;
+}
+
 // Sets up the walkability map
 void j1PathFinding::SetMap(uint width, uint height, uchar* data)
 {

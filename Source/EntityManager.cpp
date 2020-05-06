@@ -84,13 +84,13 @@ void EntityManager::GenerateResources(int n_gold, int n_ore) {
 	int i = 0;
 	iPoint randompostile;
 	iPoint randomposmap;
+	srand(time(0));
 	while (i < n_gold) {
-		srand(time(0));
 		randompostile=iPoint(1 + (rand() % 100), 1 + (rand() % 100));
 
 		if (App->pathfinding->IsWalkable(randompostile)&& eastl::find(UsedTiles.begin(),UsedTiles.end(), randompostile)==UsedTiles.end()) {
 			randomposmap = App->map->MapToWorld(randompostile.x, randompostile.y);
-			CreateEntity(AviableEntities::gold, randompostile);
+			CreateEntity(AviableEntities::gold, randomposmap);
 			UsedTiles.push_back(randompostile);
 			++i;
 			LOG("Gold number %d created", i);
@@ -98,12 +98,11 @@ void EntityManager::GenerateResources(int n_gold, int n_ore) {
 	}
 	i = 0;
 	while (i < n_ore) {
-		srand(time(0));
 		randompostile = iPoint(1 + (rand() % 100), 1 + (rand() % 100));
 
 		if (App->pathfinding->IsWalkable(randompostile) && eastl::find(UsedTiles.begin(), UsedTiles.end(), randompostile) == UsedTiles.end()) {
 			randomposmap = App->map->MapToWorld(randompostile.x, randompostile.y);
-			CreateEntity(AviableEntities::gold, randompostile);
+			CreateEntity(AviableEntities::ore, randomposmap);
 			UsedTiles.push_back(randompostile);
 			++i;
 			LOG("Ore number %d created", i);
@@ -118,7 +117,7 @@ bool EntityManager::Start() {
 	BaseSprite = App->tex->Load("Resources/entities/bases/bases.png");
 	Titanium= App->tex->Load("Resources/entities/Minerals/titanium1.png");
 	Copper = App->tex->Load("Resources/entities/Minerals/copper1.png");
-	GenerateResources(10, 10);
+	GenerateResources(100, 100);
 	CreateEntity(AviableEntities::mine, iPoint(350, 300));
 	CreateEntity(AviableEntities::collector, iPoint(400, 370));
 	CreateEntity(AviableEntities::basicunit, iPoint(450, 370));

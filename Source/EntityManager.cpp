@@ -48,11 +48,11 @@ EntityManager::EntityManager(): j1Module(),MineSprite(NULL),BaseSprite(NULL),Shi
 	//last upgrade
 	Animations.Upgrade4.PushBack({ 264,392,112,112 });
 	//attack ship
-	Animations.AttackShip.PushBack({ 0,0,54,58 });
-	Animations.AttackShip.PushBack({ 56,0,54,66 });
+	Animations.AttackShip.PushBack({ 24,23,66,66 });
+	Animations.AttackShip.PushBack({ 121,23,66,66 });
 	//Farmer ship
-	Animations.FarmerShip.PushBack({ 128,1,46,57 });
-	Animations.FarmerShip.PushBack({ 179,2,46,61 });
+	Animations.FarmerShip.PushBack({ 242,28,61,61 });
+	Animations.FarmerShip.PushBack({ 377,20,61,61 });
 	//MineIdle
 	Animations.MineIdle.PushBack({ 0,0,64,64 });
 	Animations.MineIdle.PushBack({ 64,0,64,64 });

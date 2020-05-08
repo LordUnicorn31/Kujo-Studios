@@ -7,7 +7,8 @@ struct Animation;
 enum class AiType : unsigned char {
 	Collector,
 	Constructor,
-	Basic_Unit
+	Basic_Unit,
+	Ranged_Unit
 };
 
 class Ai :public Entity {

@@ -18,8 +18,8 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
 		IdleAnimaiton = &App->entity->Animations.AttackShip;
 		cost = { 1,50,0 };
 		selectable = true;
-		EntityRect.w = 58;
-		EntityRect.h = 58;
+		EntityRect.w = 54;
+		EntityRect.h = 51;
         TilePos = App->map->WorldToMap(EntityRect.x, EntityRect.y);
         NextTile = TilePos;
         OnDestination = true;
@@ -34,8 +34,8 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
 		IdleAnimaiton = &App->entity->Animations.FarmerShip;
 		cost = { 1,50,0 };
 		selectable = true;
-		EntityRect.w = 58;
-		EntityRect.h = 58;
+		EntityRect.w = 46;
+		EntityRect.h = 46;
         TilePos = App->map->WorldToMap(EntityRect.x, EntityRect.y);
         NextTile = TilePos;
         OnDestination = true;

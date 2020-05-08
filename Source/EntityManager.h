@@ -33,6 +33,7 @@ struct EntitiesAnimations {
 	Animation Cuartel;
 	Animation FarmerShip;
 	Animation AttackShip;
+	Animation AttackShip2;
 	Animation BuildMine;
 };
 

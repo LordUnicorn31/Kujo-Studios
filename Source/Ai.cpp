@@ -24,6 +24,22 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         NextTile = TilePos;
         OnDestination = true;
 		break;
+    case AiType::Ranged_Unit:
+        MaxHealth = 60;
+        HealthRegen = 2.0f;
+        health = 60;
+        Damage = 60;
+        Range = 350;
+        speed = 6;
+        IdleAnimaiton = &App->entity->Animations.AttackShip2;
+        cost = { 1,80,0 };
+        selectable = true;
+        EntityRect.w = 58;
+        EntityRect.h = 58;
+        TilePos = App->map->WorldToMap(EntityRect.x, EntityRect.y);
+        NextTile = TilePos;
+        OnDestination = true;
+        break;
 	case AiType::Collector:
 		MaxHealth = 50;
 		HealthRegen = 1.0f;

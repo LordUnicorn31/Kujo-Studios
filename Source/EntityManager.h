@@ -55,7 +55,10 @@ public:
 	EntitiesAnimations Animations;
 
 private:
+	bool newgame;
 	void GenerateResources(int n_gold, int n_ore);
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&);
 	eastl::list <Entity*>entities;
 	bool DoLogic;
 	float AccumulatedTime;

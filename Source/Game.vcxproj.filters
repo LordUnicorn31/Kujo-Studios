@@ -140,4 +140,7 @@
       <UniqueIdentifier>{59482e2f-eec6-4811-9cde-b4d02e656450}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Resources\config.xml" />
+  </ItemGroup>
 </Project>

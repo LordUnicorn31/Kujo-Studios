@@ -16,6 +16,7 @@
 
 j1SceneLogo::j1SceneLogo() : j1Module()
 {
+	name = "sceneLogo";
 }
 
 // Destructor

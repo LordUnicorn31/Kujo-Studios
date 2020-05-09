@@ -13,9 +13,11 @@
 #include "j1Gui.h"
 #include "j1Fonts.h"
 #include "j1Audio.h"
+#include "j1Pathfinding.h"
 
 j1SceneTitle::j1SceneTitle() : j1Module()
 {
+	name = "sceneTitle";
 }
 
 // Destructor
@@ -40,11 +42,13 @@ bool j1SceneTitle::Start()
 	titleLogo = App->tex->Load("Resources/Title_menu/LOGOJUEGO.png");
 
 
-	playButton = App->gui->AddButton(500, 430, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(68, 16, "PLAY", nullptr, { 0,255,0,255 }, 42, false, false, playButton);
+	NewGameButton = App->gui->AddButton(500, 390, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+	App->gui->AddText(15, 16, "NEW GAME", nullptr, { 0,255,0,255 }, 42, false, false, NewGameButton);
+	ContinueButton = App->gui->AddButton(500, 470, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+	App->gui->AddText(20, 16, "CONTINUE", nullptr, { 0,255,0,255 }, 42, false, false, ContinueButton);
 	exitButton = App->gui->AddButton(500, 630, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
 	App->gui->AddText(75, 16, "EXIT", nullptr, { 255,0,0,255 }, 42, false, false, exitButton);
-	optionsButton = App->gui->AddButton(500, 530, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+	optionsButton = App->gui->AddButton(500, 550, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
 	App->gui->AddText(32, 16, "OPTIONS", nullptr, { 0, 255, 255 }, 42, false, false, optionsButton);
 	App->gui->AddText(10, 690, "2020 KUJO STUDIOS", App->font->Small, { 255,255,255 }, 42, false, false);
 	
@@ -65,19 +69,6 @@ bool j1SceneTitle::PreUpdate()
 bool j1SceneTitle::Update(float dt)
 {
 	bool ret = true;
-	if (App->input->GetKey(SDL_SCANCODE_LEFT)) {
-		App->render->camera.x += 5;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT)) {
-		App->render->camera.x -= 5;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_UP)) {
-		App->render->camera.y += 5;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_DOWN)) {
-		App->render->camera.y -= 5;
-	}
-
 	
 	int w = App->win->GetWidth();
 	int h = App->win->GetHeight();
@@ -123,7 +114,8 @@ bool j1SceneTitle::CleanUp()
 	App->tex->UnLoad(titleLogo);
 	App->gui->DeleteAllUiElements();
 	/*App->audio->CleanUp();*/
-	playButton = nullptr;
+	NewGameButton = nullptr;
+	ContinueButton = nullptr;
 	exitButton = nullptr;
 	
 	return true;
@@ -137,8 +129,14 @@ void j1SceneTitle::Init()
 }
 
 void j1SceneTitle::ui_callback(UiElement* element) {
-	if (element == playButton) {	
+	if (element == NewGameButton) {	
 		App->audio->PlayFx(buttonFx);
+		App->map->Load("Mainmap.tmx");
+		int w, h;
+		uchar* data = NULL;
+		if (App->map->CreateWalkabilityMap(w, h, &data))
+			App->pathfinding->SetMap(w, h, data);
+		RELEASE_ARRAY(data);
 		//App->transition->FadeToBlack(App->sceneTitle, App->scene, 2.0f);
 		App->transition->Slide(App->sceneTitle, App->scene, 2.0f);
 		/*if (exitButton !=nullptr) {
@@ -146,11 +144,21 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 			exitButton = nullptr;
 		}*/
 	}
-	if (element == exitButton) {
+	else if (element == ContinueButton) {
+		App->LoadGame();
+		App->map->Load("Mainmap.tmx");
+		int w, h;
+		uchar* data = NULL;
+		if (App->map->CreateWalkabilityMap(w, h, &data))
+			App->pathfinding->SetMap(w, h, data);
+		RELEASE_ARRAY(data);
+		App->transition->Slide(App->sceneTitle, App->scene, 2.0f);
+	}
+	else if (element == exitButton) {
 		App->audio->PlayFx(buttonFx);
 		Exit = true;
 	}
-	if (element == optionsButton) {
+	else if (element == optionsButton) {
 		App->audio->PlayFx(buttonFx);
 		
 		optionsMenu=App->gui->AddButton(400, 250, { 20,540,446,465 }, { 20,540,446,465 }, { 20,540,446,465 }, true, false, nullptr, this);
@@ -159,12 +167,12 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 		App->gui->AddText(55, 25, "FULLSCREEN", App->font->Small, { 255,255,255 }, 42, false, false, fullScreen);
 		App->gui->AddText(150, 20, "OPTIONS MENU", App->font->Small, { 255,255,255 }, 42, false, false, optionsMenu);
 	}
-	if (element == backButton) {
+	else if (element == backButton) {
 		App->gui->RemoveUiElement(backButton);
 		App->gui->RemoveUiElement(optionsMenu);
 		App->gui->RemoveUiElement(fullScreen);
 	}
-	if (element == fullScreen) {
+	else if (element == fullScreen) {
 
 		App->win->Fullscreen();
 	}

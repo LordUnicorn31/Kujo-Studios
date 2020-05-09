@@ -17,6 +17,7 @@
 
 j1WinScene::j1WinScene() : j1Module()
 {
+	name = "winScene";
 }
 
 // Destructor

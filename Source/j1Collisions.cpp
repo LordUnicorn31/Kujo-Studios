@@ -10,6 +10,8 @@
 
 j1Collisions::j1Collisions()
 {
+	name = "collisions";
+
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
@@ -125,7 +127,7 @@ void j1Collisions::DebugDraw()
 		return;
 	}
 		
-
+/*
 	Uint8 alpha = 140;
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
@@ -134,7 +136,7 @@ void j1Collisions::DebugDraw()
 		if (colliders[i]->active) {
 			switch (colliders[i]->type)
 			{
-			/*case COLLIDER_NONE: // white
+			case COLLIDER_NONE: // white
 				App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 				break;
 			case COLLIDER_WALL: // blue
@@ -157,10 +159,10 @@ void j1Collisions::DebugDraw()
 				break;
 			case COLLIDER_ENEMY://black
 				App->render->DrawQuad(colliders[i]->rect, 0, 0, 0, alpha);
-				break;*/
+				break;
 			}
 		}
-	}
+	}*/
 }
 
 // Called before quitting

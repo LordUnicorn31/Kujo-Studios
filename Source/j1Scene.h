@@ -43,6 +43,7 @@ private:
 	UiElement* Exit_button;
 	UiElement* Continue_button;
 	UiElement* fullScreen;
+	UiElement* SaveButton;
 	int buttonFx;
 	bool exitGame;
 };

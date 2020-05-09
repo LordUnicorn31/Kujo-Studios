@@ -292,6 +292,9 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClInclude Include="j1Transitions.h" />
     <ClInclude Include="Resources.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Resources\config.xml" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

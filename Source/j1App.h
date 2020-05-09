@@ -114,6 +114,8 @@ public:
 	j1WinScene* winscene;
 	j1LoseScene* losescene;
 
+	bool SavedProgress;
+
 private:
 
 	eastl::list<j1Module*>	modules;

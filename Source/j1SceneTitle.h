@@ -38,7 +38,8 @@ public:
 
 private:
 	//Main Buttons
-	UiElement* playButton;
+	UiElement* NewGameButton;
+	UiElement* ContinueButton;
 	UiElement* exitButton;
 	UiElement* optionsButton;
 	//Options Menu

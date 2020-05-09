@@ -26,7 +26,7 @@
 
 #include "SDL.h"
 
-j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
+j1App::j1App(int argc, char* args[]) : argc(argc), args(args),save_game("Resources/save.xml"),load_game("Resources/save.xml")
 {
 	PERF_START(ptimer);
 	freeze = false;
@@ -89,8 +89,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	modules.emplace_back(render);
 	modules[5]->Init();*/
 
-
-
 	PERF_PEEK(ptimer);
 }
 
@@ -132,7 +130,7 @@ bool j1App::Awake()
 		app_config = config.child("app");
 		title=app_config.child("title").child_value();
 		organization=app_config.child("organization").child_value();
-
+		SavedProgress = config.child("SavedProgress").child_value();
 		int cap = app_config.attribute("framerate_cap").as_int(-1);
 		cap_num = cap;
 
@@ -407,7 +405,7 @@ void j1App::GetSaveGames(eastl::list<eastl::string>& list_to_fill) const
 
 bool j1App::LoadGameNow()
 {
-	bool ret = false;
+	bool ret = true;
 
 	pugi::xml_document data;
 	pugi::xml_node root;
@@ -420,24 +418,17 @@ bool j1App::LoadGameNow()
 
 		root = data.child("game_state");
 
-		/*p2List_item<j1Module*>* item = modules.start;
-		ret = true;
-
-		while (item != NULL && ret == true)
-		{
-			ret = item->data->Load(root.child(item->data->name.GetString()));
-			item = item->next;
-		}*/
-
 		eastl::list<j1Module*>::iterator it;
-		for (it = modules.begin(); it != modules.end() && ret == true; ++it)
-			ret = (*it)->Load(root.child((*it)->name.c_str()));
+		for (it = modules.begin(); it != modules.end() && ret == true; ++it) {
+			pugi::xml_node ModuleNode = root.child((*it)->name.c_str());
+			ret = (*it)->Load(ModuleNode);
+		}
 
 		data.reset();
 		if (ret == true)
 			LOG("...finished loading");
 		else
-			LOG("...loading process interrupted with error on module %s", (it.mpNode->mValue != NULL) ? (*it)->name.c_str() : "unknown");
+			LOG("...loading process interrupted with error on module %s", ((*it) != NULL) ? (*it)->name.c_str() : "unknown");
 	}
 	else
 		LOG("Could not parse game state xml file %s. pugi error: %s", load_game.c_str(), result.description());
@@ -467,8 +458,10 @@ bool j1App::SavegameNow() const
 	}*/
 
 	eastl::list<j1Module*>::const_iterator it;
-	for (it = modules.begin(); it != modules.end() && ret == true; ++it)
-		ret = (*it)->Save(root.append_child((*it)->name.c_str()));
+	for (it = modules.begin(); it != modules.end() && ret == true; ++it) {
+		pugi::xml_node ModuleNode = root.append_child((*it)->name.c_str());
+		ret = (*it)->Save(ModuleNode);
+	}
 
 	if (ret == true)
 	{

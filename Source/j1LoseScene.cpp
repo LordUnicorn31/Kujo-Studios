@@ -17,6 +17,7 @@
 
 j1LoseScene::j1LoseScene() : j1Module()
 {
+	name = "loseScene";
 }
 
 // Destructor

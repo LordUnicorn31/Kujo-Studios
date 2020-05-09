@@ -11,6 +11,7 @@
 
 j1Transitions::j1Transitions() : j1Module()
 {
+	name = "transitions";
 }
 
 j1Transitions::~j1Transitions()

@@ -13,7 +13,7 @@
 #include <time.h>
 #include "EASTL/vector.h"
 
-EntityManager::EntityManager(): j1Module(),MineSprite(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1.0f / 60.0f)),AccumulatedTime(0.0f) {
+EntityManager::EntityManager(): j1Module(),MineSprite(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1.0f / 60.0f)),AccumulatedTime(0.0f),newgame(true) {
 	name = "EntityManager";
 
 	//Loading all the entities animations
@@ -90,7 +90,6 @@ void EntityManager::GenerateResources(int n_gold, int n_ore) {
 	srand(time(0));
 	while (i < n_gold) {
 		randompostile=iPoint(1 + (rand() % 100), 1 + (rand() % 100));
-
 		if (App->pathfinding->IsWalkable(randompostile)&& eastl::find(UsedTiles.begin(),UsedTiles.end(), randompostile)==UsedTiles.end()) {
 			randomposmap = App->map->MapToWorld(randompostile.x, randompostile.y);
 			CreateEntity(AviableEntities::gold, randomposmap);
@@ -133,23 +132,25 @@ void EntityManager::GenerateResources(int n_gold, int n_ore) {
 
 bool EntityManager::Start() {
 	//Load the initial entities
-	MineSprite = App->tex->Load("Resources/entities/drills/MineSprite.png");
-	ShipsSprite = App->tex->Load("Resources/entities/ships/ships_spritesheet.png");
-	BaseSprite = App->tex->Load("Resources/entities/bases/bases.png");
-	Titanium= App->tex->Load("Resources/entities/Minerals/titanium1.png");
-	Copper = App->tex->Load("Resources/entities/Minerals/copper1.png");
-	GenerateResources(10, 10);
-	CreateEntity(AviableEntities::mine, iPoint(350, 300));
-	CreateEntity(AviableEntities::collector, iPoint(400, 370));
-	CreateEntity(AviableEntities::basicunit, iPoint(450, 370));
-	CreateEntity(AviableEntities::collector, iPoint(500, 300));
-	CreateEntity(AviableEntities::basicunit, iPoint(560, 370));
-	CreateEntity(AviableEntities::collector, iPoint(610, 300));
-	CreateEntity(AviableEntities::basicunit, iPoint(660, 370));
-	CreateEntity(AviableEntities::collector, iPoint(710, 300));
-	CreateEntity(AviableEntities::basicunit, iPoint(770, 370));
-	CreateEntity(AviableEntities::collector, iPoint(840, 300));
-	CreateEntity(AviableEntities::basicunit, iPoint(910, 370));
+	if (newgame) {
+		MineSprite = App->tex->Load("Resources/entities/drills/MineSprite.png");
+		ShipsSprite = App->tex->Load("Resources/entities/ships/ships_spritesheet.png");
+		BaseSprite = App->tex->Load("Resources/entities/bases/bases.png");
+		Titanium= App->tex->Load("Resources/entities/Minerals/titanium1.png");
+		Copper = App->tex->Load("Resources/entities/Minerals/copper1.png");
+		GenerateResources(10, 10);
+		CreateEntity(AviableEntities::mine, iPoint(350, 300));
+		CreateEntity(AviableEntities::collector, iPoint(400, 370));
+		CreateEntity(AviableEntities::basicunit, iPoint(450, 370));
+		CreateEntity(AviableEntities::collector, iPoint(500, 300));
+		CreateEntity(AviableEntities::basicunit, iPoint(560, 370));
+		CreateEntity(AviableEntities::collector, iPoint(610, 300));
+		CreateEntity(AviableEntities::basicunit, iPoint(660, 370));
+		CreateEntity(AviableEntities::collector, iPoint(710, 300));
+		CreateEntity(AviableEntities::basicunit, iPoint(770, 370));
+		CreateEntity(AviableEntities::collector, iPoint(840, 300));
+		CreateEntity(AviableEntities::basicunit, iPoint(910, 370));
+	}
 
 	return true;
 }
@@ -321,4 +322,63 @@ Entity* EntityManager::CreateEntity(AviableEntities type,iPoint position) {
 
 void EntityManager::DestroyEntity(Entity* entity) {
 
+}
+
+bool EntityManager::Load(pugi::xml_node& entitynode) {
+	newgame=false;
+	MineSprite = App->tex->Load("Resources/entities/drills/MineSprite.png");
+	ShipsSprite = App->tex->Load("Resources/entities/ships/ships_spritesheet.png");
+	BaseSprite = App->tex->Load("Resources/entities/bases/bases.png");
+	Titanium = App->tex->Load("Resources/entities/Minerals/titanium1.png");
+	Copper = App->tex->Load("Resources/entities/Minerals/copper1.png");
+	int iterations = entitynode.child("numEntities").attribute("value").as_uint();
+	pugi::xml_node CurrentEntity = entitynode.child("entity");
+	for (int i = 0; i != iterations; ++i) {
+		CreateEntity((AviableEntities)CurrentEntity.attribute("type").as_int(), iPoint(CurrentEntity.attribute("x").as_int(), CurrentEntity.attribute("y").as_int()));
+		CurrentEntity=CurrentEntity.next_sibling();
+	}
+	return true;
+}
+
+bool EntityManager::Save(pugi::xml_node& managernode) {
+	managernode.append_child("numEntities").append_attribute("value").set_value(entities.size());
+	eastl::list<Entity*>::iterator it;
+	for (it = entities.begin(); it != entities.end(); ++it) {
+		pugi::xml_node EntityNode = managernode.append_child("entity");
+		EntityNode.append_attribute("x").set_value((*it)->EntityRect.x);
+		EntityNode.append_attribute("y").set_value((*it)->EntityRect.y);
+		switch ((*it)->etype) {
+		case EntityType::TypeAi:
+			switch (((Ai*)(*it))->Atype) {
+			case AiType::Basic_Unit:
+				EntityNode.append_attribute("type").set_value((int)AviableEntities::basicunit);
+				break;
+			case AiType::Collector:
+				EntityNode.append_attribute("type").set_value((int)AviableEntities::collector);
+				break;
+			}
+			break;
+		case EntityType::TypeBuilding:
+			switch (((Building*)(*it))->Btype) {
+			case BuildingType::Base:
+				EntityNode.append_attribute("type").set_value((int)AviableEntities::base);
+				break;
+			case BuildingType::Mine:
+				EntityNode.append_attribute("type").set_value((int)AviableEntities::mine);
+				break;
+			}
+			break;
+		case EntityType::TypeResource:
+			switch (((Resource*)(*it))->Rtype) {
+			case ResourceType::Gold:
+				EntityNode.append_attribute("type").set_value((int)AviableEntities::gold);
+				break;
+			case ResourceType::Ore:
+				EntityNode.append_attribute("type").set_value((int)AviableEntities::ore);
+				break;
+			}
+			break;
+		}
+	}
+	return true;
 }

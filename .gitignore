@@ -363,5 +363,4 @@ ASALocalRun/
 .mfractor/
 
 #Saved progres on the xml file
-*.xml
-!Source/Resources/config.xml
+Source/Resources/save.xml

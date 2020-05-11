@@ -12,6 +12,7 @@ enum class EntityType : unsigned char;
 enum class AviableEntities: unsigned char {
 	base,
 	mine,
+	cuartel,
 	ship_factory,
 	collector,
 	basicunit,
@@ -20,6 +21,7 @@ enum class AviableEntities: unsigned char {
 };
 
 struct EntitiesAnimations {
+	Animation BuildMine;
 	Animation MineIdle;
 	Animation Base1Idle;
 	Animation Base2Idle;
@@ -30,11 +32,13 @@ struct EntitiesAnimations {
 	Animation Upgrade2;
 	Animation Upgrade3;
 	Animation Upgrade4;
-	Animation Cuartel;
+	Animation BuildCuartel;
+	Animation CuartelIdle;
+	Animation BuildLab;
+	Animation LabIdle;
 	Animation FarmerShip;
 	Animation AttackShip;
 	Animation AttackShip2;
-	Animation BuildMine;
 };
 
 class EntityManager :public j1Module {
@@ -64,6 +68,7 @@ private:
 	float AccumulatedTime;
 	float UpdateMsCycle;
 	SDL_Texture* MineSprite;
+	SDL_Texture* CuartelLab;
 	SDL_Texture* BaseSprite;
 	SDL_Texture* ShipsSprite;
 	SDL_Texture* Copper;

@@ -13,7 +13,7 @@
 #include <time.h>
 #include "EASTL/vector.h"
 
-EntityManager::EntityManager(): j1Module(),MineSprite(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1.0f / 60.0f)),AccumulatedTime(0.0f),newgame(true) {
+EntityManager::EntityManager(): j1Module(),MineSprite(NULL),CuartelLab(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1.0f / 60.0f)),AccumulatedTime(0.0f),newgame(true) {
 	name = "EntityManager";
 
 	//Loading all the entities animations
@@ -71,6 +71,20 @@ EntityManager::EntityManager(): j1Module(),MineSprite(NULL),BaseSprite(NULL),Shi
 	Animations.MineIdle.speed = 2.0f;
 	//building mine
 	Animations.BuildMine.PushBack({ 256,64,64,64});
+	//Idle cuartel
+	Animations.CuartelIdle.PushBack({126,64,64,64});
+	Animations.CuartelIdle.PushBack({ 0,0,64,64 });
+	Animations.CuartelIdle.PushBack({ 126,64,64,64 });
+	Animations.CuartelIdle.PushBack({ 128,0,64,64 });
+	Animations.CuartelIdle.PushBack({ 126,64,64,64 });
+	Animations.CuartelIdle.PushBack({ 0,64,64,64 });
+	//Building Cuartels
+	Animations.BuildCuartel.PushBack({ 64,0,64,64 });
+	//Building Lab
+	Animations.LabIdle.PushBack({ 64,250,64,64 });
+	Animations.LabIdle.PushBack({ 128,250,64,64 });
+	//Lab Idle
+	Animations.BuildLab.PushBack({ 0,250,64,64 });
 }
 
 EntityManager::~EntityManager() {
@@ -134,11 +148,14 @@ bool EntityManager::Start() {
 	//Load the initial entities
 	if (newgame) {
 		MineSprite = App->tex->Load("Resources/entities/drills/MineSprite.png");
+		CuartelLab = App->tex->Load("Resources/entities/Cuarteles/cuartel + Lab.png");
 		ShipsSprite = App->tex->Load("Resources/entities/ships/ships_spritesheet.png");
 		BaseSprite = App->tex->Load("Resources/entities/bases/bases.png");
 		Titanium= App->tex->Load("Resources/entities/Minerals/titanium1.png");
 		Copper = App->tex->Load("Resources/entities/Minerals/copper1.png");
 		GenerateResources(10, 10);
+		CreateEntity(AviableEntities::ship_factory, iPoint(280, 300));
+		CreateEntity(AviableEntities::cuartel, iPoint(280, 380));
 		CreateEntity(AviableEntities::mine, iPoint(350, 300));
 		CreateEntity(AviableEntities::collector, iPoint(400, 370));
 		CreateEntity(AviableEntities::basicunit, iPoint(450, 370));
@@ -278,6 +295,7 @@ bool EntityManager::CleanUp() {
 	App->tex->UnLoad(Titanium);
 	App->tex->UnLoad(Copper);
 	MineSprite = nullptr;
+	CuartelLab = nullptr;
 	BaseSprite = nullptr;
 	ShipsSprite = nullptr;
 	Titanium = nullptr;
@@ -295,6 +313,14 @@ Entity* EntityManager::CreateEntity(AviableEntities type,iPoint position) {
 	case AviableEntities::mine:
 		ret = new Building(BuildingType::Mine, position);
 		ret->sprite = MineSprite;
+		break;
+	case AviableEntities::cuartel:
+		ret = new Building(BuildingType::Cuartel, position);
+		ret->sprite = CuartelLab;
+		break;
+	case AviableEntities::ship_factory:
+		ret = new Building(BuildingType::Spaceship_factory, position);
+		ret->sprite = CuartelLab;
 		break;
 	case AviableEntities::collector:
 		ret = new Ai(AiType::Collector,position);
@@ -327,6 +353,7 @@ void EntityManager::DestroyEntity(Entity* entity) {
 bool EntityManager::Load(pugi::xml_node& entitynode) {
 	newgame=false;
 	MineSprite = App->tex->Load("Resources/entities/drills/MineSprite.png");
+	CuartelLab = App->tex->Load("Resources/entities/Cuarteles/cuartel + Lab.png");
 	ShipsSprite = App->tex->Load("Resources/entities/ships/ships_spritesheet.png");
 	BaseSprite = App->tex->Load("Resources/entities/bases/bases.png");
 	Titanium = App->tex->Load("Resources/entities/Minerals/titanium1.png");
@@ -365,6 +392,12 @@ bool EntityManager::Save(pugi::xml_node& managernode) {
 				break;
 			case BuildingType::Mine:
 				EntityNode.append_attribute("type").set_value((int)AviableEntities::mine);
+				break;
+			case BuildingType::Cuartel:
+				EntityNode.append_attribute("type").set_value((int)AviableEntities::cuartel);
+				break;
+			case BuildingType::Spaceship_factory:
+				EntityNode.append_attribute("type").set_value((int)AviableEntities::ship_factory);
 				break;
 			}
 			break;

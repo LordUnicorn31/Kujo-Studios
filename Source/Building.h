@@ -7,6 +7,7 @@ class SDL_Texture;
 
 enum class BuildingType : unsigned char {
 	Mine,
+	Cuartel,
 	Spaceship_factory,
 	Base
 };

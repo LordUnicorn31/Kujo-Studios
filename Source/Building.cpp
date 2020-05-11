@@ -26,7 +26,31 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		IdleAnimation= &App->entity->Animations.MineIdle;
 		ConstructionAnimation = &App->entity->Animations.BuildMine;
 		level = 1;
-		ConstructionTime = 5.0f;
+		ConstructionTime = 4.0f;
+		OnConstruction = true;
+		cost = { 0,1500,0 };
+		break;
+	case BuildingType::Cuartel:
+		MaxHealth = 300;
+		health = 300;
+		HealthRegen = 2.5f;
+		selected = false;
+		IdleAnimation = &App->entity->Animations.CuartelIdle;
+		ConstructionAnimation = &App->entity->Animations.BuildCuartel;
+		level = 1;
+		ConstructionTime = 4.0f;
+		OnConstruction = true;
+		cost = { 0,1500,0 };
+		break;
+	case BuildingType::Spaceship_factory:
+		MaxHealth = 400;
+		health = 400;
+		HealthRegen = 2.5f;
+		selected = false;
+		IdleAnimation = &App->entity->Animations.LabIdle;
+		ConstructionAnimation = &App->entity->Animations.BuildLab;
+		level = 1;
+		ConstructionTime = 4.0f;
 		OnConstruction = true;
 		cost = { 0,1500,0 };
 		break;

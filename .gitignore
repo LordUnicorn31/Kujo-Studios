@@ -362,4 +362,5 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 
+#Saved progres on the xml file
 Source/Resources/save.xml

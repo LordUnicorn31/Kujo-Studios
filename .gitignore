@@ -363,4 +363,5 @@ ASALocalRun/
 .mfractor/
 
 #Saved progres on the xml file
-$GIT_DIR/Source/Resources/save.xml
+*.xml
+!Source/Resources/config.xml

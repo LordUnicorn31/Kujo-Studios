@@ -100,19 +100,19 @@ bool j1Scene::Update(float dt)
 	App->map->Draw();
 	return ret;
 }
-void j1Scene::cameramovement(float time)
+void j1Scene::cameramovement(float dt)
 {
 	if (mousepos.x == 0) {
-		App->render->camera.x += camspeed * time * 1000;
+		App->render->camera.x += camspeed * dt * 1000;
 	}
-	if (mousepos.x > (width - 10) / App->win->scale) {
-		App->render->camera.x -= camspeed * time * 1000;
+	if (-App->render->camera.x + App->render->camera.w +32 < (App->map->data.tile_width * App->map->data.width) && (mousepos.x > (width -10) / App->win->scale)) {
+		App->render->camera.x -= camspeed * dt * 1000;
 	}
 	if (mousepos.y == 0) {
-		App->render->camera.y += camspeed * time * 1000;
+		App->render->camera.y += camspeed * dt * 1000;
 	}
-	if (mousepos.y > (height - 10) / App->win->scale) {
-		App->render->camera.y -= camspeed/2 * time * 1000;
+	if (-App->render->camera.y + App->render->camera.h < (App->map->data.tile_height * App->map->data.height) && (mousepos.y > (height -10) / App->win->scale)) {
+		App->render->camera.y -= camspeed/2 * dt * 1000;
 	}
 }
 

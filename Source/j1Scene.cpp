@@ -53,6 +53,7 @@ bool j1Scene::Start()
 	Titanium = App->gui->AddImage(980, 22, { 641,498,30,31 }, false, false, nullptr, this);
 	//Unit1 = App->gui->AddButton(0, 600, { 32,544,430,208}, { 32,544,440,208 }, { 32,544,440,208 }, true, false, nullptr, this);
 
+	Panel = App->gui->AddImage(0, 0, { 1024,0,226,720 }, false, false, nullptr, this);
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");
 
 	return true;

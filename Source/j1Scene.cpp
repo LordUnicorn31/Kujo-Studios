@@ -111,7 +111,7 @@ void j1Scene::cameramovement(float dt)
 	if (mousepos.y == 0) {
 		App->render->camera.y += camspeed * dt * 1000;
 	}
-	if (-App->render->camera.y + App->render->camera.h < (App->map->data.tile_height * App->map->data.height) && (mousepos.y > (height -10) / App->win->scale)) {
+	if (-App->render->camera.y + App->render->camera.h +32< (App->map->data.tile_height * App->map->data.height) && (mousepos.y > (height -10) / App->win->scale)) {
 		App->render->camera.y -= camspeed/2 * dt * 1000;
 	}
 }

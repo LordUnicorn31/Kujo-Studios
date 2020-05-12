@@ -21,7 +21,7 @@
 
 
 j1Scene::j1Scene() : j1Module()
-{	
+{
 	name = "scene";
 }
 
@@ -32,7 +32,7 @@ j1Scene::~j1Scene()
 
 
 // Called before render is available
-bool j1Scene::Awake(pugi::xml_node&config)
+bool j1Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
@@ -52,7 +52,7 @@ bool j1Scene::Start()
 	Copper = App->gui->AddImage(880, 22, { 679,501,28,29 }, false, false, nullptr, this);
 	Titanium = App->gui->AddImage(980, 22, { 641,498,30,31 }, false, false, nullptr, this);
 	//Unit1 = App->gui->AddButton(0, 600, { 32,544,430,208}, { 32,544,440,208 }, { 32,544,440,208 }, true, false, nullptr, this);
-
+	App->win->GetWindowSize(width, height);
 	Panel = App->gui->AddImage(0, 0, { 1024,0,226,720 }, false, false, nullptr, this);
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");
 
@@ -70,16 +70,16 @@ bool j1Scene::Update(float dt)
 {
 	bool ret = true;
 	if (App->input->GetKey(SDL_SCANCODE_LEFT)) {
-		App->render->camera.x+=5;
+		App->render->camera.x += 5;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT)) {
-		App->render->camera.x-=5;
+		App->render->camera.x -= 5;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_UP)) {
-		App->render->camera.y+=5;
+		App->render->camera.y += 5;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_DOWN)) {
-		App->render->camera.y-=5;
+		App->render->camera.y -= 5;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_L)) {
 		App->transition->FadeToBlack(App->scene, App->winscene, 2.0f);
@@ -87,8 +87,10 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_M)) {
 		App->transition->FadeToBlack(App->scene, App->losescene, 2.0f);
 	}
-	
-	
+	App->input->GetMousePosition(mousepos.x, mousepos.y);
+	cameramovement(dt);
+
+
 
 	if (exitGame) {
 		ret = false;
@@ -97,6 +99,21 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 	return ret;
+}
+void j1Scene::cameramovement(float time)
+{
+	if (mousepos.x == 0) {
+		App->render->camera.x += camspeed * time * 1000;
+	}
+	if (mousepos.x > (width - 10) / App->win->scale) {
+		App->render->camera.x -= camspeed * time * 1000;
+	}
+	if (mousepos.y == 0) {
+		App->render->camera.y += camspeed * time * 1000;
+	}
+	if (mousepos.y > (height - 10) / App->win->scale) {
+		App->render->camera.y -= camspeed/2 * time * 1000;
+	}
 }
 
 // Called each loop iteration

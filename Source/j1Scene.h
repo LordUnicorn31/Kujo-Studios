@@ -33,6 +33,8 @@ public:
 	void Init();
 
 	void ui_callback(UiElement* element);
+
+	void cameramovement(float time);
 private:
 	UiElement* Pause;
 	UiElement* Info;
@@ -47,4 +49,8 @@ private:
 	UiElement* Panel;
 	int buttonFx;
 	bool exitGame;
+	iPoint mousepos;
+	int camspeed = 2;
+	uint width;
+	uint height;
 };

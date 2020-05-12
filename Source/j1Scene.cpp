@@ -120,6 +120,7 @@ bool j1Scene::CleanUp()
 	People = nullptr;
 	Copper = nullptr;
 	Titanium = nullptr;
+	Panel = nullptr;
 
 	return true;
 }

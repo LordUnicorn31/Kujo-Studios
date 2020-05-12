@@ -7,6 +7,8 @@
 Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeBuilding, { Position.x,Position.y,0,0 }), Btype(type) {
 	switch (type) {
 	case BuildingType::Base:
+		EntityRect.w = 64;
+		EntityRect.h = 64;
 		MaxHealth = 5000;
 		health = 5000;
 		HealthRegen = 5.0f;
@@ -19,6 +21,8 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		cost = { 0,0,0 };
 		break;
 	case BuildingType::Mine:
+		EntityRect.w = 64;
+		EntityRect.h = 64;
 		MaxHealth = 500;
 		health = 500;
 		HealthRegen = 2.5f;
@@ -31,6 +35,8 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		cost = { 0,1500,0 };
 		break;
 	case BuildingType::Cuartel:
+		EntityRect.w = 64;
+		EntityRect.h = 64;
 		MaxHealth = 300;
 		health = 300;
 		HealthRegen = 2.5f;
@@ -43,6 +49,8 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		cost = { 0,1500,0 };
 		break;
 	case BuildingType::Spaceship_factory:
+		EntityRect.w = 64;
+		EntityRect.h = 64;
 		MaxHealth = 400;
 		health = 400;
 		HealthRegen = 2.5f;
@@ -81,6 +89,7 @@ void Building::Update(float dt) {
 	else{
 	//level up
 	//functionallity
+		selectable = true;
 	}
 }
 
@@ -92,8 +101,11 @@ void Building::Draw(float dt) {
 	else {
 		App->render->Blit(sprite, EntityRect.x, EntityRect.y, &IdleAnimation->GetCurrentFrame(dt));
 		if (selected) {
-			App->render->DrawQuad(EntityRect, 255, 255, 255, 255);
+			App->render->DrawQuad(EntityRect, 0, 255, 0, 255, false);
 		}
+	}
+	if (selected) {
+		App->render->DrawQuad(EntityRect, 0, 255, 0, 255, false);
 	}
 }
 

@@ -192,6 +192,7 @@ void EntityManager::HandleInput() {
 		App->render->DrawQuad({ origin.x - App->render->camera.x, origin.y - App->render->camera.y, mouse.x - origin.x, mouse.y - origin.y }, 0, 200, 0, 50);
 	}
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
+		App->input->GetMousePosition(mouse.x, mouse.y);
 		rect = { origin.x - App->render->camera.x, origin.y - App->render->camera.y, mouse.x - origin.x, mouse.y - origin.y };
 		if (rect.w < 0) {
 			rect.w = abs(rect.w);
@@ -200,6 +201,10 @@ void EntityManager::HandleInput() {
 		if (rect.h < 0) {
 			rect.h = abs(rect.h);
 			rect.y -= rect.h;
+		} 
+		if (rect.w == 0 && rect.h == 0) {
+			rect.w = 1;
+			rect.h = 1;
 		}
 		eastl::list<Entity*>::iterator it;
 		for (it = entities.begin(); it != entities.end(); ++it) {

@@ -6,16 +6,15 @@
 #include "j1Map.h"
 #include "j1Window.h"
 
-Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), IsMoving(false), DirectionAngle(270.0f) {
+Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), IsMoving(false), DirectionAngle(270.0f),Armed(false) {
 	switch (Atype) {
 	case AiType::Basic_Unit:
-		MaxHealth = 100;
-		HealthRegen = 3.0f;
 		health = 100;
 		Damage = 40;
 		Range = 200;
 		speed = 5;
 		IdleAnimaiton = &App->entity->Animations.AttackShip;
+        ArmedIdleAnimation = &App->entity->Animations.ArmedAttackShip;
 		cost = { 1,50,0 };
 		selectable = true;
 		EntityRect.w = 54;
@@ -25,13 +24,12 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         OnDestination = true;
 		break;
     case AiType::Ranged_Unit:
-        MaxHealth = 60;
-        HealthRegen = 2.0f;
         health = 60;
         Damage = 60;
         Range = 350;
         speed = 6;
         IdleAnimaiton = &App->entity->Animations.AttackShip2;
+        ArmedIdleAnimation = &App->entity->Animations.ArmedAttackShip2;
         cost = { 1,80,0 };
         selectable = true;
         EntityRect.w = 58;
@@ -41,13 +39,12 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         OnDestination = true;
         break;
 	case AiType::Collector:
-		MaxHealth = 50;
-		HealthRegen = 1.0f;
 		health = 50;
 		Damage = 0;
 		Range = 100;
 		speed = 3;
 		IdleAnimaiton = &App->entity->Animations.FarmerShip;
+        ArmedIdleAnimation = &App->entity->Animations.FarmerShip;
 		cost = { 1,50,0 };
 		selectable = true;
 		EntityRect.w = 46;
@@ -57,13 +54,12 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         OnDestination = true;
 		break;
     case AiType::Special_Unit:
-        MaxHealth = 150;
-        HealthRegen = 1.5f;
         health = 150;
         Damage = 100;
         Range = 100;
         speed = 2;
         IdleAnimaiton = &App->entity->Animations.SpecialShip;
+        ArmedIdleAnimation = &App->entity->Animations.ArmedSpecialShip;
         cost = { 100,150,10 };
         selectable = true;
         EntityRect.w = 58;
@@ -92,7 +88,10 @@ void Ai::UpdateLogic() {
 
 void Ai::Draw(float dt) {
     //TODO: quan la nau recorre a vegades les diagonals va tremolant al canviar d'angles molt rapid
-	App->render->Blit(sprite, EntityRect.x, EntityRect.y, &IdleAnimaiton->GetCurrentFrame(dt),true,App->render->renderer,App->win->GetScale(),1.0f,DirectionAngle);
+    if(!Armed)
+        App->render->Blit(sprite, EntityRect.x, EntityRect.y, &IdleAnimaiton->GetCurrentFrame(dt),true,App->render->renderer,App->win->GetScale(),1.0f,DirectionAngle);
+    else
+        App->render->Blit(sprite, EntityRect.x, EntityRect.y, &ArmedIdleAnimation->GetCurrentFrame(dt), true, App->render->renderer, App->win->GetScale(), 1.0f, DirectionAngle);
 	if (selected) {
 		App->render->DrawQuad(EntityRect, 0, 255, 0, 255,false);
 	}

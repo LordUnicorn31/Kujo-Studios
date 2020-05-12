@@ -15,7 +15,9 @@ enum class AviableEntities: unsigned char {
 	cuartel,
 	ship_factory,
 	collector,
-	basicunit,
+	greenship,
+	blueship,
+	redship,
 	gold,
 	ore
 };
@@ -40,6 +42,9 @@ struct EntitiesAnimations {
 	Animation AttackShip;
 	Animation AttackShip2;
 	Animation SpecialShip;
+	Animation ArmedAttackShip;
+	Animation ArmedAttackShip2;
+	Animation ArmedSpecialShip;
 };
 
 class EntityManager :public j1Module {

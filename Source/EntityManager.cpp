@@ -54,11 +54,11 @@ EntityManager::EntityManager(): j1Module(),MineSprite(NULL),CuartelLab(NULL),Bas
 	Animations.AttackShip2.PushBack({ 242,28,61,61 });
 	Animations.AttackShip2.PushBack({ 377,20,61,61 });
 
+	Animations.SpecialShip.PushBack({29,324,57,57});
+	Animations.SpecialShip.PushBack({131,324,57,57});
+
 	Animations.FarmerShip.PushBack({29,147,52,52});
 	Animations.FarmerShip.PushBack({131,147,52,52 });
-
-	Animations.SpecialShip.PushBack({29, 324,57,57 });
-	Animations.SpecialShip.PushBack({ 29, 324, 57, 57});
 	//MineIdle
 	Animations.MineIdle.PushBack({ 0,0,64,64 });
 	Animations.MineIdle.PushBack({ 64,0,64,64 });
@@ -88,6 +88,15 @@ EntityManager::EntityManager(): j1Module(),MineSprite(NULL),CuartelLab(NULL),Bas
 	Animations.LabIdle.PushBack({ 128,250,64,64 });
 	//Lab Idle
 	Animations.BuildLab.PushBack({ 0,250,64,64 });
+	//attack ships with improved weapoon
+	Animations.ArmedAttackShip.PushBack({ 229,221,79,79 });
+	Animations.ArmedAttackShip.PushBack({ 369,221,79,79 });
+
+	Animations.ArmedAttackShip2.PushBack({233,332,80,80});
+	Animations.ArmedAttackShip2.PushBack({ 372,332,80,80 });
+
+	Animations.ArmedSpecialShip.PushBack({237,110,77,77});
+	Animations.ArmedSpecialShip.PushBack({377,110,77,77});
 }
 
 EntityManager::~EntityManager() {
@@ -161,15 +170,15 @@ bool EntityManager::Start() {
 		CreateEntity(AviableEntities::cuartel, iPoint(280, 380));
 		CreateEntity(AviableEntities::mine, iPoint(350, 300));
 		CreateEntity(AviableEntities::collector, iPoint(400, 370));
-		CreateEntity(AviableEntities::basicunit, iPoint(450, 370));
-		CreateEntity(AviableEntities::collector, iPoint(500, 300));
-		CreateEntity(AviableEntities::basicunit, iPoint(560, 370));
+		CreateEntity(AviableEntities::redship, iPoint(450, 370));
+		CreateEntity(AviableEntities::greenship, iPoint(500, 300));
+		CreateEntity(AviableEntities::blueship, iPoint(560, 370));
 		CreateEntity(AviableEntities::collector, iPoint(610, 300));
-		CreateEntity(AviableEntities::basicunit, iPoint(660, 370));
+		CreateEntity(AviableEntities::redship, iPoint(660, 370));
 		CreateEntity(AviableEntities::collector, iPoint(710, 300));
-		CreateEntity(AviableEntities::basicunit, iPoint(770, 370));
+		CreateEntity(AviableEntities::redship, iPoint(770, 370));
 		CreateEntity(AviableEntities::collector, iPoint(840, 300));
-		CreateEntity(AviableEntities::basicunit, iPoint(910, 370));
+		CreateEntity(AviableEntities::redship, iPoint(910, 370));
 	}
 
 	return true;
@@ -342,8 +351,16 @@ Entity* EntityManager::CreateEntity(AviableEntities type,iPoint position) {
 		ret = new Resource(ResourceType::Ore,position);
 		ret->sprite = Titanium;
 		break;
-	case AviableEntities::basicunit:
+	case AviableEntities::redship:
 		ret = new Ai(AiType::Basic_Unit,position);
+		ret->sprite = ShipsSprite;
+		break;
+	case AviableEntities::blueship:
+		ret = new Ai(AiType::Ranged_Unit, position);
+		ret->sprite = ShipsSprite;
+		break;
+	case AviableEntities::greenship:
+		ret = new Ai(AiType::Special_Unit, position);
 		ret->sprite = ShipsSprite;
 		break;
 	}
@@ -386,10 +403,16 @@ bool EntityManager::Save(pugi::xml_node& managernode) {
 		case EntityType::TypeAi:
 			switch (((Ai*)(*it))->Atype) {
 			case AiType::Basic_Unit:
-				EntityNode.append_attribute("type").set_value((int)AviableEntities::basicunit);
+				EntityNode.append_attribute("type").set_value((int)AviableEntities::redship);
 				break;
 			case AiType::Collector:
 				EntityNode.append_attribute("type").set_value((int)AviableEntities::collector);
+				break;
+			case AiType::Ranged_Unit:
+				EntityNode.append_attribute("type").set_value((int)AviableEntities::blueship);
+				break;
+			case AiType::Special_Unit:
+				EntityNode.append_attribute("type").set_value((int)AviableEntities::greenship);
 				break;
 			}
 			break;

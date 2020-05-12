@@ -20,9 +20,7 @@ public:
 	virtual ~Entity();
 	SDL_Rect EntityRect;
 	EntityType etype;
-	unsigned int MaxHealth;
 	int health;
-	float HealthRegen;
 	SDL_Texture* sprite;
 	AvailableMaterials cost;
 	bool selected;

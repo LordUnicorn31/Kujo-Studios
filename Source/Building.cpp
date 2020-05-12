@@ -9,9 +9,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 	case BuildingType::Base:
 		EntityRect.w = 64;
 		EntityRect.h = 64;
-		MaxHealth = 5000;
 		health = 5000;
-		HealthRegen = 5.0f;
 		selected = false;
 		IdleAnimation = &App->entity->Animations.Base1Idle;
 		ConstructionAnimation = &App->entity->Animations.Base1Idle;
@@ -23,9 +21,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 	case BuildingType::Mine:
 		EntityRect.w = 64;
 		EntityRect.h = 64;
-		MaxHealth = 500;
 		health = 500;
-		HealthRegen = 2.5f;
 		selected = false;
 		IdleAnimation= &App->entity->Animations.MineIdle;
 		ConstructionAnimation = &App->entity->Animations.BuildMine;
@@ -37,9 +33,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 	case BuildingType::Cuartel:
 		EntityRect.w = 64;
 		EntityRect.h = 64;
-		MaxHealth = 300;
 		health = 300;
-		HealthRegen = 2.5f;
 		selected = false;
 		IdleAnimation = &App->entity->Animations.CuartelIdle;
 		ConstructionAnimation = &App->entity->Animations.BuildCuartel;
@@ -51,9 +45,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 	case BuildingType::Spaceship_factory:
 		EntityRect.w = 64;
 		EntityRect.h = 64;
-		MaxHealth = 400;
 		health = 400;
-		HealthRegen = 2.5f;
 		selected = false;
 		IdleAnimation = &App->entity->Animations.LabIdle;
 		ConstructionAnimation = &App->entity->Animations.BuildLab;
@@ -72,12 +64,6 @@ Building::~Building() {
 void Building::Update(float dt) {
 	if (health <= 0) {
 		//die
-	}
-	if (health < MaxHealth) {
-		health += HealthRegen*dt; // s'ha de mirar
-	}
-	else {
-		health = MaxHealth;
 	}
 
 	if (OnConstruction) {

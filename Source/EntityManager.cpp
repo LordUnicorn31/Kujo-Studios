@@ -56,6 +56,9 @@ EntityManager::EntityManager(): j1Module(),MineSprite(NULL),CuartelLab(NULL),Bas
 
 	Animations.FarmerShip.PushBack({29,147,52,52});
 	Animations.FarmerShip.PushBack({131,147,52,52 });
+
+	Animations.SpecialShip.PushBack({29, 324,57,57 });
+	Animations.SpecialShip.PushBack({ 29, 324, 57, 57});
 	//MineIdle
 	Animations.MineIdle.PushBack({ 0,0,64,64 });
 	Animations.MineIdle.PushBack({ 64,0,64,64 });

@@ -10,10 +10,6 @@ enum class EntityType : unsigned char {
 	TypeResource
 };
 
-struct AvailableMaterials {
-	eastl::array<int, 3> ShipsCopperTitanium;
-};
-
 class Entity {
 public:
 	Entity(EntityType type, SDL_Rect entityrect);
@@ -22,9 +18,9 @@ public:
 	EntityType etype;
 	int health;
 	SDL_Texture* sprite;
-	AvailableMaterials cost;
 	bool selected;
 	bool selectable;
+	eastl::array<int, 2> CostCopperTitanium;
 	//Collider* collider;
 
 	//eastl::array cost[3];

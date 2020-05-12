@@ -16,7 +16,6 @@ public:
 	Ai(AiType type, iPoint Position);
 	~Ai();
 	AiType Atype;
-	uint direction;
 	float speed;
 	float DirectionAngle;
 	//iPoint Destination;
@@ -25,6 +24,9 @@ public:
 	bool IsMoving;
 	bool OnDestination;
 	bool Armed;
+
+	//GunExtraDamage
+
 	iPoint TilePos;
 	//iPoint FinalGoal;
 	iPoint NextTile;

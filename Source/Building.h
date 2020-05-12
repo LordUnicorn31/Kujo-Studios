@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "SDL_rect.h"
 #include "Animation.h"
+#include "EASTL/array.h"
 
 class SDL_Texture;
 

@@ -173,12 +173,7 @@ bool EntityManager::Start() {
 		CreateEntity(AviableEntities::redship, iPoint(450, 370));
 		CreateEntity(AviableEntities::greenship, iPoint(500, 300));
 		CreateEntity(AviableEntities::blueship, iPoint(560, 370));
-		CreateEntity(AviableEntities::collector, iPoint(610, 300));
-		CreateEntity(AviableEntities::redship, iPoint(660, 370));
-		CreateEntity(AviableEntities::collector, iPoint(710, 300));
-		CreateEntity(AviableEntities::redship, iPoint(770, 370));
-		CreateEntity(AviableEntities::collector, iPoint(840, 300));
-		CreateEntity(AviableEntities::redship, iPoint(910, 370));
+		CreateEntity(AviableEntities::base, iPoint(610, 300));
 	}
 
 	return true;

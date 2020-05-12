@@ -15,7 +15,7 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
 		speed = 5;
 		IdleAnimaiton = &App->entity->Animations.AttackShip;
         ArmedIdleAnimation = &App->entity->Animations.ArmedAttackShip;
-		cost = { 1,50,0 };
+        CostCopperTitanium = { 50,0 };
 		selectable = true;
 		EntityRect.w = 54;
 		EntityRect.h = 51;
@@ -30,7 +30,7 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         speed = 6;
         IdleAnimaiton = &App->entity->Animations.AttackShip2;
         ArmedIdleAnimation = &App->entity->Animations.ArmedAttackShip2;
-        cost = { 1,80,0 };
+        CostCopperTitanium = { 80,0 };
         selectable = true;
         EntityRect.w = 58;
         EntityRect.h = 58;
@@ -45,7 +45,7 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
 		speed = 3;
 		IdleAnimaiton = &App->entity->Animations.FarmerShip;
         ArmedIdleAnimation = &App->entity->Animations.FarmerShip;
-		cost = { 1,50,0 };
+        CostCopperTitanium = { 50,0 };
 		selectable = true;
 		EntityRect.w = 46;
 		EntityRect.h = 46;
@@ -60,7 +60,7 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         speed = 2;
         IdleAnimaiton = &App->entity->Animations.SpecialShip;
         ArmedIdleAnimation = &App->entity->Animations.ArmedSpecialShip;
-        cost = { 100,150,10 };
+        CostCopperTitanium = { 150,10 };
         selectable = true;
         EntityRect.w = 58;
         EntityRect.h = 58;

@@ -16,7 +16,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		level = 1;
 		OnConstruction = true;
 		ConstructionTime = 0.0f;
-		cost = { 0,0,0 };
+		CostCopperTitanium = {0,0 };
 		break;
 	case BuildingType::Mine:
 		EntityRect.w = 64;
@@ -28,7 +28,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		level = 1;
 		ConstructionTime = 4.0f;
 		OnConstruction = true;
-		cost = { 0,1500,0 };
+		CostCopperTitanium = { 1500,0 };
 		break;
 	case BuildingType::Cuartel:
 		EntityRect.w = 64;
@@ -40,7 +40,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		level = 1;
 		ConstructionTime = 4.0f;
 		OnConstruction = true;
-		cost = { 0,1500,0 };
+		CostCopperTitanium = { 1500,0 };
 		break;
 	case BuildingType::Spaceship_factory:
 		EntityRect.w = 64;
@@ -52,7 +52,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		level = 1;
 		ConstructionTime = 4.0f;
 		OnConstruction = true;
-		cost = { 0,1500,0 };
+		CostCopperTitanium = { 1500,0 };
 		break;
 	}
 }

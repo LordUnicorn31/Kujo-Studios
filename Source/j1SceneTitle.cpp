@@ -39,7 +39,7 @@ bool j1SceneTitle::Start()
 {
 	Exit = false;
 	background = App->tex->Load("Resources/Title_menu/Fondo.png");
-	titleLogo = App->tex->Load("Resources/Title_menu/LOGOJUEGO.png");
+	titleLogo = App->tex->Load("Resources/Title_menu/LOGONEW.png");
 
 
 	NewGameButton = App->gui->AddButton(500, 390, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
@@ -74,7 +74,7 @@ bool j1SceneTitle::Update(float dt)
 	int h = App->win->GetHeight();
 
 	App->render->Blit(background, 0, 0, NULL,true, App->render->renderer, 1.5);
-	App->render->Blit(titleLogo, w*1.55f, h, NULL, true, App->render->renderer, 0.2);
+	App->render->Blit(titleLogo, w*1.8f, h*0.8f, NULL, true, App->render->renderer, 0.2);
 
 	//Need to create a timer
 	/*if (App->input->GetKey(SDL_SCANCODE_RETURN)) {

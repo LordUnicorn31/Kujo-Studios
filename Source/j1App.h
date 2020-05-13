@@ -27,6 +27,7 @@ class EntityManager;
 class j1Collisions;
 class j1WinScene;
 class j1LoseScene;
+class j1Particle;
 
 
 
@@ -113,6 +114,7 @@ public:
 	j1Collisions* collisions;
 	j1WinScene* winscene;
 	j1LoseScene* losescene;
+	j1Particle* particle;
 
 	bool SavedProgress;
 

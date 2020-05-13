@@ -33,7 +33,6 @@ struct Particle
 	float rotation;
 	bool fx_played = false;
 
-
 	Particle();
 	Particle(const Particle& p);
 	~Particle();
@@ -51,16 +50,17 @@ public:
 	bool CleanUp();
 	//void OnCollision(Collider* c1, Collider* c2);
 
-	void AddParticle(const Particle& particle, int x, int y,  uint delay = 0);
+	void AddParticle(const Particle& particle, int x, int y,  uint delay = 0, ParticleType type = ParticleType::NONE);
 
+	
+	SDL_Texture* graphics = nullptr;
 	Particle* active[MAX_ACTIVE_PARTICLES];
-
 private:
 
 
 public:
 
-	Particle* shot;
+	Particle shot;
 };
 
 #endif // __j1PARTICLES_H__

@@ -13,6 +13,7 @@
 #include "j1Gui.h"
 #include "j1Fonts.h"
 #include "j1Audio.h"
+#include "j1Particles.h"
 
 j1SceneLogo::j1SceneLogo() : j1Module()
 {
@@ -44,6 +45,7 @@ bool j1SceneLogo::Start()
 	kujo = App->tex->Load("Resources/Logo/LOGOkujo.png");
 	studios = App->tex->Load("Resources/Logo/LOGOstudios.png");
 	App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/intro.wav"));
+
 	return true;
 }
 
@@ -56,8 +58,14 @@ bool j1SceneLogo::PreUpdate()
 // Called each loop iteration
 bool j1SceneLogo::Update(float dt)
 {
+	
 
 	bool ret = true;
+
+	if (App->input->GetKey(SDL_SCANCODE_A)) 
+	{
+		App->particle->AddParticle(App->particle->shot, 0, 0, 50, ParticleType::SHOT);
+	}
 	if (App->input->GetKey(SDL_SCANCODE_LEFT)) {
 		App->render->camera.x += 5;
 	}
@@ -78,12 +86,11 @@ bool j1SceneLogo::Update(float dt)
 
 	App->render->DrawQuad(rect, 150, 0, 0, r);
 	
-
 	App->render->Blit(kujo, w*1.55f, h*1.55, NULL, true, App->render->renderer, 0.2);
 	App->render->Blit(studios, w*1.55f, h*3.10f, NULL, true, App->render->renderer, 0.2);
 	App->render->Blit(hat, w*2.95f, h*1.40, NULL, true, App->render->renderer, 0.2);
 
-	r ++;
+	r++;
 
 
 	if (r == 255)

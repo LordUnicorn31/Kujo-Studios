@@ -261,16 +261,8 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	//Move the lowest score cell from open list to the closed list
 		PathNode* lowest = (PathNode*) open.GetNodeLowestScore();
 		closed.list.push_back(*lowest);
+		open.list.erase(eastl::find(open.list.begin(), open.list.end(), *lowest));
 
-		eastl::list<PathNode>::iterator it = open.list.begin();
-		while (it != open.list.end()) {
-			if ((&(*it) == lowest)) {
-				open.list.erase(it);
-				break;
-			}
-			it++;
-		}
-		
 	//If we just added the destination, we are done!
 	// Backtrack to create the final path
 	// Use the Pathnode::parent and Flip() the path when you are finish

@@ -3,6 +3,7 @@
 #include "j1Input.h"
 #include "j1App.h"
 #include "j1Audio.h"
+#include "j1Gui.h"
 
 Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeBuilding, { Position.x,Position.y,0,0 }), Btype(type) {
 	switch (type) {
@@ -101,4 +102,14 @@ void Building::Draw(float dt) {
 
 void Building::LevelUp() {
 
+}
+
+void Building::UiFunctionallity() {
+	switch (Btype) {
+	case BuildingType::Cuartel:
+		App->gui->AddButton(20, 240, { 1344,84,39,39 }, { 1290,83,39,39 }, { 1397,83,39,39 }, true, false, App->entity->Panel, App->entity);
+		App->gui->AddButton(60, 240, { 1345,28,39,39 }, { 1291,28,39,39 }, { 1398,28,39,39 }, true, false, App->entity->Panel, App->entity);
+		App->gui->AddButton(100, 240, { 1344,199,39,39 }, { 1290,198,39,39 }, { 1397,198,39,39 }, true, false, App->entity->Panel, App->entity);
+		break;
+	}
 }

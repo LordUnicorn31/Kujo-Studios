@@ -40,4 +40,5 @@ public:
 	void DoMovement();
 	void UpdateMovement();
 	void UpdateLogic();
+	void UiFunctionallity();
 };

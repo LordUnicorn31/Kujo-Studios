@@ -53,7 +53,6 @@ bool j1Scene::Start()
 	Titanium = App->gui->AddImage(980, 22, { 641,498,30,31 }, false, false, nullptr, this);
 	//Unit1 = App->gui->AddButton(0, 600, { 32,544,430,208}, { 32,544,440,208 }, { 32,544,440,208 }, true, false, nullptr, this);
 	App->win->GetWindowSize(width, height);
-	Panel = App->gui->AddImage(0, 0, { 1024,0,226,720 }, false, false, nullptr, this);
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");
 
 	camspeed = 2;
@@ -144,7 +143,6 @@ bool j1Scene::CleanUp()
 	People = nullptr;
 	Copper = nullptr;
 	Titanium = nullptr;
-	Panel = nullptr;
 
 	return true;
 }

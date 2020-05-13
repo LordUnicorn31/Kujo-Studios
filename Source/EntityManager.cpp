@@ -12,6 +12,7 @@
 #include "p2Log.h"
 #include <time.h>
 #include "EASTL/vector.h"
+#include "j1Gui.h"
 
 EntityManager::EntityManager(): j1Module(),MineSprite(NULL),CuartelLab(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1.0f / 60.0f)),AccumulatedTime(0.0f),newgame(true) {
 	name = "EntityManager";
@@ -166,6 +167,7 @@ bool EntityManager::Start() {
 		Titanium= App->tex->Load("Resources/entities/Minerals/titanium1.png");
 		Copper = App->tex->Load("Resources/entities/Minerals/copper1.png");
 		GenerateResources(10, 10);
+		CreateEntity(AviableEntities::base, iPoint(610, 300));
 		CreateEntity(AviableEntities::ship_factory, iPoint(280, 300));
 		CreateEntity(AviableEntities::cuartel, iPoint(280, 380));
 		CreateEntity(AviableEntities::mine, iPoint(350, 300));
@@ -173,9 +175,8 @@ bool EntityManager::Start() {
 		CreateEntity(AviableEntities::redship, iPoint(450, 370));
 		CreateEntity(AviableEntities::greenship, iPoint(500, 300));
 		CreateEntity(AviableEntities::blueship, iPoint(560, 370));
-		CreateEntity(AviableEntities::base, iPoint(610, 300));
 	}
-
+	Panel = App->gui->AddImage(0, 0, { 1024,0,226,720 }, true, false, nullptr, this);
 	return true;
 }
 
@@ -183,6 +184,7 @@ void EntityManager::HandleInput() {
 	//TODO: Ordenar el handle input del entity manager
 	static iPoint origin, mouse;
 	SDL_Rect rect;
+	bool MouseOnUi = App->gui->UiUnderMouse() == nullptr;
 
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
@@ -196,6 +198,13 @@ void EntityManager::HandleInput() {
 		App->render->DrawQuad({ origin.x - App->render->camera.x, origin.y - App->render->camera.y, mouse.x - origin.x, mouse.y - origin.y }, 0, 200, 0, 50);
 	}
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
+		if(!SelectedEntities.empty())
+			App->gui->RemoveUiChilds(Panel);
+		eastl::list<Entity*>::iterator item;
+		for (item = SelectedEntities.begin(); item != SelectedEntities.end();++item) {
+			(*item)->selected = false;
+		}
+		SelectedEntities.clear();
 		App->input->GetMousePosition(mouse.x, mouse.y);
 		rect = { origin.x - App->render->camera.x, origin.y - App->render->camera.y, mouse.x - origin.x, mouse.y - origin.y };
 		if (rect.w < 0) {
@@ -209,57 +218,81 @@ void EntityManager::HandleInput() {
 		if (rect.w == 0 && rect.h == 0) {
 			rect.w = 1;
 			rect.h = 1;
-		}
-		eastl::list<Entity*>::iterator it;
-		for (it = entities.begin(); it != entities.end(); ++it) {
-			if ((*it)->selectable) {
-				(*it)->selected = false;
+			eastl::list<Entity*>::iterator it;
+			for (it = entities.begin(); it != entities.end(); ++it) {
 				if (SDL_HasIntersection(&rect, &(*it)->EntityRect)) {
 					(*it)->selected = true;
+					SelectedEntities.push_back((*it));
+					(*it)->UiFunctionallity();
+					break;
+				}
+			}
+		}
+		else {
+			eastl::list<Entity*>::iterator it;
+			for (it = entities.begin(); it != entities.end(); ++it) {
+				if ((*it)->etype==EntityType::TypeAi && SDL_HasIntersection(&rect, &(*it)->EntityRect)) {
+					(*it)->selected = true;
+					SelectedEntities.push_back((*it));
 				}
 			}
 		}
 	}
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN) {
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP && MouseOnUi) {
+		Entity* destination = nullptr;
 		int xTile, yTile;
 		App->input->GetMousePosition(xTile, yTile);
 		xTile -= App->render->camera.x;
 		yTile -= App->render->camera.y;
-		iPoint MouseTile(App->map->WorldToMap(xTile, yTile));
-		eastl::list<Entity*>::iterator it;
-		eastl::list<Ai*> GroupAi;
-		for (it = entities.begin(); it != entities.end(); ++it) {
-			if ((*it)->etype == EntityType::TypeAi && (*it)->selected) {
-				GroupAi.push_back((Ai*)(*it));
+		rect = { xTile, yTile, 1, 1 };
+		eastl::list<Entity*>::iterator iter;
+		for (iter = entities.begin(); iter != entities.end(); ++iter) {
+			if (SDL_HasIntersection(&rect, &(*iter)->EntityRect)) {
+				destination = (*iter);
 			}
 		}
-		//TODO: ARA CREAR LA FUNCIO AL MODUL PATHFINDING K REBI LA LLISTA I ENS CALCULI EL PATH PER TOTS
-		if (GroupAi.size() > 1) {
-			if (!App->pathfinding->CalculateGroupPath(GroupAi, MouseTile)) {
-				eastl::list<Ai*>::iterator i;
-				for (i = GroupAi.begin(); i != GroupAi.end(); ++i) {
-					if ((*i)->TilePos != MouseTile) {
-						if (App->pathfinding->CreatePath((*i)->TilePos, MouseTile) != -1) {
-							(*i)->path = *App->pathfinding->GetLastPath();
-							//FinalGoal.x = path.back().x;
-							//FinalGoal.y = path.back().y;
-							(*i)->path.erase((*i)->path.begin());
-							(*i)->OnDestination = false;
+		if (destination == nullptr) {
+			iPoint MouseTile(App->map->WorldToMap(xTile, yTile));
+			eastl::list<Entity*>::iterator it;
+			eastl::list<Ai*> GroupAi;
+			for (it = entities.begin(); it != entities.end(); ++it) {
+				if ((*it)->etype == EntityType::TypeAi && (*it)->selected) {
+					GroupAi.push_back((Ai*)(*it));
+				}
+			}
+			//TODO: ARA CREAR LA FUNCIO AL MODUL PATHFINDING K REBI LA LLISTA I ENS CALCULI EL PATH PER TOTS
+			if (GroupAi.size() > 1) {
+				if (!App->pathfinding->CalculateGroupPath(GroupAi, MouseTile)) {
+					eastl::list<Ai*>::iterator i;
+					for (i = GroupAi.begin(); i != GroupAi.end(); ++i) {
+						if ((*i)->TilePos != MouseTile) {
+							if (App->pathfinding->CreatePath((*i)->TilePos, MouseTile) != -1) {
+								(*i)->path = *App->pathfinding->GetLastPath();
+								//FinalGoal.x = path.back().x;
+								//FinalGoal.y = path.back().y;
+								(*i)->path.erase((*i)->path.begin());
+								(*i)->OnDestination = false;
+							}
 						}
 					}
 				}
 			}
-		}
-		else if (GroupAi.size() == 1) {
-			Ai* ai = (*GroupAi.begin());
-			if (ai->TilePos != MouseTile) {
-				if (App->pathfinding->CreatePath(ai->TilePos, MouseTile) != -1) {
-					ai->path = *App->pathfinding->GetLastPath();
-					//FinalGoal.x = path.back().x;
-					//FinalGoal.y = path.back().y;
-					ai->path.erase((*GroupAi.begin())->path.begin());
-					ai->OnDestination = false;
+			else if (GroupAi.size() == 1) {
+				Ai* ai = (*GroupAi.begin());
+				if (ai->TilePos != MouseTile) {
+					if (App->pathfinding->CreatePath(ai->TilePos, MouseTile) != -1) {
+						ai->path = *App->pathfinding->GetLastPath();
+						//FinalGoal.x = path.back().x;
+						//FinalGoal.y = path.back().y;
+						ai->path.erase((*GroupAi.begin())->path.begin());
+						ai->OnDestination = false;
+					}
 				}
+			}
+		}
+		else {
+			switch (destination->etype) {
+
 			}
 		}
 	}
@@ -306,12 +339,14 @@ bool EntityManager::CleanUp() {
 	App->tex->UnLoad(ShipsSprite);
 	App->tex->UnLoad(Titanium);
 	App->tex->UnLoad(Copper);
+	App->gui->RemoveUiElement(Panel);
 	MineSprite = nullptr;
 	CuartelLab = nullptr;
 	BaseSprite = nullptr;
 	ShipsSprite = nullptr;
 	Titanium = nullptr;
 	Copper = nullptr;
+	Panel = nullptr;
 	return true;
 }
 

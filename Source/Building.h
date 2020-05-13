@@ -30,4 +30,5 @@ public:
 	void Draw(float dt);
 	//void Die();
 	void LevelUp();
+	void UiFunctionallity();
 };

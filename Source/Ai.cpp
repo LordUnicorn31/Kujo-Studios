@@ -5,6 +5,7 @@
 #include "j1Input.h"
 #include "j1Map.h"
 #include "j1Window.h"
+#include "j1Gui.h"
 
 Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), IsMoving(false), DirectionAngle(270.0f),Armed(false) {
 	switch (Atype) {
@@ -208,5 +209,16 @@ void Ai::UpdateMovement()
         {
             OnDestination = true;
         }
+    }
+}
+
+void Ai::UiFunctionallity() {
+    switch (Atype) {
+    case AiType::Collector:
+        App->gui->AddButton(20, 240, { 1344,251,39,39 }, {1290,250,39,39}, {1398,251,39,39},true,false,App->entity->Panel,App->entity);
+        App->gui->AddButton(60, 240, { 1346,306,39,39 }, { 1290,305,39,39 }, { 1398,306,39,39 }, true, false, App->entity->Panel, App->entity);
+        //FALTA LA MINA
+        //App->gui->AddButton(100, 240, { 1346,306,39,39 }, { 1290,305,39,39 }, { 1398,306,39,39 }, true, false, App->entity->Panel, App->entity);
+        break;
     }
 }

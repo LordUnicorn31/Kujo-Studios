@@ -8,6 +8,7 @@
 class Entity;
 class SDL_Texture;
 enum class EntityType : unsigned char;
+class UiElement;
 
 enum class AviableEntities: unsigned char {
 	base,
@@ -63,6 +64,7 @@ public:
 	void DestroyEntity(Entity* entity);
 
 	EntitiesAnimations Animations;
+	UiElement* Panel;
 
 private:
 	bool newgame;
@@ -70,6 +72,7 @@ private:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&);
 	eastl::list <Entity*>entities;
+	eastl::list<Entity*>SelectedEntities;
 	bool DoLogic;
 	float AccumulatedTime;
 	float UpdateMsCycle;

@@ -21,6 +21,7 @@ public:
 	bool selected;
 	bool selectable;
 	eastl::array<int, 2> CostCopperTitanium;
+	
 	//Collider* collider;
 
 	//eastl::array cost[3];
@@ -29,5 +30,6 @@ public:
 	virtual void Draw(float dt); 
 	virtual void Update(float dt);
 	virtual void UpdateLogic();
+	virtual void UiFunctionallity();
 	//virtual void Die();
 };

@@ -93,18 +93,20 @@ void j1Gui::DeleteAllUiElements() {
 }
 
 void j1Gui::RemoveUiElement(UiElement* element) {
-	RemoveUiParents(element);
+	RemoveUiChilds(element);
 	eastl::list<UiElement*>::iterator it = eastl::find(UiElementList.begin(), UiElementList.end(), element);
-	delete (*it);
-	UiElementList.erase(it);
+	if (it != UiElementList.end()) {
+		delete (*it);
+		UiElementList.erase(it);
+	}
 }
 
-void j1Gui::RemoveUiParents(UiElement* element)
+void j1Gui::RemoveUiChilds(UiElement* element)
 {
 	eastl::list<UiElement*>::iterator it;
 	for (it = UiElementList.begin(); it != UiElementList.end();) {
 		if ((*it)->parent == element) {
-			App->gui->RemoveUiParents((*it));
+			App->gui->RemoveUiChilds((*it));
 			delete (*it);
 			it = UiElementList.erase(it);
 		}

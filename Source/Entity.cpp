@@ -18,6 +18,9 @@ void Entity::UpdateLogic() {
 
 }
 
+void Entity::UiFunctionallity(){
+
+}
 /*void Entity::Die() {
 
 }*/

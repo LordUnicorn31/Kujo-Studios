@@ -85,12 +85,12 @@ public:
 	UiElement*FocusNextElement(UiElement*current_element);
 	UiElement*focusedUi;
 	const SDL_Texture* GetAtlas() const;
+	void RemoveUiChilds(UiElement* element);
 
 private:
 	eastl::list<UiElement*> UiElementList;
 	SDL_Texture* atlas;
 	eastl::string atlas_file_name;
-	void RemoveUiParents(UiElement* element);
 };
 
 class UiImage :public UiElement {

@@ -50,7 +50,7 @@ private:
 	int buttonFx;
 	bool exitGame;
 	iPoint mousepos;
-	int camspeed = 2;
+	int camspeed;
 	uint width;
 	uint height;
 };

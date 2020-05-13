@@ -56,6 +56,8 @@ bool j1Scene::Start()
 	Panel = App->gui->AddImage(0, 0, { 1024,0,226,720 }, false, false, nullptr, this);
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");
 
+	camspeed = 2;
+
 	return true;
 }
 
@@ -88,6 +90,7 @@ bool j1Scene::Update(float dt)
 		App->transition->FadeToBlack(App->scene, App->losescene, 2.0f);
 	}
 	App->input->GetMousePosition(mousepos.x, mousepos.y);
+
 	cameramovement(dt);
 
 
@@ -100,19 +103,20 @@ bool j1Scene::Update(float dt)
 	App->map->Draw();
 	return ret;
 }
+
 void j1Scene::cameramovement(float dt)
 {
 	if (mousepos.x == 0) {
-		App->render->camera.x += camspeed * dt * 1000;
+		App->render->camera.x += camspeed * (dt * 1000);
 	}
 	if (-App->render->camera.x + App->render->camera.w +32 < (App->map->data.tile_width * App->map->data.width) && (mousepos.x > (width -10) / App->win->scale)) {
-		App->render->camera.x -= camspeed * dt * 1000;
+		App->render->camera.x -= camspeed * (dt * 1000);
 	}
 	if (mousepos.y == 0) {
-		App->render->camera.y += camspeed * dt * 1000;
+		App->render->camera.y += camspeed * (dt * 1000);
 	}
 	if (-App->render->camera.y + App->render->camera.h +32< (App->map->data.tile_height * App->map->data.height) && (mousepos.y > (height -10) / App->win->scale)) {
-		App->render->camera.y -= camspeed/2 * dt * 1000;
+		App->render->camera.y -= camspeed * (dt * 1000);
 	}
 }
 

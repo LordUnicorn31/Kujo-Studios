@@ -5,21 +5,21 @@ orthoganal prespective. It is writen entirely on C++ language and we will also u
 
 Technicla Goals:
 
--Run the game at 60 fps
+- Run the game at 60 fps
 
--Random generated map
+- Random generated map
 
--2D orthogonal map renderization
+- 2D orthogonal map renderization
 
--Ui (minimap,settings...)
+- Ui (minimap,settings...)
 
--Entity system
+- Entity system
 
--Opponent Ia
+- Opponent Ia
 
 Performance budgets:
 
--We can't target x64 platforms because we can't build a x64 png library
+- We can't target x64 platforms because we can't build a x64 png library
 
 Branching:
 
@@ -27,17 +27,17 @@ We will comit everything on the master branch.
 
 Tools to develop:
 
--Visual studio 2019
+- Visual studio 2019
 
--Tiled
+- Tiled
 
--Photoshop and paint
+- Photoshop and paint
 
--External libraries: eastl, puguixml, SDL (and extensions)
+- External libraries: eastl, puguixml, SDL (and extensions)
 
 Game mechanics implementation:
 
--Random map:...
+- Random map:...
 
 Code style:
 

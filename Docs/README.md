@@ -36,9 +36,9 @@ Explore an unfamiliar world, mine its resources and fly away with all you can in
 
 - Mouse button rudder: Zoom out/Zoom in.
 
--L: Win scene.
+- L: Win scene.
 
--M: Lose scene.
+- M: Lose scene.
 
 Minimap controls
 -E:scale
@@ -56,6 +56,5 @@ Minimap controls
 
 ## License
 
-raylib is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
+This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
 
-{AdditionalLicenses}

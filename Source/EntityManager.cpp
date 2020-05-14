@@ -201,6 +201,7 @@ void EntityManager::HandleInput() {
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP && App->gui->UiUnderMouse()==nullptr) 
 			CurrentAction = ActionMoving;
 		break;
+
 	case ActionSelection:
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
 		{
@@ -254,6 +255,7 @@ void EntityManager::HandleInput() {
 			}
 		}
 		break;
+
 	case ActionMoving:
 		Entity* destination = nullptr;
 		int xTile, yTile;
@@ -309,120 +311,8 @@ void EntityManager::HandleInput() {
 		break;
 	}
 }
-/*
-void EntityManager::HandleInput() {
-	//TODO: Ordenar el handle input del entity manager
-	static iPoint origin, mouse;
-	SDL_Rect rect;
-	bool MouseOnUi = App->gui->UiUnderMouse() == nullptr;
 
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-	{
-		App->input->GetMousePosition(origin.x, origin.y);
-	}
 
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
-	{
-		App->input->GetMousePosition(mouse.x, mouse.y);
-		App->render->DrawQuad({ origin.x - App->render->camera.x, origin.y - App->render->camera.y, mouse.x - origin.x, mouse.y - origin.y }, 0, 200, 0, 100, false);
-		App->render->DrawQuad({ origin.x - App->render->camera.x, origin.y - App->render->camera.y, mouse.x - origin.x, mouse.y - origin.y }, 0, 200, 0, 50);
-	}
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
-		if(!SelectedEntities.empty())
-			App->gui->RemoveUiChilds(Panel);
-		eastl::list<Entity*>::iterator item;
-		for (item = SelectedEntities.begin(); item != SelectedEntities.end();++item) {
-			(*item)->selected = false;
-		}
-		SelectedEntities.clear();
-		App->input->GetMousePosition(mouse.x, mouse.y);
-		rect = { origin.x - App->render->camera.x, origin.y - App->render->camera.y, mouse.x - origin.x, mouse.y - origin.y };
-		if (rect.w < 0) {
-			rect.w = abs(rect.w);
-			rect.x -= rect.w;
-		}
-		if (rect.h < 0) {
-			rect.h = abs(rect.h);
-			rect.y -= rect.h;
-		} 
-		if (rect.w == 0 && rect.h == 0) {
-			rect.w = 1;
-			rect.h = 1;
-			eastl::list<Entity*>::iterator it;
-			for (it = entities.begin(); it != entities.end(); ++it) {
-				if (SDL_HasIntersection(&rect, &(*it)->EntityRect)) {
-					(*it)->selected = true;
-					SelectedEntities.push_back((*it));
-					(*it)->UiFunctionallity();
-					break;
-				}
-			}
-		}
-		else {
-			eastl::list<Entity*>::iterator it;
-			for (it = entities.begin(); it != entities.end(); ++it) {
-				if ((*it)->etype==EntityType::TypeAi && SDL_HasIntersection(&rect, &(*it)->EntityRect)) {
-					(*it)->selected = true;
-					SelectedEntities.push_back((*it));
-				}
-			}
-		}
-	}
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP && MouseOnUi) {
-		Entity* destination = nullptr;
-		int xTile, yTile;
-		App->input->GetMousePosition(xTile, yTile);
-		xTile -= App->render->camera.x;
-		yTile -= App->render->camera.y;
-		rect = { xTile, yTile, 1, 1 };
-		eastl::list<Entity*>::iterator iter;
-		for (iter = entities.begin(); iter != entities.end(); ++iter) {
-			if (SDL_HasIntersection(&rect, &(*iter)->EntityRect)) {
-				destination = (*iter);
-			}
-		}
-		if (destination == nullptr) {
-			iPoint MouseTile(App->map->WorldToMap(xTile, yTile));
-			eastl::list<Entity*>::iterator it;
-			eastl::list<Ai*> GroupAi;
-			for (it = entities.begin(); it != entities.end(); ++it) {
-				if ((*it)->etype == EntityType::TypeAi && (*it)->selected) {
-					GroupAi.push_back((Ai*)(*it));
-				}
-			}
-			//TODO: ARA CREAR LA FUNCIO AL MODUL PATHFINDING K REBI LA LLISTA I ENS CALCULI EL PATH PER TOTS
-			if (GroupAi.size() > 1) {
-				if (!App->pathfinding->CalculateGroupPath(GroupAi, MouseTile)) {
-					eastl::list<Ai*>::iterator i;
-					for (i = GroupAi.begin(); i != GroupAi.end(); ++i) {
-						if ((*i)->TilePos != MouseTile) {
-							if (App->pathfinding->CreatePath((*i)->TilePos, MouseTile) != -1) {
-								(*i)->path = *App->pathfinding->GetLastPath();
-								//FinalGoal.x = path.back().x;
-								//FinalGoal.y = path.back().y;
-								(*i)->path.erase((*i)->path.begin());
-								(*i)->OnDestination = false;
-							}
-						}
-					}
-				}
-			}
-			else if (GroupAi.size() == 1) {
-				Ai* ai = (*GroupAi.begin());
-				if (ai->TilePos != MouseTile) {
-					if (App->pathfinding->CreatePath(ai->TilePos, MouseTile) != -1) {
-						ai->path = *App->pathfinding->GetLastPath();
-						//FinalGoal.x = path.back().x;
-						//FinalGoal.y = path.back().y;
-						ai->path.erase((*GroupAi.begin())->path.begin());
-						ai->OnDestination = false;
-					}
-				}
-			}
-		}
-	}
-}
-*/
 bool EntityManager::Update(float dt) {
 	HandleInput();
 	AccumulatedTime += (dt);

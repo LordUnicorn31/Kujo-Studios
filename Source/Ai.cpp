@@ -215,10 +215,10 @@ void Ai::UpdateMovement()
 void Ai::UiFunctionallity() {
     switch (Atype) {
     case AiType::Collector:
-        App->gui->AddButton(20, 240, { 1344,251,39,39 }, {1290,250,39,39}, {1398,251,39,39},true,false,App->entity->Panel,App->entity);
-        App->gui->AddButton(60, 240, { 1346,306,39,39 }, { 1290,305,39,39 }, { 1398,306,39,39 }, true, false, App->entity->Panel, App->entity);
-        App->gui->AddButton(100, 240, { 1645,308,39,39 }, { 1590,307,39,39 }, { 1698,308,39,39 }, true, false, App->entity->Panel, App->entity);
-        App->gui->AddButton(140, 240, { 1645,250,39,39 }, { 1590,249,39,39 }, { 1698,250,39,39 }, true, false, App->entity->Panel, App->entity);
+        App->gui->AddEntityButton(20, 240, { 1344,251,39,39 }, { 1290,250,39,39 }, { 1398,251,39,39 }, true, false, App->entity->Panel, App->entity);
+        App->gui->AddEntityButton(60, 240, { 1346,306,39,39 }, { 1290,305,39,39 }, { 1398,306,39,39 }, true, false, App->entity->Panel, App->entity);
+        App->gui->AddEntityButton(100, 240, { 1645,308,39,39 }, { 1590,307,39,39 }, { 1698,308,39,39 }, true, false, App->entity->Panel, App->entity);
+        App->gui->AddEntityButton(140, 240, { 1645,250,39,39 }, { 1590,249,39,39 }, { 1698,250,39,39 }, true, false, App->entity->Panel, App->entity);
         break;
     }
 }

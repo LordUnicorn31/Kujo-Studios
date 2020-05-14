@@ -17,7 +17,8 @@ enum class UiTypes {
 	Unknown,
 	Image,
 	Text,
-	Button
+	Button,
+	EButton
 };
 
 class UiElement {
@@ -79,6 +80,7 @@ public:
 	UiElement* AddText(int x, int y, const char*text, _TTF_Font*font = nullptr, SDL_Color color = { 255, 255, 255, 255 }, int size = 12, bool interactuable = false, bool draggeable = false, UiElement* parent = nullptr, j1Module* elementmodule = nullptr);
 	//If the ui has a parent the x,y will be the local coordenates respect the parent
 	UiElement* AddButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable = true, bool draggeable = false, UiElement* parent = nullptr, j1Module* elementmodule = nullptr);
+	UiElement* AddEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable = true, bool draggeable = false, UiElement* parent = nullptr, j1Module* elementmodule = nullptr);
 	void DraggUiElements(UiElement*parent, int dx, int dy);
 	UiElement* UiUnderMouse();
 	bool MouseClick();
@@ -114,6 +116,19 @@ public:
 	~UiButton();
 	void Draw(SDL_Texture* atlas)override;
 	void Update(int dx, int dy)override;
+	SDL_Rect unhover;
+	SDL_Rect hover;
+	SDL_Rect click;
+	Button_state current_state;
+};
+
+class UiEntityButton :public UiElement {
+public:
+	UiEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect selected, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule);
+	~UiEntityButton();
+	void Draw(SDL_Texture* atlas)override;
+	void Update(int dx, int dy)override;
+	bool selected;
 	SDL_Rect unhover;
 	SDL_Rect hover;
 	SDL_Rect click;

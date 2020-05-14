@@ -211,6 +211,12 @@ UiElement* j1Gui::AddButton(int x, int y, SDL_Rect source_unhover, SDL_Rect sour
 	return Button;
 }
 
+UiElement* j1Gui::AddEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule) {
+	UiElement* EButton = new UiEntityButton(x, y, source_unhover, source_hover, source_click, interactuable, draggeable, parent, elementmodule);
+	UiElementList.push_back(EButton);
+	return EButton;
+}
+
 
 UiElement::UiElement(int x, int y, int w, int h, bool interactuable, bool draggeable, UiTypes uitype, UiElement* parent, j1Module* elementmodule) : type(uitype), parent(parent), Module(elementmodule), ui_rect({ x,y,w,h }), interactuable(interactuable), draggable(draggeable) { if (parent != nullptr)SetLocalPos(x, y); }
 
@@ -329,6 +335,64 @@ void UiButton::Draw(SDL_Texture*atlas) {
 			break;
 		case Button_state::clicked:
 			App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &click,false);
+			break;
+		}
+	}
+}
+
+UiEntityButton::UiEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_selected, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule) :UiElement(x, y, source_unhover.w, source_unhover.h, interactuable, draggeable, UiTypes::EButton, parent, elementmodule), unhover(source_unhover), hover(source_hover), click(source_selected),current_state(Button_state::unhovered),selected(false) {}
+
+UiEntityButton::~UiEntityButton(){}
+
+void UiEntityButton::Update(int dx, int dy) {
+	if (App->gui->focusedUi == this) {
+		if (selected)
+			current_state = Button_state::clicked;
+		else
+			current_state = Button_state::hovered;
+	}
+	else if (App->gui->UiUnderMouse() == this) {
+		if (selected)
+			current_state = Button_state::clicked;
+		else
+			current_state = Button_state::hovered;
+	}
+	else {
+		if (selected)
+			current_state = Button_state::clicked;
+		else
+			current_state = Button_state::unhovered;
+	}
+	if ((App->gui->MouseClick() || App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) && App->gui->focusedUi == this) {
+		selected = !selected;
+		if (selected)
+			current_state = Button_state::clicked;
+		else {
+			current_state = Button_state::unhovered;
+			App->gui->focusedUi = nullptr;
+		}
+	}
+	else if ((App->gui->MouseClick() || App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) && App->gui->focusedUi != this) {
+		selected = false;
+		current_state = Button_state::unhovered;
+	}
+	if (draggable && App->gui->MouseClick() && App->gui->UiUnderMouse() == this && dx != 0 && dy != 0) {
+		SetLocalPos(GetLocalPos().x + dx, GetLocalPos().y + dy);
+		App->gui->DraggUiElements(this, dx, dy);
+	}
+}
+
+void UiEntityButton::Draw(SDL_Texture* atlas) {
+	if (parent == nullptr || !outofparent()) {
+		switch (current_state) {
+		case Button_state::unhovered:
+			App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &unhover, false);
+			break;
+		case Button_state::hovered:
+			App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &hover, false);
+			break;
+		case Button_state::clicked:
+			App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &click, false);
 			break;
 		}
 	}

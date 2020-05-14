@@ -10,6 +10,14 @@ class SDL_Texture;
 enum class EntityType : unsigned char;
 class UiElement;
 
+enum InputActions {
+	ActionNone,
+	ActionConstructing,
+	ActionMoving,
+	ActionSelection,
+	ActionSquareSelection
+};
+
 enum class AviableEntities: unsigned char {
 	base,
 	mine,
@@ -87,6 +95,7 @@ private:
 	SDL_Texture* Titanium;
 	SDL_Texture* PowerGeneratorSprite;
 	void HandleInput();
+	InputActions CurrentAction;
 	//max_resouces[]
 	//current_resouces[]
 };

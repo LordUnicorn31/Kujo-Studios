@@ -46,7 +46,7 @@ bool j1Particle::Update(float dt)
 		}
 		else 
 		{
-			App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame(dt)));
+			App->render->DrawQuad(p->rect,p->initialColor.r,p->initialColor.g,p->initialColor.b,p->initialColor.a,true);
 			if (p->fx_played == false)
 			{
 				p->fx_played = true;
@@ -56,6 +56,7 @@ bool j1Particle::Update(float dt)
 	}
 	return true;
 }
+
 
 
 bool j1Particle::CleanUp()
@@ -81,29 +82,51 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, Uint32 dela
 	{
 		if (active[i] == nullptr)
 		{
-			Particle* p = new Particle(particle);
-			p->born = delay;
-			LOG("Delay %d", p->born);
-			p->position.x = x;
-			p->position.y = y;
-			p->type = type;
-			active[i] = p;
-			break;
+			switch (type)
+			{
+			case ParticleType::NONE:
+				break;
+			case ParticleType::SHOT:
+				Particle* p = new Particle(particle);
+				p->anim = shot.anim;
+				p->size = 1;
+				p->rect.x = x;
+				p->rect.y = y;
+				p->rect.w = 10 * p->size;
+				p->rect.h = 10 * p->size;
+				p->initialColor = { 255,255,0,255 };
+				p->finalColor = { 0,255,255,255 };
+				p->type = type;
+				active[i] = p;
+				break;
+			}
 		}
 	}
 }
 
 Particle::Particle()
 {
-	position.SetToZero();
+	tex = nullptr;
+	type = ParticleType::NONE;
 	speed.SetToZero();
 	rotation = 0.0f;
 }
 
-Particle::Particle(const Particle& p) :
-	anim(p.anim), tex(p.tex), type(p.type), fx(p.fx), position(p.position), speed(p.speed),
-	born(p.born), life(p.life), rotation(p.rotation)
-{}
+Particle::Particle(const Particle& p) 
+{
+	 this->anim = p.anim;
+	 this->rect = p.rect;
+	 this->tex = p.tex;
+	 this->type = p.type;
+	 this->speed = p.speed;
+	 this->size = p.size;
+	 this->life = p.life;
+	 this->rotation = p.rotation;
+	 this->initialColor = p.initialColor;
+	 this->finalColor = p.finalColor;
+	 this->fx = p.fx;
+	 this->fx_played = p.fx_played;
+}
 
 Particle::~Particle()
 {
@@ -124,20 +147,10 @@ bool Particle::Update()
 	case ParticleType::SHOT:
 		life -= 5;
 		LOG("Life %d", life);
-		position.x += 10;
-
-		if (life > 0)
-		{
-			if ( born > life)
-				ret = false;
-			LOG("Born %d", born);
-
-		}
-		else if (anim.Finished())
-		{
+		rect.x++;
+		if (life < 0) {
 			ret = false;
 		}
-
 	}
 
 	return ret;

@@ -64,7 +64,7 @@ bool j1SceneLogo::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_A)) 
 	{
-		App->particle->AddParticle(App->particle->shot, 0, 0, 50, ParticleType::SHOT);
+		App->particle->AddParticle(App->particle->shot, 0, 50, 50, ParticleType::SHOT);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_LEFT)) {
 		App->render->camera.x += 5;

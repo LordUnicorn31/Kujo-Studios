@@ -21,17 +21,18 @@ enum class ParticleType
 
 struct Particle
 {
-	Animation anim;
-	//Collider* collider = nullptr;
-	SDL_Texture* tex = nullptr;
-	ParticleType type;
-	uint fx = 0;
-	fPoint position;
-	fPoint speed;
-	uint born = 0;
-	uint life = 0;
-	float rotation;
-	bool fx_played = false;
+	Animation anim;					//Particle animation
+	SDL_Rect rect;					//Particle rectangle
+	SDL_Texture* tex;				//Particle texture
+	ParticleType type;				//Particle type
+	fPoint speed;					//Particle speed
+	float size;						//Particle size
+	uint life;  					//Particle life
+	float rotation;					//Particle rotation
+	SDL_Color initialColor;			//Particle color inicial
+	SDL_Color finalColor;			//Particle color final
+	uint fx = 0;					//Particle fx
+	bool fx_played = false;			//Particle fx active
 
 	Particle();
 	Particle(const Particle& p);

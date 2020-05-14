@@ -38,6 +38,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args),save_game("Resourc
 	win = new j1Window();
 	render = new j1Render();
 	tex = new j1Textures();
+	particle = new j1Particle();
 	sceneLogo = new j1SceneLogo();
 	sceneTitle = new j1SceneTitle();
 	scene = new j1Scene();
@@ -52,7 +53,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args),save_game("Resourc
 	collisions = new j1Collisions();
 	winscene = new j1WinScene();
 	losescene = new j1LoseScene();
-	particle = new j1Particle();
 	fow = new Fow();
 
 	// Ordered for awake / Start / Update

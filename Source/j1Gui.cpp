@@ -45,7 +45,7 @@ bool j1Gui::PreUpdate()
 bool j1Gui::Update(float dt) {
 	if (MouseClick() && UiUnderMouse() != nullptr && UiUnderMouse()->interactuable) {
 		focusedUi = UiUnderMouse();
-		if (focusedUi->Module != nullptr) {
+		if (focusedUi->Module != nullptr && focusedUi->type!=UiTypes::EButton) {
 			focusedUi->Module->ui_callback(focusedUi);
 		}
 	}
@@ -54,7 +54,7 @@ bool j1Gui::Update(float dt) {
 	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
 		focusedUi = FocusNextElement(focusedUi);
 	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
-		if (focusedUi != nullptr&&focusedUi->Module != nullptr) {
+		if (focusedUi != nullptr && focusedUi->Module != nullptr && focusedUi->type != UiTypes::EButton) {
 			focusedUi->Module->ui_callback(focusedUi);
 		}
 	Update_Ui();
@@ -151,7 +151,7 @@ UiElement* j1Gui::UiUnderMouse() {
 }
 
 bool j1Gui::MouseClick() {
-	return (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN);
+	return (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP);
 }
 
 void j1Gui::DraggUiElements(UiElement*parent, int dx, int dy) {
@@ -211,8 +211,8 @@ UiElement* j1Gui::AddButton(int x, int y, SDL_Rect source_unhover, SDL_Rect sour
 	return Button;
 }
 
-UiElement* j1Gui::AddEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule) {
-	UiElement* EButton = new UiEntityButton(x, y, source_unhover, source_hover, source_click, interactuable, draggeable, parent, elementmodule);
+UiElement* j1Gui::AddEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click,AviableEntities entity, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule) {
+	UiElement* EButton = new UiEntityButton(x, y, source_unhover, source_hover, source_click, entity, interactuable, draggeable, parent, elementmodule);
 	UiElementList.push_back(EButton);
 	return EButton;
 }
@@ -340,7 +340,7 @@ void UiButton::Draw(SDL_Texture*atlas) {
 	}
 }
 
-UiEntityButton::UiEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_selected, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule) :UiElement(x, y, source_unhover.w, source_unhover.h, interactuable, draggeable, UiTypes::EButton, parent, elementmodule), unhover(source_unhover), hover(source_hover), click(source_selected),current_state(Button_state::unhovered),selected(false) {}
+UiEntityButton::UiEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_selected,AviableEntities entity, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule) :UiElement(x, y, source_unhover.w, source_unhover.h, interactuable, draggeable, UiTypes::EButton, parent, elementmodule), unhover(source_unhover), hover(source_hover), click(source_selected), entity(entity), current_state(Button_state::unhovered),selected(false) {}
 
 UiEntityButton::~UiEntityButton(){}
 
@@ -365,8 +365,10 @@ void UiEntityButton::Update(int dx, int dy) {
 	}
 	if ((App->gui->MouseClick() || App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) && App->gui->focusedUi == this) {
 		selected = !selected;
-		if (selected)
+		if (selected) {
 			current_state = Button_state::clicked;
+			Module->ui_callback(this);
+		}
 		else {
 			current_state = Button_state::unhovered;
 			App->gui->focusedUi = nullptr;

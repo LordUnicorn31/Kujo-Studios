@@ -12,10 +12,10 @@ class UiElement;
 
 enum InputActions {
 	ActionNone,
-	ActionConstructing,
 	ActionMoving,
 	ActionSelection,
-	ActionSquareSelection
+	ActionSquareSelection,
+	ActionConstruction
 };
 
 enum class AviableEntities: unsigned char {
@@ -70,6 +70,7 @@ public:
 	bool Update(float dt);
 	void UpdateAll(float dt,bool DoLogic);
 	bool CleanUp();
+	void ui_callback(UiElement* element);
 
 	Entity* CreateEntity(AviableEntities type, iPoint position);
 	void DestroyEntity(Entity* entity);
@@ -96,6 +97,7 @@ private:
 	SDL_Texture* PowerGeneratorSprite;
 	void HandleInput();
 	InputActions CurrentAction;
+	AviableEntities ToCreate;
 	//max_resouces[]
 	//current_resouces[]
 };

@@ -119,11 +119,11 @@ void Building::LevelUp() {
 void Building::UiFunctionallity() {
 	switch (Btype) {
 	case BuildingType::Cuartel:
-		App->gui->AddEntityButton(20, 240, { 1344,84,39,39 }, { 1290,83,39,39 }, { 1397,83,39,39 }, true, false, App->entity->Panel, App->entity);
-		App->gui->AddEntityButton(60, 240, { 1345,28,39,39 }, { 1291,28,39,39 }, { 1398,28,39,39 }, true, false, App->entity->Panel, App->entity);
-		App->gui->AddEntityButton(100, 240, { 1344,199,39,39 }, { 1290,198,39,39 }, { 1397,198,39,39 }, true, false, App->entity->Panel, App->entity);
+		App->gui->AddEntityButton(20, 240, { 1344,84,39,39 }, { 1290,83,39,39 }, { 1397,83,39,39 },AviableEntities::redship, true, false, App->entity->Panel, App->entity);
+		App->gui->AddEntityButton(60, 240, { 1345,28,39,39 }, { 1291,28,39,39 }, { 1397,28,39,39 }, AviableEntities::blueship, true, false, App->entity->Panel, App->entity);
+		App->gui->AddEntityButton(100, 240, { 1344,199,39,39 }, { 1290,198,39,39 }, { 1397,198,39,39 }, AviableEntities::greenship, true, false, App->entity->Panel, App->entity);
 		break;
 	case BuildingType::Base:
-		App->gui->AddEntityButton(20, 240, { 1344,136,39,39 }, { 1291,135,39,39 }, { 1397,136,39,39 }, true, false, App->entity->Panel, App->entity);
+		App->gui->AddEntityButton(20, 240, { 1344,136,39,39 }, { 1291,135,39,39 }, { 1397,136,39,39 },AviableEntities::collector, true, false, App->entity->Panel, App->entity);
 	}
 }

@@ -256,7 +256,19 @@ void EntityManager::HandleInput() {
 		}
 		break;
 
+	case ActionConstruction:
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
+			int x, y;
+			App->input->GetMousePosition(x, y);
+			x -= App->render->camera.x;
+			y -= App->render->camera.y;
+			CreateEntity(ToCreate, iPoint(x, y));
+			CurrentAction = ActionNone;
+		}
+		break;
+
 	case ActionMoving:
+		CurrentAction = ActionNone;
 		Entity* destination = nullptr;
 		int xTile, yTile;
 		App->input->GetMousePosition(xTile, yTile);
@@ -500,4 +512,11 @@ bool EntityManager::Save(pugi::xml_node& managernode) {
 		}
 	}
 	return true;
+}
+
+void EntityManager::ui_callback(UiElement* element) {
+	if (element->type==UiTypes::EButton) {
+		CurrentAction = ActionConstruction;
+		ToCreate = ((UiEntityButton*)element)->entity;
+	}
 }

@@ -98,6 +98,11 @@ EntityManager::EntityManager(): j1Module(),MineSprite(NULL),CuartelLab(NULL),Bas
 
 	Animations.ArmedSpecialShip.PushBack({237,110,77,77});
 	Animations.ArmedSpecialShip.PushBack({377,110,77,77});
+	//Power Generator animations
+	Animations.PowerGeneratorIdle.PushBack({0,0,64,64});
+	Animations.PowerGeneratorIdle.PushBack({ 64,0,64,64 });
+	Animations.PowerGeneratorIdle.speed = 4.0f;
+	Animations.BuildPowerGenerator.PushBack({128,0,64,64});
 }
 
 EntityManager::~EntityManager() {
@@ -166,6 +171,7 @@ bool EntityManager::Start() {
 		BaseSprite = App->tex->Load("Resources/entities/bases/bases.png");
 		Titanium= App->tex->Load("Resources/entities/Minerals/titanium1.png");
 		Copper = App->tex->Load("Resources/entities/Minerals/copper1.png");
+		PowerGeneratorSprite = App->tex->Load("Resources/entities/Lighting.png");
 		GenerateResources(10, 10);
 		CreateEntity(AviableEntities::base, iPoint(610, 300));
 		CreateEntity(AviableEntities::ship_factory, iPoint(280, 300));
@@ -175,6 +181,7 @@ bool EntityManager::Start() {
 		CreateEntity(AviableEntities::redship, iPoint(450, 370));
 		CreateEntity(AviableEntities::greenship, iPoint(500, 300));
 		CreateEntity(AviableEntities::blueship, iPoint(560, 370));
+		CreateEntity(AviableEntities::PowerGenerator, iPoint(620, 370));
 	}
 	Panel = App->gui->AddImage(0, 0, { 1024,0,226,720 }, true, false, nullptr, this);
 	return true;
@@ -339,6 +346,7 @@ bool EntityManager::CleanUp() {
 	App->tex->UnLoad(ShipsSprite);
 	App->tex->UnLoad(Titanium);
 	App->tex->UnLoad(Copper);
+	App->tex->UnLoad(PowerGeneratorSprite);
 	App->gui->RemoveUiElement(Panel);
 	MineSprite = nullptr;
 	CuartelLab = nullptr;
@@ -346,6 +354,7 @@ bool EntityManager::CleanUp() {
 	ShipsSprite = nullptr;
 	Titanium = nullptr;
 	Copper = nullptr;
+	PowerGeneratorSprite = nullptr;
 	Panel = nullptr;
 	return true;
 }
@@ -368,6 +377,10 @@ Entity* EntityManager::CreateEntity(AviableEntities type,iPoint position) {
 	case AviableEntities::ship_factory:
 		ret = new Building(BuildingType::Spaceship_factory, position);
 		ret->sprite = CuartelLab;
+		break;
+	case AviableEntities::PowerGenerator:
+		ret = new Building(BuildingType::PowerGenerator, position);
+		ret->sprite = PowerGeneratorSprite;
 		break;
 	case AviableEntities::collector:
 		ret = new Ai(AiType::Collector,position);
@@ -413,6 +426,7 @@ bool EntityManager::Load(pugi::xml_node& entitynode) {
 	BaseSprite = App->tex->Load("Resources/entities/bases/bases.png");
 	Titanium = App->tex->Load("Resources/entities/Minerals/titanium1.png");
 	Copper = App->tex->Load("Resources/entities/Minerals/copper1.png");
+	PowerGeneratorSprite = App->tex->Load("Resources/entities/Lighting.png");
 	int iterations = entitynode.child("numEntities").attribute("value").as_uint();
 	pugi::xml_node CurrentEntity = entitynode.child("entity");
 	for (int i = 0; i != iterations; ++i) {
@@ -459,6 +473,9 @@ bool EntityManager::Save(pugi::xml_node& managernode) {
 				break;
 			case BuildingType::Spaceship_factory:
 				EntityNode.append_attribute("type").set_value((int)AviableEntities::ship_factory);
+				break;
+			case BuildingType::PowerGenerator:
+				EntityNode.append_attribute("type").set_value((int)AviableEntities::PowerGenerator);
 				break;
 			}
 			break;

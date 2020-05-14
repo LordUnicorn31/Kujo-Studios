@@ -10,7 +10,8 @@ enum class BuildingType : unsigned char {
 	Mine,
 	Cuartel,
 	Spaceship_factory,
-	Base
+	Base,
+	PowerGenerator
 };
 
 

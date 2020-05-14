@@ -20,7 +20,8 @@ enum class AviableEntities: unsigned char {
 	blueship,
 	redship,
 	gold,
-	ore
+	ore,
+	PowerGenerator
 };
 
 struct EntitiesAnimations {
@@ -46,6 +47,8 @@ struct EntitiesAnimations {
 	Animation ArmedAttackShip;
 	Animation ArmedAttackShip2;
 	Animation ArmedSpecialShip;
+	Animation PowerGeneratorIdle;
+	Animation BuildPowerGenerator;
 };
 
 class EntityManager :public j1Module {
@@ -82,6 +85,7 @@ private:
 	SDL_Texture* ShipsSprite;
 	SDL_Texture* Copper;
 	SDL_Texture* Titanium;
+	SDL_Texture* PowerGeneratorSprite;
 	void HandleInput();
 	//max_resouces[]
 	//current_resouces[]

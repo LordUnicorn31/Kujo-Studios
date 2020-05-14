@@ -55,6 +55,18 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		OnConstruction = true;
 		CostCopperTitanium = { 1500,0 };
 		break;
+	case BuildingType::PowerGenerator:
+		EntityRect.w = 64;
+		EntityRect.h = 64;
+		health = 400;
+		selected = false;
+		IdleAnimation = &App->entity->Animations.PowerGeneratorIdle;
+		ConstructionAnimation = &App->entity->Animations.BuildPowerGenerator;
+		level = 1;
+		ConstructionTime = 4.0f;
+		OnConstruction = true;
+		CostCopperTitanium = { 1500,0 };
+		break;
 	}
 }
 
@@ -111,5 +123,7 @@ void Building::UiFunctionallity() {
 		App->gui->AddButton(60, 240, { 1345,28,39,39 }, { 1291,28,39,39 }, { 1398,28,39,39 }, true, false, App->entity->Panel, App->entity);
 		App->gui->AddButton(100, 240, { 1344,199,39,39 }, { 1290,198,39,39 }, { 1397,198,39,39 }, true, false, App->entity->Panel, App->entity);
 		break;
+	case BuildingType::Base:
+		App->gui->AddButton(20, 240, { 1344,136,39,39 }, { 1291,135,39,39 }, { 1397,136,39,39 }, true, false, App->entity->Panel, App->entity);
 	}
 }

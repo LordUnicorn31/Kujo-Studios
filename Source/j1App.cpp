@@ -23,6 +23,7 @@
 #include "j1WinScene.h"
 #include "j1LoseScene.h"
 #include "j1Particles.h"
+#include "Fow.h"
 
 
 #include "SDL.h"
@@ -52,6 +53,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args),save_game("Resourc
 	winscene = new j1WinScene();
 	losescene = new j1LoseScene();
 	particle = new j1Particle();
+	fow = new Fow();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -74,6 +76,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args),save_game("Resourc
 	AddModule(winscene);
 	AddModule(losescene);
 	AddModule(particle);
+	AddModule(fow);
 
 	// render last to swap buffer
 	AddModule(render);

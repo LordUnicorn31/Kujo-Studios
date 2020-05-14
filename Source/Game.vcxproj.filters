@@ -59,6 +59,9 @@
     <ClCompile Include="j1LoseScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Fow.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h" />
@@ -120,6 +123,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="j1LoseScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Fow.h">
       <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>

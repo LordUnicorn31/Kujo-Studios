@@ -18,6 +18,7 @@
 #include "j1WinScene.h"
 #include "j1LoseScene.h"
 #include "j1Collisions.h"
+#include "Fow.h"
 
 
 j1Scene::j1Scene() : j1Module()
@@ -54,7 +55,7 @@ bool j1Scene::Start()
 	//Unit1 = App->gui->AddButton(0, 600, { 32,544,430,208}, { 32,544,440,208 }, { 32,544,440,208 }, true, false, nullptr, this);
 	App->win->GetWindowSize(width, height);
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");
-
+	App->fow->SetVisibilityMap(App->map->data.width, App->map->data.height);
 	camspeed = 2;
 
 	return true;
@@ -92,6 +93,11 @@ bool j1Scene::Update(float dt)
 
 	cameramovement(dt);
 
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+		App->fow->ResetVisibilityMap();
+
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+		App->fow->scouting_trail = !App->fow->scouting_trail;
 
 
 	if (exitGame) {

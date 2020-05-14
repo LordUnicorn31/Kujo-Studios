@@ -28,6 +28,7 @@ class j1Collisions;
 class j1WinScene;
 class j1LoseScene;
 class j1Particle;
+class Fow;
 
 
 
@@ -115,6 +116,7 @@ public:
 	j1WinScene* winscene;
 	j1LoseScene* losescene;
 	j1Particle* particle;
+	Fow* fow;
 
 	bool SavedProgress;
 

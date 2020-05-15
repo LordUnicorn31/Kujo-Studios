@@ -19,6 +19,7 @@ enum InputActions {
 };
 
 enum class AviableEntities: unsigned char {
+	none,
 	base,
 	mine,
 	cuartel,

@@ -45,6 +45,8 @@ public:
 	// Utility: returns true is the tile is walkable
 	bool IsWalkable(const iPoint& pos) const;
 
+	bool IsWalkable(const iPoint& pos, uint size) const;
+
 	// Utility: return the walkability value of a tile
 	uchar GetTileAt(const iPoint& pos) const;
 

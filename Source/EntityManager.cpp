@@ -257,13 +257,55 @@ void EntityManager::HandleInput() {
 		break;
 
 	case ActionConstruction:
+		int x, y;
+		App->input->GetMousePosition(x, y);
+		x -= App->render->camera.x;
+		y -= App->render->camera.y;
+		switch (ToCreate) {
+		case AviableEntities::none:
+		{
+			break;
+		}
+		case AviableEntities::mine:
+		{
+			SDL_Rect minerect = { 0,0,64,64 };
+			App->render->Blit(MineSprite, x, y, &minerect);
+			break; 
+		}
+		case AviableEntities::cuartel:
+		{
+			SDL_Rect cuartelrect = { 126,64,64,64 };
+			App->render->Blit(CuartelLab, x, y, &cuartelrect);
+			break;
+		}
+		case AviableEntities::ship_factory:
+		{
+			SDL_Rect factoryrect = { 64,250,64,64 };
+			App->render->Blit(CuartelLab, x, y, &factoryrect);
+			break; 
+		}
+		case AviableEntities::PowerGenerator:
+		{
+			SDL_Rect generatorrect = { 0,0,64,64 };
+			App->render->Blit(PowerGeneratorSprite, x, y, &generatorrect);
+			break; 
+		}
+		}
+		//dibuixar el quadradet per indicar si es pot construir alla o no
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
-			int x, y;
-			App->input->GetMousePosition(x, y);
-			x -= App->render->camera.x;
-			y -= App->render->camera.y;
-			CreateEntity(ToCreate, iPoint(x, y));
+			//Mirar si les tiles son walkables
+			iPoint Tile = App->map->WorldToMap(x, y);
+			
+			//Si o son, enviari el collector a construir (ES EL SELECTED!!!) i ferlo unselectable fins k ledifici s'acabi de construir
+			//CHECK RECT WALCKABILITY
+			//CHACK THAT THERE IS NO BUILDING ENTTITY IN THAT SQUARE
+			if (App->gui->UiUnderMouse() == nullptr && App->pathfinding->IsWalkable(Tile,3)) {
+
+				App->gui->RemoveUiChilds(Panel);
+				CreateEntity(ToCreate, iPoint(x, y));
+			}
 			CurrentAction = ActionNone;
+			ToCreate = AviableEntities::none;
 		}
 		break;
 

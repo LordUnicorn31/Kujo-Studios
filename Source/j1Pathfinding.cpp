@@ -93,6 +93,22 @@ bool j1PathFinding::IsWalkable(const iPoint& pos) const
 	return t != INVALID_WALK_CODE && t > 0;
 }
 
+bool j1PathFinding::IsWalkable(const iPoint& pos, uint size) const{
+	bool ret = true;
+	iPoint cell = pos;
+	for (int i = 0; i < size; ++i) {
+		for (int j = 0; j < size; ++j) {
+			cell.x+= i;
+			cell.y+= j;
+			uchar t = GetTileAt(cell);
+			ret = t != INVALID_WALK_CODE && t > 0;
+			if (!ret)
+				return false;
+		}
+	}
+	return true;
+}
+
 // Utility: return the walkability value of a tile
 uchar j1PathFinding::GetTileAt(const iPoint& pos) const
 {

@@ -299,7 +299,7 @@ void EntityManager::HandleInput() {
 			//Si o son, enviari el collector a construir (ES EL SELECTED!!!) i ferlo unselectable fins k ledifici s'acabi de construir
 			//CHECK RECT WALCKABILITY
 			//CHACK THAT THERE IS NO BUILDING ENTTITY IN THAT SQUARE
-			if (App->gui->UiUnderMouse() == nullptr && App->pathfinding->IsWalkable(Tile,3)) {
+			if (App->gui->UiUnderMouse() == nullptr && App->pathfinding->IsWalkable(Tile,2)) {
 
 				App->gui->RemoveUiChilds(Panel);
 				CreateEntity(ToCreate, iPoint(x, y));

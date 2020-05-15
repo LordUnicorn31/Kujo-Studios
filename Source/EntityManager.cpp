@@ -14,7 +14,7 @@
 #include "EASTL/vector.h"
 #include "j1Gui.h"
 
-EntityManager::EntityManager(): j1Module(),MineSprite(NULL),CuartelLab(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1.0f / 60.0f)),AccumulatedTime(0.0f),newgame(true) {
+EntityManager::EntityManager(): j1Module(),MineSprite(NULL),CuartelLab(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1.0f / 60.0f)),AccumulatedTime(0.0f),newgame(true),BuildButton(nullptr) {
 	name = "EntityManager";
 
 	//Loading all the entities animations
@@ -191,6 +191,7 @@ bool EntityManager::Start() {
 void EntityManager::HandleInput() {
 	static iPoint origin, mouse;
 	SDL_Rect rect;
+	int x, y;
 	switch (CurrentAction) {
 	case ActionNone:
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
@@ -257,7 +258,6 @@ void EntityManager::HandleInput() {
 		break;
 
 	case ActionConstruction:
-		int x, y;
 		App->input->GetMousePosition(x, y);
 		x -= App->render->camera.x;
 		y -= App->render->camera.y;
@@ -270,7 +270,7 @@ void EntityManager::HandleInput() {
 		{
 			SDL_Rect minerect = { 0,0,64,64 };
 			App->render->Blit(MineSprite, x, y, &minerect);
-			break; 
+			break;
 		}
 		case AviableEntities::cuartel:
 		{
@@ -282,24 +282,24 @@ void EntityManager::HandleInput() {
 		{
 			SDL_Rect factoryrect = { 64,250,64,64 };
 			App->render->Blit(CuartelLab, x, y, &factoryrect);
-			break; 
+			break;
 		}
 		case AviableEntities::PowerGenerator:
 		{
 			SDL_Rect generatorrect = { 0,0,64,64 };
 			App->render->Blit(PowerGeneratorSprite, x, y, &generatorrect);
-			break; 
+			break;
 		}
 		}
 		//dibuixar el quadradet per indicar si es pot construir alla o no
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
 			//Mirar si les tiles son walkables
 			iPoint Tile = App->map->WorldToMap(x, y);
-			
+
 			//Si o son, enviari el collector a construir (ES EL SELECTED!!!) i ferlo unselectable fins k ledifici s'acabi de construir
 			//CHECK RECT WALCKABILITY
 			//CHACK THAT THERE IS NO BUILDING ENTTITY IN THAT SQUARE
-			if (App->gui->UiUnderMouse() == nullptr && App->pathfinding->IsWalkable(Tile,2)) {
+			if (App->gui->UiUnderMouse() == nullptr && App->pathfinding->IsWalkable(Tile, 2)) {
 				eastl::list<Entity*>::iterator it;
 				SDL_Rect Rect = { x,y,64,64 };
 				bool build = true;
@@ -312,7 +312,8 @@ void EntityManager::HandleInput() {
 				if (build) {
 					App->gui->RemoveUiChilds(Panel);
 					CreateEntity(ToCreate, iPoint(x, y));
-					SelectedEntities.front()->selectable = false;
+					((Ai*)SelectedEntities.front())->Working = true;
+					((Ai*)SelectedEntities.front())->WorkingTime = ((Building*)entities.back())->ConstructionTime;
 					SelectedEntities.front()->selected = false;
 					App->pathfinding->CreatePath(((Ai*)SelectedEntities.front())->TilePos, Tile);
 					((Ai*)SelectedEntities.front())->path = *App->pathfinding->GetLastPath();
@@ -322,6 +323,24 @@ void EntityManager::HandleInput() {
 			}
 			CurrentAction = ActionNone;
 			ToCreate = AviableEntities::none;
+		}
+		break; 
+
+	case ActionTraining:
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
+			if (App->gui->UiUnderMouse() == nullptr) {
+				App->gui->RemoveUiChilds(Panel);
+				SelectedEntities.clear();
+				CurrentAction = ActionNone;
+				ToCreate = AviableEntities::none;
+			}
+			else if (App->gui->UiUnderMouse() != BuildButton) {
+				App->gui->RemoveUiElement(BuildButton);
+				BuildButton = nullptr;
+			}
+			else {
+				CreateEntity(ToCreate, iPoint(SelectedEntities.front()->EntityRect.x, SelectedEntities.front()->EntityRect.y));
+			}
 		}
 		break;
 
@@ -574,7 +593,15 @@ bool EntityManager::Save(pugi::xml_node& managernode) {
 
 void EntityManager::ui_callback(UiElement* element) {
 	if (element->type==UiTypes::EButton) {
-		CurrentAction = ActionConstruction;
-		ToCreate = ((UiEntityButton*)element)->entity;
+		if (((UiEntityButton*)element)->entitytype == EntityType::TypeBuilding) {
+			CurrentAction = ActionConstruction;
+			ToCreate = ((UiEntityButton*)element)->entity;
+		}
+		else if (((UiEntityButton*)element)->entitytype == EntityType::TypeAi) {
+			BuildButton= App->gui->AddButton(0, 500, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, Panel, this);
+			App->gui->AddText(64, 16, "BUILD", nullptr, { 0, 255, 255 }, 42, false, false, BuildButton);
+			CurrentAction = ActionTraining;
+			ToCreate = ((UiEntityButton*)element)->entity;
+		}
 	}
 }

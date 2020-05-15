@@ -24,6 +24,8 @@ public:
 	bool IsMoving;
 	bool OnDestination;
 	bool Armed;
+	bool Working;
+	float WorkingTime;
 
 	//GunExtraDamage
 

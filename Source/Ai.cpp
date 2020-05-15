@@ -7,7 +7,7 @@
 #include "j1Window.h"
 #include "j1Gui.h"
 
-Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), IsMoving(false), DirectionAngle(270.0f),Armed(false) {
+Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), IsMoving(false), DirectionAngle(270.0f),Armed(false),Working(false),WorkingTime(0.0f) {
 	switch (Atype) {
 	case AiType::Basic_Unit:
 		health = 100;
@@ -77,7 +77,15 @@ Ai::~Ai() {
 }
 
 void Ai::Update(float dt) {
-
+    if (Working) {
+        selectable = false;
+        WorkingTime -= dt;
+        if (WorkingTime <= 0) {
+            Working = false;
+            selectable = true;
+        }
+    }
+    
     if (!OnDestination)
         UpdateMovement();
 }
@@ -215,10 +223,10 @@ void Ai::UpdateMovement()
 void Ai::UiFunctionallity() {
     switch (Atype) {
     case AiType::Collector:
-        App->gui->AddEntityButton(20, 240, { 1344,251,39,39 }, { 1290,250,39,39 }, { 1398,251,39,39 },AviableEntities::cuartel, true, false, App->entity->Panel, App->entity);
-        App->gui->AddEntityButton(60, 240, { 1346,306,39,39 }, { 1290,305,39,39 }, { 1398,306,39,39 }, AviableEntities::ship_factory, true, false, App->entity->Panel, App->entity);
-        App->gui->AddEntityButton(100, 240, { 1645,308,39,39 }, { 1590,307,39,39 }, { 1698,308,39,39 }, AviableEntities::mine, true, false, App->entity->Panel, App->entity);
-        App->gui->AddEntityButton(140, 240, { 1645,250,39,39 }, { 1590,249,39,39 }, { 1698,250,39,39 }, AviableEntities::PowerGenerator, true, false, App->entity->Panel, App->entity);
+        App->gui->AddEntityButton(20, 240, { 1344,251,39,39 }, { 1290,250,39,39 }, { 1398,251,39,39 },AviableEntities::cuartel,EntityType::TypeBuilding, true, false, App->entity->Panel, App->entity);
+        App->gui->AddEntityButton(60, 240, { 1346,306,39,39 }, { 1290,305,39,39 }, { 1398,306,39,39 }, AviableEntities::ship_factory, EntityType::TypeBuilding, true, false, App->entity->Panel, App->entity);
+        App->gui->AddEntityButton(100, 240, { 1645,308,39,39 }, { 1590,307,39,39 }, { 1698,308,39,39 }, AviableEntities::mine, EntityType::TypeBuilding, true, false, App->entity->Panel, App->entity);
+        App->gui->AddEntityButton(140, 240, { 1645,250,39,39 }, { 1590,249,39,39 }, { 1698,250,39,39 }, AviableEntities::PowerGenerator, EntityType::TypeBuilding, true, false, App->entity->Panel, App->entity);
         break;
     }
 }

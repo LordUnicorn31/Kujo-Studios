@@ -13,6 +13,7 @@ struct _TTF_Font;
 #define CURSOR_WIDTH 2
 
 enum class AviableEntities : unsigned char;
+enum class EntityType : unsigned char;
 
 enum class UiTypes {
 	Unknown,
@@ -81,7 +82,7 @@ public:
 	UiElement* AddText(int x, int y, const char*text, _TTF_Font*font = nullptr, SDL_Color color = { 255, 255, 255, 255 }, int size = 12, bool interactuable = false, bool draggeable = false, UiElement* parent = nullptr, j1Module* elementmodule = nullptr);
 	//If the ui has a parent the x,y will be the local coordenates respect the parent
 	UiElement* AddButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable = true, bool draggeable = false, UiElement* parent = nullptr, j1Module* elementmodule = nullptr);
-	UiElement* AddEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click,AviableEntities entity, bool interactuable = true, bool draggeable = false, UiElement* parent = nullptr, j1Module* elementmodule = nullptr);
+	UiElement* AddEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click,AviableEntities entity,EntityType etype, bool interactuable = true, bool draggeable = false, UiElement* parent = nullptr, j1Module* elementmodule = nullptr);
 	void DraggUiElements(UiElement*parent, int dx, int dy);
 	UiElement* UiUnderMouse();
 	bool MouseClick();
@@ -125,12 +126,13 @@ public:
 
 class UiEntityButton :public UiElement {
 public:
-	UiEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect selected,AviableEntities entity, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule);
+	UiEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect selected,AviableEntities entity,EntityType etype, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule);
 	~UiEntityButton();
 	void Draw(SDL_Texture* atlas)override;
 	void Update(int dx, int dy)override;
 	bool selected;
 	AviableEntities entity;
+	EntityType entitytype;
 	SDL_Rect unhover;
 	SDL_Rect hover;
 	SDL_Rect click;

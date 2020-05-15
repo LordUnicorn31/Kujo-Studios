@@ -93,11 +93,13 @@ void j1Gui::DeleteAllUiElements() {
 }
 
 void j1Gui::RemoveUiElement(UiElement* element) {
-	RemoveUiChilds(element);
-	eastl::list<UiElement*>::iterator it = eastl::find(UiElementList.begin(), UiElementList.end(), element);
-	if (it != UiElementList.end()) {
-		delete (*it);
-		UiElementList.erase(it);
+	if (element != nullptr) {
+		RemoveUiChilds(element);
+		eastl::list<UiElement*>::iterator it = eastl::find(UiElementList.begin(), UiElementList.end(), element);
+		if (it != UiElementList.end()) {
+			delete (*it);
+			UiElementList.erase(it);
+		}
 	}
 }
 
@@ -211,8 +213,8 @@ UiElement* j1Gui::AddButton(int x, int y, SDL_Rect source_unhover, SDL_Rect sour
 	return Button;
 }
 
-UiElement* j1Gui::AddEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click,AviableEntities entity, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule) {
-	UiElement* EButton = new UiEntityButton(x, y, source_unhover, source_hover, source_click, entity, interactuable, draggeable, parent, elementmodule);
+UiElement* j1Gui::AddEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click,AviableEntities entity, EntityType etype, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule) {
+	UiElement* EButton = new UiEntityButton(x, y, source_unhover, source_hover, source_click, entity, etype, interactuable, draggeable, parent, elementmodule);
 	UiElementList.push_back(EButton);
 	return EButton;
 }
@@ -340,7 +342,7 @@ void UiButton::Draw(SDL_Texture*atlas) {
 	}
 }
 
-UiEntityButton::UiEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_selected,AviableEntities entity, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule) :UiElement(x, y, source_unhover.w, source_unhover.h, interactuable, draggeable, UiTypes::EButton, parent, elementmodule), unhover(source_unhover), hover(source_hover), click(source_selected), entity(entity), current_state(Button_state::unhovered),selected(false) {}
+UiEntityButton::UiEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_selected,AviableEntities entity,EntityType etype, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule) :UiElement(x, y, source_unhover.w, source_unhover.h, interactuable, draggeable, UiTypes::EButton, parent, elementmodule), unhover(source_unhover), hover(source_hover), click(source_selected), entity(entity), current_state(Button_state::unhovered), entitytype(etype), selected(false) {}
 
 UiEntityButton::~UiEntityButton(){}
 

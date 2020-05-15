@@ -14,8 +14,8 @@ enum InputActions {
 	ActionNone,
 	ActionMoving,
 	ActionSelection,
-	ActionSquareSelection,
-	ActionConstruction
+	ActionConstruction,
+	ActionTraining,
 };
 
 enum class AviableEntities: unsigned char {
@@ -99,6 +99,7 @@ private:
 	void HandleInput();
 	InputActions CurrentAction;
 	AviableEntities ToCreate;
+	UiElement* BuildButton;
 	//max_resouces[]
 	//current_resouces[]
 };

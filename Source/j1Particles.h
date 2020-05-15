@@ -27,6 +27,7 @@ struct Particle
 	ParticleType type;				//Particle type
 	fPoint speed;					//Particle speed
 	float size;						//Particle size
+	uint born;
 	uint life;  					//Particle life
 	float rotation;					//Particle rotation
 	SDL_Color initialColor;			//Particle color inicial

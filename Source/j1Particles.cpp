@@ -23,9 +23,7 @@ bool j1Particle::Start()
 	shot.anim.PushBack({ 0,0,500,500 });
 	shot.anim.PushBack({ 0,0,500,500 });
 	shot.anim.PushBack({ 0,0,500,500 });
-	shot.anim.loop = 1;
-	shot.type = ParticleType::SHOT;
-	shot.life = 1000;
+	shot.anim.loop = true;
 
 	return true;
 }
@@ -44,15 +42,17 @@ bool j1Particle::Update(float dt)
 			delete p;
 			active[i] = nullptr;
 		}
-		else 
+		else if (SDL_GetTicks() >= p->born)
 		{
 			App->render->DrawQuad(p->rect,p->initialColor.r,p->initialColor.g,p->initialColor.b,p->initialColor.a,true);
+			//LOG("life %u", p->life);
 			if (p->fx_played == false)
 			{
 				p->fx_played = true;
 				// Play particle fx here
 			}
 		}
+	
 	}
 	return true;
 }
@@ -82,12 +82,14 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, Uint32 dela
 	{
 		if (active[i] == nullptr)
 		{
+			Particle* p = new Particle(particle);
+
 			switch (type)
 			{
-			case ParticleType::NONE:
-				break;
+			case ParticleType::NONE:	
+				
 			case ParticleType::SHOT:
-				Particle* p = new Particle(particle);
+				p->born = SDL_GetTicks() + delay;
 				p->anim = shot.anim;
 				p->size = 1;
 				p->rect.x = x;
@@ -97,9 +99,11 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, Uint32 dela
 				p->initialColor = { 255,255,0,255 };
 				p->finalColor = { 0,255,255,255 };
 				p->type = type;
-				active[i] = p;
-				break;
 			}
+
+			active[i] = p;
+			LOG("particles %d", i);
+			break;
 		}
 	}
 }
@@ -110,6 +114,7 @@ Particle::Particle()
 	type = ParticleType::NONE;
 	speed.SetToZero();
 	rotation = 0.0f;
+	life = 0.0f;
 }
 
 Particle::Particle(const Particle& p) 
@@ -120,6 +125,7 @@ Particle::Particle(const Particle& p)
 	 this->type = p.type;
 	 this->speed = p.speed;
 	 this->size = p.size;
+	 this->born = p.born;
 	 this->life = p.life;
 	 this->rotation = p.rotation;
 	 this->initialColor = p.initialColor;
@@ -138,20 +144,16 @@ bool Particle::Update()
 	//Update all the particle characteristics depending on the particle type
 	bool ret = true;
 
-	switch (type)
+	rect.x += 5;
+	if (life > 0 && type == ParticleType::SHOT)
 	{
-	case ParticleType::NONE:
-		ret = false;
-		break;
-
-	case ParticleType::SHOT:
-		life -= 5;
-		LOG("Life %d", life);
-		rect.x++;
-		if (life < 0) {
+		if ((SDL_GetTicks() - born ) > life)
 			ret = false;
-		}
 	}
+	else
+		if(anim.Finished())
+			ret = false;
+		
 
 	return ret;
 }

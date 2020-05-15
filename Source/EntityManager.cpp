@@ -236,7 +236,7 @@ void EntityManager::HandleInput() {
 				rect.h = 1;
 				eastl::list<Entity*>::iterator it;
 				for (it = entities.begin(); it != entities.end(); ++it) {
-					if (SDL_HasIntersection(&rect, &(*it)->EntityRect)) {
+					if ((*it)->selectable && SDL_HasIntersection(&rect, &(*it)->EntityRect)) {
 						(*it)->selected = true;
 						SelectedEntities.push_back((*it));
 						(*it)->UiFunctionallity();
@@ -247,7 +247,7 @@ void EntityManager::HandleInput() {
 			else {
 				eastl::list<Entity*>::iterator it;
 				for (it = entities.begin(); it != entities.end(); ++it) {
-					if ((*it)->etype == EntityType::TypeAi && SDL_HasIntersection(&rect, &(*it)->EntityRect)) {
+					if ((*it)->selectable && (*it)->etype == EntityType::TypeAi && SDL_HasIntersection(&rect, &(*it)->EntityRect)) {
 						(*it)->selected = true;
 						SelectedEntities.push_back((*it));
 					}
@@ -300,9 +300,25 @@ void EntityManager::HandleInput() {
 			//CHECK RECT WALCKABILITY
 			//CHACK THAT THERE IS NO BUILDING ENTTITY IN THAT SQUARE
 			if (App->gui->UiUnderMouse() == nullptr && App->pathfinding->IsWalkable(Tile,2)) {
-
-				App->gui->RemoveUiChilds(Panel);
-				CreateEntity(ToCreate, iPoint(x, y));
+				eastl::list<Entity*>::iterator it;
+				SDL_Rect Rect = { x,y,64,64 };
+				bool build = true;
+				for (it = entities.begin(); it != entities.end(); ++it) {
+					if (SDL_HasIntersection(&(*it)->EntityRect, &Rect) && (*it)->etype == EntityType::TypeBuilding) {
+						build = false;
+						break;
+					}
+				}
+				if (build) {
+					App->gui->RemoveUiChilds(Panel);
+					CreateEntity(ToCreate, iPoint(x, y));
+					SelectedEntities.front()->selectable = false;
+					SelectedEntities.front()->selected = false;
+					App->pathfinding->CreatePath(((Ai*)SelectedEntities.front())->TilePos, Tile);
+					((Ai*)SelectedEntities.front())->path = *App->pathfinding->GetLastPath();
+					((Ai*)SelectedEntities.front())->OnDestination = false;
+					SelectedEntities.clear();
+				}
 			}
 			CurrentAction = ActionNone;
 			ToCreate = AviableEntities::none;

@@ -27,7 +27,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		IdleAnimation= &App->entity->Animations.MineIdle;
 		ConstructionAnimation = &App->entity->Animations.BuildMine;
 		level = 1;
-		ConstructionTime = 4.0f;
+		ConstructionTime = 10.0f;
 		OnConstruction = true;
 		CostCopperTitanium = { 1500,0 };
 		break;
@@ -39,7 +39,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		IdleAnimation = &App->entity->Animations.CuartelIdle;
 		ConstructionAnimation = &App->entity->Animations.BuildCuartel;
 		level = 1;
-		ConstructionTime = 4.0f;
+		ConstructionTime = 10.0f;
 		OnConstruction = true;
 		CostCopperTitanium = { 1500,0 };
 		break;
@@ -51,7 +51,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		IdleAnimation = &App->entity->Animations.LabIdle;
 		ConstructionAnimation = &App->entity->Animations.BuildLab;
 		level = 1;
-		ConstructionTime = 4.0f;
+		ConstructionTime = 10.0f;
 		OnConstruction = true;
 		CostCopperTitanium = { 1500,0 };
 		break;
@@ -63,7 +63,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		IdleAnimation = &App->entity->Animations.PowerGeneratorIdle;
 		ConstructionAnimation = &App->entity->Animations.BuildPowerGenerator;
 		level = 1;
-		ConstructionTime = 4.0f;
+		ConstructionTime = 10.0f;
 		OnConstruction = true;
 		CostCopperTitanium = { 1500,0 };
 		break;

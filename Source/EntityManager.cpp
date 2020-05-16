@@ -13,6 +13,7 @@
 #include <time.h>
 #include "EASTL/vector.h"
 #include "j1Gui.h"
+#include "j1Fonts.h"
 
 EntityManager::EntityManager(): j1Module(),MineSprite(NULL),CuartelLab(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1.0f / 60.0f)),AccumulatedTime(0.0f),newgame(true),BuildButton(nullptr) {
 	name = "EntityManager";
@@ -598,8 +599,8 @@ void EntityManager::ui_callback(UiElement* element) {
 			ToCreate = ((UiEntityButton*)element)->entity;
 		}
 		else if (((UiEntityButton*)element)->entitytype == EntityType::TypeAi) {
-			BuildButton= App->gui->AddButton(0, 500, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, Panel, this);
-			App->gui->AddText(64, 16, "BUILD", nullptr, { 0, 255, 255 }, 42, false, false, BuildButton);
+			BuildButton= App->gui->AddButton(25, 550, { 1281,486,163,49 }, { 1450,486,163,49 }, { 1626,486,163,49 }, true, false, Panel, this);
+			App->gui->AddText(60, 16, "BUILD", App->font->Small, { 0, 255, 255 }, 42, false, false, BuildButton);
 			CurrentAction = ActionTraining;
 			ToCreate = ((UiEntityButton*)element)->entity;
 		}

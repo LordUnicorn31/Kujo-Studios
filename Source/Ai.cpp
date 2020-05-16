@@ -7,7 +7,7 @@
 #include "j1Window.h"
 #include "j1Gui.h"
 
-Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), IsMoving(false), DirectionAngle(270.0f),Armed(false),Working(false),WorkingTime(0.0f) {
+Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), IsMoving(false), DirectionAngle(270.0f),Armed(false),Working(true),WorkingTime(0.0f),Building(true) {
 	switch (Atype) {
 	case AiType::Basic_Unit:
         MaxHealth = 100;
@@ -24,6 +24,8 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         TilePos = App->map->WorldToMap(EntityRect.x, EntityRect.y);
         NextTile = TilePos;
         OnDestination = true;
+        TotalBuildingTime = 10;
+        BuildingTime = 10.0f;
 		break;
     case AiType::Ranged_Unit:
         MaxHealth = 60;
@@ -40,6 +42,8 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         TilePos = App->map->WorldToMap(EntityRect.x, EntityRect.y);
         NextTile = TilePos;
         OnDestination = true;
+        TotalBuildingTime = 10;
+        BuildingTime = 10.0f;
         break;
 	case AiType::Collector:
         MaxHealth = 50;
@@ -56,6 +60,8 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         TilePos = App->map->WorldToMap(EntityRect.x, EntityRect.y);
         NextTile = TilePos;
         OnDestination = true;
+        TotalBuildingTime = 10;
+        BuildingTime = 10.0f;
 		break;
     case AiType::Special_Unit:
         MaxHealth = 150;
@@ -72,6 +78,8 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         TilePos = App->map->WorldToMap(EntityRect.x, EntityRect.y);
         NextTile = TilePos;
         OnDestination = true;
+        TotalBuildingTime = 10;
+        BuildingTime = 10.0f;
         break;
 	}
 }
@@ -89,31 +97,41 @@ void Ai::Update(float dt) {
             selectable = true;
         }
     }
+
+    if (Building) {
+        selectable = false;
+        BuildingTime -= dt;
+        if (BuildingTime <= 0) {
+            Building = false;
+            selectable = true;
+        }
+    }
     
     if (!OnDestination)
         UpdateMovement();
 
-    if (health < 0)
-        health = MaxHealth;
+    /*if (health < 0)
+        die*/
 }
 
 void Ai::UpdateLogic() {
     if (IsMoving)
         DoMovement();
-    health -= 0.7f;
 }
 
 void Ai::Draw(float dt) {
     //TODO: quan la nau recorre a vegades les diagonals va tremolant al canviar d'angles molt rapid
-    if(!Armed)
-        App->render->Blit(sprite, EntityRect.x, EntityRect.y, &IdleAnimaiton->GetCurrentFrame(dt),true,App->render->renderer,App->win->GetScale(),1.0f,DirectionAngle);
-    else
-        App->render->Blit(sprite, EntityRect.x, EntityRect.y, &ArmedIdleAnimation->GetCurrentFrame(dt), true, App->render->renderer, App->win->GetScale(), 1.0f, DirectionAngle);
-	if (selected) {
-		App->render->DrawQuad(EntityRect, 0, 255, 0, 255,false);
-	}
-    for (int i = 0; i != path.size(); ++i) {
-        App->render->DrawQuad({path[i].x*32,path[i].y*32,32,32}, 255, 0, 0, 127,true);
+    if (!Building) {
+        if (!Armed)
+            App->render->Blit(sprite, EntityRect.x, EntityRect.y, &IdleAnimaiton->GetCurrentFrame(dt), true, App->render->renderer, App->win->GetScale(), 1.0f, DirectionAngle);
+        else
+            App->render->Blit(sprite, EntityRect.x, EntityRect.y, &ArmedIdleAnimation->GetCurrentFrame(dt), true, App->render->renderer, App->win->GetScale(), 1.0f, DirectionAngle);
+        if (selected) {
+            App->render->DrawQuad(EntityRect, 0, 255, 0, 255, false);
+        }
+        for (int i = 0; i != path.size(); ++i) {
+            App->render->DrawQuad({ path[i].x * 32,path[i].y * 32,32,32 }, 255, 0, 0, 127, true);
+        }
     }
 }
 
@@ -231,6 +249,7 @@ void Ai::UpdateMovement()
 void Ai::UiFunctionallity() {
     switch (Atype) {
     case AiType::Collector:
+        //App->gui->AddText(82,240,)
         App->gui->AddEntityButton(20, 240, { 1344,251,39,39 }, { 1290,250,39,39 }, { 1398,251,39,39 },AviableEntities::cuartel,EntityType::TypeBuilding, true, false, App->entity->Panel, App->entity);
         App->gui->AddEntityButton(60, 240, { 1346,306,39,39 }, { 1290,305,39,39 }, { 1398,306,39,39 }, AviableEntities::ship_factory, EntityType::TypeBuilding, true, false, App->entity->Panel, App->entity);
         App->gui->AddEntityButton(100, 240, { 1645,308,39,39 }, { 1590,307,39,39 }, { 1698,308,39,39 }, AviableEntities::mine, EntityType::TypeBuilding, true, false, App->entity->Panel, App->entity);

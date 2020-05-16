@@ -11,6 +11,7 @@ class Entity;
 class SDL_Texture;
 enum class EntityType : unsigned char;
 class UiElement;
+class Ai;
 
 enum InputActions {
 	ActionNone,
@@ -80,7 +81,7 @@ public:
 
 	EntitiesAnimations Animations;
 	UiElement* Panel;
-
+	Ai* CurrentBuildingEntity;
 private:
 	bool newgame;
 	void GenerateResources(int n_gold, int n_ore);
@@ -99,9 +100,9 @@ private:
 	SDL_Texture* Titanium;
 	SDL_Texture* PowerGeneratorSprite;
 	void HandleInput();
-	InputActions CurrentAction;
 	AviableEntities ToCreate;
 	UiElement* BuildButton;
+	InputActions CurrentAction;
 	//max_resouces[]
 	//current_resouces[]
 };

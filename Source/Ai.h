@@ -26,9 +26,11 @@ public:
 	bool Armed;
 	bool Working;
 	float WorkingTime;
+	bool Building;
+	float BuildingTime;
+	int TotalBuildingTime;
 
 	//GunExtraDamage
-
 	iPoint TilePos;
 	//iPoint FinalGoal;
 	iPoint NextTile;

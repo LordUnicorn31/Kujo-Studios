@@ -2,9 +2,10 @@
 #include "Entity.h"
 #include "SDL_rect.h"
 #include "Animation.h"
-#include "EASTL/array.h"
+#include "EASTL/list.h"
 
 class SDL_Texture;
+class Ai;
 
 enum class BuildingType : unsigned char {
 	Mine,
@@ -32,4 +33,9 @@ public:
 	//void Die();
 	void LevelUp();
 	void UiFunctionallity();
+	void UpdateUiFunctionallity();
+	eastl::list<AviableEntities>BuildingQueue;
+	Ai* BuildingEntity;
+	bool ToBuild;
+	UiElement* BuildHUD;
 };

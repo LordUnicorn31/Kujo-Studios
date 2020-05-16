@@ -195,6 +195,15 @@ void EntityManager::HandleInput() {
 	int x, y;
 	switch (CurrentAction) {
 	case ActionNone:
+		//SA DE OPTIMITZAR AIXO (AQUEST IF ACTUALITZA LA HUD DE TRAINING DE EDIFICIS WHILE NO ESTEM EN ACTION TRAINING)
+		if (!SelectedEntities.empty()) {
+			if (SelectedEntities.front()->etype== EntityType::TypeBuilding) {
+				if (((Building*)SelectedEntities.front())->BuildingEntity != CurrentBuildingEntity) {
+					((Building*)SelectedEntities.front())->UpdateUiFunctionallity();
+					CurrentBuildingEntity = ((Building*)SelectedEntities.front())->BuildingEntity;
+				}
+			}
+		}
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 		{
 			App->input->GetMousePosition(origin.x, origin.y);
@@ -276,8 +285,6 @@ void EntityManager::HandleInput() {
 							App->gui->AddImage(x * 66 + 2 + 11, (y - 1) * 46 + 200 + 7, { 1290,198,39,39 }, false, false, Panel);
 							break;
 						}
-
-
 						++i;
 					}
 				}
@@ -355,6 +362,10 @@ void EntityManager::HandleInput() {
 		break; 
 
 	case ActionTraining:
+		if (((Building*)SelectedEntities.front())->BuildingEntity != CurrentBuildingEntity) {
+			((Building*)SelectedEntities.front())->UpdateUiFunctionallity();
+			CurrentBuildingEntity = ((Building*)SelectedEntities.front())->BuildingEntity;
+		}
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
 			if (App->gui->UiUnderMouse() == nullptr) {
 				App->gui->RemoveUiChilds(Panel);
@@ -369,7 +380,8 @@ void EntityManager::HandleInput() {
 			}
 			else {
 				//fer una cola de entities per crear
-				CreateEntity(ToCreate, iPoint(SelectedEntities.front()->EntityRect.x, SelectedEntities.front()->EntityRect.y));
+				((Building*)SelectedEntities.front())->BuildingQueue.push_back(ToCreate);
+				((Building*)SelectedEntities.front())->ToBuild = true;
 			}
 		}
 		break;

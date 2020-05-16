@@ -62,6 +62,9 @@
     <ClCompile Include="Fow.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="DialogSystem.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h" />
@@ -126,6 +129,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Fow.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogSystem.h">
       <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>

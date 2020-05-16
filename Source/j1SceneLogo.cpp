@@ -92,7 +92,6 @@ bool j1SceneLogo::Update(float dt)
 
 	r++;
 
-
 	if (r == 255)
 	{
 		r--;

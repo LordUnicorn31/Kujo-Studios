@@ -15,7 +15,8 @@ struct SDL_Texture;
 enum class ParticleType 
 {
 	NONE,
-	SHOT
+	SHOT,
+	SMOKE
 
 };
 
@@ -62,6 +63,7 @@ private:
 
 public:
 
+	Particle smoke;
 	Particle shot;
 };
 

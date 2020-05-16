@@ -25,6 +25,9 @@ bool j1Particle::Start()
 	shot.anim.PushBack({ 0,0,500,500 });
 	shot.anim.loop = true;
 
+	smoke.anim.PushBack({ 0,0,255,255 });
+	smoke.anim.PushBack({ 0,0,255,255 });
+
 	return true;
 }
 
@@ -44,12 +47,26 @@ bool j1Particle::Update(float dt)
 		}
 		else if (SDL_GetTicks() >= p->born)
 		{
-			App->render->DrawQuad(p->rect,p->initialColor.r,p->initialColor.g,p->initialColor.b,p->initialColor.a,true);
-			//LOG("life %u", p->life);
-			if (p->fx_played == false)
+			if (p->type == ParticleType::SHOT) 
 			{
-				p->fx_played = true;
-				// Play particle fx here
+				p->rect.x++;
+
+				App->render->DrawQuad(p->rect, p->initialColor.r, p->initialColor.g, p->initialColor.b, p->initialColor.a, true);
+				//LOG("life %u", p->life);
+				if (p->fx_played == false)
+				{
+					p->fx_played = true;
+					// Play particle fx here
+				}
+			}
+			else if (p->type == ParticleType::SMOKE)
+			{
+				App->render->Blit(graphics, p->rect.x, p->rect.y, &p->anim.GetCurrentFrame(dt));
+				if (p->fx_played == false)
+				{
+					p->fx_played = true;
+					// Play particle fx here
+				}
 			}
 		}
 	
@@ -87,7 +104,8 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, Uint32 dela
 			switch (type)
 			{
 			case ParticleType::NONE:	
-				
+				p->type = type;
+				break;
 			case ParticleType::SHOT:
 				p->born = SDL_GetTicks() + delay;
 				p->anim = shot.anim;
@@ -99,6 +117,13 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, Uint32 dela
 				p->initialColor = { 255,255,0,255 };
 				p->finalColor = { 0,255,255,255 };
 				p->type = type;
+				break;
+
+			case ParticleType::SMOKE:
+				p->born = SDL_GetTicks() + delay;
+				p->anim = smoke.anim;
+				p->type = type;
+				break;
 			}
 
 			active[i] = p;
@@ -144,7 +169,7 @@ bool Particle::Update()
 	//Update all the particle characteristics depending on the particle type
 	bool ret = true;
 
-	rect.x += 5;
+
 	if (life > 0 && type == ParticleType::SHOT)
 	{
 		if ((SDL_GetTicks() - born ) > life)

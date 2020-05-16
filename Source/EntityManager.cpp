@@ -211,6 +211,7 @@ void EntityManager::HandleInput() {
 			App->render->DrawQuad({ origin.x - App->render->camera.x, origin.y - App->render->camera.y, mouse.x - origin.x, mouse.y - origin.y }, 0, 200, 0, 50);
 		}
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
+			//Remove la ui k tenen
 			CurrentAction = ActionNone;
 			if (App->gui->UiUnderMouse() != nullptr)
 				break;
@@ -247,10 +248,36 @@ void EntityManager::HandleInput() {
 			}
 			else {
 				eastl::list<Entity*>::iterator it;
-				for (it = entities.begin(); it != entities.end(); ++it) {
+				int i = 0;
+				int x = -1;
+				int y = 1;
+				for (it = entities.begin(); it != entities.end() && i<MAXSELECTEDUNITS; ++it) {
 					if ((*it)->selectable && (*it)->etype == EntityType::TypeAi && SDL_HasIntersection(&rect, &(*it)->EntityRect)) {
 						(*it)->selected = true;
 						SelectedEntities.push_back((*it));
+						++x;
+						if (x == 3) {
+							x = 0;
+							y += 1;
+						}
+						App->gui->AddHUDBar(x*66 + 2, y*46 + 200, (*it)->MaxHealth, &(*it)->health, false, { 1279,416,61,5 }, { 1279,399,61,5 }, { 1278,382,64,8 }, false, false, Panel, nullptr);
+						switch (((Ai*)(*it))->Atype) {
+						case AiType::Collector:
+							App->gui->AddImage(x * 66 + 2 + 11, (y - 1) * 46 + 200 + 7, { 1291,135,39,39 },false,false,Panel);
+							break;
+						case AiType::Basic_Unit:
+							App->gui->AddImage(x * 66 + 2 + 11, (y - 1) * 46 + 200 + 7, { 1290,83,39,39 }, false, false, Panel);
+							break;
+						case AiType::Ranged_Unit:
+							App->gui->AddImage(x * 66 + 2 + 11, (y - 1) * 46 + 200 + 7, { 1291,28,39,39 }, false, false, Panel);
+							break;
+						case AiType::Special_Unit:
+							App->gui->AddImage(x * 66 + 2 + 11, (y - 1) * 46 + 200 + 7, { 1290,198,39,39 }, false, false, Panel);
+							break;
+						}
+
+
+						++i;
 					}
 				}
 			}
@@ -330,6 +357,7 @@ void EntityManager::HandleInput() {
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
 			if (App->gui->UiUnderMouse() == nullptr) {
 				App->gui->RemoveUiChilds(Panel);
+				SelectedEntities.front()->selected = false;
 				SelectedEntities.clear();
 				CurrentAction = ActionNone;
 				ToCreate = AviableEntities::none;
@@ -339,6 +367,7 @@ void EntityManager::HandleInput() {
 				BuildButton = nullptr;
 			}
 			else {
+				//fer una cola de entities per crear
 				CreateEntity(ToCreate, iPoint(SelectedEntities.front()->EntityRect.x, SelectedEntities.front()->EntityRect.y));
 			}
 		}

@@ -10,7 +10,8 @@
 Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), IsMoving(false), DirectionAngle(270.0f),Armed(false),Working(false),WorkingTime(0.0f) {
 	switch (Atype) {
 	case AiType::Basic_Unit:
-		health = 100;
+        MaxHealth = 100;
+		health = MaxHealth;
 		Damage = 40;
 		Range = 200;
 		speed = 5;
@@ -25,7 +26,8 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         OnDestination = true;
 		break;
     case AiType::Ranged_Unit:
-        health = 60;
+        MaxHealth = 60;
+        health = MaxHealth;
         Damage = 60;
         Range = 350;
         speed = 6;
@@ -40,7 +42,8 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         OnDestination = true;
         break;
 	case AiType::Collector:
-		health = 50;
+        MaxHealth = 50;
+        health = MaxHealth;
 		Damage = 0;
 		Range = 100;
 		speed = 3;
@@ -55,7 +58,8 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         OnDestination = true;
 		break;
     case AiType::Special_Unit:
-        health = 150;
+        MaxHealth = 150;
+        health = MaxHealth;
         Damage = 100;
         Range = 100;
         speed = 2;
@@ -88,11 +92,15 @@ void Ai::Update(float dt) {
     
     if (!OnDestination)
         UpdateMovement();
+
+    if (health < 0)
+        health = MaxHealth;
 }
 
 void Ai::UpdateLogic() {
     if (IsMoving)
         DoMovement();
+    health -= 0.7f;
 }
 
 void Ai::Draw(float dt) {

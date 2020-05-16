@@ -7,6 +7,7 @@
 #include "j1Input.h"
 #include "j1Gui.h"
 #include "j1Scene.h"
+#include "Entity.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -219,6 +220,12 @@ UiElement* j1Gui::AddEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rec
 	return EButton;
 }
 
+UiElement* j1Gui::AddHUDBar(int x, int y, int MaxValue, float* valueptr, bool usecamera, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule) {
+	UiElement* HUD = new UiHUDBars(x, y, MaxValue, valueptr, usecamera, bar, fill, border, interactuable, draggeable, parent, elementmodule);
+	UiElementList.push_back(HUD);
+	return HUD;
+}
+
 
 UiElement::UiElement(int x, int y, int w, int h, bool interactuable, bool draggeable, UiTypes uitype, UiElement* parent, j1Module* elementmodule) : type(uitype), parent(parent), Module(elementmodule), ui_rect({ x,y,w,h }), interactuable(interactuable), draggable(draggeable) { if (parent != nullptr)SetLocalPos(x, y); }
 
@@ -400,4 +407,20 @@ void UiEntityButton::Draw(SDL_Texture* atlas) {
 			break;
 		}
 	}
+}
+
+UiHUDBars::UiHUDBars(int x, int y, uint MaxValue,float*valueptr, bool usecamera, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule): UiElement(x, y, bar.w, bar.h, interactuable, draggeable, UiTypes::HUDBar, parent, elementmodule), Border(border), Fill(fill), FullBar(bar), Value(valueptr), MaxValue(MaxValue),CurrentBar(bar),UseCamera(usecamera) {}
+
+UiHUDBars::~UiHUDBars() {}
+
+void UiHUDBars::Update(int dx, int dy) {
+	CurrentBar.w = (int)((*Value) / ((float)MaxValue/(float)FullBar.w));
+	if (CurrentBar.w < 0)
+		CurrentBar.w = 0;
+}
+
+void UiHUDBars::Draw(SDL_Texture* atlas) {
+	App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &Border, UseCamera);
+	App->render->Blit(atlas, GetScreenPos().x+1, GetScreenPos().y+1, &Fill, UseCamera);
+	App->render->Blit(atlas, GetScreenPos().x+1, GetScreenPos().y+1, &CurrentBar, UseCamera);
 }

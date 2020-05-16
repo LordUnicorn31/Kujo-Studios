@@ -3,6 +3,7 @@
 #include "SDL_rect.h"
 
 class SDL_Texture;
+class UiElement;
 
 enum class EntityType : unsigned char {
 	TypeAi,
@@ -16,7 +17,8 @@ public:
 	virtual ~Entity();
 	SDL_Rect EntityRect;
 	EntityType etype;
-	int health;
+	float health;
+	int MaxHealth;
 	SDL_Texture* sprite;
 	bool selected;
 	bool selectable;

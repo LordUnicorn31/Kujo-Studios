@@ -5,6 +5,8 @@
 #include "j1Render.h"
 #include "Animation.h"
 
+#define MAXSELECTEDUNITS 33
+
 class Entity;
 class SDL_Texture;
 enum class EntityType : unsigned char;

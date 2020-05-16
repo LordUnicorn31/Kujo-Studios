@@ -14,13 +14,15 @@ struct _TTF_Font;
 
 enum class AviableEntities : unsigned char;
 enum class EntityType : unsigned char;
+class Entity;
 
 enum class UiTypes {
 	Unknown,
 	Image,
 	Text,
 	Button,
-	EButton
+	EButton,
+	HUDBar
 };
 
 class UiElement {
@@ -83,6 +85,7 @@ public:
 	//If the ui has a parent the x,y will be the local coordenates respect the parent
 	UiElement* AddButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable = true, bool draggeable = false, UiElement* parent = nullptr, j1Module* elementmodule = nullptr);
 	UiElement* AddEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click,AviableEntities entity,EntityType etype, bool interactuable = true, bool draggeable = false, UiElement* parent = nullptr, j1Module* elementmodule = nullptr);
+	UiElement* AddHUDBar(int x, int y, int MaxValue, float* valueptr, bool usecamera, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule);
 	void DraggUiElements(UiElement*parent, int dx, int dy);
 	UiElement* UiUnderMouse();
 	bool MouseClick();
@@ -149,4 +152,19 @@ public:
 	const char*message;
 	SDL_Color color;
 	SDL_Texture* texture;
+};
+
+class UiHUDBars : public UiElement {
+public:
+	UiHUDBars(int x, int y, uint MaxValue, float* valueptr, bool usecamera, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule);
+	~UiHUDBars();
+	void Draw(SDL_Texture* atlas)override;
+	void Update(int dx, int dy)override;
+	SDL_Rect Border;
+	SDL_Rect Fill;
+	SDL_Rect FullBar;
+	const float* Value;
+	int MaxValue;
+	SDL_Rect CurrentBar;
+	bool UseCamera;
 };

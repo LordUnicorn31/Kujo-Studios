@@ -43,14 +43,14 @@ bool j1SceneTitle::Start()
 
 
 	NewGameButton = App->gui->AddButton(500, 390, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(15, 16, "NEW GAME", nullptr, { 0,255,0,255 }, 42, false, false, NewGameButton);
+	App->gui->AddText(15, 16, "NEW GAME", nullptr, { 0,255,0,255 }, 32, false, false, NewGameButton);
 	ContinueButton = App->gui->AddButton(500, 470, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(20, 16, "CONTINUE", nullptr, { 0,255,0,255 }, 42, false, false, ContinueButton);
+	App->gui->AddText(20, 16, "CONTINUE", nullptr, { 0,255,0,255 }, 32, false, false, ContinueButton);
 	exitButton = App->gui->AddButton(500, 630, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(75, 16, "EXIT", nullptr, { 255,0,0,255 }, 42, false, false, exitButton);
+	App->gui->AddText(75, 16, "EXIT", nullptr, { 255,0,0,255 }, 32, false, false, exitButton);
 	optionsButton = App->gui->AddButton(500, 550, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(32, 16, "OPTIONS", nullptr, { 0, 255, 255 }, 42, false, false, optionsButton);
-	App->gui->AddText(10, 690, "2020 KUJO STUDIOS", App->font->Small, { 255,255,255 }, 42, false, false);
+	App->gui->AddText(32, 16, "OPTIONS", nullptr, { 0, 255, 255 }, 32, false, false, optionsButton);
+	App->gui->AddText(10, 690, "2020 KUJO STUDIOS", App->font->Small, { 255,255,255,255 }, 16, false, false);
 	
 
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");

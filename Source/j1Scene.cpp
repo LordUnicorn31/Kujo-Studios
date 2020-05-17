@@ -43,15 +43,15 @@ bool j1Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->minimap->Enable();
-	App->entity->Enable();
-	App->collisions->Enable();
 	App->audio->PlayMusic("Resources/audio/music/Space.ogg");
 	Pause = App->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 871, 736, 39,39 }, { 755, 527, 39,39 }, true, false, nullptr, this);
 	Info = App->gui->AddButton(750, 10, { 494,640,332,52 }, { 494,574,332,52 }, { 494,640,332,52 }, true, false, nullptr, this);
 	People = App->gui->AddImage(30, 5, { 591,494,40,37 }, false, false, Info, nullptr);
 	Copper = App->gui->AddImage(130, 12, { 679,501,28,29 }, false, false, Info, nullptr);
 	Titanium = App->gui->AddImage(230, 12, { 641,498,30,31 }, false, false, Info, nullptr);
+	App->minimap->Enable();
+	App->entity->Enable();
+	App->collisions->Enable();
 	//Unit1 = App->gui->AddButton(0, 600, { 32,544,430,208}, { 32,544,440,208 }, { 32,544,440,208 }, true, false, nullptr, this);
 	App->win->GetWindowSize(width, height);
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");
@@ -165,15 +165,15 @@ void j1Scene::ui_callback(UiElement* element) {
 		if (Pause != nullptr) {
 			if (Settings_window == nullptr) {
 				Settings_window = App->gui->AddImage(400, 150, { 0, 512, 483, 512 }, false, false);
-				App->gui->AddText(170, 50, "PAUSE", NULL, { 0,0,255,255 }, 42, false, false, Settings_window);
+				App->gui->AddText(170, 50, "PAUSE", NULL, { 0,0,255,255 }, 32, false, false, Settings_window);
 				Exit_button = App->gui->AddButton(120, 370, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, Settings_window, this);
-				App->gui->AddText(78, 16, "EXIT", NULL, { 0,0,255,255 }, 42, false, false, Exit_button);
+				App->gui->AddText(78, 16, "EXIT", NULL, { 0,0,255,255 }, 32, false, false, Exit_button);
 				Continue_button = App->gui->AddButton(120, 110, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, Settings_window, this);
-				App->gui->AddText(23, 15, "CONTINUE", NULL, { 0,0,255,255 }, 36, false, false, Continue_button);
+				App->gui->AddText(23, 15, "CONTINUE", NULL, { 0,0,255,255 }, 32, false, false, Continue_button);
 				fullScreen = App->gui->AddButton(120, 280, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, Settings_window, this);
-				App->gui->AddText(55, 25, "FULLSCREEN", App->font->Small, { 255,255,255 }, 42, false, false, fullScreen);
+				App->gui->AddText(55, 25, "FULLSCREEN", App->font->Small, { 255,255,255 }, 32, false, false, fullScreen);
 				SaveButton = App->gui->AddButton(120, 190, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, Settings_window, this);
-				App->gui->AddText(63, 16, "SAVE", NULL, { 0,0,255,255 }, 42, false, false, SaveButton);
+				App->gui->AddText(63, 16, "SAVE", NULL, { 0,0,255,255 }, 32, false, false, SaveButton);
 				App->freeze = true;
 			}
 			else {

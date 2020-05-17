@@ -151,9 +151,11 @@ public:
 	void Draw(SDL_Texture* atlas)override;
 	void Update(int dx, int dy)override;
 	_TTF_Font*font_type;
-	const char*message;
+	eastl::string message;
 	SDL_Color color;
 	SDL_Texture* texture;
+	void ChangeColor(SDL_Color newcolor);
+	void ChangeMessage(const char* newmessage);
 };
 
 class UiHUDBars : public UiElement {

@@ -183,6 +183,8 @@ bool EntityManager::Start() {
 		Resources[1] = 60;
 	}
 	Panel = App->gui->AddImage(0, 0, { 1024,0,226,720 }, true, false, nullptr, this);
+	CopperString = App->gui->AddText(160, 20, (std::to_string(Resources[0]).c_str()), App->font->ResourcesPanel, { 0,0,255,255 }, 20, false, false, App->scene->Info);
+	TitaniumString = App->gui->AddText(262, 20, (std::to_string(Resources[1]).c_str()), App->font->ResourcesPanel, { 0,0,255,255 }, 20, false, false, App->scene->Info);
 	CurrentAction = ActionNone;
 	return true;
 }
@@ -478,10 +480,8 @@ void EntityManager::UpdateAll(float dt, bool DoLogic) {
 }
 
 bool EntityManager::PostUpdate() {
-	App->gui->RemoveUiElement(CopperString);
-	App->gui->RemoveUiElement(TitaniumString);
-	//CopperString= App->gui->AddText(15, 12, (eastl::to_string(Resources[0]).c_str()), nullptr, { 0,255,0,255 }, 42, false, false, App->scene->Info);
-	//TitaniumString = App->gui->AddText(262, 12, (eastl::to_string(Resources[1]).c_str()), nullptr, { 0,255,0,255 }, 42, false, false, App->scene->Info);
+	((UiText*)CopperString)->ChangeMessage(std::to_string(Resources[0]).c_str());
+	((UiText*)TitaniumString)->ChangeMessage(std::to_string(Resources[1]).c_str());
 	return true;
 }
 
@@ -493,6 +493,8 @@ bool EntityManager::CleanUp() {
 	App->tex->UnLoad(Copper);
 	App->tex->UnLoad(PowerGeneratorSprite);
 	App->gui->RemoveUiElement(Panel);
+	App->gui->RemoveUiElement(CopperString);
+	App->gui->RemoveUiElement(TitaniumString);
 	MineSprite = nullptr;
 	CuartelLab = nullptr;
 	BaseSprite = nullptr;

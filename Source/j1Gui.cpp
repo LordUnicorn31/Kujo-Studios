@@ -289,8 +289,8 @@ void UiImage::Draw(SDL_Texture* atlas) {
 		App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &atlas_rect,false);
 }
 
-UiText::UiText(int x, int y, const char*text, int size, SDL_Color color, bool interactuable, bool draggeable, _TTF_Font*font, UiElement* parent, j1Module* elementmodule) : UiElement(x, y, size, size, interactuable, draggeable, UiTypes::Text, parent, elementmodule), font_type(font), message(text), color(color), texture(App->font->Print(message, color, font_type)) {}
-UiText::~UiText() {}
+UiText::UiText(int x, int y, const char*text, int size, SDL_Color color, bool interactuable, bool draggeable, _TTF_Font*font, UiElement* parent, j1Module* elementmodule) : UiElement(x, y, size, size, interactuable, draggeable, UiTypes::Text, parent, elementmodule), font_type(font), message(text), color(color), texture(App->font->Print(message.c_str(), color, font_type)) {}
+UiText::~UiText() { App->tex->UnLoad(texture); }
 
 void UiText::Draw(SDL_Texture* atlas) {
 	if (parent == nullptr || !outofparent())
@@ -307,6 +307,18 @@ void UiText::Update(int dx, int dy) {
 		SetLocalPos(GetLocalPos().x + dx, GetLocalPos().y + dy);
 		App->gui->DraggUiElements(this, dx, dy);
 	}
+}
+
+void UiText::ChangeMessage(const char* newmessage) {
+	App->tex->UnLoad(texture);
+	message = newmessage;
+	texture = App->font->Print(message.c_str(), color, font_type);
+}
+
+void UiText::ChangeColor(SDL_Color newcolor) {
+	App->tex->UnLoad(texture);
+	color = newcolor;
+	texture = App->font->Print(message.c_str(), color, font_type);
 }
 
 UiButton::UiButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule) :UiElement(x, y, source_unhover.w, source_unhover.h, interactuable, draggeable, UiTypes::Button, parent, elementmodule), unhover(source_unhover), hover(source_hover), click(source_click), current_state(Button_state::unhovered) {}

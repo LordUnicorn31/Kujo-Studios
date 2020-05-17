@@ -4,7 +4,7 @@
 #include "SDL.h"
 #include "EASTL/list.h"
 
-#define DEFAULT_FONT "fonts/open_sans/OpenSans-Regular.ttf"
+#define DEFAULT_FONT "Resources/fonts/open_sans/OpenSans-Regular.ttf"
 #define DEFAULT_FONT_SIZE 12
 
 struct SDL_Texture;
@@ -39,4 +39,5 @@ public:
 	_TTF_Font*			Default;
 
 	_TTF_Font*			Small;
+	_TTF_Font* ResourcesPanel;
 };

@@ -32,6 +32,8 @@ bool j1Fonts::Awake(pugi::xml_node& conf)
 		Default = Load(path, size);
 
 		Small = Load(path, 16);
+
+		ResourcesPanel = Load(path, 20);
 	}
 
 	return ret;

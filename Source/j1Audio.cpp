@@ -232,21 +232,10 @@ void j1Audio::UnloadFx()
 	fx.clear();
 }
 
-void j1Audio::UnloadMusic(float fade_time)
+void j1Audio::UnloadMusic()
 {
-	if (music != NULL)
-	{
-		if (fade_time > 0.0f)
-		{
-			Mix_FadeOutMusic(int(fade_time * 1000.0f));
-		}
-		else
-		{
-			Mix_HaltMusic();
-		}
-
-		Mix_FreeMusic(music);
-	}
+	
+	Mix_FreeMusic(music);
 
 	music = NULL;
 }

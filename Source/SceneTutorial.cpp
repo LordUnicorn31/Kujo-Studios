@@ -19,6 +19,19 @@
 SceneTutorial::SceneTutorial() : j1Module()
 {
 	name = "loseScene";
+
+	captain.PushBack({ 0,247,230,230 });
+	captain.PushBack({ 230,247,230,230 });
+	captain.PushBack({ 460,247,230,230 });
+	captain.PushBack({ 230,247,230,230 });
+	captain.loop = true;
+
+	girl.PushBack({ 0,0,230,230 });
+	girl.PushBack({ 230,0,230,230 });
+	girl.PushBack({ 460,0,230,230 });
+	girl.PushBack({ 230,0,230,230 });
+
+	girl.loop = true;
 }
 
 // Destructor
@@ -38,6 +51,9 @@ bool SceneTutorial::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool SceneTutorial::Start()
 {
+
+	character = App->tex->Load("Resources/gui/char.png");
+
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");
 	heyFx = App->audio->LoadFx("Resources/audio/fx/hey.wav");
 
@@ -78,6 +94,10 @@ bool SceneTutorial::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_DOWN)) {
 		App->render->camera.y -= 5;
 	}
+
+	App->render->Blit(character, 525, 200, &girl.GetCurrentFrame(dt));
+
+	//App->render->Blit(character, 50, 200, &captain.GetCurrentFrame(dt));
 
 	return ret;
 }

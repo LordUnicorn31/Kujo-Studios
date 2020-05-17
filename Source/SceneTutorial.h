@@ -1,5 +1,6 @@
 #pragma once
 #include "j1Module.h"
+#include "Animation.h"
 
 struct SDL_Texture;
 class UiElement;
@@ -37,6 +38,11 @@ public:
 
 
 private:
+
+	SDL_Texture* character = nullptr;
+
+	Animation captain;
+	Animation girl;
 
 	int heyFx;
 

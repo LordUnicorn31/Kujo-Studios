@@ -13,7 +13,7 @@ void Resource::Update(float dt) {
 
 }
 
-/*void Resource::UpdateLogic() {
+void Resource::UpdateLogic() {
 	Building* Mine;
 	eastl::list<Entity*>::const_iterator it;
 	for (it = App->entity->GetEntities().cbegin(); it != App->entity->GetEntities().cend(); ++it) {
@@ -35,7 +35,7 @@ void Resource::Update(float dt) {
 			}
 		}
 	}
-}*/
+}
 
 void Resource::Draw(float dt) {
 	App->render->Blit(sprite, EntityRect.x, EntityRect.y);

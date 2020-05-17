@@ -17,5 +17,5 @@ public:
 	ResourceType Rtype;
 	void Update(float dt);
 	void Draw(float dt);
-	//void UpdateLogic();
+	void UpdateLogic();
 };

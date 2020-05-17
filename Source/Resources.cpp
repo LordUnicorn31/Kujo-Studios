@@ -14,22 +14,20 @@ void Resource::Update(float dt) {
 }
 
 void Resource::UpdateLogic() {
-	Building* Mine;
 	eastl::list<Entity*>::const_iterator it;
 	for (it = App->entity->GetEntities().cbegin(); it != App->entity->GetEntities().cend(); ++it) {
 		if ((*it)->etype != EntityType::TypeBuilding)
 			continue;
 		if (((Building*)(*it))->Btype == BuildingType::Mine) {
-			Mine = (Building*)(*it);
-			if (SDL_HasIntersection(&Mine->EntityRect, &EntityRect) && Mine->selectable) {
+			if (SDL_HasIntersection(&(*it)->EntityRect, &EntityRect) && (*it)->selectable) {
 				switch (Rtype) {
 				case ResourceType::Gold:
-					if(Mine->StorageCT[0] != Mine->MaxStorage)
-						++Mine->StorageCT[0];
+					if (App->entity->Resources[0] < MAXRESOURCES)
+						App->entity->Resources[0] += 0.01f;
 					break;
 				case ResourceType::Ore:
-					if (Mine->StorageCT[1] != Mine->MaxStorage)
-						++Mine->StorageCT[1];
+					if (App->entity->Resources[1] < MAXRESOURCES)
+						App->entity->Resources[1] += 0.01f;
 					break;
 				}
 			}

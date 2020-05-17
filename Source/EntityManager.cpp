@@ -480,8 +480,8 @@ void EntityManager::UpdateAll(float dt, bool DoLogic) {
 }
 
 bool EntityManager::PostUpdate() {
-	((UiText*)CopperString)->ChangeMessage(std::to_string(Resources[0]).c_str());
-	((UiText*)TitaniumString)->ChangeMessage(std::to_string(Resources[1]).c_str());
+	((UiText*)CopperString)->ChangeMessage(std::to_string((int)Resources[0]).c_str());
+	((UiText*)TitaniumString)->ChangeMessage(std::to_string((int)Resources[1]).c_str());
 	return true;
 }
 

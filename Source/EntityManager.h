@@ -7,6 +7,7 @@
 #include "Animation.h"
 
 #define MAXSELECTEDUNITS 33
+#define MAXRESOURCES 10000
 
 class Entity;
 class SDL_Texture;
@@ -86,7 +87,7 @@ public:
 	EntitiesAnimations Animations;
 	UiElement* Panel;
 	Ai* CurrentBuildingEntity;
-	eastl::array<int,3> Resources;
+	eastl::array<float,3> Resources;
 
 private:
 	bool newgame;

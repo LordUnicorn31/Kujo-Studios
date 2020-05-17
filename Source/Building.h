@@ -38,6 +38,4 @@ public:
 	Ai* BuildingEntity;
 	bool ToBuild;
 	UiElement* BuildHUD;
-	eastl::array<int, 2>StorageCT;
-	int MaxStorage;
 };

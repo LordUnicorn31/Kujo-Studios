@@ -128,9 +128,10 @@ void EntityManager::GenerateResources(int n_gold, int n_ore) {
 			CreateEntity(AviableEntities::gold, randomposmap);
 			eastl::vector<iPoint>adjacent=App->pathfinding->FindWalkableAdjacents(randompostile);
 			eastl::vector<iPoint>::iterator it;
+			iPoint adjacentscreen;
 			for (it = adjacent.begin(); it != adjacent.end(); ++it) {
-				if (rand()%2) {
-					iPoint adjacentscreen = App->map->MapToWorld((*it).x, (*it).y);
+				adjacentscreen = App->map->MapToWorld((*it).x, (*it).y);
+				if (rand()%2 && eastl::find(UsedTiles.begin(), UsedTiles.end(), adjacentscreen) == UsedTiles.end()) {
 					CreateEntity(AviableEntities::gold, adjacentscreen);
 					UsedTiles.push_back(adjacentscreen);
 				}
@@ -149,9 +150,10 @@ void EntityManager::GenerateResources(int n_gold, int n_ore) {
 			CreateEntity(AviableEntities::ore, randomposmap);
 			eastl::vector<iPoint>adjacent = App->pathfinding->FindWalkableAdjacents(randompostile);
 			eastl::vector<iPoint>::iterator it;
+			iPoint adjacentscreen;
 			for (it = adjacent.begin(); it != adjacent.end(); ++it) {
-				if (rand() % 2) {
-					iPoint adjacentscreen = App->map->MapToWorld((*it).x, (*it).y);
+				adjacentscreen = App->map->MapToWorld((*it).x, (*it).y);
+				if (rand() % 2 && eastl::find(UsedTiles.begin(), UsedTiles.end(), adjacentscreen) == UsedTiles.end()) {
 					CreateEntity(AviableEntities::ore, adjacentscreen);
 					UsedTiles.push_back(adjacentscreen);
 				}
@@ -173,16 +175,8 @@ bool EntityManager::Start() {
 		Titanium= App->tex->Load("Resources/entities/Minerals/titanium1.png");
 		Copper = App->tex->Load("Resources/entities/Minerals/copper1.png");
 		PowerGeneratorSprite = App->tex->Load("Resources/entities/Lighting.png");
-		GenerateResources(10, 10);
+		GenerateResources(15, 15);
 		CreateEntity(AviableEntities::base, iPoint(610, 300));
-		CreateEntity(AviableEntities::ship_factory, iPoint(280, 300));
-		CreateEntity(AviableEntities::cuartel, iPoint(280, 380));
-		CreateEntity(AviableEntities::mine, iPoint(350, 300));
-		CreateEntity(AviableEntities::collector, iPoint(400, 370));
-		CreateEntity(AviableEntities::redship, iPoint(450, 370));
-		CreateEntity(AviableEntities::greenship, iPoint(500, 300));
-		CreateEntity(AviableEntities::blueship, iPoint(560, 370));
-		CreateEntity(AviableEntities::PowerGenerator, iPoint(620, 370));
 	}
 	Panel = App->gui->AddImage(0, 0, { 1024,0,226,720 }, true, false, nullptr, this);
 	CurrentAction = ActionNone;

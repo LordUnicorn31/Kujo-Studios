@@ -222,3 +222,31 @@ float j1Audio::GetFxVolume()
 	return currentFxVolume;
 }
 
+void j1Audio::UnloadFx() 
+{
+	eastl::list<Mix_Chunk*>::iterator it;
+	for (it = fx.begin(); it != fx.end(); ++it)
+	{
+		Mix_FreeChunk(*it);
+	}
+	fx.clear();
+}
+
+void j1Audio::UnloadMusic(float fade_time)
+{
+	if (music != NULL)
+	{
+		if (fade_time > 0.0f)
+		{
+			Mix_FadeOutMusic(int(fade_time * 1000.0f));
+		}
+		else
+		{
+			Mix_HaltMusic();
+		}
+
+		Mix_FreeMusic(music);
+	}
+
+	music = NULL;
+}

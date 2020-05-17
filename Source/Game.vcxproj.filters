@@ -63,6 +63,9 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="DialogSystem.cpp">
+      <Filter>Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneTutorial.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -132,6 +135,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="DialogSystem.h">
+      <Filter>Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneTutorial.h">
       <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
@@ -150,6 +156,9 @@
     </Filter>
     <Filter Include="Particles">
       <UniqueIdentifier>{59482e2f-eec6-4811-9cde-b4d02e656450}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dialogs">
+      <UniqueIdentifier>{09421dfa-ca03-4d00-858c-bb086b03ed64}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

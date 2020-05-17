@@ -5,6 +5,7 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Scene.h"
+#include "SceneTutorial.h"
 #include "j1SceneTitle.h"
 #include "j1Input.h"
 #include "j1Map.h"
@@ -131,14 +132,8 @@ void j1SceneTitle::Init()
 void j1SceneTitle::ui_callback(UiElement* element) {
 	if (element == NewGameButton) {	
 		App->audio->PlayFx(buttonFx);
-		App->map->Load("Mainmap.tmx");
-		int w, h;
-		uchar* data = NULL;
-		if (App->map->CreateWalkabilityMap(w, h, &data))
-			App->pathfinding->SetMap(w, h, data);
-		RELEASE_ARRAY(data);
-		//App->transition->FadeToBlack(App->sceneTitle, App->scene, 2.0f);
-		App->transition->Slide(App->sceneTitle, App->scene, 2.0f);
+		App->transition->FadeToBlack(App->sceneTitle, App->sceneTutorial, 2.0f);
+		App->audio->UnloadMusic();
 		/*if (exitButton !=nullptr) {
 			App->gui->RemoveUiElement(exitButton);
 			exitButton = nullptr;

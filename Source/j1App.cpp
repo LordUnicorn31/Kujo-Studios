@@ -10,6 +10,7 @@
 #include "j1Scene.h"
 #include "j1SceneLogo.h"
 #include "j1SceneTitle.h"
+#include "SceneTutorial.h"
 #include "j1Timer.h"
 #include "j1PerfTimer.h"
 #include "j1Audio.h"
@@ -41,6 +42,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args),save_game("Resourc
 	particle = new j1Particle();
 	sceneLogo = new j1SceneLogo();
 	sceneTitle = new j1SceneTitle();
+	sceneTutorial = new SceneTutorial();
 	scene = new j1Scene();
 	audio = new j1Audio();
 	map = new j1Map();
@@ -65,6 +67,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args),save_game("Resourc
 	AddModule(scene);
 	AddModule(sceneTitle);
 	AddModule(sceneLogo);
+	AddModule(sceneTutorial);
 	AddModule(map);
 	AddModule(pathfinding);
 	AddModule(entity);

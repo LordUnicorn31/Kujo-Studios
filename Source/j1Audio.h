@@ -46,6 +46,12 @@ public:
 	float GetMusicVolume();
 	float GetFxVolume();
 
+	//Unload FX 
+	void UnloadFx();
+
+	//Unload Music 
+	void UnloadMusic(float fade_time = DEFAULT_MUSIC_FADE_TIME);
+
 private:
 
 	Mix_Music* music = NULL;

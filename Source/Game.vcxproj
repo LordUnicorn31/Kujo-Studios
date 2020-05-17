@@ -240,6 +240,7 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClCompile Include="j1SceneTitle.cpp" />
     <ClCompile Include="j1Transitions.cpp" />
     <ClCompile Include="Resources.cpp" />
+    <ClCompile Include="SceneTutorial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Deps\EASTL\EASTL.vcxproj">
@@ -295,6 +296,7 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClInclude Include="j1SceneTitle.h" />
     <ClInclude Include="j1Transitions.h" />
     <ClInclude Include="Resources.h" />
+    <ClInclude Include="SceneTutorial.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resources\config.xml" />

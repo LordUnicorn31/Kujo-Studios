@@ -14,6 +14,7 @@ class j1Textures;
 class j1Scene;
 class j1SceneLogo;
 class j1SceneTitle;
+class SceneTutorial;
 class j1Map;
 class j1Module;
 class j1Audio;
@@ -103,6 +104,7 @@ public:
 	j1Scene* scene;
 	j1SceneLogo* sceneLogo;
 	j1SceneTitle* sceneTitle;
+	SceneTutorial* sceneTutorial;
 	j1Input* input;
 	j1Audio* audio;
 	j1Map* map;

@@ -3,6 +3,7 @@
 #include "p2Point.h"
 
 class SDL_Texture;
+class Building;
 
 enum class ResourceType : unsigned char {
 	Ore,
@@ -16,4 +17,5 @@ public:
 	ResourceType Rtype;
 	void Update(float dt);
 	void Draw(float dt);
+	//void UpdateLogic();
 };

@@ -5,6 +5,7 @@
 #include "j1Audio.h"
 #include "j1Gui.h"
 #include "Ai.h"
+#include "j1Collisions.h"
 
 Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeBuilding, { Position.x,Position.y,0,0 }), Btype(type),BuildingEntity(nullptr),BuildHUD(nullptr) {
 	switch (type) {
@@ -19,6 +20,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		OnConstruction = true;
 		ConstructionTime = 0.0f;
 		CostCopperTitanium = {0,0 };
+		MaxStorage = 5000;
 		break;
 	case BuildingType::Mine:
 		EntityRect.w = 64;
@@ -31,6 +33,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		ConstructionTime = 10.0f;
 		OnConstruction = true;
 		CostCopperTitanium = { 1500,0 };
+		MaxStorage = 5000;
 		break;
 	case BuildingType::Cuartel:
 		EntityRect.w = 64;
@@ -69,6 +72,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		CostCopperTitanium = { 1500,0 };
 		break;
 	}
+	//App->collisions->AddCollider(EntityRect,COLLIDER_BUILDING,App->entity);
 }
 
 Building::~Building() {
@@ -101,8 +105,8 @@ void Building::Update(float dt) {
 				BuildingEntity = nullptr;
 			}
 		}
+		//IF I DIE, KILL THE ENTITY IM BUILDING
 	}
-	//IF I DIE, KILL THE ENTITY IM BUILDING
 }
 
 void Building::Draw(float dt) {

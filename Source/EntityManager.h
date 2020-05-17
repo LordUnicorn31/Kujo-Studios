@@ -81,6 +81,8 @@ public:
 	Entity* CreateEntity(AviableEntities type, iPoint position);
 	void DestroyEntity(Entity* entity);
 
+	const eastl::list<Entity*>& GetEntities()const;
+
 	EntitiesAnimations Animations;
 	UiElement* Panel;
 	Ai* CurrentBuildingEntity;

@@ -655,3 +655,7 @@ void EntityManager::ui_callback(UiElement* element) {
 		}
 	}
 }
+
+const eastl::list<Entity*>& EntityManager::GetEntities()const {
+	return entities;
+}

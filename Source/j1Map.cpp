@@ -32,17 +32,22 @@ void j1Map::Draw()
 		return;
 
 	eastl::list<MapLayer*>::const_iterator item = data.layers.cbegin();
-
+	iPoint cam_size(WorldToMap(-App->render->camera.x + App->render->camera.w, -App->render->camera.y + App->render->camera.h));
+	iPoint cam_pos = WorldToMap(-App->render->camera.x + 200, -App->render->camera.y);//el mes 200 es pk hi ha el panel k fa 200 i no volem dibuixar mapa per sota del panel
 	for(; item != data.layers.end(); item = next(item))
 	{
 		MapLayer* layer = *item;
 		if (layer->properties.Get("Navigation", 0) == 1)
 			continue;
 
-		for(int y = 0; y < data.height; ++y)
+		for(int y = cam_pos.y; y <= cam_size.y; ++y)
 		{
-			for(int x = 0; x < data.width; ++x)
+			if (y<0 || y>data.height)
+				continue;
+			for(int x = cam_pos.x; x <= cam_size.x; ++x)
 			{
+				if (x<0 || x>data.width)
+					continue;
 				int tile_id = layer->Get(x, y);
 				if(tile_id > 0)
 				{

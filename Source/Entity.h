@@ -4,6 +4,7 @@
 
 class SDL_Texture;
 class UiElement;
+//class Collider;
 
 enum class EntityType : unsigned char {
 	TypeAi,
@@ -23,6 +24,7 @@ public:
 	bool selected;
 	bool selectable;
 	eastl::array<int, 2> CostCopperTitanium;
+	//Collider* collider;
 	
 	//Collider* collider;
 

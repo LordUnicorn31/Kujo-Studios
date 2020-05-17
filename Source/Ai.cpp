@@ -6,9 +6,10 @@
 #include "j1Map.h"
 #include "j1Window.h"
 #include "j1Gui.h"
+//#include "j1Collisions.h"
 
 Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), IsMoving(false), DirectionAngle(270.0f),Armed(false),Working(true),WorkingTime(0.0f),Building(true) {
-	switch (Atype) {
+    switch (Atype) {
 	case AiType::Basic_Unit:
         MaxHealth = 100;
 		health = MaxHealth;
@@ -82,6 +83,7 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         BuildingTime = 10.0f;
         break;
 	}
+    //collider = App->collisions->AddCollider(EntityRect, COLLIDER_AI, App->entity);
 }
 
 Ai::~Ai() {

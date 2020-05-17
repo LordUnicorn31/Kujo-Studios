@@ -42,7 +42,7 @@ void j1Map::Draw()
 
 		for(int y = cam_pos.y; y <= cam_size.y; ++y)
 		{
-			if (y<0 || y>data.height)
+			if (y<0 || y>=data.height)
 				continue;
 			for(int x = cam_pos.x; x <= cam_size.x; ++x)
 			{

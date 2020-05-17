@@ -1,6 +1,7 @@
 #pragma once
 #include "j1Module.h"
 #include "EASTL/list.h"
+#include "EASTL/array.h"
 #include "p2Point.h"
 #include "j1Render.h"
 #include "Animation.h"
@@ -73,6 +74,7 @@ public:
 	bool Start();
 	bool Update(float dt);
 	void UpdateAll(float dt,bool DoLogic);
+	bool PostUpdate();
 	bool CleanUp();
 	void ui_callback(UiElement* element);
 
@@ -82,6 +84,8 @@ public:
 	EntitiesAnimations Animations;
 	UiElement* Panel;
 	Ai* CurrentBuildingEntity;
+	eastl::array<int,3> Resources;
+
 private:
 	bool newgame;
 	void GenerateResources(int n_gold, int n_ore);
@@ -103,6 +107,8 @@ private:
 	AviableEntities ToCreate;
 	UiElement* BuildButton;
 	InputActions CurrentAction;
+	UiElement* CopperString;
+	UiElement* TitaniumString;
 	//max_resouces[]
 	//current_resouces[]
 };

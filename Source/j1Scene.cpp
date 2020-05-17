@@ -49,9 +49,9 @@ bool j1Scene::Start()
 	App->audio->PlayMusic("Resources/audio/music/Space.ogg");
 	Pause = App->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 871, 736, 39,39 }, { 755, 527, 39,39 }, true, false, nullptr, this);
 	Info = App->gui->AddButton(750, 10, { 494,640,332,52 }, { 494,574,332,52 }, { 494,640,332,52 }, true, false, nullptr, this);
-	People = App->gui->AddImage(780, 15, { 591,494,40,37 }, false, false, nullptr, this);
-	Copper = App->gui->AddImage(880, 22, { 679,501,28,29 }, false, false, nullptr, this);
-	Titanium = App->gui->AddImage(980, 22, { 641,498,30,31 }, false, false, nullptr, this);
+	People = App->gui->AddImage(30, 5, { 591,494,40,37 }, false, false, Info, nullptr);
+	Copper = App->gui->AddImage(130, 12, { 679,501,28,29 }, false, false, Info, nullptr);
+	Titanium = App->gui->AddImage(230, 12, { 641,498,30,31 }, false, false, Info, nullptr);
 	//Unit1 = App->gui->AddButton(0, 600, { 32,544,430,208}, { 32,544,440,208 }, { 32,544,440,208 }, true, false, nullptr, this);
 	App->win->GetWindowSize(width, height);
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");

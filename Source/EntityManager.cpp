@@ -14,6 +14,8 @@
 #include "EASTL/vector.h"
 #include "j1Gui.h"
 #include "j1Fonts.h"
+#include "j1Scene.h"
+#include "EASTL/string.h"
 
 EntityManager::EntityManager(): j1Module(),MineSprite(NULL),CuartelLab(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1.0f / 60.0f)),AccumulatedTime(0.0f),newgame(true),BuildButton(nullptr) {
 	name = "EntityManager";
@@ -177,6 +179,8 @@ bool EntityManager::Start() {
 		PowerGeneratorSprite = App->tex->Load("Resources/entities/Lighting.png");
 		GenerateResources(15, 15);
 		CreateEntity(AviableEntities::base, iPoint(610, 300));
+		Resources[0] = 60;
+		Resources[1] = 60;
 	}
 	Panel = App->gui->AddImage(0, 0, { 1024,0,226,720 }, true, false, nullptr, this);
 	CurrentAction = ActionNone;
@@ -471,6 +475,14 @@ void EntityManager::UpdateAll(float dt, bool DoLogic) {
 	for (it = entities.begin(); it != entities.end(); ++it) {
 		(*it)->Draw(dt);
 	}*/
+}
+
+bool EntityManager::PostUpdate() {
+	App->gui->RemoveUiElement(CopperString);
+	App->gui->RemoveUiElement(TitaniumString);
+	//CopperString= App->gui->AddText(15, 12, (eastl::to_string(Resources[0]).c_str()), nullptr, { 0,255,0,255 }, 42, false, false, App->scene->Info);
+	//TitaniumString = App->gui->AddText(262, 12, (eastl::to_string(Resources[1]).c_str()), nullptr, { 0,255,0,255 }, 42, false, false, App->scene->Info);
+	return true;
 }
 
 bool EntityManager::CleanUp() {

@@ -6,7 +6,7 @@
 #include "j1Gui.h"
 #include "Ai.h"
 
-Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeBuilding, { Position.x,Position.y,0,0 }), Btype(type),BuildingEntity(nullptr) {
+Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeBuilding, { Position.x,Position.y,0,0 }), Btype(type),BuildingEntity(nullptr),BuildHUD(nullptr) {
 	switch (type) {
 	case BuildingType::Base:
 		EntityRect.w = 64;

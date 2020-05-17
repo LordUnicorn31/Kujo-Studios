@@ -35,9 +35,10 @@ public:
 	void ui_callback(UiElement* element);
 
 	void cameramovement(float time);
+
+	UiElement* Info;
 private:
 	UiElement* Pause;
-	UiElement* Info;
 	UiElement* People;
 	UiElement* Copper;
 	UiElement* Titanium;

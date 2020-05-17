@@ -22,7 +22,8 @@ enum class UiTypes {
 	Text,
 	Button,
 	EButton,
-	HUDBar
+	HUDBar,
+	Slider
 };
 
 class UiElement {
@@ -42,6 +43,7 @@ public:
 	UiTypes type;
 	UiElement* parent;
 	j1Module* Module;
+	bool debug;
 private:
 	SDL_Rect ui_rect;
 };
@@ -167,4 +169,38 @@ public:
 	int MaxValue;
 	SDL_Rect CurrentBar;
 	bool UseCamera;
+};
+
+class UiSlider : public UiElement {
+public:
+	//Vars
+	SDL_Rect clickable_rect;
+	SDL_Rect bar;
+	SDL_Rect thumb;
+	SDL_Rect thumb_hovered;
+	SDL_Rect position;
+	SDL_Texture* texture;
+	bool UseCamera;
+
+	//UI_Image* bar;
+	//UI_Image* thumb;
+	//UI_Image* thumb_hovered;
+
+	bool hovered;
+
+	int thumb_offset;
+
+	int sliderpos;
+
+	//Methods
+public:
+
+	UiSlider(int x, int y, bool active, bool draggable, UiElement* parent, j1Module* elementmodule, int sliderposition = 76);
+	~UiSlider();
+
+	void Update();
+
+	void Draw(SDL_Texture* atlas);
+
+	float SliderValue();
 };

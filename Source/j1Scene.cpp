@@ -71,9 +71,9 @@ bool j1Scene::Start()
 		questImage = App->gui->AddImage(1000, 260, { 1253, 858, 245, 128 }, false, false, nullptr, this);
 		questOne = App->gui->AddText(15, 20, "1.Construct a Builder", App->font->Small, { 255,255,255,255 }, 12, false, false, questImage);
 		
-		questTwo = App->gui->AddText(15, 40, "2.Collect 300 Titanium", App->font->Small, { 255,255,255,255 }, 12, false, false, questImage);
+		questTwo = App->gui->AddText(15, 50, "2.Construct a Mine", App->font->Small, { 255,255,255,255 }, 12, false, false, questImage);
 
-		questThree = App->gui->AddText(15, 60, "3.Construct 300 Copper", App->font->Small, { 255,255,255,255 }, 12, false, false, questImage);
+		questThree = App->gui->AddText(15, 80, "3.Construct 300 Copper", App->font->Small, { 255,255,255,255 }, 12, false, false, questImage);
 
 	}
 
@@ -129,6 +129,11 @@ bool j1Scene::Update(float dt)
 		Tutorial();
 	}
 	
+	if (exitGame) {
+		ret = false;
+		exitGame = false;
+	}
+
 	App->map->Draw();
 	return ret;
 }

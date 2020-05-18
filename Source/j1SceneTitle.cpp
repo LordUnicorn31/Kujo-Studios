@@ -158,14 +158,11 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 	else if (element == optionsButton) {
 		App->audio->PlayFx(buttonFx);
 
-		optionsMenu = App->gui->AddButton(400, 250, { 20,540,446,465 }, { 20,540,446,465 }, { 20,540,446,465 }, true, false, nullptr, this);
+		optionsMenu = App->gui->AddImage(400, 250, { 20,540,446,465 }, true, false, nullptr, this);
 		backButton = App->gui->AddButton(430, 290, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, nullptr, this);
 		fullScreen = App->gui->AddButton(500, 500, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
 		about = App->gui->AddButton(500, 600, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-		fxBar = App->gui->AddButton(520, 350, { 1282,555,228,20 }, { 1282,555,228,20 }, { 1282,555,228,20 }, true, false, nullptr, this);
-		fxSlider = App->gui->AddButton(0, 0, { 1282,584,20,20 }, { 1282,584,20,20 }, { 1282,584,20,20 }, true, true, fxBar, this);
-		soundBar = App->gui->AddButton(520, 425, { 1282,555,228,20 }, { 1282,555,228,20 }, { 1282,555,228,20 }, true, false, nullptr, this);
-		soundSlider = App->gui->AddButton(0, 0, { 1282,584,20,20 }, { 1282,584,20,20 }, { 1282,584,20,20 }, true, true, soundBar, this);
+		sliderbar = App->gui->AddSlider(100, 100, true, false, optionsMenu, this, 1000);
 		App->gui->AddText(55, 25, "FULLSCREEN", App->font->Small, { 255,255,255 }, 42, false, false, fullScreen);
 		App->gui->AddText(150, 35, "OPTIONS MENU", App->font->Small, { 236,178,0 }, 42, false, false, optionsMenu);
 		App->gui->AddText(70, 100, "FX", App->font->Small, { 236,178,0 }, 42, false, false, optionsMenu);

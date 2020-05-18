@@ -88,6 +88,7 @@ public:
 	UiElement* AddButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable = true, bool draggeable = false, UiElement* parent = nullptr, j1Module* elementmodule = nullptr);
 	UiElement* AddEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click,AviableEntities entity,EntityType etype, bool interactuable = true, bool draggeable = false, UiElement* parent = nullptr, j1Module* elementmodule = nullptr);
 	UiElement* AddHUDBar(int x, int y, int MaxValue, float* valueptr, bool usecamera, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, UiElement* parent, j1Module* elementmodule);
+	UiElement* AddSlider(int x, int y, bool active, bool draggable, UiElement* parent, j1Module* elementmodule, int sliderposition = 76);
 	void DraggUiElements(UiElement*parent, int dx, int dy);
 	UiElement* UiUnderMouse();
 	bool MouseClick();
@@ -200,7 +201,7 @@ public:
 	UiSlider(int x, int y, bool active, bool draggable, UiElement* parent, j1Module* elementmodule, int sliderposition = 76);
 	~UiSlider();
 
-	void Update();
+	void Update(int dx, int dy);
 
 	void Draw(SDL_Texture* atlas);
 

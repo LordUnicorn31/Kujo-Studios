@@ -28,7 +28,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 	case BuildingType::Mine:
 		EntityRect.w = 64;
 		EntityRect.h = 64;
-		health = 500;
+		health = 1500;
 		selected = false;
 		IdleAnimation.PushBack({ 0,0,64,64 });
 		IdleAnimation.PushBack({ 64,0,64,64 });
@@ -68,7 +68,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 	case BuildingType::Spaceship_factory:
 		EntityRect.w = 64;
 		EntityRect.h = 64;
-		health = 400;
+		health = 3500;
 		selected = false;
 		IdleAnimation.PushBack({ 64,250,64,64 });
 		IdleAnimation.PushBack({ 128,250,64,64 });
@@ -81,7 +81,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 	case BuildingType::PowerGenerator:
 		EntityRect.w = 64;
 		EntityRect.h = 64;
-		health = 400;
+		health = 3000;
 		selected = false;
 		IdleAnimation.PushBack({ 0,0,64,64 });
 		IdleAnimation.PushBack({ 64,0,64,64 });

@@ -114,13 +114,6 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_DOWN)) {
 		App->render->camera.y -= 5;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_L)) {
-		App->transition->FadeToBlack(App->scene, App->winscene, 2.0f);
-	}
-	if (App->input->GetKey(SDL_SCANCODE_M)) {
-		App->transition->FadeToBlack(App->scene, App->losescene, 2.0f);
-	}
-	
 	App->input->GetMousePosition(mousepos.x, mousepos.y);
 
 	cameramovement(dt);

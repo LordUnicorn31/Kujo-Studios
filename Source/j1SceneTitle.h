@@ -46,6 +46,10 @@ private:
 	UiElement* optionsMenu;
 	UiElement* backButton;
 	UiElement* fullScreen;
+	UiElement* fxBar;
+	UiElement* soundBar;
+	UiElement* fxSlider;
+	UiElement* soundSlider;
 
 	SDL_Texture*	background;
 	SDL_Texture*	titleLogo;

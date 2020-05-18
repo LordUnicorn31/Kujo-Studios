@@ -20,8 +20,8 @@ bool j1Particle::Start()
 	LOG("Loading particles");
 
 	graphics = App->tex->Load("Resources/particles/particle.png");
-	shot.anim.PushBack({ 146,64,11,18 });
-	shot.anim.PushBack({ 161,61,11,18 });
+	shot.anim.PushBack({ 144,64,11,18 });
+	shot.anim.PushBack({ 160,61,11,18 });
 	shot.anim.PushBack({ 178,58,11,18 });
 	shot.anim.speed = 1.0f;
 	shot.anim.loop = false;
@@ -94,6 +94,10 @@ bool j1Particle::Update(float dt)
 					p->fx_played = true;
 					// Play particle fx here
 				}
+				if (p->collider != nullptr)
+				{
+					p->collider->SetPos(p->position.x - App->render->camera.x, p->position.y);
+				}
 			}
 			else if (p->type == ParticleType::SMOKE)
 			{
@@ -128,7 +132,7 @@ bool j1Particle::CleanUp()
 	return true;
 }
 
-void j1Particle::AddParticle(const Particle& particle, int x, int y, Uint32 delay, ParticleType type, double angle, float life)
+void j1Particle::AddParticle(const Particle& particle, int x, int y, uint delay, COLLIDER_TYPE colliderType, ParticleType type, double angle, uint life)
 {
 
 	for (int i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
@@ -157,6 +161,10 @@ void j1Particle::AddParticle(const Particle& particle, int x, int y, Uint32 dela
 				p->type = type;
 				p->angle = angle;
 				p->life = life;
+				if (colliderType != COLLIDER_TYPE::COLLIDER_NONE)
+				{
+					p->collider = App->collisions->AddCollider(p->anim.GetCurrentFrame(App->GetDT()), colliderType, this);
+				}
 				break;
 
 			case ParticleType::SMOKE:
@@ -201,7 +209,8 @@ Particle::Particle(const Particle& p)
 
 Particle::~Particle()
 {
-	//destry collider
+	if (collider != nullptr)
+		collider->to_delete = true;
 }
 
 bool Particle::Update()
@@ -218,7 +227,7 @@ bool Particle::Update()
 	else
 		if(anim.Finished())
 			ret = false;
-		
+	
 
 	return ret;
 }

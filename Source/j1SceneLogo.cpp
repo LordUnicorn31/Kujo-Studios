@@ -59,12 +59,11 @@ bool j1SceneLogo::PreUpdate()
 bool j1SceneLogo::Update(float dt)
 {
 	
-
 	bool ret = true;
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP) 
+	if (App->input->GetKey(SDL_SCANCODE_A)) 
 	{
-		App->particle->AddParticle(App->particle->shot, 200, 200, 0.5, ParticleType::SHOT, 0, 50);
+		App->particle->AddParticle(App->particle->shot, 200, 200, 1, COLLIDER_TYPE::COLLIDER_PARTICLES, ParticleType::SHOT, 45, 10);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_LEFT)) {
 		App->render->camera.x += 5;

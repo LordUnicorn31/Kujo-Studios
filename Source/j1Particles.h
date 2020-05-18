@@ -4,13 +4,13 @@
 #include "j1Module.h"
 #include "p2Point.h"
 #include "Animation.h"
-//#include "j1Collision.h"
+#include "j1Collisions.h"
 
 #define MAX_ACTIVE_PARTICLES 300
 
 struct SDL_Texture;
-//struct Collider;
-//enum COLLIDER_TYPE;
+struct Collider;
+enum COLLIDER_TYPE;
 
 enum class ParticleType 
 {
@@ -22,6 +22,7 @@ enum class ParticleType
 
 struct Particle
 {
+	Collider* collider = nullptr;
 	Animation anim;					//Particle animation
 	SDL_Rect rect;					//Particle rectangle
 	SDL_Texture* tex;				//Particle texture
@@ -54,7 +55,7 @@ public:
 	bool CleanUp();
 	//void OnCollision(Collider* c1, Collider* c2);
 
-	void AddParticle(const Particle& particle, int x, int y, uint delay = 0, ParticleType type = ParticleType::NONE, double angle = 0.0f, float life = 0.0f);
+	void AddParticle(const Particle& particle, int x, int y, uint delay = 0, COLLIDER_TYPE colliderType = COLLIDER_TYPE::COLLIDER_NONE, ParticleType type = ParticleType::NONE, double angle = 0.0f, uint life = 0);
 
 	
 	SDL_Texture* graphics = nullptr;

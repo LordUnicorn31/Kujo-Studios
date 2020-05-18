@@ -47,6 +47,9 @@ private:
 	UiElement* Continue_button;
 	UiElement* fullScreen;
 	UiElement* SaveButton;
+	UiElement* options;
+	UiElement* OptionsMenu;
+	UiElement* BackButton;
 	int buttonFx;
 	bool exitGame;
 	iPoint mousepos;

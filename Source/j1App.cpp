@@ -27,6 +27,7 @@
 #include "Fow.h"
 
 
+
 #include "SDL.h"
 
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args),save_game("Resources/save.xml"),load_game("Resources/save.xml")
@@ -56,6 +57,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args),save_game("Resourc
 	winscene = new j1WinScene();
 	losescene = new j1LoseScene();
 	fow = new Fow();
+	
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -80,6 +82,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args),save_game("Resourc
 	AddModule(losescene);
 	AddModule(particle);
 	AddModule(fow);
+	
 
 	// render last to swap buffer
 	AddModule(render);

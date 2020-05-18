@@ -33,6 +33,7 @@ class Fow;
 
 
 
+
 class j1App
 {
 public:
@@ -119,6 +120,7 @@ public:
 	j1LoseScene* losescene;
 	j1Particle* particle;
 	Fow* fow;
+	
 
 	bool SavedProgress;
 

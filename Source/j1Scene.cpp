@@ -19,6 +19,7 @@
 #include "j1LoseScene.h"
 #include "j1Collisions.h"
 #include "Fow.h"
+#include "j1Options.h"
 
 
 j1Scene::j1Scene() : j1Module()
@@ -170,8 +171,8 @@ void j1Scene::ui_callback(UiElement* element) {
 				App->gui->AddText(78, 16, "EXIT", NULL, { 0,0,255,255 }, 32, false, false, Exit_button);
 				Continue_button = App->gui->AddButton(120, 110, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, Settings_window, this);
 				App->gui->AddText(23, 15, "CONTINUE", NULL, { 0,0,255,255 }, 32, false, false, Continue_button);
-				fullScreen = App->gui->AddButton(120, 280, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, Settings_window, this);
-				App->gui->AddText(55, 25, "FULLSCREEN", App->font->Small, { 255,255,255 }, 32, false, false, fullScreen);
+				options = App->gui->AddButton(120, 280, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, Settings_window, this);
+				App->gui->AddText(37, 15, "OPTIONS", NULL, {0, 0,255,255 }, 32, false, false, options);
 				SaveButton = App->gui->AddButton(120, 190, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, Settings_window, this);
 				App->gui->AddText(63, 16, "SAVE", NULL, { 0,0,255,255 }, 32, false, false, SaveButton);
 				App->freeze = true;
@@ -199,5 +200,20 @@ void j1Scene::ui_callback(UiElement* element) {
 	}
 	if (element == SaveButton) {
 		App->SaveGame();
+	}
+	if (element == options) {
+		App->audio->PlayFx(buttonFx);
+
+		OptionsMenu = App->gui->AddButton(400, 250, { 20,540,446,465 }, { 20,540,446,465 }, { 20,540,446,465 }, true, false, nullptr, this);
+		BackButton = App->gui->AddButton(430, 270, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, nullptr, this);
+		fullScreen = App->gui->AddButton(500, 450, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+		App->gui->AddText(55, 25, "FULLSCREEN", App->font->Small, { 255,255,255 }, 42, false, false, fullScreen);
+		App->gui->AddText(150, 20, "OPTIONS MENU", App->font->Small, { 255,255,255 }, 42, false, false, OptionsMenu);
+	}
+
+	else if (element == BackButton) {
+		App->gui->RemoveUiElement(BackButton);
+		App->gui->RemoveUiElement(OptionsMenu);
+		App->gui->RemoveUiElement(fullScreen);
 	}
 }

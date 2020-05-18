@@ -47,9 +47,11 @@ private:
 	UiElement* backButton;
 	UiElement* fullScreen;
 	UiElement* about;
-	UiElement* fxsliderbar;
-	UiElement* mussliderbar;
-
+	UiElement* fxBar;
+	UiElement* soundBar;
+	UiElement* fxSlider;
+	UiElement* soundSlider;
+	UiElement* sliderbar;
 
 	SDL_Texture*	background;
 	SDL_Texture*	titleLogo;

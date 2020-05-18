@@ -64,6 +64,8 @@ private:
 	UiElement* options;
 	UiElement* OptionsMenu;
 	UiElement* BackButton;
+	UiElement* FxSlider;
+	UiElement* MusSlider;
 	int buttonFx;
 	bool exitGame;
 	iPoint mousepos;

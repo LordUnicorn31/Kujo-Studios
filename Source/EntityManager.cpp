@@ -186,13 +186,13 @@ void EntityManager::GenerateResources(int n_gold, int n_ore) {
 bool EntityManager::Start() {
 	//Load the initial entities
 	if (newgame) {
-		MineSprite = App->tex->Load("Resources/entities/drills/MineSprite.png");
-		CuartelLab = App->tex->Load("Resources/entities/Cuarteles/cuartel + Lab.png");
+		MineSprite = App->tex->Load("Resources/entities/drills/mine_sprite.png");
+		CuartelLab = App->tex->Load("Resources/entities/barracks/barracks_lab.png");
 		ShipsSprite = App->tex->Load("Resources/entities/ships/ships_spritesheet.png");
 		BaseSprite = App->tex->Load("Resources/entities/bases/bases.png");
-		Titanium= App->tex->Load("Resources/entities/Minerals/titanium1.png");
-		Copper = App->tex->Load("Resources/entities/Minerals/copper1.png");
-		PowerGeneratorSprite = App->tex->Load("Resources/entities/Lighting.png");
+		Titanium= App->tex->Load("Resources/entities/minerals/titanium1.png");
+		Copper = App->tex->Load("Resources/entities/minerals/copper1.png");
+		PowerGeneratorSprite = App->tex->Load("Resources/entities/generator.png");
 		GenerateResources(15, 15);
 		CreateEntity(AviableEntities::base, iPoint(610, 300));
 		Resources[0] = 250;

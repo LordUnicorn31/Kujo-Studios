@@ -117,7 +117,7 @@ bool SceneTutorial::Update(float dt)
 			answerYes = App->gui->AddButton(288, 560, { 0,315,802,41 }, { 0,356,802,41 }, { 0,356,802,41 }, true, false, nullptr, this);
 			answerYesTxt = App->gui->AddText(230, 4, "I'm fine relax Alice", App->font->dialogFont, { 16, 173, 171,255 }, 12, false, false, answerYes, this);
 			answerNo = App->gui->AddButton(288, 602, { 0,315,802,41 }, { 0,356,802,41 }, { 0,356,802,41 }, true, false, nullptr, this);
-			answerNoTxt = App->gui->AddText(200, 4, "No I'm not Ok! Where am I?", App->font->dialogFont, { 16, 173, 171,255 }, 12, false, false, answerNo, this);
+			answerNoTxt = App->gui->AddText(230, 4, "No I'm not Ok! Where am I?", App->font->dialogFont, { 16, 173, 171,255 }, 12, false, false, answerNo, this);
 		}
 
 		if (currentTime > 4 && answerYes == nullptr && continueButton == nullptr)
@@ -207,6 +207,9 @@ void SceneTutorial::ui_callback(UiElement* element)
 		if (App->map->CreateWalkabilityMap(w, h, &data))
 			App->pathfinding->SetMap(w, h, data);
 		RELEASE_ARRAY(data);
+
+		App->scene->tutorialActive = true;
+
 		App->transition->Slide(App->sceneTutorial, App->scene, 2.0f);
 	}
 

@@ -38,9 +38,9 @@ bool j1WinScene::Awake(pugi::xml_node& config)
 bool j1WinScene::Start()
 {
 
-	background = App->tex->Load("Resources/Title_menu/Fondo.png");
-	wintext = App->tex->Load("Resources/Win_screen/win_text.png");
-	App->audio->PlayMusic("Resources/Win_screen/InterstellarOdyssey.ogg");
+	background = App->tex->Load("Resources/gui/background.png");
+	wintext = App->tex->Load("Resources/gui/win_text.png");
+	App->audio->PlayMusic("Resources/audio/music/interstellar_odyssey.ogg");
 	return true;
 }
 

@@ -46,7 +46,9 @@ bool j1Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->audio->PlayMusic("Resources/audio/music/Space.ogg");
+	startTime = SDL_GetTicks() / 1000;
+
+	App->audio->PlayMusic("Resources/audio/music/music_space.ogg");
 	Pause = App->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 871, 736, 39,39 }, { 755, 527, 39,39 }, true, false, nullptr, this);
 	Info = App->gui->AddButton(750, 10, { 494,640,332,52 }, { 494,574,332,52 }, { 494,640,332,52 }, true, false, nullptr, this);
 	People = App->gui->AddImage(30, 5, { 591,494,40,37 }, false, false, Info, nullptr);
@@ -61,6 +63,20 @@ bool j1Scene::Start()
 	App->fow->SetVisibilityMap(App->map->data.width, App->map->data.height);
 	camspeed = 2;
 
+	if (tutorialActive == true)
+	{
+		tutorialImage = App->gui->AddImage(474, 200, { 494,574,332,52 }, false, false, nullptr, this);
+		tutorialTxt = App->gui->AddText(10, 12, "'Welcome to the tutorial'", App->font->tutorialFont, { 255,255,255,255 }, 12, false, false, tutorialImage);
+
+		questImage = App->gui->AddImage(1000, 260, { 1253, 858, 245, 128 }, false, false, nullptr, this);
+		questOne = App->gui->AddText(15, 20, "1.Construct a Builder", App->font->Small, { 255,255,255,255 }, 12, false, false, questImage);
+		
+		questTwo = App->gui->AddText(15, 40, "2.Collect 300 Iridium", App->font->Small, { 255,255,255,255 }, 12, false, false, questImage);
+
+		questThree = App->gui->AddText(15, 60, "3.Construct 300 Copper", App->font->Small, { 255,255,255,255 }, 12, false, false, questImage);
+
+	}
+
 	return true;
 }
 
@@ -70,10 +86,22 @@ bool j1Scene::PreUpdate()
 	return true;
 }
 
+void j1Scene::Tutorial()
+{
+	if (currentTime > 8)
+	{
+		App->gui->RemoveUiElement(tutorialImage);
+	}
+
+}
+
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
 	bool ret = true;
+
+	currentTime = SDL_GetTicks() / 1000 - startTime;
+
 	if (App->input->GetKey(SDL_SCANCODE_LEFT)) {
 		App->render->camera.x += 5;
 	}
@@ -103,12 +131,11 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 		App->fow->scouting_trail = !App->fow->scouting_trail;
 
-
-	if (exitGame) {
-		ret = false;
-		exitGame = false;
+	if (tutorialActive == true)
+	{
+		Tutorial();
 	}
-
+	
 	App->map->Draw();
 	return ret;
 }
@@ -167,7 +194,7 @@ void j1Scene::Init()
 void j1Scene::ui_callback(UiElement* element) {
 	if (element == Pause) {
 		App->audio->UnloadMusic();
-		App->audio->PlayMusic("Resources/audio/music/optionsmusic.ogg");
+		App->audio->PlayMusic("Resources/audio/music/music_options.ogg");
 		if (Pause != nullptr) {
 			if (Settings_window == nullptr) {
 				Settings_window = App->gui->AddImage(400, 150, { 0, 512, 483, 512 }, false, false);

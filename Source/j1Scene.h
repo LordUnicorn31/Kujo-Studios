@@ -32,12 +32,26 @@ public:
 
 	void Init();
 
+	void Tutorial();
+
 	void ui_callback(UiElement* element);
 
 	void cameramovement(float time);
 
+	bool tutorialActive;
+
 	UiElement* Info;
 private:
+	UiElement* tutorialImage;
+	UiElement* tutorialTxt;
+
+	UiElement* questImage;
+	UiElement* questOne;
+	UiElement* questTwo;
+	UiElement* questThree;
+	UiElement* questSquare;
+	UiElement* questCheck;
+
 	UiElement* Pause;
 	UiElement* People;
 	UiElement* Copper;
@@ -56,4 +70,7 @@ private:
 	int camspeed;
 	uint width;
 	uint height;
+
+	float startTime;
+	float currentTime;
 };

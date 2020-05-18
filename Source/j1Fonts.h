@@ -41,4 +41,5 @@ public:
 	_TTF_Font*			Small;
 	_TTF_Font*			ResourcesPanel;
 	_TTF_Font*			dialogFont;
+	_TTF_Font*			tutorialFont;
 };

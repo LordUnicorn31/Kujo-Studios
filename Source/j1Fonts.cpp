@@ -36,6 +36,8 @@ bool j1Fonts::Awake(pugi::xml_node& conf)
 		dialogFont = Load(path, 27);
 
 		ResourcesPanel = Load(path, 20);
+
+		tutorialFont = Load(path, 23);
 	}
 
 	return ret;

@@ -41,9 +41,9 @@ bool j1SceneLogo::Start()
 
 	r = 0;
 
-	hat = App->tex->Load("Resources/Logo/LOGOgorra.png");
-	kujo = App->tex->Load("Resources/Logo/LOGOkujo.png");
-	studios = App->tex->Load("Resources/Logo/LOGOstudios.png");
+	hat = App->tex->Load("Resources/gui/logo_cap.png");
+	kujo = App->tex->Load("Resources/gui/logo_kujo.png");
+	studios = App->tex->Load("Resources/gui/logo_studios.png");
 	App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/intro.wav"));
 
 	return true;

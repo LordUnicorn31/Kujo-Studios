@@ -38,9 +38,9 @@ bool j1LoseScene::Awake(pugi::xml_node& config)
 bool j1LoseScene::Start()
 {
 
-	background = App->tex->Load("Resources/Title_menu/Fondo.png");
-	losetext = App->tex->Load("Resources/Lose_screen/lose_screen.png");
-	App->audio->PlayMusic("Resources/Lose_screen/Epic Fall.ogg");
+	background = App->tex->Load("Resources/gui/background.png");
+	losetext = App->tex->Load("Resources/gui/lose_screen.png");
+	App->audio->PlayMusic("Resources/audio/music/epic_fall.ogg");
 	return true;
 }
 

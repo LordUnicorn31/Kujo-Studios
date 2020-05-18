@@ -199,8 +199,8 @@ bool EntityManager::Start() {
 		Resources[1] = 250;
 	}
 	Panel = App->gui->AddImage(0, 0, { 1024,0,226,720 }, true, false, nullptr, this);
-	CopperString = App->gui->AddText(160, 20, (std::to_string(Resources[0]).c_str()), App->font->ResourcesPanel, { 0,0,255,255 }, 20, false, false, App->scene->Info);
-	TitaniumString = App->gui->AddText(262, 20, (std::to_string(Resources[1]).c_str()), App->font->ResourcesPanel, { 0,0,255,255 }, 20, false, false, App->scene->Info);
+	CopperString = App->gui->AddText(160, 20, (std::to_string(Resources[0]).c_str()), App->font->ResourcesPanel, { 236,178,0,255 }, 20, false, false, App->scene->Info);
+	TitaniumString = App->gui->AddText(262, 20, (std::to_string(Resources[1]).c_str()), App->font->ResourcesPanel, { 236,178,0,255 }, 20, false, false, App->scene->Info);
 	CurrentAction = ActionNone;
 	return true;
 }

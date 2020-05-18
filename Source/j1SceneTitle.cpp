@@ -177,6 +177,7 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 		App->gui->RemoveUiElement(fullScreen);
 		App->gui->RemoveUiElement(fxBar);
 		App->gui->RemoveUiElement(soundBar);
+		App->gui->RemoveUiElement(about);
 	}
 	else if (element == fullScreen) {
 

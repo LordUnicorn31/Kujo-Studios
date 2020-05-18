@@ -709,8 +709,8 @@ void EntityManager::ui_callback(UiElement* element) {
 			ToCreate = ((UiEntityButton*)element)->entity;
 			CopperIcon = App->gui->AddImage(20, 450, { 679,501,28,29 }, false, false, Panel, nullptr);
 			TitaniumIcon = App->gui->AddImage(110, 450, { 641,498,30,31 }, false, false, Panel, nullptr);
-			Coppernum = App->gui->AddText(55, 450, std::to_string(((int)GetCost(ToCreate)[0])).c_str(), App->font->ResourcesPanel, { 0,0,255,255 }, 20, false, false, Panel, nullptr);
-			Titaniumnum = App->gui->AddText(145, 450, std::to_string(((int)GetCost(ToCreate)[1])).c_str(), App->font->ResourcesPanel, { 0,0,255,255 }, 20, false, false, Panel, nullptr);
+			Coppernum = App->gui->AddText(55, 450, std::to_string(((int)GetCost(ToCreate)[0])).c_str(), App->font->ResourcesPanel, { 65,175,94,255 }, 20, false, false, Panel, nullptr);
+			Titaniumnum = App->gui->AddText(145, 450, std::to_string(((int)GetCost(ToCreate)[1])).c_str(), App->font->ResourcesPanel, { 65,175,94,255 }, 20, false, false, Panel, nullptr);
 			App->gui->RemoveUiElement(NotEnaughResourcesText);
 		}
 		else if (((UiEntityButton*)element)->entitytype == EntityType::TypeAi) {

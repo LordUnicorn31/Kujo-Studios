@@ -10,6 +10,9 @@
 #include "j1Minimap.h"
 #include "j1Audio.h"
 #include "EntityManager.h"
+#include "Building.h"
+#include "Resources.h"
+#include "Ai.h"
 #include "j1Gui.h"
 #include "j1SceneTitle.h"
 #include "j1Fonts.h"
@@ -68,13 +71,11 @@ bool j1Scene::Start()
 		tutorialImage = App->gui->AddImage(474, 200, { 494,574,332,52 }, false, false, nullptr, this);
 		tutorialTxt = App->gui->AddText(10, 12, "'Welcome to the tutorial'", App->font->tutorialFont, { 255,255,255,255 }, 12, false, false, tutorialImage);
 
-		questImage = App->gui->AddImage(1000, 260, { 1253, 858, 245, 128 }, false, false, nullptr, this);
-		questOne = App->gui->AddText(15, 20, "1.Construct a Builder", App->font->Small, { 255,255,255,255 }, 12, false, false, questImage);
-		
-		questTwo = App->gui->AddText(15, 50, "2.Construct a Mine", App->font->Small, { 255,255,255,255 }, 12, false, false, questImage);
+		tutorialRect = { 0,0,64,64 };
 
-		questThree = App->gui->AddText(15, 80, "3.Construct 300 Copper", App->font->Small, { 255,255,255,255 }, 12, false, false, questImage);
-
+		questOneActive = true;
+		questTwoActive = false;
+		questThreeActive = false;
 	}
 
 	return true;
@@ -88,9 +89,103 @@ bool j1Scene::PreUpdate()
 
 void j1Scene::Tutorial()
 {
-	if (currentTime > 8)
+	if (questImage == nullptr)
 	{
-		App->gui->RemoveUiElement(tutorialImage);
+		questImage = App->gui->AddImage(1000, 260, { 1253, 858, 245, 128 }, false, false, nullptr, this);
+		questOne = App->gui->AddText(15, 20, "1.Construct a Builder", App->font->Small, { 255,255,255,255 }, 12, false, false, questImage);
+		questTwo = App->gui->AddText(15, 50, "2.Construct a Mine", App->font->Small, { 255,255,255,255 }, 12, false, false, questImage);
+		questThree = App->gui->AddText(15, 80, "3.Collect 300 Copper", App->font->Small, { 255,255,255,255 }, 12, false, false, questImage);
+	}
+	if (questOneActive == true && questTwoActive == false && questThreeActive == false)
+	{
+		if (currentTime > 8 && tutorialTxt != nullptr && questInfoImage == nullptr)
+		{
+			App->gui->RemoveUiChilds(tutorialImage);
+			tutorialTxt = nullptr;
+
+			tutorialTxt = App->gui->AddText(25, 12, "'Construct a Builder'", App->font->tutorialFont, { 236,178,0,255 }, 12, false, false, tutorialImage);
+
+			questInfoImage = App->gui->AddImage(474, 600, { 1253,728,795,129 }, true, false, nullptr, this);
+			questInfo = App->gui->AddText(20, 30, "To cronstruct a Builder click in the Main Base", App->font->dialogFont, { 255,30,30,255 }, 10, false, false, questInfoImage, this);
+			questInfo = App->gui->AddText(20, 75, "In the left panel click in the Builder Icon", App->font->dialogFont, { 255,30,30,255 }, 10, false, false, questInfoImage, this);
+
+			tutorialRect.x = 610;
+			tutorialRect.y = 300;
+
+			//Falta crear el rectangulo rojo para que vean en el panel Builder
+		}
+
+		App->render->DrawQuad(tutorialRect, 255, 0, 0, 50, true, true);
+
+		eastl::list<Entity*>::const_iterator it;
+
+		for (it = App->entity->GetEntities().cbegin(); App->entity->GetEntities().cend() != it; ++it)
+		{
+			if ((*it)->etype != EntityType::TypeAi)
+				continue;
+			if (((Ai*)(*it))->Atype == AiType::Collector)
+			{
+				questOneActive = false;
+				App->gui->RemoveUiChilds(tutorialImage);
+				tutorialTxt = nullptr;
+				App->gui->RemoveUiChilds(questInfoImage);
+				questInfo == nullptr;
+			}
+		}
+
+	}
+	else if (questOneActive == false && questTwoActive == true && questThreeActive == false)
+	{
+		if (tutorialTxt != nullptr && questInfoImage != nullptr)
+		{
+			tutorialTxt = App->gui->AddText(25, 12, "'Construct a Mine'", App->font->tutorialFont, { 236,178,0,255 }, 12, false, false, tutorialImage);
+
+			questInfoImage = App->gui->AddImage(474, 600, { 1253,728,795,129 }, true, false, nullptr, this);
+			questInfo = App->gui->AddText(20, 30, "To cronstruct a Builder double click in the Builder", App->font->dialogFont, { 255,30,30,255 }, 10, false, false, questInfoImage, this);
+			questInfo = App->gui->AddText(20, 75, "In the left panel click in the Mine Icon", App->font->dialogFont, { 255,30,30,255 }, 10, false, false, questInfoImage, this);
+		}
+
+		eastl::list<Entity*>::const_iterator it;
+
+		for (it = App->entity->GetEntities().cbegin(); App->entity->GetEntities().cend() != it; ++it)
+		{
+			if ((*it)->etype != EntityType::TypeBuilding)
+				continue;
+
+			if (((Building*)(*it))->Btype == BuildingType::Mine)
+			{
+				questTwoActive = false;
+				App->gui->RemoveUiChilds(tutorialImage);
+				tutorialTxt = nullptr;
+				App->gui->RemoveUiChilds(questInfoImage);
+				questInfo == nullptr;
+			}
+		}
+	}
+	else if (questOneActive == false && questTwoActive == false && questThreeActive == true)
+	{
+		if (tutorialTxt != nullptr && questInfoImage != nullptr)
+		{
+			tutorialTxt = App->gui->AddText(25, 12, "'Collect 300 copper'", App->font->tutorialFont, { 236,178,0,255 }, 12, false, false, tutorialImage);
+
+			questInfoImage = App->gui->AddImage(474, 600, { 1253,728,795,129 }, true, false, nullptr, this);
+			questInfo = App->gui->AddText(20, 30, "To collect copper the Mine should be placed in copper ore", App->font->dialogFont, { 255,30,30,255 }, 10, false, false, questInfoImage, this);
+			questInfo = App->gui->AddText(20, 75, "If the amount of ore collected will increase depending in the ores around", App->font->dialogFont, { 255,30,30,255 }, 10, false, false, questInfoImage, this);
+		}
+		eastl::list<Entity*>::const_iterator it;
+		for (it = App->entity->GetEntities().cbegin(); App->entity->GetEntities().cend() != it; ++it)
+		{
+			if ((*it)->etype != EntityType::TypeResource)
+				continue;
+			if (((Resource*)(*it))->Rtype == ResourceType::Gold)
+			{
+				questThreeActive = false;
+				App->gui->RemoveUiChilds(tutorialImage);
+				tutorialTxt = nullptr;
+				App->gui->RemoveUiChilds(questInfoImage);
+				questInfo == nullptr;
+			}
+		}
 	}
 
 }
@@ -124,17 +219,19 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 		App->fow->scouting_trail = !App->fow->scouting_trail;
 
-	if (tutorialActive == true)
-	{
-		Tutorial();
-	}
-	
 	if (exitGame) {
 		ret = false;
 		exitGame = false;
 	}
 
 	App->map->Draw();
+
+	if (tutorialActive == true)
+	{
+		Tutorial();
+	}
+
+
 	return ret;
 }
 
@@ -193,6 +290,7 @@ void j1Scene::ui_callback(UiElement* element) {
 	if (element == Pause) {
 		App->audio->UnloadMusic();
 		App->audio->PlayMusic("Resources/audio/music/music_options.ogg");
+		App->audio->MusicVolume(5);
 		if (Pause != nullptr) {
 			if (Settings_window == nullptr) {
 				Settings_window = App->gui->AddImage(400, 150, { 0, 512, 483, 512 }, false, false);

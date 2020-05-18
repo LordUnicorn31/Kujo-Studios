@@ -46,6 +46,7 @@ private:
 	UiElement* optionsMenu;
 	UiElement* backButton;
 	UiElement* fullScreen;
+	UiElement* about;
 	UiElement* fxBar;
 	UiElement* soundBar;
 	UiElement* fxSlider;

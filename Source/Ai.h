@@ -1,8 +1,7 @@
 #pragma once
 #include "Entity.h"
 #include "EASTL/vector.h"
-
-struct Animation;
+#include "Animation.h"
 
 enum class AiType : unsigned char {
 	Collector,
@@ -34,8 +33,8 @@ public:
 	iPoint TilePos;
 	//iPoint FinalGoal;
 	iPoint NextTile;
-	Animation* IdleAnimaiton;
-	Animation* ArmedIdleAnimation;
+	Animation IdleAnimation;
+	Animation ArmedIdleAnimation;
 	//TODO:Si pot ser que no cada entity guardi el seu path per tema de memoria (o com a minima k nomes guardin path per ajuntarse i surtir del grup i que no guardin el path compartit) //Podem donarlis una id per group i id 0 implica a cap grup
 	eastl::vector<iPoint> path;
 	void Update(float dt);

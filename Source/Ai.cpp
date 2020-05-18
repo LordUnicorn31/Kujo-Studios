@@ -16,8 +16,13 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
 		Damage = 40;
 		Range = 200;
 		speed = 5;
-		IdleAnimaiton = &App->entity->Animations.AttackShip;
-        ArmedIdleAnimation = &App->entity->Animations.ArmedAttackShip;
+		//IdleAnimaiton = App->entity->Animations.AttackShip;
+        IdleAnimation.PushBack({ 24,23,66,66 });
+        IdleAnimation.PushBack({ 121,21,66,66 });
+        IdleAnimation.speed = 2.5f;
+        ArmedIdleAnimation.PushBack({ 229,221,79,79 });
+        ArmedIdleAnimation.PushBack({ 369,221,79,79 });
+        ArmedIdleAnimation.speed = 2.5f;
         CostCopperTitanium = { 50,0 };
 		selectable = true;
 		EntityRect.w = 54;
@@ -34,8 +39,12 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         Damage = 60;
         Range = 350;
         speed = 6;
-        IdleAnimaiton = &App->entity->Animations.AttackShip2;
-        ArmedIdleAnimation = &App->entity->Animations.ArmedAttackShip2;
+        IdleAnimation.PushBack({ 242,28,61,61 });
+        IdleAnimation.PushBack({ 377,20,61,61 });
+        IdleAnimation.speed = 3.0f;
+        ArmedIdleAnimation.PushBack({ 233,332,80,80 });
+        ArmedIdleAnimation.PushBack({ 372,332,80,80 });
+        ArmedIdleAnimation.speed = 3.0f;
         CostCopperTitanium = { 80,0 };
         selectable = true;
         EntityRect.w = 58;
@@ -52,8 +61,10 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
 		Damage = 0;
 		Range = 100;
 		speed = 3;
-		IdleAnimaiton = &App->entity->Animations.FarmerShip;
-        ArmedIdleAnimation = &App->entity->Animations.FarmerShip;
+        IdleAnimation.PushBack({ 29,147,52,52 });
+        IdleAnimation.PushBack({ 131,147,52,52 });
+        IdleAnimation.speed = 2.0f;
+        ArmedIdleAnimation = IdleAnimation;
         CostCopperTitanium = { 50,0 };
 		selectable = true;
 		EntityRect.w = 46;
@@ -70,8 +81,12 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         Damage = 100;
         Range = 100;
         speed = 2;
-        IdleAnimaiton = &App->entity->Animations.SpecialShip;
-        ArmedIdleAnimation = &App->entity->Animations.ArmedSpecialShip;
+        IdleAnimation.PushBack({ 29,324,57,57 });
+        IdleAnimation.PushBack({ 131,324,57,57 });
+        IdleAnimation.speed = 1.5f;
+        ArmedIdleAnimation.PushBack({ 237,110,77,77 });
+        ArmedIdleAnimation.PushBack({ 377,110,77,77 });
+        ArmedIdleAnimation.speed = 1.5f;
         CostCopperTitanium = { 150,10 };
         selectable = true;
         EntityRect.w = 58;
@@ -125,9 +140,9 @@ void Ai::Draw(float dt) {
     //TODO: quan la nau recorre a vegades les diagonals va tremolant al canviar d'angles molt rapid
     if (!Building) {
         if (!Armed)
-            App->render->Blit(sprite, EntityRect.x, EntityRect.y, &IdleAnimaiton->GetCurrentFrame(dt), true, App->render->renderer, App->win->GetScale(), 1.0f, DirectionAngle);
+            App->render->Blit(sprite, EntityRect.x, EntityRect.y, &IdleAnimation.GetCurrentFrame(dt), true, App->render->renderer, App->win->GetScale(), 1.0f, DirectionAngle);
         else
-            App->render->Blit(sprite, EntityRect.x, EntityRect.y, &ArmedIdleAnimation->GetCurrentFrame(dt), true, App->render->renderer, App->win->GetScale(), 1.0f, DirectionAngle);
+            App->render->Blit(sprite, EntityRect.x, EntityRect.y, &ArmedIdleAnimation.GetCurrentFrame(dt), true, App->render->renderer, App->win->GetScale(), 1.0f, DirectionAngle);
         if (selected) {
             App->render->DrawQuad(EntityRect, 0, 255, 0, 255, false);
         }

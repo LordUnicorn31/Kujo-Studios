@@ -38,7 +38,7 @@ enum class AviableEntities: unsigned char {
 	PowerGenerator
 };
 
-struct EntitiesAnimations {
+/*struct EntitiesAnimations {
 	Animation BuildMine;
 	Animation MineIdle;
 	Animation Base1Idle;
@@ -63,7 +63,7 @@ struct EntitiesAnimations {
 	Animation ArmedSpecialShip;
 	Animation PowerGeneratorIdle;
 	Animation BuildPowerGenerator;
-};
+};*/
 
 class EntityManager :public j1Module {
 public:
@@ -84,7 +84,7 @@ public:
 
 	const eastl::list<Entity*>& GetEntities()const;
 
-	EntitiesAnimations Animations;
+	//EntitiesAnimations Animations;
 	UiElement* Panel;
 	Ai* CurrentBuildingEntity;
 	eastl::array<float,3> Resources;

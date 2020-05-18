@@ -7,6 +7,7 @@
 #include "Ai.h"
 #include "j1Collisions.h"
 #include "j1Fonts.h"
+#include "Animation.h"
 
 Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeBuilding, { Position.x,Position.y,0,0 }), Btype(type),BuildingEntity(nullptr),BuildHUD(nullptr) {
 	switch (type) {
@@ -15,8 +16,10 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		EntityRect.h = 64;
 		health = 5000;
 		selected = false;
-		IdleAnimation = &App->entity->Animations.Base1Idle;
-		ConstructionAnimation = &App->entity->Animations.Base1Idle;
+		IdleAnimation.PushBack({ 0,0,64,64 });
+		IdleAnimation.PushBack({ 64,0,64,64 });
+		IdleAnimation.speed = 2.0f;
+		ConstructionAnimation = IdleAnimation;
 		level = 1;
 		OnConstruction = true;
 		ConstructionTime = 0.0f;
@@ -27,8 +30,19 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		EntityRect.h = 64;
 		health = 500;
 		selected = false;
-		IdleAnimation= &App->entity->Animations.MineIdle;
-		ConstructionAnimation = &App->entity->Animations.BuildMine;
+		IdleAnimation.PushBack({ 0,0,64,64 });
+		IdleAnimation.PushBack({ 64,0,64,64 });
+		IdleAnimation.PushBack({ 128,0,64,64 });
+		IdleAnimation.PushBack({ 192,0,64,64 });
+		IdleAnimation.PushBack({ 256,0,64,64 });
+		IdleAnimation.PushBack({ 320,0,64,64 });
+		IdleAnimation.PushBack({ 384,0,64,64 });
+		IdleAnimation.PushBack({ 448,0,64,64 });
+		IdleAnimation.PushBack({ 0,64,64,64 });
+		IdleAnimation.PushBack({ 64,64,64,64 });
+		IdleAnimation.PushBack({ 128,64,64,64 });
+		IdleAnimation.speed = 2.0f;
+		ConstructionAnimation.PushBack({ 256,64,64,64 });
 		level = 1;
 		ConstructionTime = 10.0f;
 		OnConstruction = true;
@@ -39,8 +53,13 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		EntityRect.h = 64;
 		health = 300;
 		selected = false;
-		IdleAnimation = &App->entity->Animations.CuartelIdle;
-		ConstructionAnimation = &App->entity->Animations.BuildCuartel;
+		IdleAnimation.PushBack({ 126,64,64,64 });
+		IdleAnimation.PushBack({ 0,0,64,64 });
+		IdleAnimation.PushBack({ 126,64,64,64 });
+		IdleAnimation.PushBack({ 128,0,64,64 });
+		IdleAnimation.PushBack({ 126,64,64,64 });
+		IdleAnimation.PushBack({ 0,64,64,64 });
+		ConstructionAnimation.PushBack({ 64,0,64,64 });
 		level = 1;
 		ConstructionTime = 10.0f;
 		OnConstruction = true;
@@ -51,8 +70,9 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		EntityRect.h = 64;
 		health = 400;
 		selected = false;
-		IdleAnimation = &App->entity->Animations.LabIdle;
-		ConstructionAnimation = &App->entity->Animations.BuildLab;
+		IdleAnimation.PushBack({ 64,250,64,64 });
+		IdleAnimation.PushBack({ 128,250,64,64 });
+		ConstructionAnimation.PushBack({ 0,250,64,64 });
 		level = 1;
 		ConstructionTime = 10.0f;
 		OnConstruction = true;
@@ -63,8 +83,10 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		EntityRect.h = 64;
 		health = 400;
 		selected = false;
-		IdleAnimation = &App->entity->Animations.PowerGeneratorIdle;
-		ConstructionAnimation = &App->entity->Animations.BuildPowerGenerator;
+		IdleAnimation.PushBack({ 0,0,64,64 });
+		IdleAnimation.PushBack({ 64,0,64,64 });
+		IdleAnimation.speed = 4.0f;
+		ConstructionAnimation.PushBack({ 128,0,64,64 });
 		level = 1;
 		ConstructionTime = 10.0f;
 		OnConstruction = true;
@@ -111,10 +133,10 @@ void Building::Update(float dt) {
 void Building::Draw(float dt) {
 	if (OnConstruction) {
 		//App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/Building.wav"));
-		App->render->Blit(sprite, EntityRect.x, EntityRect.y, &ConstructionAnimation->GetCurrentFrame(dt));
+		App->render->Blit(sprite, EntityRect.x, EntityRect.y, &ConstructionAnimation.GetCurrentFrame(dt));
 	}
 	else {
-		App->render->Blit(sprite, EntityRect.x, EntityRect.y, &IdleAnimation->GetCurrentFrame(dt));
+		App->render->Blit(sprite, EntityRect.x, EntityRect.y, &IdleAnimation.GetCurrentFrame(dt));
 		if (selected) {
 			App->render->DrawQuad(EntityRect, 0, 255, 0, 255, false);
 		}

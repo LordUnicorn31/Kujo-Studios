@@ -19,7 +19,7 @@
 
 EntityManager::EntityManager(): j1Module(),MineSprite(NULL),CuartelLab(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1.0f / 60.0f)),AccumulatedTime(0.0f),newgame(true),BuildButton(nullptr) {
 	name = "EntityManager";
-
+	/*
 	//Loading all the entities animations
 	//BaseIdle1
 	Animations.Base1Idle.PushBack({ 0,0,64,64 });
@@ -54,12 +54,15 @@ EntityManager::EntityManager(): j1Module(),MineSprite(NULL),CuartelLab(NULL),Bas
 	//attack ship
 	Animations.AttackShip.PushBack({ 24,23,66,66 });
 	Animations.AttackShip.PushBack({ 121,21,66,66 });
+	Animations.AttackShip.speed = 2.5f;
 	//Farmer ship
 	Animations.AttackShip2.PushBack({ 242,28,61,61 });
 	Animations.AttackShip2.PushBack({ 377,20,61,61 });
+	Animations.AttackShip2.speed = 3.0f;
 
 	Animations.SpecialShip.PushBack({29,324,57,57});
 	Animations.SpecialShip.PushBack({131,324,57,57});
+	Animations.SpecialShip.speed = 1.5f;
 
 	Animations.FarmerShip.PushBack({29,147,52,52});
 	Animations.FarmerShip.PushBack({131,147,52,52 });
@@ -95,17 +98,21 @@ EntityManager::EntityManager(): j1Module(),MineSprite(NULL),CuartelLab(NULL),Bas
 	//attack ships with improved weapoon
 	Animations.ArmedAttackShip.PushBack({ 229,221,79,79 });
 	Animations.ArmedAttackShip.PushBack({ 369,221,79,79 });
+	Animations.ArmedAttackShip.speed = 2.5f;
 
 	Animations.ArmedAttackShip2.PushBack({233,332,80,80});
 	Animations.ArmedAttackShip2.PushBack({ 372,332,80,80 });
+	Animations.ArmedAttackShip2.speed = 3.0f;
 
 	Animations.ArmedSpecialShip.PushBack({237,110,77,77});
 	Animations.ArmedSpecialShip.PushBack({377,110,77,77});
+	Animations.ArmedSpecialShip.speed = 1.5f;
 	//Power Generator animations
 	Animations.PowerGeneratorIdle.PushBack({0,0,64,64});
 	Animations.PowerGeneratorIdle.PushBack({ 64,0,64,64 });
 	Animations.PowerGeneratorIdle.speed = 4.0f;
 	Animations.BuildPowerGenerator.PushBack({128,0,64,64});
+	*/
 }
 
 EntityManager::~EntityManager() {

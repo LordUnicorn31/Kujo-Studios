@@ -1,11 +1,11 @@
 #pragma once
 #include "Entity.h"
 #include "SDL_rect.h"
-#include "Animation.h"
 #include "EASTL/list.h"
 
 class SDL_Texture;
 class Ai;
+class Animation;
 
 enum class BuildingType : unsigned char {
 	Mine,
@@ -22,8 +22,8 @@ public:
 	~Building();
 	BuildingType Btype;
 	//uint tile_size;
-	Animation* IdleAnimation;
-	Animation* ConstructionAnimation;
+	Animation IdleAnimation;
+	Animation ConstructionAnimation;
 	float ConstructionTime;
 	//float ConstructionSpeed;
 	uint level;

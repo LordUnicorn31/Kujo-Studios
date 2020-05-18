@@ -33,7 +33,7 @@ bool j1Fonts::Awake(pugi::xml_node& conf)
 
 		Small = Load(path, 16);
 
-		dialogFont = Load(path, 30);
+		dialogFont = Load(path, 27);
 
 		ResourcesPanel = Load(path, 20);
 	}

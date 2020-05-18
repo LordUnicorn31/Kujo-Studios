@@ -159,13 +159,16 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 		optionsMenu=App->gui->AddButton(400, 250, { 20,540,446,465 }, { 20,540,446,465 }, { 20,540,446,465 }, true, false, nullptr, this);
 		backButton= App->gui->AddButton(430, 270, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, nullptr, this);
 		fullScreen = App->gui->AddButton(500, 450, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+		fxBar = App->gui->AddButton(500, 350, { 1286,567,206,23 }, { 1286,567,206,23 }, { 1286,567,206,23 }, true, false, nullptr, this);
 		App->gui->AddText(55, 25, "FULLSCREEN", App->font->Small, { 255,255,255 }, 42, false, false, fullScreen);
 		App->gui->AddText(150, 20, "OPTIONS MENU", App->font->Small, { 255,255,255 }, 42, false, false, optionsMenu);
+	
 	}
 	else if (element == backButton) {
 		App->gui->RemoveUiElement(backButton);
 		App->gui->RemoveUiElement(optionsMenu);
 		App->gui->RemoveUiElement(fullScreen);
+		App->gui->RemoveUiElement(fxBar);
 	}
 	else if (element == fullScreen) {
 

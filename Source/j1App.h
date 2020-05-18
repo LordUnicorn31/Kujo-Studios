@@ -34,6 +34,7 @@ class Fow;
 
 
 
+
 class j1App
 {
 public:
@@ -121,6 +122,7 @@ public:
 	j1Particle* particle;
 	//DialogSystem* dialog;
 	Fow* fow;
+	
 
 	bool SavedProgress;
 

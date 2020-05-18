@@ -215,7 +215,7 @@ void j1Scene::ui_callback(UiElement* element) {
 				App->gui->RemoveUiElement(Settings_window);
 				Settings_window = nullptr;
 				App->audio->UnloadMusic();
-				App->audio->PlayMusic("Resources/audio/music/Space.ogg");
+				App->audio->PlayMusic("Resources/audio/music/music_space.ogg");
 
 			}
 		}
@@ -224,9 +224,9 @@ void j1Scene::ui_callback(UiElement* element) {
 		exitGame = true;
 	}
 	if (element == Continue_button) {
-		App->audio->UnloadMusic();
-		App->audio->PlayMusic("Resources/audio/music/Space.ogg");
 		App->audio->PlayFx(buttonFx);
+		App->audio->UnloadMusic();
+		App->audio->PlayMusic("Resources/audio/music/music_space.ogg");
 
 		App->freeze = false;
 		if (Settings_window != nullptr) {

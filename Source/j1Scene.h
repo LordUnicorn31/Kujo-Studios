@@ -42,6 +42,7 @@ private:
 	UiElement* People;
 	UiElement* Copper;
 	UiElement* Titanium;
+	UiElement* Power;
 	UiElement* Settings_window;
 	UiElement* Exit_button;
 	UiElement* Continue_button;

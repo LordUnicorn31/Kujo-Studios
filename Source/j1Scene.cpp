@@ -49,9 +49,10 @@ bool j1Scene::Start()
 	App->audio->PlayMusic("Resources/audio/music/Space.ogg");
 	Pause = App->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 871, 736, 39,39 }, { 755, 527, 39,39 }, true, false, nullptr, this);
 	Info = App->gui->AddButton(750, 10, { 494,640,332,52 }, { 494,574,332,52 }, { 494,640,332,52 }, true, false, nullptr, this);
-	People = App->gui->AddImage(30, 5, { 591,494,40,37 }, false, false, Info, nullptr);
-	Copper = App->gui->AddImage(130, 12, { 679,501,28,29 }, false, false, Info, nullptr);
-	Titanium = App->gui->AddImage(230, 12, { 641,498,30,31 }, false, false, Info, nullptr);
+	People = App->gui->AddImage(10, 5, { 1292,136,38,38 }, false, false, Info, nullptr);
+	Copper = App->gui->AddImage(80, 12, { 1610, 35, 28, 27 }, false, false, Info, nullptr);
+	Titanium = App->gui->AddImage(150, 12, { 1544, 34, 30, 30 }, false, false, Info, nullptr);
+	Power = App->gui->AddImage(220, 12, { 1673, 33, 32, 32 }, false, false, Info, nullptr);
 	App->minimap->Enable();
 	App->entity->Enable();
 	App->collisions->Enable();

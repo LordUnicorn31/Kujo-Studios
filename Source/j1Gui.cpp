@@ -226,6 +226,12 @@ UiElement* j1Gui::AddHUDBar(int x, int y, int MaxValue, float* valueptr, bool us
 	return HUD;
 }
 
+UiElement* j1Gui::AddSlider(int x, int y, bool active, bool draggable, UiElement* parent, j1Module* elementmodule, int sliderposition) {
+	UiElement* Slider = new UiSlider(x, y, active, draggable, parent, elementmodule);
+	UiElementList.push_back(Slider);
+	return Slider;
+}
+
 
 UiElement::UiElement(int x, int y, int w, int h, bool interactuable, bool draggeable, UiTypes uitype, UiElement* parent, j1Module* elementmodule) : type(uitype), parent(parent), Module(elementmodule), ui_rect({ x,y,w,h }), interactuable(interactuable), draggable(draggeable) { if (parent != nullptr)SetLocalPos(x, y); }
 
@@ -439,7 +445,7 @@ void UiHUDBars::Draw(SDL_Texture* atlas) {
 
 UiSlider::UiSlider(int x, int y, bool active, bool draggable,UiElement* parent, j1Module* elementmodule, int sliderposition) : UiElement(x, y, bar.w, bar.h, active, draggable, UiTypes::Slider, parent, elementmodule) {
 
-	clickable_rect = { x + 46, y + 4, 188, 40 };
+	clickable_rect = { GetScreenPos().x -46, GetScreenPos().y, 250, 40 };
 
 	thumb_offset = 46;
 
@@ -447,18 +453,18 @@ UiSlider::UiSlider(int x, int y, bool active, bool draggable,UiElement* parent, 
 
 	texture = App->tex->Load("gui/UI_Slider.png");
 
-	bar = { 0, 0, 280, 48 };
-	thumb = { 0, 48, 36, 28 };
-	thumb_hovered = { 38, 48, 36, 28 };
+	bar = { 1280, 560, 170, 15 };
+	thumb = { 1280, 580, 30, 30 };
+	thumb_hovered = { 1280, 580, 30, 30 };
 
-	clickable_rect = { position.x + 46, position.y + 4, 188, 40 };
+	clickable_rect = { GetScreenPos().x -46, GetScreenPos().y, 250, 40 };
 };
 
 UiSlider::~UiSlider() {};
 
-void UiSlider::Update() {
+void UiSlider::Update(int dx, int dy) {
 
-	clickable_rect = { position.x + 46, position.y + 4, 188, 40 };
+	clickable_rect = { GetScreenPos().x -46, GetScreenPos().y , 250, 40 };
 	hovered = false;
 	int x, y;//Mouse coords
 
@@ -470,7 +476,7 @@ void UiSlider::Update() {
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 		{
 			hovered = true;
-			sliderpos = x - position.x - thumb_offset;
+			sliderpos = x - GetScreenPos().x - thumb_offset;
 			if (sliderpos < 0)	sliderpos = 0;
 			else if (sliderpos > 152) sliderpos = 152;
 		}
@@ -479,12 +485,12 @@ void UiSlider::Update() {
 
 void UiSlider::Draw(SDL_Texture* atlas) {
 
-	App->render->Blit(atlas, position.x, position.y, &bar, false);
+	App->render->Blit(atlas, GetScreenPos().x ,GetScreenPos().y, &bar, false);
 
 	if (hovered) {
-		App->render->Blit(atlas, position.x + thumb_offset + sliderpos, position.y + 10, &thumb_hovered, false);
+		App->render->Blit(atlas, GetScreenPos().x + thumb_offset + sliderpos -46, GetScreenPos().y -4, &thumb_hovered, false);
 	}
-	else App->render->Blit(atlas, position.x + thumb_offset + sliderpos, position.y + 10, &thumb, false);
+	else App->render->Blit(atlas, GetScreenPos().x + thumb_offset + sliderpos -46, GetScreenPos().y -4, &thumb, false);
 
 	if (debug)
 	{

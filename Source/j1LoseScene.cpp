@@ -45,6 +45,8 @@ bool j1LoseScene::Start()
 	ReturnB = App->gui->AddButton(500, 600, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
 	App->gui->AddText(55, 25, "MAIN MENU", App->font->Small, { 255,255,255 }, 42, false, false, ReturnB);
 
+	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");
+
 	return true;
 }
 

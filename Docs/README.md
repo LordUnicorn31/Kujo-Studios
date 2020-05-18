@@ -32,18 +32,12 @@ Explore an unfamiliar world, mine its resources and fly away with all you can in
 
 - Left mouse button: Select (units, building, menus, basically select everything you can press).
 
+-Left mouse and drag: Select a group of entities (units, buildings)
+
 - Right mouse button: Move units (When a unit is selected and you press right mouse button somewhere, the unit will move to that point).
 
 - Mouse button rudder: Zoom out/Zoom in.
 
-- L: Win scene.
-
-- M: Lose scene.
-
-Minimap controls
--E:scale
--R:descale
--Space: put or take away
 
 ## Developers
 

@@ -313,7 +313,7 @@ void j1Scene::ui_callback(UiElement* element) {
 				App->gui->RemoveUiElement(Settings_window);
 				Settings_window = nullptr;
 				App->audio->UnloadMusic();
-				App->audio->PlayMusic("Resources/audio/music/Space.ogg");
+				App->audio->PlayMusic("Resources/audio/music/music_space.ogg");
 
 			}
 		}
@@ -322,9 +322,9 @@ void j1Scene::ui_callback(UiElement* element) {
 		exitGame = true;
 	}
 	if (element == Continue_button) {
-		App->audio->UnloadMusic();
-		App->audio->PlayMusic("Resources/audio/music/Space.ogg");
 		App->audio->PlayFx(buttonFx);
+		App->audio->UnloadMusic();
+		App->audio->PlayMusic("Resources/audio/music/music_space.ogg");
 
 		App->freeze = false;
 		if (Settings_window != nullptr) {
@@ -341,19 +341,23 @@ void j1Scene::ui_callback(UiElement* element) {
 	}
 	if (element == options) {
 		App->audio->PlayFx(buttonFx);
-		OptionsMenu = App->gui->AddButton(400, 250, { 20,540,446,465 }, { 20,540,446,465 }, { 20,540,446,465 }, true, false, nullptr, this);
-		BackButton = App->gui->AddButton(430, 270, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, nullptr, this);
-		fullScreen = App->gui->AddButton(500, 550, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+		OptionsMenu = App->gui->AddImage(400, 150, { 20,540,446,465 }, true, false, nullptr, this);
+		BackButton = App->gui->AddButton(430, 200, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, nullptr, this);
+		fullScreen = App->gui->AddButton(500, 450, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
 		App->gui->AddText(55, 25, "FULLSCREEN", App->font->Small, { 255,255,255 }, 42, false, false, fullScreen);
 		App->gui->AddText(150, 20, "OPTIONS MENU", App->font->Small, { 236,178,0 }, 42, false, false, OptionsMenu);
 		App->gui->AddText(70, 100, "FX", App->font->Small, { 236,178,0 }, 42, false, false, OptionsMenu);
-		App->gui->AddText(50, 200, "MUSIC", App->font->Small, { 236,178,0 }, 42, false, false, OptionsMenu);
+		App->gui->AddText(30, 175, "MUSIC", App->font->Small, { 236,178,0 }, 42, false, false, OptionsMenu);
+		FxSlider = App->gui->AddSlider(100, 100, true, false, OptionsMenu, this, 76);
+		MusSlider = App->gui->AddSlider(100, 175, true, false, OptionsMenu, this, 76);
 	}
 
 	else if (element == BackButton) {
 		App->gui->RemoveUiElement(BackButton);
 		App->gui->RemoveUiElement(OptionsMenu);
 		App->gui->RemoveUiElement(fullScreen);
+		App->gui->RemoveUiElement(FxSlider);
+		App->gui->RemoveUiElement(MusSlider);
 		
 		
 	}

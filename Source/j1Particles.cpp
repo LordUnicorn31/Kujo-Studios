@@ -19,7 +19,7 @@ bool j1Particle::Start()
 {
 	LOG("Loading particles");
 
-	graphics = App->tex->Load("Resources/particles/particle.png");
+	graphics = App->tex->Load("Resources/gui/particle.png");
 	shot.anim.PushBack({ 144,64,11,18 });
 	shot.anim.PushBack({ 160,61,11,18 });
 	shot.anim.PushBack({ 178,58,11,18 });

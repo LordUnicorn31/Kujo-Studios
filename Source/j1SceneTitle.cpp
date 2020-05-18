@@ -39,8 +39,8 @@ bool j1SceneTitle::Awake(pugi::xml_node& config)
 bool j1SceneTitle::Start()
 {
 	Exit = false;
-	background = App->tex->Load("Resources/Title_menu/Fondo.png");
-	titleLogo = App->tex->Load("Resources/Title_menu/LOGONEW.png");
+	background = App->tex->Load("Resources/gui/background.png");
+	titleLogo = App->tex->Load("Resources/gui/logo.png");
 
 
 	NewGameButton = App->gui->AddButton(500, 390, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
@@ -56,7 +56,7 @@ bool j1SceneTitle::Start()
 
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");
 
-	App->audio->PlayMusic("Resources/audio/music/ObservingTheStar.ogg");
+	App->audio->PlayMusic("Resources/audio/music/observing_star.ogg");
 	return true;
 }
 
@@ -141,6 +141,7 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 	}
 	else if (element == ContinueButton) {
 		App->LoadGame();
+		App->audio->PlayFx(buttonFx);
 		App->map->Load("Mainmap.tmx");
 		int w, h;
 		uchar* data = NULL;
@@ -148,6 +149,7 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 			App->pathfinding->SetMap(w, h, data);
 		RELEASE_ARRAY(data);
 		App->transition->Slide(App->sceneTitle, App->scene, 2.0f);
+		App->scene->tutorialActive = true;
 	}
 	else if (element == exitButton) {
 		App->audio->PlayFx(buttonFx);

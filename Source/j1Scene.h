@@ -44,7 +44,6 @@ public:
 private:
 	UiElement* tutorialImage;
 	UiElement* tutorialTxt;
-	SDL_Rect tutorialRect;
 
 	UiElement* questImage;
 	UiElement* questOne;
@@ -52,12 +51,6 @@ private:
 	UiElement* questThree;
 	UiElement* questSquare;
 	UiElement* questCheck;
-	UiElement* questInfoImage;
-	UiElement* questInfo;
-
-	bool questOneActive;
-	bool questTwoActive;
-	bool questThreeActive;
 
 	UiElement* Pause;
 	UiElement* People;

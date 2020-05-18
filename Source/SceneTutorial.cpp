@@ -126,7 +126,7 @@ bool SceneTutorial::Update(float dt)
 			App->gui->AddText(230, 4, "Start your Adventure", App->font->dialogFont, { 16, 173, 171,255 }, 12, false, false, continueButton, this);
 
 			continueFake = App->gui->AddButton(288, 602, { 0,315,802,41 }, { 0,356,802,41 }, { 0,356,802,41 }, true, false, nullptr, this);
-			App->gui->AddText(230, 4, "Run Away", App->font->dialogFont, { 16, 173, 171,255 }, 12, false, false, continueFake, this);
+			App->gui->AddText(230, 4, "Refuse", App->font->dialogFont, { 16, 173, 171,255 }, 12, false, false, continueFake, this);
 
 		}
 	}

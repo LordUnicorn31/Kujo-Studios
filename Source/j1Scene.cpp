@@ -218,7 +218,6 @@ void j1Scene::ui_callback(UiElement* element) {
 	}
 	if (element == options) {
 		App->audio->PlayFx(buttonFx);
-		App->audio->UnloadMusic();
 		OptionsMenu = App->gui->AddButton(400, 250, { 20,540,446,465 }, { 20,540,446,465 }, { 20,540,446,465 }, true, false, nullptr, this);
 		BackButton = App->gui->AddButton(430, 270, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, nullptr, this);
 		fullScreen = App->gui->AddButton(500, 450, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);

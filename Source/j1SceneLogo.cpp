@@ -62,9 +62,9 @@ bool j1SceneLogo::Update(float dt)
 
 	bool ret = true;
 
-	if (App->input->GetKey(SDL_SCANCODE_A)) 
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP) 
 	{
-		App->particle->AddParticle(App->particle->shot, 0, 50, 50, ParticleType::SHOT);
+		App->particle->AddParticle(App->particle->shot, 200, 200, 0.5, ParticleType::SHOT, 0, 50);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_LEFT)) {
 		App->render->camera.x += 5;
@@ -90,7 +90,7 @@ bool j1SceneLogo::Update(float dt)
 	App->render->Blit(studios, w*1.55f, h*3.10f, NULL, true, App->render->renderer, 0.2);
 	App->render->Blit(hat, w*2.95f, h*1.40, NULL, true, App->render->renderer, 0.2);
 
-	r++;
+	//r++;
 
 	if (r == 255)
 	{

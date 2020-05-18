@@ -44,9 +44,14 @@ private:
 	Animation captain;
 	Animation girl;
 
+	UiElement* wakeupButton;
+
 	int heyFx;
-
 	int buttonFx;
+	int girlFx;
+	int captainFx;
 
-	float startTimer;
+
+	float startTime;
+	float currentTime;
 };

@@ -51,13 +51,17 @@ bool SceneTutorial::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool SceneTutorial::Start()
 {
+	startTime = SDL_GetTicks() / 1000;
 
 	character = App->tex->Load("Resources/gui/char.png");
+	
+	App->audio->PlayMusic("Resources/audio/music/music_sadpiano.ogg");
 
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");
 	heyFx = App->audio->LoadFx("Resources/audio/fx/hey.wav");
-
 	App->audio->PlayFx(heyFx);
+
+	girlFx = App->audio->LoadFx("Resources/audio/fx/girl.wav");
 
 	return true;
 }
@@ -65,6 +69,8 @@ bool SceneTutorial::Start()
 // Called each loop iteration
 bool SceneTutorial::PreUpdate()
 {
+	
+
 	return true;
 }
 
@@ -72,6 +78,8 @@ bool SceneTutorial::PreUpdate()
 bool SceneTutorial::Update(float dt)
 {
 	bool ret = true;
+
+	currentTime = SDL_GetTicks()/1000 - startTime;
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE)) {
 		App->map->Load("Mainmap.tmx");
@@ -95,7 +103,20 @@ bool SceneTutorial::Update(float dt)
 		App->render->camera.y -= 5;
 	}
 
-	App->render->Blit(character, 525, 200, &girl.GetCurrentFrame(dt));
+	if (currentTime < 4.00f)
+	{
+		App->render->Blit(character, 525, 200, &girl.GetCurrentFrame(dt));
+	}
+	if (currentTime >= 4)
+	{
+		App->render->Blit(character, 755, 200, &girl.GetCurrentFrame(dt));
+		if(currentTime == 4)
+		{
+			wakeupButton = App->gui->AddImage(200.5f, 430, { 1253,728,795,129 }, true, false, nullptr, this);
+			App->gui->AddText(2, 45, "Wake Up!; Are you OK, you seem a bit confused", App->font->dialogFont, { 255, 255, 255, 255 }, 10, false, false, wakeupButton, this);
+			App->audio->PlayFx(girlFx);
+		}
+	}
 
 	//App->render->Blit(character, 50, 200, &captain.GetCurrentFrame(dt));
 
@@ -116,7 +137,8 @@ bool SceneTutorial::CleanUp()
 {
 	LOG("Freeing scene");
 
-
+	App->audio->UnloadFx();
+	App->gui->DeleteAllUiElements();
 
 	return true;
 }
@@ -130,6 +152,9 @@ void SceneTutorial::Init()
 
 void SceneTutorial::ui_callback(UiElement* element)
 {
+
+
+
 	App->audio->PlayFx(buttonFx);
 	App->map->Load("Mainmap.tmx");
 	int w, h;

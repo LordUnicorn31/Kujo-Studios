@@ -39,5 +39,6 @@ public:
 	_TTF_Font*			Default;
 
 	_TTF_Font*			Small;
-	_TTF_Font* ResourcesPanel;
+	_TTF_Font*			ResourcesPanel;
+	_TTF_Font*			dialogFont;
 };

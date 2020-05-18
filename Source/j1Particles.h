@@ -6,7 +6,7 @@
 #include "Animation.h"
 //#include "j1Collision.h"
 
-#define MAX_ACTIVE_PARTICLES 100
+#define MAX_ACTIVE_PARTICLES 300
 
 struct SDL_Texture;
 //struct Collider;
@@ -30,7 +30,8 @@ struct Particle
 	float size;						//Particle size
 	uint born;
 	uint life;  					//Particle life
-	float rotation;					//Particle rotation
+	double angle;					//Particle angle
+	fPoint position;					//Particle position
 	SDL_Color initialColor;			//Particle color inicial
 	SDL_Color finalColor;			//Particle color final
 	uint fx = 0;					//Particle fx
@@ -53,7 +54,7 @@ public:
 	bool CleanUp();
 	//void OnCollision(Collider* c1, Collider* c2);
 
-	void AddParticle(const Particle& particle, int x, int y,  uint delay = 0, ParticleType type = ParticleType::NONE);
+	void AddParticle(const Particle& particle, int x, int y, uint delay = 0, ParticleType type = ParticleType::NONE, double angle = 0.0f, float life = 0.0f);
 
 	
 	SDL_Texture* graphics = nullptr;

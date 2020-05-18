@@ -24,6 +24,7 @@
 #include "j1WinScene.h"
 #include "j1LoseScene.h"
 #include "j1Particles.h"
+//#include "DialogSystem.h"
 #include "Fow.h"
 
 
@@ -55,6 +56,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args),save_game("Resourc
 	collisions = new j1Collisions();
 	winscene = new j1WinScene();
 	losescene = new j1LoseScene();
+	//dialog = new DialogSystem();
 	fow = new Fow();
 
 	// Ordered for awake / Start / Update
@@ -79,6 +81,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args),save_game("Resourc
 	AddModule(winscene);
 	AddModule(losescene);
 	AddModule(particle);
+	//AddModule(dialog);
 	AddModule(fow);
 
 	// render last to swap buffer

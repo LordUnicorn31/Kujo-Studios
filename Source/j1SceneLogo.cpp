@@ -90,7 +90,7 @@ bool j1SceneLogo::Update(float dt)
 	App->render->Blit(studios, w*1.55f, h*3.10f, NULL, true, App->render->renderer, 0.2);
 	App->render->Blit(hat, w*2.95f, h*1.40, NULL, true, App->render->renderer, 0.2);
 
-	//r++;
+	r++;
 
 	if (r == 255)
 	{

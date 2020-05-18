@@ -628,13 +628,13 @@ void EntityManager::DestroyEntity(Entity* entity) {
 
 bool EntityManager::Load(pugi::xml_node& entitynode) {
 	newgame=false;
-	MineSprite = App->tex->Load("Resources/entities/drills/MineSprite.png");
-	CuartelLab = App->tex->Load("Resources/entities/Cuarteles/cuartel + Lab.png");
+	MineSprite = App->tex->Load("Resources/entities/drills/mine_sprite.png");
+	CuartelLab = App->tex->Load("Resources/entities/barracks/barracks_lab.png");
 	ShipsSprite = App->tex->Load("Resources/entities/ships/ships_spritesheet.png");
 	BaseSprite = App->tex->Load("Resources/entities/bases/bases.png");
-	Titanium = App->tex->Load("Resources/entities/Minerals/titanium1.png");
-	Copper = App->tex->Load("Resources/entities/Minerals/copper1.png");
-	PowerGeneratorSprite = App->tex->Load("Resources/entities/Lighting.png");
+	Titanium = App->tex->Load("Resources/entities/minerals/titanium1.png");
+	Copper = App->tex->Load("Resources/entities/minerals/copper1.png");
+	PowerGeneratorSprite = App->tex->Load("Resources/entities/generator.png");
 	int iterations = entitynode.child("numEntities").attribute("value").as_uint();
 	pugi::xml_node CurrentEntity = entitynode.child("entity");
 	for (int i = 0; i != iterations; ++i) {

@@ -162,11 +162,12 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 		backButton = App->gui->AddButton(430, 290, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, nullptr, this);
 		fullScreen = App->gui->AddButton(500, 500, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
 		about = App->gui->AddButton(500, 600, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-		sliderbar = App->gui->AddSlider(100, 100, true, false, optionsMenu, this, 1000);
+		fxsliderbar = App->gui->AddSlider(100, 100, true, false, optionsMenu, this, 76);
+		mussliderbar = App->gui->AddSlider(100, 175, true, false, optionsMenu, this, 76);
 		App->gui->AddText(55, 25, "FULLSCREEN", App->font->Small, { 255,255,255 }, 42, false, false, fullScreen);
 		App->gui->AddText(150, 35, "OPTIONS MENU", App->font->Small, { 236,178,0 }, 42, false, false, optionsMenu);
 		App->gui->AddText(70, 100, "FX", App->font->Small, { 236,178,0 }, 42, false, false, optionsMenu);
-		App->gui->AddText(50, 175, "MUSIC", App->font->Small, { 236,178,0 }, 42, false, false, optionsMenu);
+		App->gui->AddText(30, 175, "MUSIC", App->font->Small, { 236,178,0 }, 42, false, false, optionsMenu);
 		App->gui->AddText(65, 25, "ABOUT US", App->font->Small, { 255,255,255 }, 42, false, false, about);
 
 	}
@@ -174,9 +175,9 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 		App->gui->RemoveUiElement(backButton);
 		App->gui->RemoveUiElement(optionsMenu);
 		App->gui->RemoveUiElement(fullScreen);
-		App->gui->RemoveUiElement(fxBar);
-		App->gui->RemoveUiElement(soundBar);
 		App->gui->RemoveUiElement(about);
+		App->gui->RemoveUiElement(fxsliderbar);
+		App->gui->RemoveUiElement(mussliderbar);
 	}
 	else if (element == fullScreen) {
 

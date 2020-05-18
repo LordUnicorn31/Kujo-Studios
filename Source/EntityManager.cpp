@@ -113,6 +113,15 @@ EntityManager::EntityManager(): j1Module(),MineSprite(NULL),CuartelLab(NULL),Bas
 	Animations.PowerGeneratorIdle.speed = 4.0f;
 	Animations.BuildPowerGenerator.PushBack({128,0,64,64});
 	*/
+	BuildCost[1] = { 0,0 };
+	BuildCost[2] = { 60,0 };
+	BuildCost[3] = { 200,0 };
+	BuildCost[4] = { 300,0 };
+	BuildCost[5] = { 0,60 };
+	BuildCost[6] = { 0,400 };
+	BuildCost[7] = { 0,300 };
+	BuildCost[8] = { 0,200 };
+	BuildCost[9] = { 200,0 };
 }
 
 EntityManager::~EntityManager() {
@@ -186,12 +195,12 @@ bool EntityManager::Start() {
 		PowerGeneratorSprite = App->tex->Load("Resources/entities/Lighting.png");
 		GenerateResources(15, 15);
 		CreateEntity(AviableEntities::base, iPoint(610, 300));
-		Resources[0] = 60;
-		Resources[1] = 60;
+		Resources[0] = 250;
+		Resources[1] = 250;
 	}
 	Panel = App->gui->AddImage(0, 0, { 1024,0,226,720 }, true, false, nullptr, this);
-	CopperString = App->gui->AddText(160, 20, (std::to_string(Resources[0]).c_str()), App->font->ResourcesPanel, { 0,0,255,255 }, 20, false, false, App->scene->Info);
-	TitaniumString = App->gui->AddText(262, 20, (std::to_string(Resources[1]).c_str()), App->font->ResourcesPanel, { 0,0,255,255 }, 20, false, false, App->scene->Info);
+	CopperString = App->gui->AddText(160, 20, (std::to_string(Resources[0]).c_str()), App->font->ResourcesPanel, { 236,178,0,255 }, 20, false, false, App->scene->Info);
+	TitaniumString = App->gui->AddText(262, 20, (std::to_string(Resources[1]).c_str()), App->font->ResourcesPanel, { 236,178,0,255 }, 20, false, false, App->scene->Info);
 	CurrentAction = ActionNone;
 	return true;
 }
@@ -337,7 +346,6 @@ void EntityManager::HandleInput() {
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
 			//Mirar si les tiles son walkables
 			iPoint Tile = App->map->WorldToMap(x, y);
-
 			//Si o son, enviari el collector a construir (ES EL SELECTED!!!) i ferlo unselectable fins k ledifici s'acabi de construir
 			//CHECK RECT WALCKABILITY
 			//CHACK THAT THERE IS NO BUILDING ENTTITY IN THAT SQUARE
@@ -352,16 +360,33 @@ void EntityManager::HandleInput() {
 					}
 				}
 				if (build) {
-					App->gui->RemoveUiChilds(Panel);
-					CreateEntity(ToCreate, iPoint(x, y));
-					((Ai*)SelectedEntities.front())->Working = true;
-					((Ai*)SelectedEntities.front())->WorkingTime = ((Building*)entities.back())->ConstructionTime;
-					SelectedEntities.front()->selected = false;
-					App->pathfinding->CreatePath(((Ai*)SelectedEntities.front())->TilePos, Tile);
-					((Ai*)SelectedEntities.front())->path = *App->pathfinding->GetLastPath();
-					((Ai*)SelectedEntities.front())->OnDestination = false;
-					SelectedEntities.clear();
+					if (EnoughResources(ToCreate)) {
+						PayCost(ToCreate);
+						App->gui->RemoveUiChilds(Panel);
+						CreateEntity(ToCreate, iPoint(x, y));
+						((Ai*)SelectedEntities.front())->Working = true;
+						((Ai*)SelectedEntities.front())->WorkingTime = ((Building*)entities.back())->ConstructionTime;
+						SelectedEntities.front()->selected = false;
+						App->pathfinding->CreatePath(((Ai*)SelectedEntities.front())->TilePos, Tile);
+						((Ai*)SelectedEntities.front())->path = *App->pathfinding->GetLastPath();
+						((Ai*)SelectedEntities.front())->OnDestination = false;
+						SelectedEntities.clear();
+					}
+					else {
+						NotEnaughResourcesText = App->gui->AddText(20, 500, "Not enaugh resources", App->font->Small, { 0,0,255,0 }, 16, false, false, Panel);
+						build = false;
+						App->gui->RemoveUiElement(CopperIcon);
+						App->gui->RemoveUiElement(TitaniumIcon);;
+						App->gui->RemoveUiElement(Coppernum);
+						App->gui->RemoveUiElement(Titaniumnum);
+					}
 				}
+			}
+			else {
+				App->gui->RemoveUiElement(CopperIcon);
+				App->gui->RemoveUiElement(TitaniumIcon);;
+				App->gui->RemoveUiElement(Coppernum);
+				App->gui->RemoveUiElement(Titaniumnum);
 			}
 			CurrentAction = ActionNone;
 			ToCreate = AviableEntities::none;
@@ -383,12 +408,28 @@ void EntityManager::HandleInput() {
 			}
 			else if (App->gui->UiUnderMouse() != BuildButton) {
 				App->gui->RemoveUiElement(BuildButton);
+				App->gui->RemoveUiElement(CopperIcon);
+				App->gui->RemoveUiElement(TitaniumIcon);
+				App->gui->RemoveUiElement(NotEnaughResourcesText);
+				App->gui->RemoveUiElement(Coppernum);
+				App->gui->RemoveUiElement(Titaniumnum);
+				NotEnaughResourcesText = nullptr;
 				BuildButton = nullptr;
+				CopperIcon = nullptr;
+				TitaniumIcon = nullptr;
 			}
 			else {
 				//fer una cola de entities per crear
-				((Building*)SelectedEntities.front())->BuildingQueue.push_back(ToCreate);
-				((Building*)SelectedEntities.front())->ToBuild = true;
+				if (EnoughResources(ToCreate)) {
+					PayCost(ToCreate);
+					((Building*)SelectedEntities.front())->BuildingQueue.push_back(ToCreate);
+					((Building*)SelectedEntities.front())->ToBuild = true;
+				}
+				else {
+					if (NotEnaughResourcesText == nullptr) {
+						NotEnaughResourcesText = App->gui->AddText(20, 500, "Not enaugh resources", App->font->Small, { 0,0,255,0 }, 16, false, false, Panel);
+					}
+				}
 			}
 		}
 		break;
@@ -519,51 +560,64 @@ Entity* EntityManager::CreateEntity(AviableEntities type,iPoint position) {
 	case AviableEntities::base:
 		ret = new Building(BuildingType::Base, position);
 		ret->sprite = BaseSprite;
+		entities.insert(eastl::find(entities.cbegin(), entities.cend(), FirstBuilding), ret);
+		FirstBuilding = ret;
 		break;
 	case AviableEntities::mine:
 		ret = new Building(BuildingType::Mine, position);
 		ret->sprite = MineSprite;
+		entities.insert(eastl::find(entities.cbegin(), entities.cend(), FirstBuilding), ret);
+		FirstBuilding = ret;
 		break;
 	case AviableEntities::cuartel:
 		ret = new Building(BuildingType::Cuartel, position);
 		ret->sprite = CuartelLab;
+		entities.insert(eastl::find(entities.cbegin(), entities.cend(), FirstBuilding), ret);
+		FirstBuilding = ret;
 		break;
 	case AviableEntities::ship_factory:
 		ret = new Building(BuildingType::Spaceship_factory, position);
 		ret->sprite = CuartelLab;
+		entities.insert(eastl::find(entities.cbegin(), entities.cend(), FirstBuilding), ret);
+		FirstBuilding = ret;
 		break;
 	case AviableEntities::PowerGenerator:
 		ret = new Building(BuildingType::PowerGenerator, position);
 		ret->sprite = PowerGeneratorSprite;
+		entities.insert(eastl::find(entities.cbegin(), entities.cend(), FirstBuilding), ret);
+		FirstBuilding = ret;
 		break;
 	case AviableEntities::collector:
 		ret = new Ai(AiType::Collector,position);
 		ret->sprite = ShipsSprite;
+		entities.push_back(ret);
 		break;
 	case AviableEntities::gold:
 		ret = new Resource(ResourceType::Gold, position);
 		ret->sprite = Copper;
+		entities.push_front(ret);
 		break;
 	case AviableEntities::ore:
 		ret = new Resource(ResourceType::Ore,position);
 		ret->sprite = Titanium;
+		entities.push_front(ret);
 		break;
 	case AviableEntities::redship:
 		ret = new Ai(AiType::Basic_Unit,position);
 		ret->sprite = ShipsSprite;
+		entities.push_back(ret);
 		break;
 	case AviableEntities::blueship:
 		ret = new Ai(AiType::Ranged_Unit, position);
 		ret->sprite = ShipsSprite;
+		entities.push_back(ret);
 		break;
 	case AviableEntities::greenship:
 		ret = new Ai(AiType::Special_Unit, position);
 		ret->sprite = ShipsSprite;
+		entities.push_back(ret);
 		break;
 	}
-
-	if (ret != nullptr)
-		entities.push_back(ret);
 
 	return ret;
 }
@@ -653,16 +707,43 @@ void EntityManager::ui_callback(UiElement* element) {
 		if (((UiEntityButton*)element)->entitytype == EntityType::TypeBuilding) {
 			CurrentAction = ActionConstruction;
 			ToCreate = ((UiEntityButton*)element)->entity;
+			CopperIcon = App->gui->AddImage(20, 450, { 679,501,28,29 }, false, false, Panel, nullptr);
+			TitaniumIcon = App->gui->AddImage(110, 450, { 641,498,30,31 }, false, false, Panel, nullptr);
+			Coppernum = App->gui->AddText(55, 450, std::to_string(((int)GetCost(ToCreate)[0])).c_str(), App->font->ResourcesPanel, { 0,0,255,255 }, 20, false, false, Panel, nullptr);
+			Titaniumnum = App->gui->AddText(145, 450, std::to_string(((int)GetCost(ToCreate)[1])).c_str(), App->font->ResourcesPanel, { 0,0,255,255 }, 20, false, false, Panel, nullptr);
+			App->gui->RemoveUiElement(NotEnaughResourcesText);
 		}
 		else if (((UiEntityButton*)element)->entitytype == EntityType::TypeAi) {
-			BuildButton= App->gui->AddButton(25, 550, { 1281,486,163,49 }, { 1450,486,163,49 }, { 1626,486,163,49 }, true, false, Panel, this);
-			App->gui->AddText(60, 16, "BUILD", App->font->Small, { 0, 255, 255 }, 42, false, false, BuildButton);
 			CurrentAction = ActionTraining;
 			ToCreate = ((UiEntityButton*)element)->entity;
+			BuildButton= App->gui->AddButton(25, 550, { 1281,486,163,49 }, { 1450,486,163,49 }, { 1626,486,163,49 }, true, false, Panel, this);
+			App->gui->AddText(60, 16, "BUILD", App->font->Small, { 0, 255, 255 }, 42, false, false, BuildButton);
+			CopperIcon = App->gui->AddImage(20, 450, { 679,501,28,29 }, false, false, Panel, nullptr);
+			TitaniumIcon = App->gui->AddImage(110, 450, { 641,498,30,31 }, false, false, Panel, nullptr);
+			Coppernum = App->gui->AddText(55, 450, std::to_string(((int)GetCost(ToCreate)[0])).c_str(), App->font->ResourcesPanel, { 0,0,255,255 }, 20, false, false, Panel, nullptr);
+			Titaniumnum = App->gui->AddText(145, 450, std::to_string(((int)GetCost(ToCreate)[1])).c_str(), App->font->ResourcesPanel, { 0,0,255,255 }, 20, false, false, Panel, nullptr);
+			App->gui->RemoveUiElement(NotEnaughResourcesText);
 		}
 	}
 }
 
 const eastl::list<Entity*>& EntityManager::GetEntities()const {
 	return entities;
+}
+
+bool EntityManager::EnoughResources(AviableEntities toBuild) {
+	eastl::array<float,2>EntityCost= BuildCost[(uint)toBuild];
+	if (Resources[0] >= EntityCost[0] && Resources[1] >= EntityCost[1])
+		return true;
+	return false;
+}
+
+void EntityManager::PayCost(AviableEntities toPay) {
+	eastl::array<float, 2>EntityCost = BuildCost[(uint)toPay];
+	Resources[0] -= EntityCost[0];
+	Resources[1] -= EntityCost[1];
+}
+
+const eastl::array<float, 2> EntityManager::GetCost(AviableEntities Entity)const {
+	return BuildCost[(uint)Entity];
 }

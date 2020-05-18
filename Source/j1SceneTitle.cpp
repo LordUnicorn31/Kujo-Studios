@@ -44,13 +44,13 @@ bool j1SceneTitle::Start()
 
 
 	NewGameButton = App->gui->AddButton(500, 390, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(15, 16, "NEW GAME", nullptr, { 0,255,0,255 }, 32, false, false, NewGameButton);
+	App->gui->AddText(15, 16, "NEW GAME", nullptr, { 236,178,0,255 }, 32, false, false, NewGameButton);
 	ContinueButton = App->gui->AddButton(500, 470, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(20, 16, "CONTINUE", nullptr, { 0,255,0,255 }, 32, false, false, ContinueButton);
+	App->gui->AddText(20, 16, "CONTINUE", nullptr, { 65,175,94,255 }, 32, false, false, ContinueButton);
 	exitButton = App->gui->AddButton(500, 630, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(75, 16, "EXIT", nullptr, { 255,0,0,255 }, 32, false, false, exitButton);
+	App->gui->AddText(75, 16, "EXIT", nullptr, { 152,30,30,255 }, 32, false, false, exitButton);
 	optionsButton = App->gui->AddButton(500, 550, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(32, 16, "OPTIONS", nullptr, { 0, 255, 255 }, 32, false, false, optionsButton);
+	App->gui->AddText(32, 16, "OPTIONS", nullptr, { 16, 173, 171 }, 32, false, false, optionsButton);
 	App->gui->AddText(10, 690, "2020 KUJO STUDIOS", App->font->Small, { 255,255,255,255 }, 16, false, false);
 	
 
@@ -130,7 +130,7 @@ void j1SceneTitle::Init()
 }
 
 void j1SceneTitle::ui_callback(UiElement* element) {
-	if (element == NewGameButton) {	
+	if (element == NewGameButton) {
 		App->audio->PlayFx(buttonFx);
 		App->transition->FadeToBlack(App->sceneTitle, App->sceneTutorial, 2.0f);
 		App->audio->UnloadMusic();
@@ -155,24 +155,36 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 	}
 	else if (element == optionsButton) {
 		App->audio->PlayFx(buttonFx);
-		
-		optionsMenu=App->gui->AddButton(400, 250, { 20,540,446,465 }, { 20,540,446,465 }, { 20,540,446,465 }, true, false, nullptr, this);
-		backButton= App->gui->AddButton(430, 270, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, nullptr, this);
-		fullScreen = App->gui->AddButton(500, 450, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-		fxBar = App->gui->AddButton(500, 350, { 1286,567,206,23 }, { 1286,567,206,23 }, { 1286,567,206,23 }, true, false, nullptr, this);
+
+		optionsMenu = App->gui->AddButton(400, 250, { 20,540,446,465 }, { 20,540,446,465 }, { 20,540,446,465 }, true, false, nullptr, this);
+		backButton = App->gui->AddButton(430, 290, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, nullptr, this);
+		fullScreen = App->gui->AddButton(500, 500, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+		about = App->gui->AddButton(500, 600, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+		fxBar = App->gui->AddButton(520, 350, { 1282,555,228,20 }, { 1282,555,228,20 }, { 1282,555,228,20 }, true, false, nullptr, this);
+		fxSlider = App->gui->AddButton(0, 0, { 1282,584,20,20 }, { 1282,584,20,20 }, { 1282,584,20,20 }, true, true, fxBar, this);
+		soundBar = App->gui->AddButton(520, 425, { 1282,555,228,20 }, { 1282,555,228,20 }, { 1282,555,228,20 }, true, false, nullptr, this);
+		soundSlider = App->gui->AddButton(0, 0, { 1282,584,20,20 }, { 1282,584,20,20 }, { 1282,584,20,20 }, true, true, soundBar, this);
 		App->gui->AddText(55, 25, "FULLSCREEN", App->font->Small, { 255,255,255 }, 42, false, false, fullScreen);
-		App->gui->AddText(150, 20, "OPTIONS MENU", App->font->Small, { 255,255,255 }, 42, false, false, optionsMenu);
-	
+		App->gui->AddText(150, 35, "OPTIONS MENU", App->font->Small, { 236,178,0 }, 42, false, false, optionsMenu);
+		App->gui->AddText(70, 100, "FX", App->font->Small, { 236,178,0 }, 42, false, false, optionsMenu);
+		App->gui->AddText(50, 175, "MUSIC", App->font->Small, { 236,178,0 }, 42, false, false, optionsMenu);
+		App->gui->AddText(65, 25, "ABOUT US", App->font->Small, { 255,255,255 }, 42, false, false, about);
+
 	}
 	else if (element == backButton) {
 		App->gui->RemoveUiElement(backButton);
 		App->gui->RemoveUiElement(optionsMenu);
 		App->gui->RemoveUiElement(fullScreen);
 		App->gui->RemoveUiElement(fxBar);
+		App->gui->RemoveUiElement(soundBar);
+		App->gui->RemoveUiElement(about);
 	}
 	else if (element == fullScreen) {
 
 		App->win->Fullscreen();
 	}
-	
+	else if (element == about) {
+
+		ShellExecuteA(NULL, "open", "https://github.com/LordUnicorn31/Kujo-Studios", NULL, NULL, SW_SHOWNORMAL);
+	}
 }

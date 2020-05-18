@@ -41,6 +41,8 @@ bool j1LoseScene::Start()
 	background = App->tex->Load("Resources/Title_menu/Fondo.png");
 	losetext = App->tex->Load("Resources/Lose_screen/lose_screen.png");
 	App->audio->PlayMusic("Resources/Lose_screen/Epic Fall.ogg");
+	ReturnB = App->gui->AddButton(500, 600, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+	App->gui->AddText(55, 25, "MAIN MENU", App->font->Small, { 255,255,255 }, 42, false, false, ReturnB);
 	return true;
 }
 
@@ -118,4 +120,14 @@ void j1LoseScene::Init()
 
 	active = true;
 }
+
+void j1LoseScene::ui_callback(UiElement* element) {
+	if (element == ReturnB) {
+		App->audio->PlayFx(buttonFx);
+		App->transition->FadeToBlack(App->losescene, App->sceneTitle, 2.0f);
+		App->audio->UnloadMusic();
+		App->gui->RemoveUiElement(ReturnB);
+	}
+}
+
 

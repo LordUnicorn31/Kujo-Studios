@@ -78,10 +78,11 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args),save_game("Resourc
 	AddModule(collisions);
 	AddModule(minimap);
 	AddModule(font);
-	AddModule(gui);
-	AddModule(transition);
 	AddModule(winscene);
 	AddModule(losescene);
+	AddModule(gui);
+	AddModule(transition);
+	
 	AddModule(particle);
 	//AddModule(dialog);
 	AddModule(fow);

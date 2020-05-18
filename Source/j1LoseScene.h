@@ -33,14 +33,17 @@ public:
 
 	void Init();
 
-
+	void ui_callback(UiElement* element);
 
 private:
 
 	SDL_Texture* Copy;
 	SDL_Texture* background;
 	SDL_Texture* losetext;
+	
+	UiElement* ReturnB;
 
+	int buttonFx;
 	bool Exit;
 
 

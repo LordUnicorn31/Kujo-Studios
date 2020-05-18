@@ -115,7 +115,7 @@ EntityManager::EntityManager(): j1Module(),MineSprite(NULL),CuartelLab(NULL),Bas
 	*/
 	BuildCost[1] = { 0,0 };
 	BuildCost[2] = { 60,0 };
-	BuildCost[3] = { 30,30 };
+	BuildCost[3] = { 200,0 };
 	BuildCost[4] = { 300,0 };
 	BuildCost[5] = { 0,60 };
 	BuildCost[6] = { 0,400 };
@@ -375,8 +375,18 @@ void EntityManager::HandleInput() {
 					else {
 						NotEnaughResourcesText = App->gui->AddText(20, 500, "Not enaugh resources", App->font->Small, { 0,0,255,0 }, 16, false, false, Panel);
 						build = false;
+						App->gui->RemoveUiElement(CopperIcon);
+						App->gui->RemoveUiElement(TitaniumIcon);;
+						App->gui->RemoveUiElement(Coppernum);
+						App->gui->RemoveUiElement(Titaniumnum);
 					}
 				}
+			}
+			else {
+				App->gui->RemoveUiElement(CopperIcon);
+				App->gui->RemoveUiElement(TitaniumIcon);;
+				App->gui->RemoveUiElement(Coppernum);
+				App->gui->RemoveUiElement(Titaniumnum);
 			}
 			CurrentAction = ActionNone;
 			ToCreate = AviableEntities::none;
@@ -684,17 +694,21 @@ void EntityManager::ui_callback(UiElement* element) {
 		if (((UiEntityButton*)element)->entitytype == EntityType::TypeBuilding) {
 			CurrentAction = ActionConstruction;
 			ToCreate = ((UiEntityButton*)element)->entity;
+			CopperIcon = App->gui->AddImage(20, 450, { 679,501,28,29 }, false, false, Panel, nullptr);
+			TitaniumIcon = App->gui->AddImage(110, 450, { 641,498,30,31 }, false, false, Panel, nullptr);
+			Coppernum = App->gui->AddText(55, 450, std::to_string(((int)GetCost(ToCreate)[0])).c_str(), App->font->ResourcesPanel, { 0,0,255,255 }, 20, false, false, Panel, nullptr);
+			Titaniumnum = App->gui->AddText(145, 450, std::to_string(((int)GetCost(ToCreate)[1])).c_str(), App->font->ResourcesPanel, { 0,0,255,255 }, 20, false, false, Panel, nullptr);
 			App->gui->RemoveUiElement(NotEnaughResourcesText);
 		}
 		else if (((UiEntityButton*)element)->entitytype == EntityType::TypeAi) {
+			CurrentAction = ActionTraining;
+			ToCreate = ((UiEntityButton*)element)->entity;
 			BuildButton= App->gui->AddButton(25, 550, { 1281,486,163,49 }, { 1450,486,163,49 }, { 1626,486,163,49 }, true, false, Panel, this);
 			App->gui->AddText(60, 16, "BUILD", App->font->Small, { 0, 255, 255 }, 42, false, false, BuildButton);
 			CopperIcon = App->gui->AddImage(20, 450, { 679,501,28,29 }, false, false, Panel, nullptr);
-			TitaniumIcon = App->gui->AddImage(100, 450, { 641,498,30,31 }, false, false, Panel, nullptr);
-			CurrentAction = ActionTraining;
-			ToCreate = ((UiEntityButton*)element)->entity;
+			TitaniumIcon = App->gui->AddImage(110, 450, { 641,498,30,31 }, false, false, Panel, nullptr);
 			Coppernum = App->gui->AddText(55, 450, std::to_string(((int)GetCost(ToCreate)[0])).c_str(), App->font->ResourcesPanel, { 0,0,255,255 }, 20, false, false, Panel, nullptr);
-			Titaniumnum = App->gui->AddText(135, 450, std::to_string(((int)GetCost(ToCreate)[1])).c_str(), App->font->ResourcesPanel, { 0,0,255,255 }, 20, false, false, Panel, nullptr);
+			Titaniumnum = App->gui->AddText(145, 450, std::to_string(((int)GetCost(ToCreate)[1])).c_str(), App->font->ResourcesPanel, { 0,0,255,255 }, 20, false, false, Panel, nullptr);
 			App->gui->RemoveUiElement(NotEnaughResourcesText);
 		}
 	}

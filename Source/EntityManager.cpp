@@ -560,51 +560,64 @@ Entity* EntityManager::CreateEntity(AviableEntities type,iPoint position) {
 	case AviableEntities::base:
 		ret = new Building(BuildingType::Base, position);
 		ret->sprite = BaseSprite;
+		entities.insert(eastl::find(entities.cbegin(), entities.cend(), FirstBuilding), ret);
+		FirstBuilding = ret;
 		break;
 	case AviableEntities::mine:
 		ret = new Building(BuildingType::Mine, position);
 		ret->sprite = MineSprite;
+		entities.insert(eastl::find(entities.cbegin(), entities.cend(), FirstBuilding), ret);
+		FirstBuilding = ret;
 		break;
 	case AviableEntities::cuartel:
 		ret = new Building(BuildingType::Cuartel, position);
 		ret->sprite = CuartelLab;
+		entities.insert(eastl::find(entities.cbegin(), entities.cend(), FirstBuilding), ret);
+		FirstBuilding = ret;
 		break;
 	case AviableEntities::ship_factory:
 		ret = new Building(BuildingType::Spaceship_factory, position);
 		ret->sprite = CuartelLab;
+		entities.insert(eastl::find(entities.cbegin(), entities.cend(), FirstBuilding), ret);
+		FirstBuilding = ret;
 		break;
 	case AviableEntities::PowerGenerator:
 		ret = new Building(BuildingType::PowerGenerator, position);
 		ret->sprite = PowerGeneratorSprite;
+		entities.insert(eastl::find(entities.cbegin(), entities.cend(), FirstBuilding), ret);
+		FirstBuilding = ret;
 		break;
 	case AviableEntities::collector:
 		ret = new Ai(AiType::Collector,position);
 		ret->sprite = ShipsSprite;
+		entities.push_back(ret);
 		break;
 	case AviableEntities::gold:
 		ret = new Resource(ResourceType::Gold, position);
 		ret->sprite = Copper;
+		entities.push_front(ret);
 		break;
 	case AviableEntities::ore:
 		ret = new Resource(ResourceType::Ore,position);
 		ret->sprite = Titanium;
+		entities.push_front(ret);
 		break;
 	case AviableEntities::redship:
 		ret = new Ai(AiType::Basic_Unit,position);
 		ret->sprite = ShipsSprite;
+		entities.push_back(ret);
 		break;
 	case AviableEntities::blueship:
 		ret = new Ai(AiType::Ranged_Unit, position);
 		ret->sprite = ShipsSprite;
+		entities.push_back(ret);
 		break;
 	case AviableEntities::greenship:
 		ret = new Ai(AiType::Special_Unit, position);
 		ret->sprite = ShipsSprite;
+		entities.push_back(ret);
 		break;
 	}
-
-	if (ret != nullptr)
-		entities.push_back(ret);
 
 	return ret;
 }

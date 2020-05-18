@@ -123,6 +123,7 @@ private:
 	UiElement* Titaniumnum;
 	eastl::array<eastl::array<float, 2>, (size_t)AviableEntities::numentities>BuildCost;
 	const eastl::array<float, 2> GetCost(AviableEntities Entity) const;
+	Entity* FirstBuilding;
 	//max_resouces[]
 	//current_resouces[]
 };

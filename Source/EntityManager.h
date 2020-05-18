@@ -33,9 +33,11 @@ enum class AviableEntities: unsigned char {
 	greenship,
 	blueship,
 	redship,
+	PowerGenerator,
 	gold,
 	ore,
-	PowerGenerator
+
+	numentities
 };
 
 /*struct EntitiesAnimations {
@@ -92,6 +94,8 @@ public:
 private:
 	bool newgame;
 	void GenerateResources(int n_gold, int n_ore);
+	bool EnoughResources(AviableEntities toBuild);
+	void PayCost(AviableEntities toPay);
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&);
 	eastl::list <Entity*>entities;
@@ -109,9 +113,16 @@ private:
 	void HandleInput();
 	AviableEntities ToCreate;
 	UiElement* BuildButton;
+	UiElement* NotEnaughResourcesText;
 	InputActions CurrentAction;
 	UiElement* CopperString;
 	UiElement* TitaniumString;
+	UiElement* CopperIcon;
+	UiElement* TitaniumIcon;
+	UiElement* Coppernum;
+	UiElement* Titaniumnum;
+	eastl::array<eastl::array<float, 2>, (size_t)AviableEntities::numentities>BuildCost;
+	const eastl::array<float, 2> GetCost(AviableEntities Entity) const;
 	//max_resouces[]
 	//current_resouces[]
 };

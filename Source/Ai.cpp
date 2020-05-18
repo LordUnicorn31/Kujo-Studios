@@ -146,9 +146,9 @@ void Ai::Draw(float dt) {
         if (selected) {
             App->render->DrawQuad(EntityRect, 0, 255, 0, 255, false);
         }
-       /* for (int i = 0; i != path.size(); ++i) {
-           App->render->DrawQuad({ path[i].x * 32,path[i].y * 32,32,32 }, 255, 0, 0, 127, true);
-        }*/
+        for (int i = 0; i != path.size(); ++i) {
+            App->render->DrawQuad({ path[i].x * 32,path[i].y * 32,32,32 }, 255, 0, 0, 127, true);
+        }
     }
 }
 

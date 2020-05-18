@@ -72,7 +72,7 @@ bool j1Minimap::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_REPEAT) {
 		position.y = 0;
 		position.x = 0;
-	}
+	}*/
 
 	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 		Scale();
@@ -85,7 +85,7 @@ bool j1Minimap::Update(float dt)
 			display = false;
 		else
 			display = true;
-	}*/
+	}
 
 	if (display) {
 		App->render->Blit(minimap_tex, position.x, position.y, NULL, false);

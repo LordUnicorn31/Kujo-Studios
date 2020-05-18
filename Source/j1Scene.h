@@ -42,6 +42,7 @@ public:
 
 	UiElement* Info;
 private:
+
 	UiElement* Pause;
 	UiElement* People;
 	UiElement* Copper;
@@ -54,8 +55,6 @@ private:
 	UiElement* options;
 	UiElement* OptionsMenu;
 	UiElement* BackButton;
-	UiElement* FxSlider;
-	UiElement* MusSlider;
 	int buttonFx;
 	bool exitGame;
 	iPoint mousepos;

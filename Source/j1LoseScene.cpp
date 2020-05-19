@@ -58,7 +58,7 @@ bool j1LoseScene::PreUpdate()
 bool j1LoseScene::Update(float dt)
 {
 	bool ret = true;
-	if (App->input->GetKey(SDL_SCANCODE_LEFT)) {
+	/*if (App->input->GetKey(SDL_SCANCODE_LEFT)) {
 		App->render->camera.x += 5;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT)) {
@@ -69,7 +69,7 @@ bool j1LoseScene::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_DOWN)) {
 		App->render->camera.y -= 5;
-	}
+	}*/
 
 
 	int w = App->win->GetWidth();

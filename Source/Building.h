@@ -3,7 +3,7 @@
 #include "SDL_rect.h"
 #include "EASTL/list.h"
 
-class SDL_Texture;
+struct SDL_Texture;
 class Ai;
 class Animation;
 

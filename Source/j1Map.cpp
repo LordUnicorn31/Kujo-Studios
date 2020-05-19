@@ -335,7 +335,7 @@ bool j1Map::LoadMap()
 		data.height = map.attribute("height").as_int();
 		data.tile_width = map.attribute("tilewidth").as_int();
 		data.tile_height = map.attribute("tileheight").as_int();
-		std::string bg_color = map.attribute("backgroundcolor").as_string();
+		eastl::string bg_color = map.attribute("backgroundcolor").as_string();
 
 		data.background_color.r = 0;
 		data.background_color.g = 0;
@@ -470,7 +470,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 		int i = 0;
 		for(pugi::xml_node tile = layer_data.child("tile"); tile; tile = tile.next_sibling("tile"))
 		{
-			layer->data[i++] = tile.attribute("gid").as_int(0);
+			layer->data[i++] = static_cast<uint>(tile.attribute("gid").as_int(0));
 		}
 	}
 
@@ -529,7 +529,7 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 				
 				if(tileset != NULL)
 				{
-					map[i] = (tile_id - tileset->firstgid) > 0 ? 0 : 1;
+					map[i] = (tile_id - tileset->firstgid) > 0 ? (uchar)0 : (uchar)1;
 				}
 			}
 		}

@@ -41,7 +41,7 @@ struct MapLayer
 	uint*		data;
 	Properties	properties;
 
-	MapLayer() : data(NULL)
+	MapLayer() : data(NULL),width(0),height(0)
 	{}
 
 	~MapLayer()

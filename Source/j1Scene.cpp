@@ -46,7 +46,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Scene::Start()
 {
-	startTime = SDL_GetTicks() / 1000;
+	startTime = (float)SDL_GetTicks() / 1000;
 
 	App->audio->PlayMusic("Resources/audio/music/music_space.ogg");
 	Pause = App->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 871, 736, 39,39 }, { 755, 527, 39,39 }, true, false, nullptr, this);
@@ -127,16 +127,16 @@ void j1Scene::cameramovement(float dt)
 		App->render->camera.x += camspeed * (dt * 1000);
 	}*/
 	if (-App->render->camera.x + App->render->camera.w +64 < (App->map->data.tile_width * App->map->data.width) && (mousepos.x > (width -30) / App->win->scale)) {
-		App->render->camera.x -= camspeed * (dt * 1000);
+		App->render->camera.x -= (int)(camspeed * (dt * 1000));
 	}
 	if (App->render->camera.x < 180 && (mousepos.x < 30 / App->win->scale)){
-		App->render->camera.x += camspeed * (dt * 1000);
+		App->render->camera.x += (int)(camspeed * (dt * 1000));
 	}
 	if (-App->render->camera.y + App->render->camera.h +32< (App->map->data.tile_height * App->map->data.height) && (mousepos.y > (height -30) / App->win->scale)) {
-		App->render->camera.y -= camspeed * (dt * 1000);
+		App->render->camera.y -= (int)(camspeed * (dt * 1000));
 	}
 	if (App->render->camera.y < -64 && (mousepos.y < 30 / App->win->scale)) {
-		App->render->camera.y += camspeed * (dt * 1000);
+		App->render->camera.y += (int)(camspeed * (dt * 1000));
 	}
 }
 

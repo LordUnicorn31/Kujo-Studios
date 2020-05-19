@@ -83,11 +83,11 @@ bool j1SceneLogo::Update(float dt)
 	int w = App->win->GetWidth();
 	int h = App->win->GetHeight();
 
-	App->render->DrawQuad(rect, 150, 0, 0, r);
+	App->render->DrawQuad(rect, 150, 0, 0, (Uint8)r);
 	
-	App->render->Blit(kujo, w*1.55f, h*1.55, NULL, true, App->render->renderer, 0.2);
-	App->render->Blit(studios, w*1.55f, h*3.10f, NULL, true, App->render->renderer, 0.2);
-	App->render->Blit(hat, w*2.95f, h*1.40, NULL, true, App->render->renderer, 0.2);
+	App->render->Blit(kujo, (int)(w*1.55f),(int) (h*1.55), NULL, true, App->render->renderer, 0.2f);
+	App->render->Blit(studios,(int) (w*1.55f), (int)(h*3.10f), NULL, true, App->render->renderer, 0.2f);
+	App->render->Blit(hat, (int)(w*2.95f), (int)(h*1.40), NULL, true, App->render->renderer, 0.2f);
 
 	r++;
 

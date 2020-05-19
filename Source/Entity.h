@@ -2,7 +2,7 @@
 #include "EASTL/array.h"
 #include "SDL_rect.h"
 
-class SDL_Texture;
+struct SDL_Texture;
 class UiElement;
 //class Collider;
 

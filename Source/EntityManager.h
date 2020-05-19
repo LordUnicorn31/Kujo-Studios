@@ -10,7 +10,7 @@
 #define MAXRESOURCES 10000
 
 class Entity;
-class SDL_Texture;
+struct SDL_Texture;
 enum class EntityType : unsigned char;
 class UiElement;
 class Ai;

@@ -2,7 +2,7 @@
 #include "Entity.h"
 #include "p2Point.h"
 
-class SDL_Texture;
+struct SDL_Texture;
 class Building;
 
 enum class ResourceType : unsigned char {

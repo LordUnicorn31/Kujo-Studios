@@ -64,7 +64,7 @@ bool j1Transitions::Update(float dt)
 		if (screen.x >= 0)
 			screen.x = 0;
 		else
-			screen.x += ((float)(screen.w) / (float)total_time)* dt * (float)now * 2;
+			screen.x += (int)(((float)(screen.w) / (float)total_time)* dt * (float)now * 2);
 
 		if (now >= total_time)
 		{
@@ -88,7 +88,7 @@ bool j1Transitions::Update(float dt)
 	case fade_step::slide_out:
 
 		normalized = 1.0f;
-		screen.x += ((float)(screen.w) / (float)total_time) * dt * (float)now * 2;
+		screen.x += (int)(((float)(screen.w) / (float)total_time) * dt * (float)now * 2);
 		if (now >= total_time) {
 			current_step = fade_step::none;
 		}
@@ -96,7 +96,7 @@ bool j1Transitions::Update(float dt)
 		break;
 	}
 
-	SDL_SetRenderDrawColor(App->render->renderer, 0.0f, 0.0f, 0.0f, (Uint8)(normalized * 255.0f));
+	SDL_SetRenderDrawColor(App->render->renderer, (Uint8)0, (Uint8)0, (Uint8)0, (Uint8)(normalized * 255.0f));
 	SDL_RenderFillRect(App->render->renderer, &screen);
 
 	return true;

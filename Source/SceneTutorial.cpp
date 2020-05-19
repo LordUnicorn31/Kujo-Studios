@@ -50,7 +50,7 @@ bool SceneTutorial::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool SceneTutorial::Start()
 {
-	startTime = SDL_GetTicks() / 1000;
+	startTime = (float)(SDL_GetTicks() / 1000);
 
 	background = App->tex->Load("Resources/gui/base.png");
 	character = App->tex->Load("Resources/gui/char.png");

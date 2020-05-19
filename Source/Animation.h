@@ -1,6 +1,7 @@
 #pragma once
 #include "p2Defs.h"
 #include "EASTL/string.h"
+#include "EASTL/array.h"
 #include "SDL.h"
 #define MAX_FRAMES 60
 
@@ -27,10 +28,10 @@ class Animation
 public:
 	bool loop = true;
 	float speed = 1.0f;
-	SDL_Rect frames[MAX_FRAMES];
+	eastl::array<SDL_Rect, MAX_FRAMES>frames{};
 
 private:
-	float current_frame;
+	float current_frame=0.0f;
 	int last_frame = 0;
 	int loops = 0;
 

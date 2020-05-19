@@ -75,7 +75,7 @@ bool j1SceneTitle::Update(float dt)
 	int h = App->win->GetHeight();
 
 	App->render->Blit(background, 0, 0, NULL,true, App->render->renderer, 1.5);
-	App->render->Blit(titleLogo, w*1.6f, h*0.6f, NULL, true, App->render->renderer, 0.2);
+	App->render->Blit(titleLogo, (int)(w*1.6f), (int)(h*0.6f), NULL, true, App->render->renderer, 0.2f);
 
 	//Need to create a timer
 	/*if (App->input->GetKey(SDL_SCANCODE_RETURN)) {

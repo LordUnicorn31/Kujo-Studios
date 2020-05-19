@@ -8,14 +8,14 @@
 #include "j1Gui.h"
 //#include "j1Collisions.h"
 
-Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), IsMoving(false), DirectionAngle(270.0f),Armed(false),Working(true),WorkingTime(0.0f),Building(true) {
+Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), speed(0.0f),  DirectionAngle(270.0f), Damage(0), Range(0), IsMoving(false), OnDestination(true),Armed(false),Working(true),WorkingTime(0.0f),Building(true),BuildingTime(0.0f),TotalBuildingTime(0) {
     switch (Atype) {
 	case AiType::Basic_Unit:
         MaxHealth = 100;
-		health = MaxHealth;
+		health = (float)MaxHealth;
 		Damage = 40;
 		Range = 200;
-		speed = 5;
+		speed = 5.0f;
 		//IdleAnimaiton = App->entity->Animations.AttackShip;
         IdleAnimation.PushBack({ 24,23,66,66 });
         IdleAnimation.PushBack({ 121,21,66,66 });
@@ -35,10 +35,10 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
 		break;
     case AiType::Ranged_Unit:
         MaxHealth = 60;
-        health = MaxHealth;
+        health = (float)MaxHealth;
         Damage = 60;
         Range = 350;
-        speed = 6;
+        speed = 6.0f;
         IdleAnimation.PushBack({ 242,28,61,61 });
         IdleAnimation.PushBack({ 377,20,61,61 });
         IdleAnimation.speed = 3.0f;
@@ -57,10 +57,10 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         break;
 	case AiType::Collector:
         MaxHealth = 50;
-        health = MaxHealth;
+        health = (float)MaxHealth;
 		Damage = 0;
 		Range = 100;
-		speed = 3;
+		speed = 3.0f;
         IdleAnimation.PushBack({ 29,147,52,52 });
         IdleAnimation.PushBack({ 131,147,52,52 });
         IdleAnimation.speed = 2.0f;
@@ -77,10 +77,10 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
 		break;
     case AiType::Special_Unit:
         MaxHealth = 150;
-        health = MaxHealth;
+        health = (float)MaxHealth;
         Damage = 100;
         Range = 100;
-        speed = 2;
+        speed = 2.0f;
         IdleAnimation.PushBack({ 29,324,57,57 });
         IdleAnimation.PushBack({ 131,324,57,57 });
         IdleAnimation.speed = 1.5f;
@@ -140,9 +140,9 @@ void Ai::Draw(float dt) {
     //TODO: quan la nau recorre a vegades les diagonals va tremolant al canviar d'angles molt rapid
     if (!Building) {
         if (!Armed)
-            App->render->Blit(sprite, EntityRect.x, EntityRect.y, &IdleAnimation.GetCurrentFrame(dt), true, App->render->renderer, App->win->GetScale(), 1.0f, DirectionAngle);
+            App->render->Blit(sprite, EntityRect.x, EntityRect.y, &IdleAnimation.GetCurrentFrame(dt), true, App->render->renderer, (float)App->win->GetScale(), 1.0f, DirectionAngle);
         else
-            App->render->Blit(sprite, EntityRect.x, EntityRect.y, &ArmedIdleAnimation.GetCurrentFrame(dt), true, App->render->renderer, App->win->GetScale(), 1.0f, DirectionAngle);
+            App->render->Blit(sprite, EntityRect.x, EntityRect.y, &ArmedIdleAnimation.GetCurrentFrame(dt), true, App->render->renderer, (float)App->win->GetScale(), 1.0f, DirectionAngle);
         if (selected) {
             App->render->DrawQuad(EntityRect, 0, 255, 0, 255, false);
         }
@@ -159,7 +159,7 @@ void Ai::DoMovement() {
     {
         DirectionAngle = 270.0f;
         MovementPerformed = true;
-        EntityRect.x -= speed;
+        EntityRect.x -= (int)speed;
         if ((EntityRect.x - NextTile.x * App->map->data.tile_width) <= 0)
         {
             TilePos.x--;
@@ -169,7 +169,7 @@ void Ai::DoMovement() {
     {
         DirectionAngle = 90.0f;
         MovementPerformed = true;
-        EntityRect.x += speed;
+        EntityRect.x += (int)speed;
         if ((EntityRect.x - NextTile.x * App->map->data.tile_width) >= 0)
         {
             TilePos.x++;
@@ -186,7 +186,7 @@ void Ai::DoMovement() {
         else
             DirectionAngle = 0.0f;
         MovementPerformed = true;
-        EntityRect.y -= speed;
+        EntityRect.y -= (int)speed;
         if ((EntityRect.y - NextTile.y * App->map->data.tile_height) <= 0)
         {
             TilePos.y--;
@@ -203,7 +203,7 @@ void Ai::DoMovement() {
         else
             DirectionAngle = 180.0f;
         MovementPerformed = true;
-        EntityRect.y += speed;
+        EntityRect.y += (int)speed;
         if ((EntityRect.y - NextTile.y * App->map->data.tile_height) >= 0)
         {
             TilePos.y++;

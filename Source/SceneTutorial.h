@@ -1,11 +1,11 @@
 #pragma once
-#include "j1Module.h"
+#include "Module.h"
 #include "Animation.h"
 
 struct SDL_Texture;
 class UiElement;
 
-class SceneTutorial : public j1Module
+class SceneTutorial : public Module
 {
 public:
 

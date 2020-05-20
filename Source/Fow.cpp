@@ -1,10 +1,10 @@
 #include "Fow.h"
-#include "j1App.h"
+#include "App.h"
 #include "EntityManager.h"
 #include "Entity.h"
-#include "j1Map.h"
-#include "j1Input.h"
-#include "j1Textures.h"
+#include "Map.h"
+#include "Input.h"
+#include "Textures.h"
 
 Fow::Fow()
 {

@@ -1,20 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="j1App.cpp" />
-    <ClCompile Include="j1Audio.cpp" />
-    <ClCompile Include="j1Fonts.cpp" />
-    <ClCompile Include="j1Gui.cpp" />
-    <ClCompile Include="j1Input.cpp" />
-    <ClCompile Include="j1Map.cpp" />
-    <ClCompile Include="j1Minimap.cpp" />
-    <ClCompile Include="j1PerfTimer.cpp" />
-    <ClCompile Include="j1Render.cpp" />
-    <ClCompile Include="j1Textures.cpp" />
-    <ClCompile Include="j1Timer.cpp" />
-    <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="j1Transitions.cpp" />
     <ClCompile Include="Animation.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
@@ -24,22 +11,12 @@
     <ClCompile Include="EntityManager.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="j1Scene.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="j1SceneLogo.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="j1SceneTitle.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="Deps\pugixml-1.10\src\pugixml.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
     <ClCompile Include="p2Log.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
-    <ClCompile Include="j1Pathfinding.cpp" />
     <ClCompile Include="Ai.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
@@ -49,41 +26,48 @@
     <ClCompile Include="Resources.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="j1Particles.cpp">
-      <Filter>Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Collisions.cpp" />
-    <ClCompile Include="j1WinScene.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="j1LoseScene.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Fow.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="DialogSystem.cpp">
       <Filter>Dialogs</Filter>
     </ClCompile>
     <ClCompile Include="SceneTutorial.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="LoseScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Fow.cpp" />
+    <ClCompile Include="SceneLogo.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="WinScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneTitle.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio.cpp" />
+    <ClCompile Include="Collisions.cpp" />
+    <ClCompile Include="Fonts.cpp" />
+    <ClCompile Include="Gui.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Minimap.cpp" />
+    <ClCompile Include="Pathfinding.cpp" />
+    <ClCompile Include="PerfTimer.cpp" />
+    <ClCompile Include="Render.cpp" />
+    <ClCompile Include="Textures.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Transitions.cpp" />
+    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="App.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="j1App.h" />
-    <ClInclude Include="j1Audio.h" />
-    <ClInclude Include="j1Fonts.h" />
-    <ClInclude Include="j1Gui.h" />
-    <ClInclude Include="j1Input.h" />
-    <ClInclude Include="j1Map.h" />
-    <ClInclude Include="j1Minimap.h" />
-    <ClInclude Include="j1Module.h" />
-    <ClInclude Include="j1PerfTimer.h" />
-    <ClInclude Include="j1Render.h" />
-    <ClInclude Include="j1Textures.h" />
-    <ClInclude Include="j1Timer.h" />
-    <ClInclude Include="j1Window.h" />
-    <ClInclude Include="j1Transitions.h" />
     <ClInclude Include="Animation.h">
       <Filter>Animation</Filter>
     </ClInclude>
@@ -92,15 +76,6 @@
     </ClInclude>
     <ClInclude Include="EntityManager.h">
       <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Scene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="j1SceneLogo.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="j1SceneTitle.h">
-      <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="p2Point.h">
       <Filter>Tools</Filter>
@@ -111,7 +86,6 @@
     <ClInclude Include="p2Defs.h">
       <Filter>Tools</Filter>
     </ClInclude>
-    <ClInclude Include="j1Pathfinding.h" />
     <ClInclude Include="Ai.h">
       <Filter>Entities</Filter>
     </ClInclude>
@@ -121,25 +95,47 @@
     <ClInclude Include="Resources.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="j1Particles.h">
-      <Filter>Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Collisions.h" />
-    <ClInclude Include="j1WinScene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="j1LoseScene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Fow.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="DialogSystem.h">
       <Filter>Dialogs</Filter>
     </ClInclude>
     <ClInclude Include="SceneTutorial.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="LoseScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Fow.h" />
+    <ClInclude Include="SceneLogo.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="WinScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneTitle.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio.h" />
+    <ClInclude Include="Collisions.h" />
+    <ClInclude Include="Fonts.h" />
+    <ClInclude Include="Gui.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="Minimap.h" />
+    <ClInclude Include="Pathfinding.h" />
+    <ClInclude Include="PerfTimer.h" />
+    <ClInclude Include="Render.h" />
+    <ClInclude Include="Textures.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="Transitions.h" />
+    <ClInclude Include="Window.h" />
+    <ClInclude Include="Module.h" />
+    <ClInclude Include="App.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Animation">

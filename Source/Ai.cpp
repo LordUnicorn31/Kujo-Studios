@@ -1,12 +1,12 @@
 #include "EntityManager.h"
 #include "Ai.h"
-#include "j1App.h"
-#include "j1Pathfinding.h"
-#include "j1Input.h"
-#include "j1Map.h"
-#include "j1Window.h"
-#include "j1Gui.h"
-//#include "j1Collisions.h"
+#include "App.h"
+#include "Pathfinding.h"
+#include "Input.h"
+#include "Map.h"
+#include "Window.h"
+#include "Gui.h"
+//#include "Collisions.h"
 
 Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), speed(0.0f),  DirectionAngle(270.0f), Damage(0), Range(0), IsMoving(false), OnDestination(true),Armed(false),Working(true),WorkingTime(0.0f),Building(true),BuildingTime(0.0f),TotalBuildingTime(0) {
     switch (Atype) {

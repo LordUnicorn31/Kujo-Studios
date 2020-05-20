@@ -2,7 +2,7 @@
 #ifndef __FOW_H__
 #define __FOW_H__
 
-#include "j1Module.h"
+#include "Module.h"
 #include "p2Defs.h"
 #include "p2Point.h"
 #include <list>
@@ -44,7 +44,7 @@ struct FOW_Entity
 
 };
 
-class Fow : public j1Module
+class Fow : public Module
 {
 public: // Functions
 

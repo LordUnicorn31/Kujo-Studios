@@ -1,12 +1,12 @@
 #include "EntityManager.h"
 #include "Building.h"
-#include "j1Input.h"
-#include "j1App.h"
-#include "j1Audio.h"
-#include "j1Gui.h"
+#include "Input.h"
+#include "App.h"
+#include "Audio.h"
+#include "Gui.h"
 #include "Ai.h"
-#include "j1Collisions.h"
-#include "j1Fonts.h"
+#include "Collisions.h"
+#include "Fonts.h"
 #include "Animation.h"
 
 Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeBuilding, { Position.x,Position.y,0,0 }), Btype(type),ConstructionTime(0.0f),level(1),OnConstruction(true), ToBuild(false), BuildingEntity(nullptr), BuildHUD(nullptr) {

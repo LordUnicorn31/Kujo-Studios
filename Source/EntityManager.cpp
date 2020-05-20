@@ -1,23 +1,23 @@
-#include "j1Textures.h"
+#include "Textures.h"
 #include "EntityManager.h"
 #include "Entity.h"
 #include "Building.h"
 #include "Ai.h"
 #include "Resources.h"
-#include "j1App.h"
+#include "App.h"
 #include "Animation.h"
-#include "j1Input.h"
-#include "j1Pathfinding.h"
-#include "j1Map.h"
+#include "Input.h"
+#include "Pathfinding.h"
+#include "Map.h"
 #include "p2Log.h"
 #include <time.h>
 #include "EASTL/vector.h"
-#include "j1Gui.h"
-#include "j1Fonts.h"
-#include "j1Scene.h"
+#include "Gui.h"
+#include "Fonts.h"
+#include "GameScene.h"
 #include "EASTL/string.h"
 
-EntityManager::EntityManager(): j1Module(),MineSprite(NULL),CuartelLab(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1.0f / 60.0f)),AccumulatedTime(0.0f),newgame(true),BuildButton(nullptr) {
+EntityManager::EntityManager(): Module(),MineSprite(NULL),CuartelLab(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1.0f / 60.0f)),AccumulatedTime(0.0f),newgame(true),BuildButton(nullptr) {
 	name = "EntityManager";
 	/*
 	//Loading all the entities animations

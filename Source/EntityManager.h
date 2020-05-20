@@ -1,9 +1,9 @@
 #pragma once
-#include "j1Module.h"
+#include "Module.h"
 #include "EASTL/list.h"
 #include "EASTL/array.h"
 #include "p2Point.h"
-#include "j1Render.h"
+#include "Render.h"
 #include "Animation.h"
 
 #define MAXSELECTEDUNITS 33
@@ -67,7 +67,7 @@ enum class AviableEntities: unsigned char {
 	Animation BuildPowerGenerator;
 };*/
 
-class EntityManager :public j1Module {
+class EntityManager :public Module {
 public:
 
 	EntityManager();

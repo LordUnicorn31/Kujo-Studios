@@ -142,7 +142,7 @@ void j1SceneTitle::ui_callback(UiElement* element) {
 	else if (element == ContinueButton) {
 		App->LoadGame();
 		App->audio->PlayFx(buttonFx);
-		App->map->Load("Mainmap.tmx");
+		App->map->Load("mainmap.tmx");
 		int w, h;
 		uchar* data = NULL;
 		if (App->map->CreateWalkabilityMap(w, h, &data))

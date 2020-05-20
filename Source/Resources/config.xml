@@ -2,7 +2,7 @@
 
 <config>
   <app framerate_cap="60">
-    <title>Game Development Testbed</title>
+    <title>Stranded In Space</title>
     <organization>UPC</organization>
   </app>
 	
@@ -11,7 +11,7 @@
   </renderer>
 
   <fonts>
-    <default_font file="Resources/fonts/Mindustry/fonts/font.ttf" size="32"/>
+    <default_font file="Resources/fonts/mindustry/font.ttf" size="32"/>
   </fonts>
   
 

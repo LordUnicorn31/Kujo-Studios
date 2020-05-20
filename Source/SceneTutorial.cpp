@@ -201,7 +201,7 @@ void SceneTutorial::ui_callback(UiElement* element)
 	if (element == continueButton) {
 		App->gui->DeleteAllUiElements();
 		App->audio->PlayFx(buttonFx);
-		App->map->Load("Mainmap.tmx");
+		App->map->Load("mainmap.tmx");
 		int w, h;
 		uchar* data = NULL;
 		if (App->map->CreateWalkabilityMap(w, h, &data))

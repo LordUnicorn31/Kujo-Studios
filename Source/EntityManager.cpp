@@ -7,7 +7,7 @@
 #include "Application.h"
 #include "Animation.h"
 #include "Input.h"
-#include "Pathfinding.h"
+#include "PathFinding.h"
 #include "Map.h"
 #include "p2Log.h"
 #include <time.h>

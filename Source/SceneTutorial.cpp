@@ -14,7 +14,7 @@
 #include "Fonts.h"
 #include "Audio.h"
 #include "SceneTutorial.h"
-#include "Pathfinding.h"
+#include "PathFinding.h"
 #include "LoseScene.h"
 
 SceneTutorial::SceneTutorial() : Module()

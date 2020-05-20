@@ -1,7 +1,7 @@
 #include "EntityManager.h"
 #include "Ai.h"
 #include "Application.h"
-#include "Pathfinding.h"
+#include "PathFinding.h"
 #include "Input.h"
 #include "Map.h"
 #include "Window.h"

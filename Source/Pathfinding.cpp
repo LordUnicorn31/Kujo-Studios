@@ -1,7 +1,7 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "Application.h"
-#include "Pathfinding.h"
+#include "PathFinding.h"
 #include "Ai.h"
 
 PathFinding::PathFinding() : Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH),width(0), height(0)

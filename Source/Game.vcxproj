@@ -226,7 +226,7 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Minimap.cpp" />
     <ClCompile Include="Particles.cpp" />
-    <ClCompile Include="Pathfinding.cpp" />
+    <ClCompile Include="PathFinding.cpp" />
     <ClCompile Include="PerfTimer.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="GameScene.cpp" />
@@ -280,7 +280,7 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClInclude Include="Minimap.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="Particles.h" />
-    <ClInclude Include="Pathfinding.h" />
+    <ClInclude Include="PathFinding.h" />
     <ClInclude Include="PerfTimer.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="GameScene.h" />

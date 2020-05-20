@@ -18,7 +18,7 @@
 #include "Fonts.h"
 #include "Gui.h"
 #include "Transitions.h"
-#include "Pathfinding.h"
+#include "PathFinding.h"
 #include "EntityManager.h"
 #include "Collisions.h"
 #include "WinScene.h"

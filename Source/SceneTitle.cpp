@@ -14,7 +14,7 @@
 #include "Gui.h"
 #include "Fonts.h"
 #include "Audio.h"
-#include "Pathfinding.h"
+#include "PathFinding.h"
 
 SceneTitle::SceneTitle() : Module()
 {

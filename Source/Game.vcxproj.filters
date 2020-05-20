@@ -58,7 +58,6 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Minimap.cpp" />
-    <ClCompile Include="Pathfinding.cpp" />
     <ClCompile Include="PerfTimer.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="Textures.cpp" />
@@ -66,6 +65,7 @@
     <ClCompile Include="Transitions.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="PathFinding.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -127,7 +127,6 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Minimap.h" />
-    <ClInclude Include="Pathfinding.h" />
     <ClInclude Include="PerfTimer.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="Textures.h" />
@@ -136,6 +135,7 @@
     <ClInclude Include="Window.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="PathFinding.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Animation">

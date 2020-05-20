@@ -65,7 +65,7 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transitions.cpp" />
     <ClCompile Include="Window.cpp" />
-    <ClCompile Include="App.cpp" />
+    <ClCompile Include="Application.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -135,7 +135,7 @@
     <ClInclude Include="Transitions.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="Module.h" />
-    <ClInclude Include="App.h" />
+    <ClInclude Include="Application.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Animation">

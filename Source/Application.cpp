@@ -1,7 +1,7 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 
-#include "App.h"
+#include "Application.h"
 #include "Window.h"
 #include "Input.h"
 #include "Render.h"
@@ -29,7 +29,7 @@
 
 #include "SDL.h"
 
-App::App(int argc, char* args[]) : argc(argc), args(args),save_game("Resources/save.xml"),load_game("Resources/save.xml")
+Application::Application(int argc, char* args[]) : argc(argc), args(args),save_game("Resources/save.xml"),load_game("Resources/save.xml")
 {
 	PERF_START(ptimer);
 	freeze = false;
@@ -107,7 +107,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args),save_game("Resources/s
 }
 
 // Destructor
-App::~App()
+Application::~Application()
 {
 	// release modules
 	eastl::list <Module*> ::reverse_iterator it;
@@ -118,7 +118,7 @@ App::~App()
 	modules.clear();
 }
 
-void App::AddModule(Module* module)
+void Application::AddModule(Module* module)
 {
 	module->Init();
 	bool a=modules.empty();
@@ -126,7 +126,7 @@ void App::AddModule(Module* module)
 }
 
 // Called before render is available
-bool App::Awake()
+bool Application::Awake()
 {
 	PERF_START(ptimer);
 	pugi::xml_document	config_file;
@@ -178,7 +178,7 @@ bool App::Awake()
 }
 
 // Called before the first frame
-bool App::Start()
+bool Application::Start()
 {
 	PERF_START(ptimer);
 	bool ret = true;
@@ -197,7 +197,7 @@ bool App::Start()
 
 // Called each loop iteration
 
-bool App::Update()
+bool Application::Update()
 {
 	bool ret = true;
 	PrepareUpdate();
@@ -219,7 +219,7 @@ bool App::Update()
 }
 
 // ---------------------------------------------
-pugi::xml_node App::LoadConfig(pugi::xml_document& config_file) const
+pugi::xml_node Application::LoadConfig(pugi::xml_document& config_file) const
 {
 	pugi::xml_node ret;
 
@@ -234,7 +234,7 @@ pugi::xml_node App::LoadConfig(pugi::xml_document& config_file) const
 }
 
 // ---------------------------------------------
-void App::PrepareUpdate()
+void Application::PrepareUpdate()
 {
 	frame_count++;
 	last_sec_frame_count++;
@@ -246,7 +246,7 @@ void App::PrepareUpdate()
 }
 
 // ---------------------------------------------
-void App::FinishUpdate()
+void Application::FinishUpdate()
 {
 
 	if (want_to_save == true)
@@ -279,7 +279,7 @@ void App::FinishUpdate()
 }
 
 // Call modules before each loop iteration
-bool App::PreUpdate()
+bool Application::PreUpdate()
 {
 	bool ret = true;
 
@@ -295,7 +295,7 @@ bool App::PreUpdate()
 }
 
 // Call modules on each loop iteration
-bool App::DoUpdate()
+bool Application::DoUpdate()
 {
 	bool ret = true;
 	/*p2List_item<Module*>* item;
@@ -325,7 +325,7 @@ bool App::DoUpdate()
 }
 
 // Call modules after each loop iteration
-bool App::PostUpdate()
+bool Application::PostUpdate()
 {
 	bool ret = true;
 
@@ -344,7 +344,7 @@ bool App::PostUpdate()
 }
 
 // Called before quitting
-bool App::CleanUp()
+bool Application::CleanUp()
 {
 	PERF_START(ptimer);
 	bool ret = true;
@@ -362,13 +362,13 @@ bool App::CleanUp()
 }
 
 // ---------------------------------------
-int App::GetArgc() const
+int Application::GetArgc() const
 {
 	return argc;
 }
 
 // ---------------------------------------
-const char* App::GetArgv(int index) const
+const char* Application::GetArgv(int index) const
 {
 	if (index < argc)
 		return args[index];
@@ -377,25 +377,25 @@ const char* App::GetArgv(int index) const
 }
 
 // ---------------------------------------
-const char* App::GetTitle() const
+const char* Application::GetTitle() const
 {
 	return title.c_str();
 }
 
 // ---------------------------------------
-const char* App::GetOrganization() const
+const char* Application::GetOrganization() const
 {
 	return organization.c_str();
 }
 
 // ---------------------------------------
-float App::GetDT() const
+float Application::GetDT() const
 {
 	return dt;
 }
 
 // Load / Save
-void App::LoadGame()
+void Application::LoadGame()
 {
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list
@@ -403,7 +403,7 @@ void App::LoadGame()
 }
 
 // ---------------------------------------
-void App::SaveGame() const
+void Application::SaveGame() const
 {
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list ... should we overwrite ?
@@ -412,12 +412,12 @@ void App::SaveGame() const
 }
 
 // ---------------------------------------
-void App::GetSaveGames(eastl::list<eastl::string>& list_to_fill) const
+void Application::GetSaveGames(eastl::list<eastl::string>& list_to_fill) const
 {
 	// need to add functionality to file_system module for this to work
 }
 
-bool App::LoadGameNow()
+bool Application::LoadGameNow()
 {
 	bool ret = true;
 
@@ -451,7 +451,7 @@ bool App::LoadGameNow()
 	return ret;
 }
 
-bool App::SavegameNow() const
+bool Application::SavegameNow() const
 {
 	bool ret = true;
 

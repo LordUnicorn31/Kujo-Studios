@@ -1,6 +1,6 @@
 #include "p2Defs.h"
 #include "p2Log.h"
-#include "App.h"
+#include "Application.h"
 #include "Render.h"
 #include "Textures.h"
 #include "Fonts.h"
@@ -8,6 +8,7 @@
 #include "Gui.h"
 #include "GameScene.h"
 #include "Entity.h"
+#include "Module.h"
 
 Gui::Gui() : Module()
 {
@@ -46,8 +47,8 @@ bool Gui::PreUpdate()
 bool Gui::Update(float dt) {
 	if (MouseClick() && UiUnderMouse() != nullptr && UiUnderMouse()->interactuable) {
 		focusedUi = UiUnderMouse();
-		if (focusedUi->Module != nullptr && focusedUi->type!=UiTypes::EButton) {
-			focusedUi->Module->ui_callback(focusedUi);
+		if (focusedUi->module != nullptr && focusedUi->type!=UiTypes::EButton) {
+			focusedUi->module->ui_callback(focusedUi);
 		}
 	}
 	else if (MouseClick() && UiUnderMouse() == nullptr)
@@ -55,8 +56,8 @@ bool Gui::Update(float dt) {
 	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
 		focusedUi = FocusNextElement(focusedUi);
 	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
-		if (focusedUi != nullptr && focusedUi->Module != nullptr && focusedUi->type != UiTypes::EButton) {
-			focusedUi->Module->ui_callback(focusedUi);
+		if (focusedUi != nullptr && focusedUi->module != nullptr && focusedUi->type != UiTypes::EButton) {
+			focusedUi->module->ui_callback(focusedUi);
 		}
 	Update_Ui();
 	Draw_Ui();
@@ -233,7 +234,7 @@ UiElement* Gui::AddSlider(int x, int y, bool active, bool draggable, UiElement* 
 }
 
 
-UiElement::UiElement(int x, int y, int w, int h, bool interactuable, bool draggeable, UiTypes uitype, UiElement* parent, Module* elementmodule) : type(uitype), parent(parent), Module(elementmodule), ui_rect({ x,y,w,h }), interactuable(interactuable), draggable(draggeable) { if (parent != nullptr)SetLocalPos(x, y); }
+UiElement::UiElement(int x, int y, int w, int h, bool interactuable, bool draggeable, UiTypes uitype, UiElement* parent, Module* elementmodule) : type(uitype), parent(parent), module(elementmodule), ui_rect({ x,y,w,h }), interactuable(interactuable), draggable(draggeable) { if (parent != nullptr)SetLocalPos(x, y); }
 
 UiElement::~UiElement() {};
 
@@ -394,7 +395,7 @@ void UiEntityButton::Update(int dx, int dy) {
 		selected = !selected;
 		if (selected) {
 			current_state = Button_state::clicked;
-			Module->ui_callback(this);
+			module->ui_callback(this);
 		}
 		else {
 			current_state = Button_state::unhovered;

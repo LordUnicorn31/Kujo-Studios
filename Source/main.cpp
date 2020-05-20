@@ -1,5 +1,5 @@
 #include "p2Log.h"
-#include "App.h"
+#include "Application.h"
 #include "pugixml.hpp"
 #include <SDL.h>
 
@@ -23,7 +23,7 @@ void* __cdecl operator new[](size_t size, size_t alignment, size_t alignmentOffs
 	return new uint8_t[size];
 }
 
-App* App = NULL;
+Application* App = NULL;
 
 int main(int argc, char* args[])
 {
@@ -41,7 +41,7 @@ int main(int argc, char* args[])
 		case MainState::CREATE:
 			LOG("CREATION PHASE ===============================");
 
-			App = new App(argc, args);
+			App = new Application(argc, args);
 
 			if (App != NULL)
 				state = MainState::AWAKE;

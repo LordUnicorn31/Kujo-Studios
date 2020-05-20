@@ -35,15 +35,15 @@ class Fow;
 
 
 
-class App
+class Application
 {
 public:
 
 	// Constructor
-	App(int argc, char* args[]);
+	Application(int argc, char* args[]);
 
 	// Destructor
-	virtual ~App();
+	virtual ~Application();
 
 	// Called before render is available
 	bool Awake();
@@ -152,4 +152,4 @@ private:
 	bool                cap_num;
 };
 
-extern App* App;
+extern Application* App;

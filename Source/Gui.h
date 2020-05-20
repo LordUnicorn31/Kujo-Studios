@@ -3,7 +3,7 @@
 #include "Module.h"
 #include "EASTL/list.h"
 #include "p2Point.h"
-#include "App.h"
+#include "Application.h"
 #include "SDL.h"
 
 
@@ -42,7 +42,7 @@ public:
 	bool interactuable;
 	UiTypes type;
 	UiElement* parent;
-	Module* Module;
+	Module* module;
 	bool debug;
 private:
 	SDL_Rect ui_rect;

@@ -215,7 +215,7 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Fow.cpp" />
-    <ClCompile Include="App.cpp" />
+    <ClCompile Include="Application.cpp" />
     <ClCompile Include="Deps\pugixml-1.10\src\pugixml.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Collisions.cpp" />
@@ -270,7 +270,7 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Fow.h" />
-    <ClInclude Include="App.h" />
+    <ClInclude Include="Application.h" />
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Collisions.h" />
     <ClInclude Include="Fonts.h" />

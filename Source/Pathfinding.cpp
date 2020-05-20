@@ -1,16 +1,16 @@
 #include "p2Defs.h"
 #include "p2Log.h"
-#include "App.h"
+#include "Application.h"
 #include "Pathfinding.h"
 #include "Ai.h"
 
-PathFinding::Pathfinding() : Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH),width(0), height(0)
+PathFinding::PathFinding() : Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH),width(0), height(0)
 {
 	name = "pathfinding";
 }
 
 // Destructor
-PathFinding::~Pathfinding()
+PathFinding::~PathFinding()
 {
 	RELEASE_ARRAY(map);
 }

@@ -1,6 +1,6 @@
 #include "Minimap.h"
 
-#include "App.h"
+#include "Application.h"
 #include "Window.h"
 #include "Render.h"
 #include "Textures.h"

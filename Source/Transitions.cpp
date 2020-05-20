@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <crtdbg.h>
 #include <math.h>
-#include "App.h"
+#include "Application.h"
 #include "Transitions.h"
 #include "Render.h"
 #include "Window.h"

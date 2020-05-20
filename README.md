@@ -40,18 +40,12 @@ Explore an unfamiliar world, mine its resources and fly away with all you can in
 
 - M: Lose scene.
 
-Minimap controls
--E:scale
--R:descale
--Space: put or take away
-
 ## Developers
 
  - [Victor Nisa](https://github.com/VictorNisa) - Team Lead / Design
  - [Jordi Bach](https://github.com/bottzo) - Code
  - [Daniel Ruiz](https://github.com/xsiro) - Art
  - [Jordi Espriu](https://github.com/LordUnicorn31) - Design
- - [Oriol Sabaté](https://github.com/urisabate) - QA
  - [Adrián Mirabel](https://github.com/M1R4B3L) - Code
 
 ## License

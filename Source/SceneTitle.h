@@ -36,10 +36,12 @@ public:
 
 	void ui_callback(UiElement* element);
 
+	void ButtonsAnimation();
+
 private:
 	//Main Buttons
-	UiElement* NewGameButton;
-	UiElement* ContinueButton;
+	UiElement* newGameButton;
+	UiElement* continueButton;
 	UiElement* exitButton;
 	UiElement* optionsButton;
 	//Options Menu

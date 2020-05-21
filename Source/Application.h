@@ -123,8 +123,7 @@ public:
 	//DialogSystem* dialog;
 	Fow* fow;
 	
-
-	bool SavedProgress;
+	bool savedProgress;
 
 private:
 
@@ -135,21 +134,21 @@ private:
 	eastl::string			title;
 	eastl::string			organization;
 
-	mutable bool		want_to_save;
-	bool				want_to_load;
-	eastl::string			load_game;
-	mutable eastl::string	save_game;
+	mutable bool		wantToSave;
+	bool				wantToLoad;
+	eastl::string			loadGame;
+	mutable eastl::string	saveGame;
 
 	PerfTimer			ptimer;
-	uint64				frame_count = 0;
-	Timer				startup_time;
-	Timer				frame_time;
-	Timer				last_sec_frame_time;
-	uint32				last_sec_frame_count = 0;
-	uint32				prev_last_sec_frame_count = 0;
+	uint64				frameCount = 0;
+	Timer				startupTime;
+	Timer				frameTime;
+	Timer				lastSecFrameTime;
+	uint32				lastSecFrameCount = 0;
+	uint32				prevLastSecFrameCount = 0;
 	float               dt = 0.0f;
-	int					capped_ms = -1;
-	bool                cap_num;
+	int					cappedMs = -1;
+	bool                capNum;
 };
 
 extern Application* App;

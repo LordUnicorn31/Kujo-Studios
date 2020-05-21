@@ -37,14 +37,11 @@ public:
 
 private:
 
-	SDL_Texture* Copy;
 	SDL_Texture* background;
-	SDL_Texture* losetext;
+	SDL_Texture* loseText;
 	
-	UiElement* ReturnB;
+	UiElement* titleButton;
 
 	int buttonFx;
-	bool Exit;
-
 
 };

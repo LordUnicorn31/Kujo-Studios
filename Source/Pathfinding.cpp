@@ -4,7 +4,7 @@
 #include "PathFinding.h"
 #include "Ai.h"
 
-PathFinding::PathFinding() : Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH),width(0), height(0)
+PathFinding::PathFinding() : Module(), map(NULL), lastPath(DEFAULT_PATH_LENGTH),width(0), height(0)
 {
 	name = "pathfinding";
 }
@@ -19,8 +19,8 @@ PathFinding::~PathFinding()
 bool PathFinding::CleanUp()
 {
 	LOG("Freeing pathfinding library");
-	OccupiedTiles.clear();
-	last_path.clear();
+	occupiedTiles.clear();
+	lastPath.clear();
 	RELEASE_ARRAY(map);
 	return true;
 }
@@ -121,7 +121,7 @@ uchar PathFinding::GetTileAt(const iPoint& pos) const
 // To request all tiles involved in the last generated path
 const eastl::vector<iPoint>* PathFinding::GetLastPath() const
 {
-	return &last_path;
+	return &lastPath;
 }
 
 // PathList ------------------------------------------------------------------------
@@ -283,14 +283,14 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	// Backtrack to create the final path
 	// Use the Pathnode::parent and Flip() the path when you are finish
 		if (closed.list.back().pos == destination) {
-			last_path.clear();
+			lastPath.clear();
 			const PathNode* path_node = &closed.list.back();
 			while (path_node) {
-				last_path.push_back(path_node->pos);
+				lastPath.push_back(path_node->pos);
 				path_node = path_node->parent;
 			}
-			eastl::reverse(last_path.begin(), last_path.end());
-			ret = last_path.size();
+			eastl::reverse(lastPath.begin(), lastPath.end());
+			ret = lastPath.size();
 			break;
 		}
 	//Fill a list of all adjancent nodes
@@ -344,7 +344,7 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 			}
 		}*/
 bool PathFinding::IsOccupied(iPoint tile) {
-	return eastl::find(OccupiedTiles.begin(), OccupiedTiles.end(), tile) != OccupiedTiles.end();
+	return eastl::find(occupiedTiles.begin(), occupiedTiles.end(), tile) != occupiedTiles.end();
 }
 
 bool PathFinding::CalculateGroupPath(eastl::list<Ai*>group,iPoint destination) {
@@ -370,7 +370,7 @@ bool PathFinding::CalculateGroupPath(eastl::list<Ai*>group,iPoint destination) {
 						break;
 				}
 			}
-			OccupiedTiles.clear();
+			occupiedTiles.clear();
 		}
 		else {
 			return false;
@@ -390,7 +390,7 @@ bool PathFinding::AssignGoalTile(iPoint tile,Ai*ai) {
 		CreatePath(ai->path.back(), cell);
 		eastl::vector<iPoint>endingpath = *GetLastPath();
 		ai->path.insert(ai->path.end(), endingpath.begin(), endingpath.end());
-		OccupiedTiles.push_back(cell);
+		occupiedTiles.push_back(cell);
 		return true;
 	}
 
@@ -401,7 +401,7 @@ bool PathFinding::AssignGoalTile(iPoint tile,Ai*ai) {
 		CreatePath(ai->path.back(), cell);
 		eastl::vector<iPoint>endingpath = *GetLastPath();
 		ai->path.insert(ai->path.end(), endingpath.begin(), endingpath.end());
-		OccupiedTiles.push_back(cell);
+		occupiedTiles.push_back(cell);
 		return true;
 	}
 
@@ -412,7 +412,7 @@ bool PathFinding::AssignGoalTile(iPoint tile,Ai*ai) {
 		CreatePath(ai->path.back(), cell);
 		eastl::vector<iPoint>endingpath = *GetLastPath();
 		ai->path.insert(ai->path.end(), endingpath.begin(), endingpath.end());
-		OccupiedTiles.push_back(cell);
+		occupiedTiles.push_back(cell);
 		return true;
 	}
 
@@ -423,7 +423,7 @@ bool PathFinding::AssignGoalTile(iPoint tile,Ai*ai) {
 		CreatePath(ai->path.back(), cell);
 		eastl::vector<iPoint>endingpath = *GetLastPath();
 		ai->path.insert(ai->path.end(), endingpath.begin(), endingpath.end());
-		OccupiedTiles.push_back(cell);
+		occupiedTiles.push_back(cell);
 		return true;
 	}
 
@@ -434,7 +434,7 @@ bool PathFinding::AssignGoalTile(iPoint tile,Ai*ai) {
 		CreatePath(ai->path.back(), cell);
 		eastl::vector<iPoint>endingpath = *GetLastPath();
 		ai->path.insert(ai->path.end(), endingpath.begin(), endingpath.end());
-		OccupiedTiles.push_back(cell);
+		occupiedTiles.push_back(cell);
 		return true;
 	}
 
@@ -444,7 +444,7 @@ bool PathFinding::AssignGoalTile(iPoint tile,Ai*ai) {
 		CreatePath(ai->path.back(), cell);
 		eastl::vector<iPoint>endingpath = *GetLastPath();
 		ai->path.insert(ai->path.end(), endingpath.begin(), endingpath.end());
-		OccupiedTiles.push_back(cell);
+		occupiedTiles.push_back(cell);
 		return true;
 	}
 
@@ -454,7 +454,7 @@ bool PathFinding::AssignGoalTile(iPoint tile,Ai*ai) {
 		CreatePath(ai->path.back(), cell);
 		eastl::vector<iPoint>endingpath = *GetLastPath();
 		ai->path.insert(ai->path.end(), endingpath.begin(), endingpath.end());
-		OccupiedTiles.push_back(cell);
+		occupiedTiles.push_back(cell);
 		return true;
 	}
 
@@ -464,7 +464,7 @@ bool PathFinding::AssignGoalTile(iPoint tile,Ai*ai) {
 		CreatePath(ai->path.back(), cell);
 		eastl::vector<iPoint>endingpath = *GetLastPath();
 		ai->path.insert(ai->path.end(), endingpath.begin(), endingpath.end());
-		OccupiedTiles.push_back(cell);
+		occupiedTiles.push_back(cell);
 		return true;
 	}
 

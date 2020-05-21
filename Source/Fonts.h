@@ -36,10 +36,10 @@ public:
 public:
 
 	eastl::list<_TTF_Font*>	fonts;
-	_TTF_Font*			Default;
 
-	_TTF_Font*			Small;
-	_TTF_Font*			ResourcesPanel;
+	_TTF_Font*			defaultFont;
+	_TTF_Font*			smallFont;
+	_TTF_Font*			resourcesPanelFont;
 	_TTF_Font*			dialogFont;
 	_TTF_Font*			tutorialFont;
 };

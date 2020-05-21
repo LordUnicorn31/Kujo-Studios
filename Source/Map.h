@@ -64,15 +64,15 @@ struct TileSet
 	int					firstgid;
 	int					margin;
 	int					spacing;
-	int					tile_width;
-	int					tile_height;
+	int					tileWidth;
+	int					tileHeight;
 	SDL_Texture*		texture;
-	int					tex_width;
-	int					tex_height;
-	int					num_tiles_width;
-	int					num_tiles_height;
-	int					offset_x;
-	int					offset_y;
+	int					texWidth;
+	int					texHeight;
+	int					numTilesWidth;
+	int					numTilesHeight;
+	int					offsetX;
+	int					offsetY;
 };
 
 enum MapTypes
@@ -87,9 +87,9 @@ struct MapData
 {
 	int					width;
 	int					height;
-	int					tile_width;
-	int					tile_height;
-	SDL_Color			background_color;
+	int					tileWidth;
+	int					tileHeight;
+	SDL_Color			backgroundColor;
 	MapTypes			type;
 	eastl::list<TileSet*> tilesets;
 	eastl::list<MapLayer*> layers;
@@ -143,8 +143,8 @@ public:
 
 private:
 
-	pugi::xml_document	map_file;
+	pugi::xml_document	mapFile;
 	eastl::string			folder;
-	bool				map_loaded;
+	bool				mapLoaded;
 
 };

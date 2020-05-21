@@ -40,19 +40,9 @@ bool SceneTitle::Start()
 {
 	Exit = false;
 	background = App->tex->Load("Resources/gui/background.png");
-	titleLogo = App->tex->Load("Resources/gui/logo.png");
+	titleLogo = App->tex->Load("Resources/gui/logo.png");	
 
-
-	NewGameButton = App->gui->AddButton(500, 390, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(15, 16, "NEW GAME", nullptr, { 236,178,0,255 }, 32, false, false, NewGameButton);
-	ContinueButton = App->gui->AddButton(500, 470, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(20, 16, "CONTINUE", nullptr, { 65,175,94,255 }, 32, false, false, ContinueButton);
-	exitButton = App->gui->AddButton(500, 630, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(75, 16, "EXIT", nullptr, { 152,30,30,255 }, 32, false, false, exitButton);
-	optionsButton = App->gui->AddButton(500, 550, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(32, 16, "OPTIONS", nullptr, { 16, 173, 171 }, 32, false, false, optionsButton);
-	App->gui->AddText(10, 690, "2020 KUJO STUDIOS", App->font->Small, { 255,255,255,255 }, 16, false, false);
-	
+	App->gui->AddText(10, 690, "2020 KUJO STUDIOS", App->font->smallFont, { 255,255,255,255 }, 16, false, false);
 
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");
 
@@ -74,26 +64,18 @@ bool SceneTitle::Update(float dt)
 	int w = App->win->GetWidth();
 	int h = App->win->GetHeight();
 
-	App->render->Blit(background, 0, 0, NULL,true, App->render->renderer, 1.5);
-	App->render->Blit(titleLogo, (int)(w*1.6f), (int)(h*0.6f), NULL, true, App->render->renderer, 0.2f);
+	App->render->Blit(background, 0, 0, NULL,true, App->render->renderer, 1.5f);
+	App->render->Blit(titleLogo, (int)2194, 0, NULL, true, App->render->renderer, 0.2f);
 
-	//Need to create a timer
-	/*if (App->input->GetKey(SDL_SCANCODE_RETURN)) {
-		App->transition->FadeToBlack(App->sceneTitle, App->scene, 2.0f);
-	}*/
+	if (newGameButton == nullptr || continueButton == nullptr || exitButton == nullptr || optionsButton == nullptr) {
+		ButtonsAnimation();
+	}
+
 	if (Exit) {
 		ret = false;
 		Exit = false;
 	}
 	
-	/*
-	//INTRO KEY
-	if (App->input->GetKey(SDL_SCANCODE_RETURN)) {
-		Disable();
-		App->scene->Enable();
-	}
-	*/
-
 	return ret;
 }
 
@@ -114,9 +96,8 @@ bool SceneTitle::CleanUp()
 	App->tex->UnLoad(background);
 	App->tex->UnLoad(titleLogo);
 	App->gui->DeleteAllUiElements();
-	/*App->audio->CleanUp();*/
-	NewGameButton = nullptr;
-	ContinueButton = nullptr;
+	newGameButton = nullptr;
+	continueButton = nullptr;
 	exitButton = nullptr;
 	
 	return true;
@@ -130,16 +111,12 @@ void SceneTitle::Init()
 }
 
 void SceneTitle::ui_callback(UiElement* element) {
-	if (element == NewGameButton) {
+	if (element == newGameButton) {
 		App->audio->PlayFx(buttonFx);
 		App->transition->FadeToBlack(App->sceneTitle, App->sceneTutorial, 2.0f);
 		App->audio->UnloadMusic();
-		/*if (exitButton !=nullptr) {
-			App->gui->RemoveUiElement(exitButton);
-			exitButton = nullptr;
-		}*/
 	}
-	else if (element == ContinueButton) {
+	else if (element == continueButton) {
 		App->LoadGame();
 		App->audio->PlayFx(buttonFx);
 		App->map->Load("mainmap.tmx");
@@ -163,11 +140,11 @@ void SceneTitle::ui_callback(UiElement* element) {
 		fullScreen = App->gui->AddButton(500, 500, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
 		about = App->gui->AddButton(500, 600, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
 		sliderbar = App->gui->AddSlider(100, 100, true, false, optionsMenu, this, 1000);
-		App->gui->AddText(55, 25, "FULLSCREEN", App->font->Small, { 255,255,255 }, 42, false, false, fullScreen);
-		App->gui->AddText(150, 35, "OPTIONS MENU", App->font->Small, { 236,178,0 }, 42, false, false, optionsMenu);
-		App->gui->AddText(70, 100, "FX", App->font->Small, { 236,178,0 }, 42, false, false, optionsMenu);
-		App->gui->AddText(50, 175, "MUSIC", App->font->Small, { 236,178,0 }, 42, false, false, optionsMenu);
-		App->gui->AddText(65, 25, "ABOUT US", App->font->Small, { 255,255,255 }, 42, false, false, about);
+		App->gui->AddText(55, 25, "FULLSCREEN", App->font->smallFont, { 255,255,255 }, 42, false, false, fullScreen);
+		App->gui->AddText(150, 35, "OPTIONS MENU", App->font->smallFont, { 236,178,0 }, 42, false, false, optionsMenu);
+		App->gui->AddText(70, 100, "FX", App->font->smallFont, { 236,178,0 }, 42, false, false, optionsMenu);
+		App->gui->AddText(50, 175, "MUSIC", App->font->smallFont, { 236,178,0 }, 42, false, false, optionsMenu);
+		App->gui->AddText(65, 25, "ABOUT US", App->font->smallFont, { 255,255,255 }, 42, false, false, about);
 
 	}
 	else if (element == backButton) {
@@ -186,4 +163,19 @@ void SceneTitle::ui_callback(UiElement* element) {
 
 		ShellExecuteA(NULL, "open", "https://github.com/LordUnicorn31/Kujo-Studios", NULL, NULL, SW_SHOWNORMAL);
 	}
+}
+
+
+void SceneTitle::ButtonsAnimation()
+{
+
+	newGameButton = App->gui->AddButton((int)525.5f, 340, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+	App->gui->AddText(15, 16, "NEW GAME", nullptr, { 236,178,0,255 }, 32, false, false, newGameButton);
+	continueButton = App->gui->AddButton((int)525.5f, 420, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+	App->gui->AddText(20, 16, "CONTINUE", nullptr, { 65,175,94,255 }, 32, false, false, continueButton);
+	optionsButton = App->gui->AddButton((int)525.5f, 500, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+	App->gui->AddText(32, 16, "OPTIONS", nullptr, { 16, 173, 171 }, 32, false, false, optionsButton);
+	exitButton = App->gui->AddButton((int)525.5f, 580, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+	App->gui->AddText(75, 16, "EXIT", nullptr, { 152,30,30,255 }, 32, false, false, exitButton);
+
 }

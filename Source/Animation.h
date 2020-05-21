@@ -31,27 +31,27 @@ public:
 	eastl::array<SDL_Rect, MAX_FRAMES>frames{};
 
 private:
-	float current_frame=0.0f;
-	int last_frame = 0;
+	float currentFrame=0.0f;
+	int lastFrame = 0;
 	int loops = 0;
 
 public:
 
 	void PushBack(const SDL_Rect& collider)
 	{
-		frames[last_frame++] = collider;
+		frames[lastFrame++] = collider;
 	}
 
 	SDL_Rect& GetCurrentFrame(float dt)
 	{
-		current_frame += speed * dt;
-		if (current_frame >= last_frame)
+		currentFrame += speed * dt;
+		if (currentFrame >= lastFrame)
 		{
-			current_frame = (loop) ? 0.0f : last_frame - 1;
+			currentFrame = (loop) ? 0.0f : lastFrame - 1;
 			loops++;
 		}
 
-		return frames[(int)current_frame];
+		return frames[(int)currentFrame];
 	}
 
 	bool Finished() const
@@ -61,7 +61,7 @@ public:
 
 	void Reset()
 	{
-		current_frame = 0;
+		currentFrame = 0;
 		loops = 0;
 	}
 };

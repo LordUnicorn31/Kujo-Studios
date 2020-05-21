@@ -39,7 +39,7 @@ bool WinScene::Start()
 {
 
 	background = App->tex->Load("Resources/gui/background.png");
-	wintext = App->tex->Load("Resources/gui/win_text.png");
+	winText = App->tex->Load("Resources/gui/win_text.png");
 	App->audio->PlayMusic("Resources/audio/music/interstellar_odyssey.ogg");
 	return true;
 }
@@ -67,25 +67,11 @@ bool WinScene::Update(float dt)
 		App->render->camera.y -= 5;
 	}
 
-
 	int w = App->win->GetWidth();
 	int h = App->win->GetHeight();
 
 	App->render->Blit(background, 0, 0, NULL, true, App->render->renderer, 1.5);
-	App->render->Blit(wintext, (int)(w * 1.55f), h, NULL, true, App->render->renderer, 0.2f);
-
-	//Need to create a timer
-	/*if (App->input->GetKey(SDL_SCANCODE_RETURN)) {
-		App->transition->FadeToBlack(App->sceneTitle, App->scene, 2.0f);
-	}*/
-
-	/*
-	//INTRO KEY
-	if (App->input->GetKey(SDL_SCANCODE_RETURN)) {
-		Disable();
-		App->scene->Enable();
-	}
-	*/
+	App->render->Blit(winText, (int)(w * 1.55f), h, NULL, true, App->render->renderer, 0.2f);
 
 	return ret;
 }
@@ -105,9 +91,8 @@ bool WinScene::CleanUp()
 	LOG("Freeing scene");
 
 	App->tex->UnLoad(background);
-	App->tex->UnLoad(wintext);
-	/*App->audio->CleanUp();*/
-
+	App->tex->UnLoad(winText);
+	App->audio->UnloadMusic();
 
 	return true;
 }

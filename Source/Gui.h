@@ -45,7 +45,7 @@ public:
 	Module* module;
 	bool debug;
 private:
-	SDL_Rect ui_rect;
+	SDL_Rect uiRect;
 };
 
 // ---------------------------------------------------
@@ -100,7 +100,7 @@ public:
 private:
 	eastl::list<UiElement*> UiElementList;
 	SDL_Texture* atlas;
-	eastl::string atlas_file_name;
+	eastl::string atlasFileName;
 };
 
 class UiImage :public UiElement {
@@ -109,7 +109,7 @@ public:
 	~UiImage();
 	void Draw(SDL_Texture* atlas)override;
 	void Update(int dx, int dy)override;
-	SDL_Rect atlas_rect;
+	SDL_Rect atlasRect;
 };
 
 enum class Button_state {
@@ -127,7 +127,7 @@ public:
 	SDL_Rect unhover;
 	SDL_Rect hover;
 	SDL_Rect click;
-	Button_state current_state;
+	Button_state currentState;
 };
 
 class UiEntityButton :public UiElement {
@@ -142,7 +142,7 @@ public:
 	SDL_Rect unhover;
 	SDL_Rect hover;
 	SDL_Rect click;
-	Button_state current_state;
+	Button_state currentState;
 };
 
 class UiText :public UiElement {
@@ -151,7 +151,7 @@ public:
 	~UiText();
 	void Draw(SDL_Texture* atlas)override;
 	void Update(int dx, int dy)override;
-	_TTF_Font*font_type;
+	_TTF_Font* fontType;
 	eastl::string message;
 	SDL_Color color;
 	SDL_Texture* texture;
@@ -165,25 +165,25 @@ public:
 	~UiHUDBars();
 	void Draw(SDL_Texture* atlas)override;
 	void Update(int dx, int dy)override;
-	SDL_Rect Border;
-	SDL_Rect Fill;
-	SDL_Rect FullBar;
-	const float* Value;
-	int MaxValue;
-	SDL_Rect CurrentBar;
-	bool UseCamera;
+	SDL_Rect border;
+	SDL_Rect fill;
+	SDL_Rect fullBar;
+	const float* value;
+	int maxValue;
+	SDL_Rect currentBar;
+	bool useCamera;
 };
 
 class UiSlider : public UiElement {
 public:
 	//Vars
-	SDL_Rect clickable_rect;
+	SDL_Rect clickableRect;
 	SDL_Rect bar;
 	SDL_Rect thumb;
-	SDL_Rect thumb_hovered;
+	SDL_Rect thumbHovered;
 	SDL_Rect position;
 	SDL_Texture* texture;
-	bool UseCamera;
+	bool useCamera;
 
 	//UI_Image* bar;
 	//UI_Image* thumb;
@@ -191,9 +191,9 @@ public:
 
 	bool hovered;
 
-	int thumb_offset;
+	int thumbOffset;
 
-	int sliderpos;
+	int sliderPos;
 
 	//Methods
 public:

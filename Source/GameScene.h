@@ -40,29 +40,36 @@ public:
 
 	bool tutorialActive;
 
-	UiElement* Info;
+	UiElement* infoImage;
+
 private:
 
-	UiElement* Pause;
-	UiElement* People;
-	UiElement* Copper;
-	UiElement* Titanium;
-	UiElement* Settings_window;
-	UiElement* Exit_button;
-	UiElement* Continue_button;
+	//Top Right
+	UiElement* peopleImage;
+	UiElement* copperImage;
+	UiElement* titaniumImage;
+
+	//Pause Window
+	UiElement* pauseButton;
+	UiElement* pauseWindow;
+	UiElement* continueButton;
+	UiElement* saveButton;
+	UiElement* optionsButton;
+	UiElement* exitButton;
+
+	//Options Window/Menu/Image
+	UiElement* optionsMenu;
+	UiElement* backButton;
 	UiElement* fullScreen;
-	UiElement* SaveButton;
-	UiElement* options;
-	UiElement* OptionsMenu;
-	UiElement* BackButton;
 
 	int buttonFx;
-	bool exitGame;
-	iPoint mousepos;
-	int camspeed;
+
+	iPoint mousePos;
+	int camSpeed;
 	uint width;
 	uint height;
 
+	//Timer
 	float startTime;
 	float currentTime;
 };

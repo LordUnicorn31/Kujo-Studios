@@ -89,9 +89,9 @@ bool Particles::Update(float dt)
 
 				App->render->Blit(graphics, (int)p->position.x, (int)p->position.y, &p->anim.GetCurrentFrame(dt), true, App->render->renderer, 3, 1, p->angle);
 				//LOG("life %u", p->life);
-				if (p->fx_played == false)
+				if (p->fxPlayed == false)
 				{
-					p->fx_played = true;
+					p->fxPlayed = true;
 					// Play particle fx here
 				}
 				if (p->collider != nullptr)
@@ -102,9 +102,9 @@ bool Particles::Update(float dt)
 			else if (p->type == ParticleType::SMOKE)
 			{
 				App->render->Blit(graphics, p->rect.x, p->rect.y, &p->anim.GetCurrentFrame(dt));
-				if (p->fx_played == false)
+				if (p->fxPlayed == false)
 				{
-					p->fx_played = true;
+					p->fxPlayed = true;
 					// Play particle fx here
 				}
 			}
@@ -204,13 +204,13 @@ Particle::Particle(const Particle& p)
 	 this->initialColor = p.initialColor;
 	 this->finalColor = p.finalColor;
 	 this->fx = p.fx;
-	 this->fx_played = p.fx_played;
+	 this->fxPlayed = p.fxPlayed;
 }
 
 Particle::~Particle()
 {
 	if (collider != nullptr)
-		collider->to_delete = true;
+		collider->toDelete = true;
 }
 
 bool Particle::Update()

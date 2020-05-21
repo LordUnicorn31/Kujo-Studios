@@ -58,7 +58,7 @@ public:
 
 	j1KeyState GetMouseButtonDown(int id) const
 	{
-		return mouse_buttons[id - 1];
+		return mouseButtons[id - 1];
 	}
 
 	// Check if a certain window event happened
@@ -71,11 +71,11 @@ public:
 private:
 	bool		windowEvents[WE_COUNT];
 	j1KeyState*	keyboard;
-	j1KeyState	mouse_buttons[NUM_MOUSE_BUTTONS];
-	int			mouse_motion_x;
-	int			mouse_motion_y;
-	int			mouse_x;
-	int			mouse_y;
+	j1KeyState	mouseButtons[NUM_MOUSE_BUTTONS];
+	int			mouseMotionX;
+	int			mouseMotionY;
+	int			mouseX;
+	int			mouseY;
 };
 
 #endif // __INPUT_H__

@@ -6,7 +6,7 @@
 #include "Map.h"
 #include <math.h>
 
-Map::Map() : Module(), map_loaded(false)
+Map::Map() : Module(), mapLoaded(false)
 {
 	name = "map";
 }
@@ -28,7 +28,7 @@ bool Map::Awake(pugi::xml_node& config)
 
 void Map::Draw()
 {
-	if(map_loaded == false)
+	if(mapLoaded == false)
 		return;
 
 	iPoint cam_size(WorldToMap(-App->render->camera.x + App->render->camera.w, -App->render->camera.y + App->render->camera.h));
@@ -79,37 +79,37 @@ int Properties::Get(const char* value, int default_value) const
 
 void Map::DrawGrid()
 {
-	iPoint point_a = {data.tile_width/2 +3,data.tile_height / 2 +3};
-	iPoint point_b = { -((data.width * data.tile_width ) / 2 + data.tile_width /2) + data.tile_width +3,
-		(data.height * data.tile_height) /2 + data.tile_height / 2 +3};
+	iPoint point_a = {data.tileWidth /2 +3,data.tileHeight / 2 +3};
+	iPoint point_b = { -((data.width * data.tileWidth) / 2 + data.tileWidth /2) + data.tileWidth +3,
+		(data.height * data.tileHeight) /2 + data.tileHeight / 2 +3};
 
 	for (int i = 0; i <= data.width; ++i)
 	{
 		App->render->DrawLine(point_a.x, point_a.y, point_b.x, point_b.y, 255, 255, 255,50);
 
-		point_a.x += data.tile_width / 2;
-		point_a.y += data.tile_height / 2;
+		point_a.x += data.tileWidth / 2;
+		point_a.y += data.tileHeight / 2;
 
-		point_b.x += data.tile_width / 2;
-		point_b.y += data.tile_height / 2;
+		point_b.x += data.tileWidth / 2;
+		point_b.y += data.tileHeight / 2;
 	}
 
 	//Back to the first tile
-	point_a.x = data.tile_width / 2 ;
-	point_a.y = data.tile_height / 2 + 3;
+	point_a.x = data.tileWidth / 2 ;
+	point_a.y = data.tileHeight / 2 + 3;
 
-	point_b.x = (data.width * data.tile_width) / 2 + data.tile_width / 2 ;
-	point_b.y = (data.height * data.tile_height) / 2 + data.tile_height / 2 +3;
+	point_b.x = (data.width * data.tileWidth) / 2 + data.tileWidth / 2 ;
+	point_b.y = (data.height * data.tileHeight) / 2 + data.tileHeight / 2 +3;
 
 	for (int i = 0; i <= data.height; ++i)
 	{
 		App->render->DrawLine(point_a.x, point_a.y, point_b.x, point_b.y, 255, 255, 255, 50);
 
-		point_a.x -= data.tile_width / 2;
-		point_a.y += data.tile_height / 2;
+		point_a.x -= data.tileWidth / 2;
+		point_a.y += data.tileHeight / 2;
 
-		point_b.x -= data.tile_width / 2;
-		point_b.y += data.tile_height / 2;
+		point_b.x -= data.tileWidth / 2;
+		point_b.y += data.tileHeight / 2;
 	}
 }
 
@@ -134,8 +134,8 @@ TileSet* Map::GetTilesetFromTileId(int id) const
 
 void Map::GetMapSize(int& w, int& h) const
 {
-	w = App->map->data.width * App->map->data.tile_width;
-	h = App->map->data.height * App->map->data.tile_height;
+	w = App->map->data.width * App->map->data.tileWidth;
+	h = App->map->data.height * App->map->data.tileHeight;
 }
 
 iPoint Map::MapToWorld(int x, int y) const
@@ -144,13 +144,13 @@ iPoint Map::MapToWorld(int x, int y) const
 
 	if(data.type == MAPTYPE_ORTHOGONAL)
 	{
-		ret.x = x * data.tile_width;
-		ret.y = y * data.tile_height;
+		ret.x = x * data.tileWidth;
+		ret.y = y * data.tileHeight;
 	}
 	else if(data.type == MAPTYPE_ISOMETRIC)
 	{
-		ret.x = (x - y) * (data.tile_width * 0.5f);
-		ret.y = (x + y) * (data.tile_height * 0.5f);
+		ret.x = (x - y) * (data.tileWidth * 0.5f);
+		ret.y = (x + y) * (data.tileHeight * 0.5f);
 	}
 	else
 	{
@@ -167,14 +167,14 @@ iPoint Map::WorldToMap(int x, int y) const
 
 	if(data.type == MAPTYPE_ORTHOGONAL)
 	{
-		ret.x = x / data.tile_width;
-		ret.y = y / data.tile_height;
+		ret.x = x / data.tileWidth;
+		ret.y = y / data.tileHeight;
 	}
 	else if(data.type == MAPTYPE_ISOMETRIC)
 	{
 		
-		float half_width = data.tile_width * 0.5f;
-		float half_height = data.tile_height * 0.5f;
+		float half_width = data.tileWidth * 0.5f;
+		float half_height = data.tileHeight * 0.5f;
 		ret.x = int( (x / half_width + y / half_height) / 2) - 1;
 		ret.y = int( (y / half_height - (x / half_width)) / 2);
 	}
@@ -191,10 +191,10 @@ SDL_Rect TileSet::GetTileRect(int id) const
 {
 	int relative_id = id - firstgid;
 	SDL_Rect rect;
-	rect.w = tile_width;
-	rect.h = tile_height;
-	rect.x = margin + ((rect.w + spacing) * (relative_id % num_tiles_width));
-	rect.y = margin + ((rect.h + spacing) * (relative_id / num_tiles_width));
+	rect.w = tileWidth;
+	rect.h = tileHeight;
+	rect.x = margin + ((rect.w + spacing) * (relative_id % numTilesWidth));
+	rect.y = margin + ((rect.h + spacing) * (relative_id / numTilesHeight));
 	return rect;
 }
 
@@ -225,7 +225,7 @@ bool Map::CleanUp()
 	data.layers.clear();
 
 	// Clean up the pugui tree
-	map_file.reset();
+	mapFile.reset();
 
 	return true;
 }
@@ -238,7 +238,7 @@ bool Map::Load(const char* file_name)
 	tmp = folder.data();
 	tmp = tmp + file_name;
 
-	pugi::xml_parse_result result = map_file.load_file(tmp.data());
+	pugi::xml_parse_result result = mapFile.load_file(tmp.data());
 
 	if(result == NULL)
 	{
@@ -254,7 +254,7 @@ bool Map::Load(const char* file_name)
 
 	// Load all tilesets info ----------------------------------------------
 	pugi::xml_node tileset;
-	for(tileset = map_file.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
+	for(tileset = mapFile.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
 	{
 		TileSet* set = new TileSet();
 
@@ -273,7 +273,7 @@ bool Map::Load(const char* file_name)
 
 	// Load layer info ----------------------------------------------
 	pugi::xml_node layer;
-	for(layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
+	for(layer = mapFile.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
 	{
 		MapLayer* lay = new MapLayer();
 
@@ -287,7 +287,7 @@ bool Map::Load(const char* file_name)
 	{
 		LOG("Successfully parsed map XML file: %s", file_name);
 		LOG("width: %d height: %d", data.width, data.height);
-		LOG("tile_width: %d tile_height: %d", data.tile_width, data.tile_height);
+		LOG("tile_width: %d tile_height: %d", data.tileWidth, data.tileHeight);
 
 		eastl::list<TileSet*>::const_iterator item = data.tilesets.cbegin();
 		while(item != data.tilesets.end())
@@ -295,7 +295,7 @@ bool Map::Load(const char* file_name)
 			TileSet* s = *item;
 			LOG("Tileset ----");
 			LOG("name: %s firstgid: %d", s->name.data(), s->firstgid);
-			LOG("tile width: %d tile height: %d", s->tile_width, s->tile_height);
+			LOG("tile width: %d tile height: %d", s->tileWidth, s->tileHeight);
 			LOG("spacing: %d margin: %d", s->spacing, s->margin);
 			item = next(item);
 		}
@@ -313,7 +313,7 @@ bool Map::Load(const char* file_name)
 		//App->render->cam_limit_y = data.height * data.tile_height - App->render->camera.h;
 	}
 
-	map_loaded = ret;
+	mapLoaded = ret;
 
 	return ret;
 }
@@ -322,7 +322,7 @@ bool Map::Load(const char* file_name)
 bool Map::LoadMap()
 {
 	bool ret = true;
-	pugi::xml_node map = map_file.child("map");
+	pugi::xml_node map = mapFile.child("map");
 
 	if(map == NULL)
 	{
@@ -333,14 +333,14 @@ bool Map::LoadMap()
 	{
 		data.width = map.attribute("width").as_int();
 		data.height = map.attribute("height").as_int();
-		data.tile_width = map.attribute("tilewidth").as_int();
-		data.tile_height = map.attribute("tileheight").as_int();
+		data.tileWidth = map.attribute("tilewidth").as_int();
+		data.tileHeight = map.attribute("tileheight").as_int();
 		eastl::string bg_color = map.attribute("backgroundcolor").as_string();
 
-		data.background_color.r = 0;
-		data.background_color.g = 0;
-		data.background_color.b = 0;
-		data.background_color.a = 0;
+		data.backgroundColor.r = 0;
+		data.backgroundColor.g = 0;
+		data.backgroundColor.b = 0;
+		data.backgroundColor.a = 0;
 
 		if(bg_color.length() > 0)
 		{
@@ -353,13 +353,13 @@ bool Map::LoadMap()
 			int v = 0;
 
 			sscanf_s(red.data(), "%x", &v);
-			if(v >= 0 && v <= 255) data.background_color.r = v;
+			if(v >= 0 && v <= 255) data.backgroundColor.r = v;
 
 			sscanf_s(green.data(), "%x", &v);
-			if(v >= 0 && v <= 255) data.background_color.g = v;
+			if(v >= 0 && v <= 255) data.backgroundColor.g = v;
 
 			sscanf_s(blue.data(), "%x", &v);
-			if(v >= 0 && v <= 255) data.background_color.b = v;
+			if(v >= 0 && v <= 255) data.backgroundColor.b = v;
 		}
 
 		std::string orientation = map.attribute("orientation").as_string();
@@ -390,21 +390,21 @@ bool Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 	bool ret = true;
 	set->name = tileset_node.attribute("name").as_string();
 	set->firstgid = tileset_node.attribute("firstgid").as_int();
-	set->tile_width = tileset_node.attribute("tilewidth").as_int();
-	set->tile_height = tileset_node.attribute("tileheight").as_int();
+	set->tileWidth = tileset_node.attribute("tilewidth").as_int();
+	set->tileHeight = tileset_node.attribute("tileheight").as_int();
 	set->margin = tileset_node.attribute("margin").as_int();
 	set->spacing = tileset_node.attribute("spacing").as_int();
 	pugi::xml_node offset = tileset_node.child("tileoffset");
 
 	if(offset != NULL)
 	{
-		set->offset_x = offset.attribute("x").as_int();
-		set->offset_y = offset.attribute("y").as_int();
+		set->offsetX = offset.attribute("x").as_int();
+		set->offsetY = offset.attribute("y").as_int();
 	}
 	else
 	{
-		set->offset_x = 0;
-		set->offset_y = 0;
+		set->offsetX = 0;
+		set->offsetY = 0;
 	}
 
 	return ret;
@@ -425,22 +425,22 @@ bool Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 		set->texture = App->tex->Load(PATH(folder.data(), image.attribute("source").as_string()));
 		int w, h;
 		SDL_QueryTexture(set->texture, NULL, NULL, &w, &h);
-		set->tex_width = image.attribute("width").as_int();
+		set->texWidth = image.attribute("width").as_int();
 
-		if(set->tex_width <= 0)
+		if(set->texWidth <= 0)
 		{
-			set->tex_width = w;
+			set->texWidth = w;
 		}
 
-		set->tex_height = image.attribute("height").as_int();
+		set->texHeight = image.attribute("height").as_int();
 
-		if(set->tex_height <= 0)
+		if(set->texHeight <= 0)
 		{
-			set->tex_height = h;
+			set->texHeight = h;
 		}
 
-		set->num_tiles_width = set->tex_width / set->tile_width;
-		set->num_tiles_height = set->tex_height / set->tile_height;
+		set->numTilesWidth = set->texWidth / set->tileWidth;
+		set->numTilesHeight = set->texHeight / set->tileHeight;
 	}
 
 	return ret;

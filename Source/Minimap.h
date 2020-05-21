@@ -45,11 +45,11 @@ private:
 	void DrawMinimap();
 
 private:
-	SDL_Texture* minimap_tex = nullptr;
+	SDL_Texture* minimapTex = nullptr;
 	int size;
-	float minimap_scale;
-	int minimap_width;
-	int minimap_height;
+	float minimapScale;
+	int minimapWidth;
+	int minimapHeight;
 
 };
 

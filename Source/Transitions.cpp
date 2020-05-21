@@ -31,19 +31,19 @@ bool Transitions::Update(float dt)
 	if (current_step == fade_step::none)
 		return true;
 
-	Uint32 now = SDL_GetTicks() - start_time;
-	float normalized = MIN(1.0f, (float)now / (float)total_time);
+	Uint32 now = SDL_GetTicks() - startTime;
+	float normalized = MIN(1.0f, (float)now / (float)totalTime);
 
 	switch (current_step)
 	{
 	case fade_step::fade_to_black:
 	{
-		if (now >= total_time)
+		if (now >= totalTime)
 		{
-			Moduleoff->Disable();
-			Moduleon->Enable();
-			total_time += total_time;
-			start_time = SDL_GetTicks();
+			moduleOff->Disable();
+			moduleOn->Enable();
+			totalTime += totalTime;
+			startTime = SDL_GetTicks();
 			current_step = fade_step::fade_from_black;
 		}
 	} break;
@@ -53,7 +53,7 @@ bool Transitions::Update(float dt)
 
 		normalized = 1.0f - normalized;
 
-		if (now >= total_time)
+		if (now >= totalTime)
 			current_step = fade_step::none;
 
 	} break;
@@ -64,9 +64,9 @@ bool Transitions::Update(float dt)
 		if (screen.x >= 0)
 			screen.x = 0;
 		else
-			screen.x += (int)(((float)(screen.w) / (float)total_time)* dt * (float)now * 2);
+			screen.x += (int)(((float)(screen.w) / (float)totalTime)* dt * (float)now * 2);
 
-		if (now >= total_time)
+		if (now >= totalTime)
 		{
 			current_step = fade_step::slide_change;
 		}
@@ -77,10 +77,10 @@ bool Transitions::Update(float dt)
 
 		normalized = 1.0f;
 		screen.x;
-		Moduleoff->Disable();
-		Moduleon->Enable();
-		total_time += total_time;
-		start_time = SDL_GetTicks();
+		moduleOff->Disable();
+		moduleOn->Enable();
+		totalTime += totalTime;
+		startTime = SDL_GetTicks();
 		current_step = fade_step::slide_out;
 
 		break;
@@ -88,8 +88,8 @@ bool Transitions::Update(float dt)
 	case fade_step::slide_out:
 
 		normalized = 1.0f;
-		screen.x += (int)(((float)(screen.w) / (float)total_time) * dt * (float)now * 2);
-		if (now >= total_time) {
+		screen.x += (int)(((float)(screen.w) / (float)totalTime) * dt * (float)now * 2);
+		if (now >= totalTime) {
 			current_step = fade_step::none;
 		}
 			
@@ -110,10 +110,10 @@ bool Transitions::FadeToBlack(Module* Module_off, Module* Module_on, float time)
 	{
 		screen.x = 0;
 		current_step = fade_step::fade_to_black;
-		start_time = SDL_GetTicks();
-		total_time = (Uint32)(time * 0.5f * 1000.0f);
-		Moduleoff = Module_off;
-		Moduleon = Module_on;
+		startTime = SDL_GetTicks();
+		totalTime = (Uint32)(time * 0.5f * 1000.0f);
+		moduleOff = Module_off;
+		moduleOn = Module_on;
 		ret = true;
 	}
 
@@ -128,10 +128,10 @@ bool Transitions::Slide(Module* Module_off, Module* Module_on, float time)
 	{
 		screen.x -= App->win->width;
 		current_step = fade_step::slide_in;
-		start_time = SDL_GetTicks();
-		total_time = (Uint32) (time *0.5* 1000.0f);
-		Moduleoff = Module_off;
-		Moduleon = Module_on;
+		startTime = SDL_GetTicks();
+		totalTime = (Uint32) (time *0.5* 1000.0f);
+		moduleOff = Module_off;
+		moduleOn = Module_on;
 		ret = true;
 	}
 	return ret;

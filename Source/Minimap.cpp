@@ -88,7 +88,7 @@ bool Minimap::Update(float dt)
 	}
 
 	if (display) {
-		App->render->Blit(minimap_tex, position.x, position.y, NULL, false);
+		App->render->Blit(minimapTex, position.x, position.y, NULL, false);
 		MinimapBorders();
 		/*switch (entities_mode) {
 		case entity_display::DISPLAY_RECT:
@@ -115,7 +115,7 @@ bool Minimap::PostUpdate()
 bool Minimap::CleanUp()
 {
 	if (IsEneabled()) 
-		SDL_DestroyTexture(minimap_tex);
+		SDL_DestroyTexture(minimapTex);
 
 	return true;
 }
@@ -123,20 +123,20 @@ bool Minimap::CleanUp()
 void Minimap::Load() {
 	if (App->map->active)
 	{
-		minimap_scale = (float)size / (float)(App->map->data.tile_height*0.5f);
+		minimapScale = (float)size / (float)(App->map->data.tileHeight *0.5f);
 
-		float map_width = App->map->data.width * App->map->data.tile_width;
-		minimap_width = map_width * minimap_scale;
-		float map_height = App->map->data.height * App->map->data.tile_height;
-		minimap_height = map_height * minimap_scale;
+		float map_width = App->map->data.width * App->map->data.tileWidth;
+		minimapWidth = map_width * minimapScale;
+		float map_height = App->map->data.height * App->map->data.tileHeight;
+		minimapHeight = map_height * minimapScale;
 
-		minimap_tex = SDL_CreateTexture(App->render->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, minimap_width, minimap_height);
-		SDL_SetRenderTarget(App->render->renderer, minimap_tex);
+		minimapTex = SDL_CreateTexture(App->render->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, minimapWidth, minimapHeight);
+		SDL_SetRenderTarget(App->render->renderer, minimapTex);
 	}
 	DrawMinimap();
 
 	SDL_SetRenderTarget(App->render->renderer, NULL);
-	SDL_SetTextureBlendMode(minimap_tex, SDL_BLENDMODE_BLEND);
+	SDL_SetTextureBlendMode(minimapTex, SDL_BLENDMODE_BLEND);
 }
 
 bool Minimap::MinimapCoords(int& map_x, int& map_y)
@@ -145,16 +145,16 @@ bool Minimap::MinimapCoords(int& map_x, int& map_y)
 	App->input->GetMousePosition(mouse_x, mouse_y);
 
 	//if we click inside the minimap and it is active 
-	if (mouse_x >= position.x && mouse_x <= minimap_width +position.x	&&	mouse_y >= position.y && mouse_y <= minimap_height+position.y && display) 
+	if (mouse_x >= position.x && mouse_x <= minimapWidth +position.x	&&	mouse_y >= position.y && mouse_y <= minimapHeight +position.y && display)
 	{
 		
 		if (App->map->data.type == MAPTYPE_ORTHOGONAL) {
-			map_x = ((mouse_x - position.x) / minimap_scale);
-			map_y = ((mouse_y - position.y) / minimap_scale);
+			map_x = ((mouse_x - position.x) / minimapScale);
+			map_y = ((mouse_y - position.y) / minimapScale);
 		}
 		else if (App->map->data.type == MAPTYPE_ISOMETRIC) {
-			map_x = ((mouse_x - position.x - minimap_width / 2) / minimap_scale);
-			map_y = ((mouse_y - position.y) / minimap_scale);
+			map_x = ((mouse_x - position.x - minimapWidth / 2) / minimapScale);
+			map_y = ((mouse_y - position.y) / minimapScale);
 		}
 
 	}
@@ -187,13 +187,13 @@ void Minimap::DrawMinimap()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = App->map->MapToWorld(x, y);
 					
-					pos.x *= minimap_scale;
-					pos.y *= minimap_scale;
+					pos.x *= minimapScale;
+					pos.y *= minimapScale;
 
 					if (App->map->data.type == MAPTYPE_ORTHOGONAL) 
-						App->render->Blit(tileset->texture, pos.x, pos.y, &r, false, App->render->renderer, minimap_scale);
+						App->render->Blit(tileset->texture, pos.x, pos.y, &r, false, App->render->renderer, minimapScale);
 					else if (App->map->data.type == MAPTYPE_ISOMETRIC)
-						App->render->Blit(tileset->texture, pos.x + minimap_width / 2, pos.y, &r, false, App->render->renderer, minimap_scale);
+						App->render->Blit(tileset->texture, pos.x + minimapWidth / 2, pos.y, &r, false, App->render->renderer, minimapScale);
 				}
 			}
 		}
@@ -203,31 +203,31 @@ void Minimap::DrawMinimap()
 void Minimap::DrawCamera()
 {
 	if (App->map->data.type == MAPTYPE_ORTHOGONAL) {
-		SDL_Rect map_camera = { -App->render->camera.x * minimap_scale + position.x,-App->render->camera.y * minimap_scale + position.y,App->render->camera.w * minimap_scale,App->render->camera.h * minimap_scale };
+		SDL_Rect map_camera = { -App->render->camera.x * minimapScale + position.x,-App->render->camera.y * minimapScale + position.y,App->render->camera.w * minimapScale,App->render->camera.h * minimapScale };
 		App->render->DrawQuad(map_camera, 255, 255, 0, 255, false, false);
 	}
 	else if (App->map->data.type == MAPTYPE_ISOMETRIC) {
-		SDL_Rect map_camera = { -App->render->camera.x * minimap_scale + minimap_width / 2 + position.x,-App->render->camera.y * minimap_scale + position.y,App->render->camera.w * minimap_scale,App->render->camera.h * minimap_scale };
+		SDL_Rect map_camera = { -App->render->camera.x * minimapScale + minimapWidth / 2 + position.x,-App->render->camera.y * minimapScale + position.y,App->render->camera.w * minimapScale,App->render->camera.h * minimapScale };
 		App->render->DrawQuad(map_camera, 255, 255, 0, 255, false, false);
 	}
 }
 
 void Minimap::MinimapBorders()
 {
-	int isotile_x_offset = App->map->data.tile_width / 2 * minimap_scale;
-	int isotile_y_offset = App->map->data.tile_height / 2 * minimap_scale;
+	int isotile_x_offset = App->map->data.tileWidth / 2 * minimapScale;
+	int isotile_y_offset = App->map->data.tileHeight / 2 * minimapScale;
 
 	if (App->map->data.type == MAPTYPE_ORTHOGONAL) {
-		App->render->DrawLine(position.x , position.y, position.x + minimap_width, position.y, 0, 0, 255, 255, false);
-		App->render->DrawLine(position.x + minimap_width, position.y, minimap_width + position.x, minimap_height + position.y, 0, 0, 255, 255, false);
-		App->render->DrawLine(position.x,minimap_height + position.y, minimap_width + position.x, minimap_height + position.y, 0, 0, 255, 255, false);
-		App->render->DrawLine(position.x, position.y, position.x, position.y + minimap_height, 0, 0, 255, 255, false);
+		App->render->DrawLine(position.x , position.y, position.x + minimapWidth, position.y, 0, 0, 255, 255, false);
+		App->render->DrawLine(position.x + minimapWidth, position.y, minimapWidth + position.x, minimapHeight + position.y, 0, 0, 255, 255, false);
+		App->render->DrawLine(position.x, minimapHeight + position.y, minimapWidth + position.x, minimapHeight + position.y, 0, 0, 255, 255, false);
+		App->render->DrawLine(position.x, position.y, position.x, position.y + minimapHeight, 0, 0, 255, 255, false);
 	}
 	else if (App->map->data.type == MAPTYPE_ISOMETRIC){
-		App->render->DrawLine(isotile_x_offset + position.x, minimap_height / 2 + position.y + isotile_y_offset, minimap_width / 2 + isotile_x_offset + position.x, isotile_y_offset + position.y, 255, 255, 255, 255, false);
-		App->render->DrawLine(minimap_width + isotile_x_offset + position.x, minimap_height / 2 + isotile_y_offset + position.y, minimap_width / 2 + isotile_x_offset + position.x, isotile_y_offset + position.y, 255, 255, 255, 255, false);
-		App->render->DrawLine(minimap_width + isotile_x_offset + position.x, minimap_height / 2 + isotile_y_offset + position.y, minimap_width / 2 + isotile_x_offset + position.x, minimap_height + isotile_y_offset + position.y, 255, 255, 255, 255, false);
-		App->render->DrawLine(isotile_x_offset + position.x, minimap_height / 2 + isotile_y_offset + position.y, minimap_width / 2 + isotile_x_offset + position.x, minimap_height + isotile_y_offset + position.y, 255, 255, 255, 255, false);
+		App->render->DrawLine(isotile_x_offset + position.x, minimapHeight / 2 + position.y + isotile_y_offset, minimapWidth / 2 + isotile_x_offset + position.x, isotile_y_offset + position.y, 255, 255, 255, 255, false);
+		App->render->DrawLine(minimapWidth + isotile_x_offset + position.x, minimapHeight / 2 + isotile_y_offset + position.y, minimapWidth / 2 + isotile_x_offset + position.x, isotile_y_offset + position.y, 255, 255, 255, 255, false);
+		App->render->DrawLine(minimapWidth + isotile_x_offset + position.x, minimapHeight / 2 + isotile_y_offset + position.y, minimapWidth / 2 + isotile_x_offset + position.x, minimapHeight + isotile_y_offset + position.y, 255, 255, 255, 255, false);
+		App->render->DrawLine(isotile_x_offset + position.x, minimapHeight / 2 + isotile_y_offset + position.y, minimapWidth / 2 + isotile_x_offset + position.x, minimapHeight + isotile_y_offset + position.y, 255, 255, 255, 255, false);
 	}
 
 }
@@ -336,7 +336,7 @@ void Minimap::DrawEntitiesIcon() {
 */
 
 void Minimap::Scale() {
-	if (size < (App->map->data.tile_height / 2)) {
+	if (size < (App->map->data.tileHeight / 2)) {
 		size += 1;
 		CleanUp();
 		Load();

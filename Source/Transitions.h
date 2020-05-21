@@ -24,8 +24,8 @@ public:
 
 private:
 
-	Module* Moduleoff;
-	Module* Moduleon;
+	Module* moduleOff;
+	Module* moduleOn;
 
 
 	enum class fade_step
@@ -39,8 +39,8 @@ private:
 	}
 	current_step = fade_step::none;
 
-	Uint32 start_time = 0;
-	Uint32 total_time = 0;
+	Uint32 startTime = 0;
+	Uint32 totalTime = 0;
 	SDL_Rect screen;
 
 };

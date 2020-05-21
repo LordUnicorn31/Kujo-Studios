@@ -36,7 +36,7 @@ struct Particle
 	SDL_Color initialColor;			//Particle color inicial
 	SDL_Color finalColor;			//Particle color final
 	uint fx = 0;					//Particle fx
-	bool fx_played = false;			//Particle fx active
+	bool fxPlayed = false;			//Particle fx active
 
 	Particle();
 	Particle(const Particle& p);

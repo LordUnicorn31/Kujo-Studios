@@ -33,15 +33,9 @@ public:
 
 	void Init();
 
-
-
 private:
 
-	SDL_Texture* Copy;
 	SDL_Texture* background;
-	SDL_Texture* wintext;
-
-	bool Exit;
-
+	SDL_Texture* winText;
 
 };

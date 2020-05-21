@@ -72,9 +72,9 @@ private:
 	uchar* map;
 	// we store the created path here
 	//TODO:Llista de tots els pathos
-	eastl::list<eastl::vector<iPoint>>CurrentPaths;
-	eastl::vector<iPoint> last_path;
-	eastl::list<iPoint>OccupiedTiles;
+	eastl::list<eastl::vector<iPoint>> currentPaths;
+	eastl::vector<iPoint> lastPath;
+	eastl::list<iPoint> occupiedTiles;
 	PerfTimer timer;
 };
 

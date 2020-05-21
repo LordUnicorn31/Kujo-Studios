@@ -40,7 +40,7 @@ public:
 	SDL_Window* window;
 
 	//The surface contained by the window
-	SDL_Surface* screen_surface;
+	SDL_Surface* screenSurface;
 	eastl::string	title;
 
 	int		        width;

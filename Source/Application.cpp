@@ -29,11 +29,11 @@
 
 #include "SDL.h"
 
-Application::Application(int argc, char* args[]) : argc(argc), args(args),save_game("Resources/save.xml"),load_game("Resources/save.xml")
+Application::Application(int argc, char* args[]) : argc(argc), args(args), saveGame("Resources/save.xml"), loadGame("Resources/save.xml")
 {
 	PERF_START(ptimer);
 	freeze = false;
-	want_to_save = want_to_load = false;
+	wantToSave = wantToLoad = false;
 
 	input = new Input();
 	win = new Window();
@@ -80,7 +80,6 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args),save_g
 	AddModule(losescene);
 	AddModule(gui);
 	AddModule(transition);
-	
 	AddModule(particle);
 	//AddModule(dialog);
 	AddModule(fow);
@@ -88,20 +87,6 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args),save_g
 
 	// render last to swap buffer
 	AddModule(render);
-
-	/*modules.reserve(6);
-	modules.emplace_back(input);
-	modules[0]->Init();
-	modules.emplace_back(win);
-	modules[1]->Init();
-	modules.emplace_back(tex);
-	modules[2]->Init();
-	modules.emplace_back(scene);
-	modules[3]->Init();
-	modules.emplace_back(map);
-	modules[4]->Init();
-	modules.emplace_back(render);
-	modules[5]->Init();*/
 
 	PERF_PEEK(ptimer);
 }
@@ -144,25 +129,18 @@ bool Application::Awake()
 		app_config = config.child("app");
 		title=app_config.child("title").child_value();
 		organization=app_config.child("organization").child_value();
-		SavedProgress = config.child("SavedProgress").child_value();
+		savedProgress = config.child("SavedProgress").child_value();
 		int cap = app_config.attribute("framerate_cap").as_int(-1);
-		cap_num = cap;
+		capNum = cap;
 
 		if (cap > 0)
 		{
-			capped_ms = 1000 / cap;
+			cappedMs = 1000 / cap;
 		}
 	}
 
 	if (ret == true)
 	{
-		/*item = modules.start;
-
-		while (item != NULL && ret == true)
-		{
-			ret = item->data->Awake(config.child(item->data->name.GetString()));
-			item = item->next;
-		}*/
 		
 		eastl::list <Module*> ::iterator it;
 		for (it = modules.begin(); it != modules.end() && ret == true; ++it) 
@@ -236,45 +214,45 @@ pugi::xml_node Application::LoadConfig(pugi::xml_document& config_file) const
 // ---------------------------------------------
 void Application::PrepareUpdate()
 {
-	frame_count++;
-	last_sec_frame_count++;
+	frameCount++;
+	lastSecFrameCount++;
 
-	dt = frame_time.ReadSec();
+	dt = frameTime.ReadSec();
 	if (freeze)
 		dt = 0;
-	frame_time.Start();
+	frameTime.Start();
 }
 
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
 
-	if (want_to_save == true)
+	if (wantToSave == true)
 		SavegameNow();
 
-	if (want_to_load == true)
+	if (wantToLoad == true)
 		LoadGameNow();
 
-	if (last_sec_frame_time.Read() > 1000)
+	if (lastSecFrameTime.Read() > 1000)
 	{
-		last_sec_frame_time.Start();
-		prev_last_sec_frame_count = last_sec_frame_count;
-		last_sec_frame_count = 0;
+		lastSecFrameTime.Start();
+		prevLastSecFrameCount = lastSecFrameCount;
+		lastSecFrameCount = 0;
 	}
 
-	float avg_fps = float(frame_count) / startup_time.ReadSec();
-	float seconds_since_startup = startup_time.ReadSec();
-	uint32 last_frame_ms = frame_time.Read();
-	uint32 frames_on_last_update = prev_last_sec_frame_count;
+	float avg_fps = float(frameCount) / startupTime.ReadSec();
+	float seconds_since_startup = startupTime.ReadSec();
+	uint32 last_frame_ms = frameTime.Read();
+	uint32 frames_on_last_update = prevLastSecFrameCount;
 
 	static char title[256];
 	sprintf_s(title, 256, "FPS: %i Av.FPS: %.2f Last Frame Ms: %u Cap: %d VSync: %d",
-		frames_on_last_update, avg_fps, last_frame_ms, cap_num, App->render->VSync);
+		frames_on_last_update, avg_fps, last_frame_ms, capNum, App->render->vSync);
 	App->win->SetTitle(title);
 
-	if (capped_ms > 0 && last_frame_ms < capped_ms)
+	if (cappedMs > 0 && last_frame_ms < cappedMs)
 	{
-		SDL_Delay(capped_ms - last_frame_ms);
+		SDL_Delay(cappedMs - last_frame_ms);
 	}
 }
 
@@ -298,20 +276,6 @@ bool Application::PreUpdate()
 bool Application::DoUpdate()
 {
 	bool ret = true;
-	/*p2List_item<Module*>* item;
-	item = modules.start;
-	Module* pModule = NULL;
-
-	for (item = modules.start; item != NULL && ret == true; item = item->next)
-	{
-		pModule = item->data;
-
-		if (pModule->active == false || !pModule->IsEneabled()) {
-			continue;
-		}
-
-		ret = item->data->Update(dt);
-	}*/
 
 	eastl::list <Module*> ::iterator it;
 	for (it = modules.begin(); it != modules.end() && ret == true; ++it)
@@ -337,8 +301,9 @@ bool Application::PostUpdate()
 		ret = (*it)->PostUpdate();
 	}
 
-	if (input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+	//Exit with ESCAPE
+	/*if (input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		ret = false;*/
 
 	return ret;
 }
@@ -399,7 +364,7 @@ void Application::LoadGame()
 {
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list
-	want_to_load = true;
+	wantToLoad = true;
 }
 
 // ---------------------------------------
@@ -408,7 +373,7 @@ void Application::SaveGame() const
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list ... should we overwrite ?
 
-	want_to_save = true;
+	wantToSave = true;
 }
 
 // ---------------------------------------
@@ -424,11 +389,11 @@ bool Application::LoadGameNow()
 	pugi::xml_document data;
 	pugi::xml_node root;
 
-	pugi::xml_parse_result result = data.load_file(load_game.c_str());
+	pugi::xml_parse_result result = data.load_file(loadGame.c_str());
 
 	if (result != NULL)
 	{
-		LOG("Loading new Game State from %s...", load_game.c_str());
+		LOG("Loading new Game State from %s...", loadGame.c_str());
 
 		root = data.child("game_state");
 
@@ -445,9 +410,9 @@ bool Application::LoadGameNow()
 			LOG("...loading process interrupted with error on module %s", ((*it) != NULL) ? (*it)->name.c_str() : "unknown");
 	}
 	else
-		LOG("Could not parse game state xml file %s. pugi error: %s", load_game.c_str(), result.description());
+		LOG("Could not parse game state xml file %s. pugi error: %s", loadGame.c_str(), result.description());
 
-	want_to_load = false;
+	wantToLoad = false;
 	return ret;
 }
 
@@ -455,21 +420,13 @@ bool Application::SavegameNow() const
 {
 	bool ret = true;
 
-	LOG("Saving Game State to %s...", save_game.c_str());
+	LOG("Saving Game State to %s...", saveGame.c_str());
 
 	// xml object were we will store all data
 	pugi::xml_document data;
 	pugi::xml_node root;
 
 	root = data.append_child("game_state");
-
-	/*p2List_item<Module*>* item = modules.start;
-
-	while (item != NULL && ret == true)
-	{
-		ret = item->data->Save(root.append_child(item->data->name.GetString()));
-		item = item->next;
-	}*/
 
 	eastl::list<Module*>::const_iterator it;
 	for (it = modules.begin(); it != modules.end() && ret == true; ++it) {
@@ -479,13 +436,13 @@ bool Application::SavegameNow() const
 
 	if (ret == true)
 	{
-		data.save_file(save_game.c_str());
+		data.save_file(saveGame.c_str());
 		LOG("... finished saving", );
 	}
 	else
 		LOG("Save process halted from an error in module %s", (it.mpNode->mValue != NULL) ? (*it)->name.c_str() : "unknown");
 
 	data.reset();
-	want_to_save = false;
+	wantToSave = false;
 	return ret;
 }

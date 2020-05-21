@@ -9,7 +9,7 @@
 Window::Window() : Module()
 {
 	window = NULL;
-	screen_surface = NULL;
+	screenSurface = NULL;
 	name="window";
 }
 
@@ -72,7 +72,7 @@ bool Window::Awake(pugi::xml_node& config)
 		else
 		{
 			//Get window surface
-			screen_surface = SDL_GetWindowSurface(window);
+			screenSurface = SDL_GetWindowSurface(window);
 		}
 	}
 

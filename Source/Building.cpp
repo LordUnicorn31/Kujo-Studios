@@ -157,7 +157,7 @@ void Building::LevelUp() {
 void Building::UiFunctionallity() {
 	switch (Btype) {
 	case BuildingType::Cuartel:
-		App->gui->AddText(18, 240, "Barracks", App->font->Default, { 0,0,255,255 }, 32, false, false, App->entity->Panel);
+		App->gui->AddText(18, 240, "Barracks", App->font->defaultFont, { 0,0,255,255 }, 32, false, false, App->entity->Panel);
 		App->gui->AddEntityButton(20, 300, { 1344,84,39,39 }, { 1290,83,39,39 }, { 1397,83,39,39 },AviableEntities::redship, EntityType::TypeAi, true, false, App->entity->Panel, App->entity);
 		App->gui->AddEntityButton(60, 300, { 1345,28,39,39 }, { 1291,28,39,39 }, { 1397,28,39,39 }, AviableEntities::blueship, EntityType::TypeAi, true, false, App->entity->Panel, App->entity);
 		App->gui->AddEntityButton(100, 300, { 1344,199,39,39 }, { 1290,198,39,39 }, { 1397,198,39,39 }, AviableEntities::greenship, EntityType::TypeAi, true, false, App->entity->Panel, App->entity);
@@ -176,19 +176,19 @@ void Building::UiFunctionallity() {
 		}
 		break;
 	case BuildingType::Base:
-		App->gui->AddText(56, 240, "Base", App->font->Default, { 0,0,255,255 }, 32, false, false, App->entity->Panel);
+		App->gui->AddText(56, 240, "Base", App->font->defaultFont, { 0,0,255,255 }, 32, false, false, App->entity->Panel);
 		App->gui->AddEntityButton(20, 300, { 1344,136,39,39 }, { 1291,135,39,39 }, { 1397,136,39,39 },AviableEntities::collector, EntityType::TypeAi, true, false, App->entity->Panel, App->entity);
 		if(!BuildingQueue.empty())
 			BuildHUD = App->gui->AddHUDBar(9,341, BuildingEntity->TotalBuildingTime, &BuildingEntity->BuildingTime, false, { 1279,431,61,5 }, { 1279,399,61,5 }, { 1278,382,64,8 }, false, false, App->entity->Panel, nullptr);
 		break;
 	case BuildingType::Mine:
-		App->gui->AddText(56, 240, "Mine", App->font->Default, { 0,0,255,255 }, 32,false,false,App->entity->Panel);
+		App->gui->AddText(56, 240, "Mine", App->font->defaultFont, { 0,0,255,255 }, 32,false,false,App->entity->Panel);
 		break;
 	case BuildingType::Spaceship_factory:
-		App->gui->AddText(66, 240, "Lab", App->font->Default, { 0,0,255,255 }, 32, false, false, App->entity->Panel);
+		App->gui->AddText(66, 240, "Lab", App->font->defaultFont, { 0,0,255,255 }, 32, false, false, App->entity->Panel);
 		break;
 	case BuildingType::PowerGenerator:
-		App->gui->AddText(16, 240, "Generator", App->font->Default, { 0,0,255,255 }, 32, false, false, App->entity->Panel);
+		App->gui->AddText(16, 240, "Generator", App->font->defaultFont, { 0,0,255,255 }, 32, false, false, App->entity->Panel);
 		break;
 	}
 }

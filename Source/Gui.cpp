@@ -25,7 +25,7 @@ bool Gui::Awake(pugi::xml_node& conf)
 	LOG("Loading GUI atlas");
 	bool ret = true;
 
-	atlas_file_name = conf.child("atlas").attribute("file").as_string("");
+	atlasFileName = conf.child("atlas").attribute("file").as_string("");
 
 	return ret;
 }
@@ -33,7 +33,7 @@ bool Gui::Awake(pugi::xml_node& conf)
 // Called before the first frame
 bool Gui::Start()
 {
-	atlas = App->tex->Load(atlas_file_name.data());
+	atlas = App->tex->Load(atlasFileName.data());
 	focusedUi = nullptr;
 	return true;
 }
@@ -234,41 +234,41 @@ UiElement* Gui::AddSlider(int x, int y, bool active, bool draggable, UiElement* 
 }
 
 
-UiElement::UiElement(int x, int y, int w, int h, bool interactuable, bool draggeable, UiTypes uitype, UiElement* parent, Module* elementmodule) : type(uitype), parent(parent), module(elementmodule), ui_rect({ x,y,w,h }), interactuable(interactuable), draggable(draggeable) { if (parent != nullptr)SetLocalPos(x, y); }
+UiElement::UiElement(int x, int y, int w, int h, bool interactuable, bool draggeable, UiTypes uitype, UiElement* parent, Module* elementmodule) : type(uitype), parent(parent), module(elementmodule), uiRect({ x,y,w,h }), interactuable(interactuable), draggable(draggeable) { if (parent != nullptr)SetLocalPos(x, y); }
 
 UiElement::~UiElement() {};
 
 const iPoint UiElement::GetScreenPos() {
-	iPoint position(ui_rect.x, ui_rect.y);
+	iPoint position(uiRect.x, uiRect.y);
 	return position;
 }
 
 const iPoint UiElement::GetLocalPos() {
 	if (parent == nullptr) {
-		iPoint position(ui_rect.x, ui_rect.y);
+		iPoint position(uiRect.x, uiRect.y);
 		return position;
 	}
 	else {
-		iPoint position(ui_rect.x - parent->GetScreenPos().x, ui_rect.y - parent->GetScreenPos().y);
+		iPoint position(uiRect.x - parent->GetScreenPos().x, uiRect.y - parent->GetScreenPos().y);
 		return position;
 	}
 }
 
 const SDL_Rect UiElement::GetScreenRect() {
-	return ui_rect;
+	return uiRect;
 }
 
 const SDL_Rect UiElement::GetLocalRect() {
-	return { GetLocalPos().x,GetLocalPos().y,ui_rect.w,ui_rect.h };
+	return { GetLocalPos().x,GetLocalPos().y,uiRect.w,uiRect.h };
 }
 
 void UiElement::SetLocalPos(int x, int y) {
 	if (parent == nullptr) {
-		ui_rect.x = x; ui_rect.y = y;
+		uiRect.x = x; uiRect.y = y;
 	}
 	else {
-		ui_rect.x = parent->GetScreenPos().x + x;
-		ui_rect.y = parent->GetScreenPos().y + y;
+		uiRect.x = parent->GetScreenPos().x + x;
+		uiRect.y = parent->GetScreenPos().y + y;
 	}
 }bool UiElement::outofparent() {
 	return (GetScreenPos().x + GetScreenRect().w*0.5f<parent->GetScreenPos().x || GetScreenPos().x>parent->GetScreenPos().x + parent->GetScreenRect().w - GetScreenRect().w*0.5 || GetScreenPos().y + GetScreenRect().h*0.5f<parent->GetScreenPos().y || GetScreenPos().y>parent->GetScreenPos().y + parent->GetScreenRect().h - GetScreenRect().h*0.5f);
@@ -276,7 +276,7 @@ void UiElement::SetLocalPos(int x, int y) {
 
 
 
-UiImage::UiImage(int x, int y, SDL_Rect source_rect, bool interactuable, bool draggeable, UiElement* parent, Module* elementmodule) :UiElement(x, y, source_rect.w, source_rect.h, interactuable, draggeable, UiTypes::Image, parent, elementmodule), atlas_rect(source_rect) {}
+UiImage::UiImage(int x, int y, SDL_Rect source_rect, bool interactuable, bool draggeable, UiElement* parent, Module* elementmodule) :UiElement(x, y, source_rect.w, source_rect.h, interactuable, draggeable, UiTypes::Image, parent, elementmodule), atlasRect(source_rect) {}
 UiImage::~UiImage() {}
 
 void UiImage::Update(int dx, int dy) {
@@ -293,10 +293,10 @@ void UiImage::Update(int dx, int dy) {
 
 void UiImage::Draw(SDL_Texture* atlas) {
 	if (parent == nullptr || !outofparent())
-		App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &atlas_rect,false);
+		App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &atlasRect,false);
 }
 
-UiText::UiText(int x, int y, const char*text, int size, SDL_Color color, bool interactuable, bool draggeable, _TTF_Font*font, UiElement* parent, Module* elementmodule) : UiElement(x, y, size, size, interactuable, draggeable, UiTypes::Text, parent, elementmodule), font_type(font), message(text), color(color), texture(App->font->Print(message.c_str(), color, font_type)) {}
+UiText::UiText(int x, int y, const char*text, int size, SDL_Color color, bool interactuable, bool draggeable, _TTF_Font*font, UiElement* parent, Module* elementmodule) : UiElement(x, y, size, size, interactuable, draggeable, UiTypes::Text, parent, elementmodule), fontType(font), message(text), color(color), texture(App->font->Print(message.c_str(), color, fontType)) {}
 UiText::~UiText() { App->tex->UnLoad(texture); }
 
 void UiText::Draw(SDL_Texture* atlas) {
@@ -319,31 +319,31 @@ void UiText::Update(int dx, int dy) {
 void UiText::ChangeMessage(const char* newmessage) {
 	App->tex->UnLoad(texture);
 	message = newmessage;
-	texture = App->font->Print(message.c_str(), color, font_type);
+	texture = App->font->Print(message.c_str(), color, fontType);
 }
 
 void UiText::ChangeColor(SDL_Color newcolor) {
 	App->tex->UnLoad(texture);
 	color = newcolor;
-	texture = App->font->Print(message.c_str(), color, font_type);
+	texture = App->font->Print(message.c_str(), color, fontType);
 }
 
-UiButton::UiButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable, bool draggeable, UiElement* parent, Module* elementmodule) :UiElement(x, y, source_unhover.w, source_unhover.h, interactuable, draggeable, UiTypes::Button, parent, elementmodule), unhover(source_unhover), hover(source_hover), click(source_click), current_state(Button_state::unhovered) {}
+UiButton::UiButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable, bool draggeable, UiElement* parent, Module* elementmodule) :UiElement(x, y, source_unhover.w, source_unhover.h, interactuable, draggeable, UiTypes::Button, parent, elementmodule), unhover(source_unhover), hover(source_hover), click(source_click), currentState(Button_state::unhovered) {}
 UiButton::~UiButton() {}
 
 void UiButton::Update(int dx, int dy) {
 	if (App->gui->focusedUi == this)
-		current_state = Button_state::hovered;
+		currentState = Button_state::hovered;
 	else if (App->gui->UiUnderMouse() == this)
-		current_state = Button_state::hovered;
+		currentState = Button_state::hovered;
 	else
-		current_state = Button_state::unhovered;
+		currentState = Button_state::unhovered;
 	if (App->gui->MouseClick() && App->gui->focusedUi == this) {
-		current_state = Button_state::clicked;
+		currentState = Button_state::clicked;
 		App->gui->focusedUi = nullptr;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && App->gui->focusedUi == this) {
-		current_state = Button_state::clicked;
+		currentState = Button_state::clicked;
 		App->gui->focusedUi = nullptr;
 	}
 	if (draggable && App->gui->MouseClick() && App->gui->UiUnderMouse() == this && dx != 0 && dy != 0) {
@@ -354,7 +354,7 @@ void UiButton::Update(int dx, int dy) {
 
 void UiButton::Draw(SDL_Texture*atlas) {
 	if (parent == nullptr || !outofparent()) {
-		switch (current_state) {
+		switch (currentState) {
 		case Button_state::unhovered:
 			App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &unhover,false);
 			break;
@@ -368,43 +368,43 @@ void UiButton::Draw(SDL_Texture*atlas) {
 	}
 }
 
-UiEntityButton::UiEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_selected,AviableEntities entity,EntityType etype, bool interactuable, bool draggeable, UiElement* parent, Module* elementmodule) :UiElement(x, y, source_unhover.w, source_unhover.h, interactuable, draggeable, UiTypes::EButton, parent, elementmodule), unhover(source_unhover), hover(source_hover), click(source_selected), entity(entity), current_state(Button_state::unhovered), entitytype(etype), selected(false) {}
+UiEntityButton::UiEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_selected,AviableEntities entity,EntityType etype, bool interactuable, bool draggeable, UiElement* parent, Module* elementmodule) :UiElement(x, y, source_unhover.w, source_unhover.h, interactuable, draggeable, UiTypes::EButton, parent, elementmodule), unhover(source_unhover), hover(source_hover), click(source_selected), entity(entity), currentState(Button_state::unhovered), entitytype(etype), selected(false) {}
 
 UiEntityButton::~UiEntityButton(){}
 
 void UiEntityButton::Update(int dx, int dy) {
 	if (App->gui->focusedUi == this) {
 		if (selected)
-			current_state = Button_state::clicked;
+			currentState = Button_state::clicked;
 		else
-			current_state = Button_state::hovered;
+			currentState = Button_state::hovered;
 	}
 	else if (App->gui->UiUnderMouse() == this) {
 		if (selected)
-			current_state = Button_state::clicked;
+			currentState = Button_state::clicked;
 		else
-			current_state = Button_state::hovered;
+			currentState = Button_state::hovered;
 	}
 	else {
 		if (selected)
-			current_state = Button_state::clicked;
+			currentState = Button_state::clicked;
 		else
-			current_state = Button_state::unhovered;
+			currentState = Button_state::unhovered;
 	}
 	if ((App->gui->MouseClick() || App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) && App->gui->focusedUi == this) {
 		selected = !selected;
 		if (selected) {
-			current_state = Button_state::clicked;
+			currentState = Button_state::clicked;
 			module->ui_callback(this);
 		}
 		else {
-			current_state = Button_state::unhovered;
+			currentState = Button_state::unhovered;
 			App->gui->focusedUi = nullptr;
 		}
 	}
 	else if ((App->gui->MouseClick() || App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) && App->gui->focusedUi != this) {
 		selected = false;
-		current_state = Button_state::unhovered;
+		currentState = Button_state::unhovered;
 	}
 	if (draggable && App->gui->MouseClick() && App->gui->UiUnderMouse() == this && dx != 0 && dy != 0) {
 		SetLocalPos(GetLocalPos().x + dx, GetLocalPos().y + dy);
@@ -414,7 +414,7 @@ void UiEntityButton::Update(int dx, int dy) {
 
 void UiEntityButton::Draw(SDL_Texture* atlas) {
 	if (parent == nullptr || !outofparent()) {
-		switch (current_state) {
+		switch (currentState) {
 		case Button_state::unhovered:
 			App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &unhover, false);
 			break;
@@ -428,58 +428,58 @@ void UiEntityButton::Draw(SDL_Texture* atlas) {
 	}
 }
 
-UiHUDBars::UiHUDBars(int x, int y, uint MaxValue,float*valueptr, bool usecamera, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, UiElement* parent, Module* elementmodule): UiElement(x, y, bar.w, bar.h, interactuable, draggeable, UiTypes::HUDBar, parent, elementmodule), Border(border), Fill(fill), FullBar(bar), Value(valueptr), MaxValue(MaxValue),CurrentBar(bar),UseCamera(usecamera) {}
+UiHUDBars::UiHUDBars(int x, int y, uint MaxValue,float*valueptr, bool usecamera, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, UiElement* parent, Module* elementmodule): UiElement(x, y, bar.w, bar.h, interactuable, draggeable, UiTypes::HUDBar, parent, elementmodule), border(border), fill(fill), fullBar(bar), value(valueptr), maxValue(MaxValue), currentBar(bar), useCamera(usecamera) {}
 
 UiHUDBars::~UiHUDBars() {}
 
 void UiHUDBars::Update(int dx, int dy) {
-	CurrentBar.w = (int)((*Value) / ((float)MaxValue/(float)FullBar.w));
-	if (CurrentBar.w < 0)
-		CurrentBar.w = 0;
+	currentBar.w = (int)((*value) / ((float)maxValue /(float)fullBar.w));
+	if (currentBar.w < 0)
+		currentBar.w = 0;
 }
 
 void UiHUDBars::Draw(SDL_Texture* atlas) {
-	App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &Border, UseCamera);
-	App->render->Blit(atlas, GetScreenPos().x+1, GetScreenPos().y+1, &Fill, UseCamera);
-	App->render->Blit(atlas, GetScreenPos().x+1, GetScreenPos().y+1, &CurrentBar, UseCamera);
+	App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &border, useCamera);
+	App->render->Blit(atlas, GetScreenPos().x+1, GetScreenPos().y+1, &fill, useCamera);
+	App->render->Blit(atlas, GetScreenPos().x+1, GetScreenPos().y+1, &currentBar, useCamera);
 }
 
 UiSlider::UiSlider(int x, int y, bool active, bool draggable,UiElement* parent, Module* elementmodule, int sliderposition) : UiElement(x, y, bar.w, bar.h, active, draggable, UiTypes::Slider, parent, elementmodule) {
 
-	clickable_rect = { GetScreenPos().x -46, GetScreenPos().y, 250, 40 };
+	clickableRect = { GetScreenPos().x -46, GetScreenPos().y, 250, 40 };
 
-	thumb_offset = 46;
+	thumbOffset = 46;
 
-	sliderpos = sliderposition;
+	sliderPos = sliderposition;
 
 	texture = App->tex->Load("gui/UI_Slider.png");
 
 	bar = { 1280, 560, 170, 15 };
 	thumb = { 1280, 580, 30, 30 };
-	thumb_hovered = { 1280, 580, 30, 30 };
+	thumbHovered = { 1280, 580, 30, 30 };
 
-	clickable_rect = { GetScreenPos().x -46, GetScreenPos().y, 250, 40 };
+	clickableRect = { GetScreenPos().x -46, GetScreenPos().y, 250, 40 };
 };
 
 UiSlider::~UiSlider() {};
 
 void UiSlider::Update(int dx, int dy) {
 
-	clickable_rect = { GetScreenPos().x -46, GetScreenPos().y , 250, 40 };
+	clickableRect = { GetScreenPos().x -46, GetScreenPos().y , 250, 40 };
 	hovered = false;
 	int x, y;//Mouse coords
 
 	App->input->GetMousePosition(x, y);
 
-	if (x > clickable_rect.x && x < clickable_rect.x + clickable_rect.w
-		&& y > clickable_rect.y && y < clickable_rect.y + clickable_rect.h)
+	if (x > clickableRect.x && x < clickableRect.x + clickableRect.w
+		&& y > clickableRect.y && y < clickableRect.y + clickableRect.h)
 	{
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 		{
 			hovered = true;
-			sliderpos = x - GetScreenPos().x - thumb_offset;
-			if (sliderpos < 0)	sliderpos = 0;
-			else if (sliderpos > 152) sliderpos = 152;
+			sliderPos = x - GetScreenPos().x - thumbOffset;
+			if (sliderPos < 0)	sliderPos = 0;
+			else if (sliderPos > 152) sliderPos = 152;
 		}
 	}
 }
@@ -489,17 +489,17 @@ void UiSlider::Draw(SDL_Texture* atlas) {
 	App->render->Blit(atlas, GetScreenPos().x ,GetScreenPos().y, &bar, false);
 
 	if (hovered) {
-		App->render->Blit(atlas, GetScreenPos().x + thumb_offset + sliderpos -46, GetScreenPos().y -4, &thumb_hovered, false);
+		App->render->Blit(atlas, GetScreenPos().x + thumbOffset + sliderPos -46, GetScreenPos().y -4, &thumbHovered, false);
 	}
-	else App->render->Blit(atlas, GetScreenPos().x + thumb_offset + sliderpos -46, GetScreenPos().y -4, &thumb, false);
+	else App->render->Blit(atlas, GetScreenPos().x + thumbOffset + sliderPos -46, GetScreenPos().y -4, &thumb, false);
 
 	if (debug)
 	{
-		App->render->DrawQuad(clickable_rect, 0, 255, 255, 50, true, false);
+		App->render->DrawQuad(clickableRect, 0, 255, 255, 50, true, false);
 	}
 }
 
 float UiSlider::SliderValue() {
 
-	return ((float)sliderpos / 152.0f);
+	return ((float)sliderPos / 152.0f);
 }

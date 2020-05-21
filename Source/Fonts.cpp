@@ -29,13 +29,13 @@ bool Fonts::Awake(pugi::xml_node& conf)
 	{
 		const char* path = conf.child("default_font").attribute("file").as_string(DEFAULT_FONT);
 		int size = conf.child("default_font").attribute("size").as_int(DEFAULT_FONT_SIZE);
-		Default = Load(path, size);
+		defaultFont = Load(path, size);
 
-		Small = Load(path, 16);
+		smallFont = Load(path, 16);
 
 		dialogFont = Load(path, 27);
 
-		ResourcesPanel = Load(path, 20);
+		resourcesPanelFont = Load(path, 20);
 
 		tutorialFont = Load(path, 23);
 	}
@@ -80,7 +80,7 @@ TTF_Font* const Fonts::Load(const char* path, int size)
 SDL_Texture* Fonts::Print(const char* text, SDL_Color color, TTF_Font* font)
 {
 	SDL_Texture* ret = NULL;
-	SDL_Surface* surface = TTF_RenderText_Blended((font) ? font : Default, text, color);
+	SDL_Surface* surface = TTF_RenderText_Blended((font) ? font : defaultFont, text, color);
 
 	if (surface == NULL)
 	{
@@ -100,7 +100,7 @@ bool Fonts::CalcSize(const char* text, int& width, int& height, _TTF_Font* font)
 {
 	bool ret = false;
 
-	if (TTF_SizeText((font) ? font : Default, text, &width, &height) != 0)
+	if (TTF_SizeText((font) ? font : defaultFont, text, &width, &height) != 0)
 		LOG("Unable to calc size of text surface! SDL_ttf Error: %s\n", TTF_GetError());
 	else
 		ret = true;

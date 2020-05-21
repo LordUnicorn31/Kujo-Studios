@@ -50,7 +50,7 @@ bool Collisions::PreUpdate()
 	// Remove all colliders scheduled for deletion
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
-		if (colliders[i] != nullptr && colliders[i]->to_delete == true)
+		if (colliders[i] != nullptr && colliders[i]->toDelete == true)
 		{
 			delete colliders[i];
 			colliders[i] = nullptr;

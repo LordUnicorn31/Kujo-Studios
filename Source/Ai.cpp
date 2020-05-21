@@ -160,7 +160,7 @@ void Ai::DoMovement() {
         DirectionAngle = 270.0f;
         MovementPerformed = true;
         EntityRect.x -= (int)speed;
-        if ((EntityRect.x - NextTile.x * App->map->data.tile_width) <= 0)
+        if ((EntityRect.x - NextTile.x * App->map->data.tileWidth) <= 0)
         {
             TilePos.x--;
         }
@@ -170,7 +170,7 @@ void Ai::DoMovement() {
         DirectionAngle = 90.0f;
         MovementPerformed = true;
         EntityRect.x += (int)speed;
-        if ((EntityRect.x - NextTile.x * App->map->data.tile_width) >= 0)
+        if ((EntityRect.x - NextTile.x * App->map->data.tileWidth) >= 0)
         {
             TilePos.x++;
         }
@@ -187,7 +187,7 @@ void Ai::DoMovement() {
             DirectionAngle = 0.0f;
         MovementPerformed = true;
         EntityRect.y -= (int)speed;
-        if ((EntityRect.y - NextTile.y * App->map->data.tile_height) <= 0)
+        if ((EntityRect.y - NextTile.y * App->map->data.tileHeight) <= 0)
         {
             TilePos.y--;
         }
@@ -204,7 +204,7 @@ void Ai::DoMovement() {
             DirectionAngle = 180.0f;
         MovementPerformed = true;
         EntityRect.y += (int)speed;
-        if ((EntityRect.y - NextTile.y * App->map->data.tile_height) >= 0)
+        if ((EntityRect.y - NextTile.y * App->map->data.tileHeight) >= 0)
         {
             TilePos.y++;
         }

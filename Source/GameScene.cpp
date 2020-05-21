@@ -149,6 +149,8 @@ bool GameScene::CleanUp()
 
 	App->map->CleanUp();
 	App->gui->DeleteAllUiElements();
+	App->audio->UnloadFx();
+	App->audio->UnloadMusic();
 	pauseButton = nullptr;
 	infoImage = nullptr;
 	peopleImage = nullptr;
@@ -173,14 +175,14 @@ void GameScene::ui_callback(UiElement* element) {
 
 				pauseWindow = App->gui->AddImage(400, 150, { 0, 512, 483, 512 }, false, false);
 				App->gui->AddText(170, 50, "PAUSE", NULL, { 236,178,0,255 }, 32, false, false, pauseWindow);
-				exitButton = App->gui->AddButton(120, 370, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, pauseWindow, this);
-				App->gui->AddText(78, 16, "EXIT", NULL, { 152,30,30,255 }, 32, false, false, exitButton);
 				continueButton = App->gui->AddButton(120, 110, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, pauseWindow, this);
 				App->gui->AddText(23, 15, "CONTINUE", NULL, { 65,175,94,255 }, 32, false, false, continueButton);
-				optionsButton = App->gui->AddButton(120, 280, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, pauseWindow, this);
-				App->gui->AddText(37, 15, "OPTIONS", NULL, { 16, 173, 171,255 }, 32, false, false, optionsButton);
 				saveButton = App->gui->AddButton(120, 190, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, pauseWindow, this);
 				App->gui->AddText(63, 16, "SAVE", NULL, { 194, 103, 6,255 }, 32, false, false, saveButton);
+				optionsButton = App->gui->AddButton(120, 280, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, pauseWindow, this);
+				App->gui->AddText(37, 15, "OPTIONS", NULL, { 16, 173, 171,255 }, 32, false, false, optionsButton);
+				titleButton = App->gui->AddButton(120, 370, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, pauseWindow, this);
+				App->gui->AddText(0, 16, "MAIN MENU", NULL, { 152,30,30,255 }, 32, false, false, titleButton);
 				App->freeze = true;				
 			
 			}
@@ -193,8 +195,8 @@ void GameScene::ui_callback(UiElement* element) {
 			}
 		}
 	}
-	if (element == exitButton) {
-
+	if (element == titleButton) {
+		//Create The Funtionality
 	}
 	if (element == continueButton) {
 		App->audio->PlayMusic("Resources/audio/music/music_space.ogg", 0.0f);

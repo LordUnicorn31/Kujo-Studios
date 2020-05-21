@@ -55,7 +55,7 @@ private:
 	UiElement* continueButton;
 	UiElement* saveButton;
 	UiElement* optionsButton;
-	UiElement* exitButton;
+	UiElement* titleButton;
 
 	//Options Window/Menu/Image
 	UiElement* optionsMenu;

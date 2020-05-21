@@ -33,9 +33,13 @@ public:
 
 	void Init();
 
+	void ui_callback(UiElement* element);
+
 private:
 
 	SDL_Texture* background;
 	SDL_Texture* winText;
 
+	UiElement* titleButton;
+	int buttonFx;
 };

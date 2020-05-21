@@ -41,7 +41,6 @@ private:
 	SDL_Texture* loseText;
 	
 	UiElement* titleButton;
-
 	int buttonFx;
 
 };

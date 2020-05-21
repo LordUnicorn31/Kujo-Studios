@@ -41,6 +41,9 @@ bool WinScene::Start()
 	background = App->tex->Load("Resources/gui/background.png");
 	winText = App->tex->Load("Resources/gui/win_text.png");
 	App->audio->PlayMusic("Resources/audio/music/interstellar_odyssey.ogg");
+
+	titleButton = App->gui->AddButton(500, 600, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+	App->gui->AddText(10, 25, "MAIN MENU", App->font->smallFont, { 255,255,255 }, 42, false, false, titleButton);
 	return true;
 }
 
@@ -102,5 +105,14 @@ void WinScene::Init()
 	enabled = false;
 
 	active = true;
+}
+
+void WinScene::ui_callback(UiElement* element) {
+	if (element == titleButton) {
+		App->audio->PlayFx(buttonFx);
+		App->transition->FadeToBlack(App->winscene, App->sceneTitle, 2.0f);
+		App->audio->UnloadMusic();
+		App->gui->RemoveUiElement(titleButton);
+	}
 }
 

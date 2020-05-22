@@ -28,7 +28,7 @@ enum class UiTypes {
 
 class UiElement {
 public:
-	UiElement(int x, int y, int w, int h, bool interactuable, bool draggeable, UiTypes uitype, UiElement* parent, Module* elementmodule);
+	UiElement(int x, int y, int w, int h, bool interactuable, bool draggeable, bool useCamera, UiTypes uitype, UiElement* parent, Module* elementmodule);
 	virtual ~UiElement();
 	virtual void Update(int dx, int dy) = 0;
 	virtual void Draw(SDL_Texture* atlas) = 0;
@@ -43,7 +43,8 @@ public:
 	UiTypes type;
 	UiElement* parent;
 	Module* module;
-	bool debug;
+	bool useCamera;
+	//bool debug;
 private:
 	SDL_Rect uiRect;
 };
@@ -81,14 +82,14 @@ public:
 	void Update_Ui();
 	void Draw_Ui();
 	//If the ui has a parent the x,y will be the local coordenates respect the parent
-	UiElement*AddImage(int x, int y, SDL_Rect source_rect, bool interactuable = true, bool draggeable = false, UiElement* parent = nullptr, Module* elementmodule = nullptr);
+	UiElement*AddImage(int x, int y, SDL_Rect source_rect, bool interactuable = true, bool draggeable = false,bool useCamera= false, UiElement* parent = nullptr, Module* elementmodule = nullptr);
 	//If the ui has a parent the x,y will be the local coordenates respect the parent
-	UiElement* AddText(int x, int y, const char*text, _TTF_Font*font = nullptr, SDL_Color color = { 255, 255, 255, 255 }, int size = 12, bool interactuable = false, bool draggeable = false, UiElement* parent = nullptr, Module* elementmodule = nullptr);
+	UiElement* AddText(int x, int y, const char*text, _TTF_Font*font = nullptr, SDL_Color color = { 255, 255, 255, 255 }, int size = 12, bool interactuable = false, bool draggeable = false,bool useCamera= false, UiElement* parent = nullptr, Module* elementmodule = nullptr);
 	//If the ui has a parent the x,y will be the local coordenates respect the parent
-	UiElement* AddButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable = true, bool draggeable = false, UiElement* parent = nullptr, Module* elementmodule = nullptr);
-	UiElement* AddEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click,AviableEntities entity,EntityType etype, bool interactuable = true, bool draggeable = false, UiElement* parent = nullptr, Module* elementmodule = nullptr);
-	UiElement* AddHUDBar(int x, int y, int MaxValue, float* valueptr, bool usecamera, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, UiElement* parent, Module* elementmodule);
-	UiElement* AddSlider(int x, int y, bool active, bool draggable, UiElement* parent, Module* elementmodule, int sliderposition = 76);
+	UiElement* AddButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable = true, bool draggeable = false, bool useCamera= false, UiElement* parent = nullptr, Module* elementmodule = nullptr);
+	UiElement* AddEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click,AviableEntities entity,EntityType etype, bool interactuable = true, bool draggeable = false, bool useCamera=false, UiElement* parent = nullptr, Module* elementmodule = nullptr);
+	UiElement* AddHUDBar(int x, int y, int MaxValue, float* valueptr, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementmodule);
+	//UiElement* AddSlider(int x, int y, bool active, bool draggable, bool useCamera, UiElement* parent, Module* elementmodul);
 	void DraggUiElements(UiElement*parent, int dx, int dy);
 	UiElement* UiUnderMouse();
 	bool MouseClick();
@@ -105,7 +106,7 @@ private:
 
 class UiImage :public UiElement {
 public:
-	UiImage(int x, int y, SDL_Rect source_rect, bool interactuable, bool draggeable, UiElement* parent, Module* elementmodule);
+	UiImage(int x, int y, SDL_Rect source_rect, bool interactuable, bool draggeable,bool useCamera, UiElement* parent, Module* elementmodule);
 	~UiImage();
 	void Draw(SDL_Texture* atlas)override;
 	void Update(int dx, int dy)override;
@@ -120,7 +121,7 @@ enum class Button_state {
 
 class UiButton :public UiElement {
 public:
-	UiButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable, bool draggeable, UiElement* parent, Module* elementmodule);
+	UiButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementmodule);
 	~UiButton();
 	void Draw(SDL_Texture* atlas)override;
 	void Update(int dx, int dy)override;
@@ -132,7 +133,7 @@ public:
 
 class UiEntityButton :public UiElement {
 public:
-	UiEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect selected,AviableEntities entity,EntityType etype, bool interactuable, bool draggeable, UiElement* parent, Module* elementmodule);
+	UiEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect selected,AviableEntities entity,EntityType etype, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementmodule);
 	~UiEntityButton();
 	void Draw(SDL_Texture* atlas)override;
 	void Update(int dx, int dy)override;
@@ -147,7 +148,7 @@ public:
 
 class UiText :public UiElement {
 public:
-	UiText(int x, int y, const char*text, int size, SDL_Color color, bool interactuable, bool draggeable, _TTF_Font*font = nullptr, UiElement* parent = nullptr, Module* elementmodule = nullptr);
+	UiText(int x, int y, const char*text, int size, SDL_Color color, bool interactuable, bool draggeable, bool useCamera, _TTF_Font*font = nullptr, UiElement* parent = nullptr, Module* elementmodule = nullptr);
 	~UiText();
 	void Draw(SDL_Texture* atlas)override;
 	void Update(int dx, int dy)override;
@@ -161,7 +162,7 @@ public:
 
 class UiHUDBars : public UiElement {
 public:
-	UiHUDBars(int x, int y, uint MaxValue, float* valueptr, bool usecamera, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, UiElement* parent, Module* elementmodule);
+	UiHUDBars(int x, int y, uint MaxValue, float* valueptr, bool useCamera, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, UiElement* parent, Module* elementmodule);
 	~UiHUDBars();
 	void Draw(SDL_Texture* atlas)override;
 	void Update(int dx, int dy)override;
@@ -174,36 +175,8 @@ public:
 	bool useCamera;
 };
 
-class UiSlider : public UiElement {
+/*class UiSlider : public UiElement {
 public:
-	//Vars
-	SDL_Rect clickableRect;
-	SDL_Rect bar;
-	SDL_Rect thumb;
-	SDL_Rect thumbHovered;
-	SDL_Rect position;
-	SDL_Texture* texture;
-	bool useCamera;
-
-	//UI_Image* bar;
-	//UI_Image* thumb;
-	//UI_Image* thumb_hovered;
-
-	bool hovered;
-
-	int thumbOffset;
-
-	int sliderPos;
-
-	//Methods
-public:
-
-	UiSlider(int x, int y, bool active, bool draggable, UiElement* parent, Module* elementmodule, int sliderposition = 76);
-	~UiSlider();
-
-	void Update(int dx, int dy);
-
-	void Draw(SDL_Texture* atlas);
-
-	float SliderValue();
-};
+	UiSlider(x, y, bar.w, bar.h, interactuable, draggeable, UiTypes::HUDBar, parent, elementmodule);
+	UiImage* button;
+};*/

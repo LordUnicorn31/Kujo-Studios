@@ -41,7 +41,7 @@ bool LoseScene::Start()
 	loseText = App->tex->Load("Resources/gui/lose_screen.png");
 	App->audio->PlayMusic("Resources/audio/music/epic_fall.ogg");
 
-	titleButton = App->gui->AddButton(500, 600, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
+	titleButton = App->gui->AddButton(500, 600, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, nullptr, this);
 	App->gui->AddText(55, 25, "MAIN MENU", App->font->smallFont, { 255,255,255 }, 42, false, false, titleButton);
 
 	return true;

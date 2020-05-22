@@ -110,23 +110,23 @@ bool SceneTutorial::Update(float dt)
 		App->render->Blit(character, 290, 200, &captain.GetCurrentFrame(dt));
 		if(currentTime == 4 && wakeupImage == nullptr && answerYes == nullptr && answerNo == nullptr)
 		{
-			wakeupImage = App->gui->AddImage(290, 430, { 1253,728,795,129 }, true, false, nullptr, this);
-			wakeupTxt = App->gui->AddText(20, 45, "Wake Up! Are you OK? You seem a bit confused", App->font->dialogFont, { 152,30,30,255 }, 10, false, false, wakeupImage, this);
+			wakeupImage = App->gui->AddImage(290, 430, { 1253,728,795,129 }, true, false, false, nullptr, this);
+			wakeupTxt = App->gui->AddText(20, 45, "Wake Up! Are you OK? You seem a bit confused", App->font->dialogFont, { 152,30,30,255 }, 10, false, false, false, wakeupImage, this);
 			App->audio->PlayFx(girlFx);
 
-			answerYes = App->gui->AddButton(288, 560, { 0,315,802,41 }, { 0,356,802,41 }, { 0,356,802,41 }, true, false, nullptr, this);
-			answerYesTxt = App->gui->AddText(230, 4, "I'm fine relax Alice", App->font->dialogFont, { 16, 173, 171,255 }, 12, false, false, answerYes, this);
-			answerNo = App->gui->AddButton(288, 602, { 0,315,802,41 }, { 0,356,802,41 }, { 0,356,802,41 }, true, false, nullptr, this);
-			answerNoTxt = App->gui->AddText(230, 4, "No I'm not Ok! Where am I?", App->font->dialogFont, { 16, 173, 171,255 }, 12, false, false, answerNo, this);
+			answerYes = App->gui->AddButton(288, 560, { 0,315,802,41 }, { 0,356,802,41 }, { 0,356,802,41 }, true, false, false, nullptr, this);
+			answerYesTxt = App->gui->AddText(230, 4, "I'm fine relax Alice", App->font->dialogFont, { 16, 173, 171,255 }, 12, false, false, false, answerYes, this);
+			answerNo = App->gui->AddButton(288, 602, { 0,315,802,41 }, { 0,356,802,41 }, { 0,356,802,41 }, true, false, false, nullptr, this);
+			answerNoTxt = App->gui->AddText(230, 4, "No I'm not Ok! Where am I?", App->font->dialogFont, { 16, 173, 171,255 }, 12, false, false, false, answerNo, this);
 		}
 
 		if (currentTime > 4 && answerYes == nullptr && continueButton == nullptr)
 		{
-			continueButton = App->gui->AddButton(288, 560, { 0,315,802,41 }, { 0,356,802,41 }, { 0,356,802,41 }, true, false, nullptr, this);
-			App->gui->AddText(230, 4, "Start your Adventure", App->font->dialogFont, { 16, 173, 171,255 }, 12, false, false, continueButton, this);
+			continueButton = App->gui->AddButton(288, 560, { 0,315,802,41 }, { 0,356,802,41 }, { 0,356,802,41 }, true, false, false, nullptr, this);
+			App->gui->AddText(230, 4, "Start your Adventure", App->font->dialogFont, { 16, 173, 171,255 }, 12, false, false, false, continueButton, this);
 
-			continueFake = App->gui->AddButton(288, 602, { 0,315,802,41 }, { 0,356,802,41 }, { 0,356,802,41 }, true, false, nullptr, this);
-			App->gui->AddText(230, 4, "Run Away", App->font->dialogFont, { 16, 173, 171,255 }, 12, false, false, continueFake, this);
+			continueFake = App->gui->AddButton(288, 602, { 0,315,802,41 }, { 0,356,802,41 }, { 0,356,802,41 }, true, false, false, nullptr, this);
+			App->gui->AddText(230, 4, "Run Away", App->font->dialogFont, { 16, 173, 171,255 }, 12, false, false, false, continueFake, this);
 
 		}
 	}
@@ -179,7 +179,7 @@ void SceneTutorial::ui_callback(UiElement* element)
 		answerNo = nullptr;
 		App->gui->RemoveUiElement(answerYes);
 		answerYes = nullptr;
-		wakeupTxt = App->gui->AddText(20, 45, "Glad to hear that. Everything is prepared to leave", App->font->dialogFont, { 152,30,30,255 }, 10, false, false, wakeupImage, this);
+		wakeupTxt = App->gui->AddText(20, 45, "Glad to hear that. Everything is prepared to leave", App->font->dialogFont, { 152,30,30,255 }, 10, false, false,false, wakeupImage, this);
 		App->audio->PlayFx(girlFx);
 
 	}
@@ -193,7 +193,7 @@ void SceneTutorial::ui_callback(UiElement* element)
 		answerNo = nullptr;
 		App->gui->RemoveUiElement(answerYes);
 		answerYes = nullptr;
-		wakeupTxt = App->gui->AddText(20, 45, "Hey, don't talk to me like that. It's time to leave", App->font->dialogFont, { 152,30,30,255 }, 10, false, false, wakeupImage, this);
+		wakeupTxt = App->gui->AddText(20, 45, "Hey, don't talk to me like that. It's time to leave", App->font->dialogFont, { 152,30,30,255 }, 10, false, false,false, wakeupImage, this);
 		App->audio->PlayFx(girlFx);
 		
 	}

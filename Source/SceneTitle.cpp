@@ -135,16 +135,16 @@ void SceneTitle::ui_callback(UiElement* element) {
 	else if (element == optionsButton) {
 		App->audio->PlayFx(buttonFx);
 
-		optionsMenu = App->gui->AddImage(400, 250, { 20,540,446,465 }, true, false, nullptr, this);
-		backButton = App->gui->AddButton(430, 290, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, nullptr, this);
-		fullScreen = App->gui->AddButton(500, 500, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-		about = App->gui->AddButton(500, 600, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-		sliderbar = App->gui->AddSlider(100, 100, true, false, optionsMenu, this, 1000);
-		App->gui->AddText(55, 25, "FULLSCREEN", App->font->smallFont, { 255,255,255 }, 42, false, false, fullScreen);
-		App->gui->AddText(150, 35, "OPTIONS MENU", App->font->smallFont, { 236,178,0 }, 42, false, false, optionsMenu);
-		App->gui->AddText(70, 100, "FX", App->font->smallFont, { 236,178,0 }, 42, false, false, optionsMenu);
-		App->gui->AddText(50, 175, "MUSIC", App->font->smallFont, { 236,178,0 }, 42, false, false, optionsMenu);
-		App->gui->AddText(65, 25, "ABOUT US", App->font->smallFont, { 255,255,255 }, 42, false, false, about);
+		optionsMenu = App->gui->AddImage(400, 250, { 20,540,446,465 }, true, false,false, nullptr, this);
+		backButton = App->gui->AddButton(430, 290, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, false, nullptr, this);
+		fullScreen = App->gui->AddButton(500, 500, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, nullptr, this);
+		about = App->gui->AddButton(500, 600, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false,false, nullptr, this);
+		//sliderbar = App->gui->AddSlider(100, 100, true, false, false, optionsMenu, this, 1000);
+		App->gui->AddText(55, 25, "FULLSCREEN", App->font->smallFont, { 255,255,255 }, 42, false, false, false, fullScreen);
+		App->gui->AddText(150, 35, "OPTIONS MENU", App->font->smallFont, { 236,178,0 }, 42, false, false, false, optionsMenu);
+		App->gui->AddText(70, 100, "FX", App->font->smallFont, { 236,178,0 }, 42, false, false, false, optionsMenu);
+		App->gui->AddText(50, 175, "MUSIC", App->font->smallFont, { 236,178,0 }, 42, false, false, false, optionsMenu);
+		App->gui->AddText(65, 25, "ABOUT US", App->font->smallFont, { 255,255,255 }, 42, false, false, false, about);
 
 	}
 	else if (element == backButton) {
@@ -169,13 +169,13 @@ void SceneTitle::ui_callback(UiElement* element) {
 void SceneTitle::ButtonsAnimation()
 {
 
-	newGameButton = App->gui->AddButton((int)525.5f, 340, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(15, 16, "NEW GAME", nullptr, { 236,178,0,255 }, 32, false, false, newGameButton);
-	continueButton = App->gui->AddButton((int)525.5f, 420, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(20, 16, "CONTINUE", nullptr, { 65,175,94,255 }, 32, false, false, continueButton);
-	optionsButton = App->gui->AddButton((int)525.5f, 500, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(32, 16, "OPTIONS", nullptr, { 16, 173, 171 }, 32, false, false, optionsButton);
-	exitButton = App->gui->AddButton((int)525.5f, 580, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, nullptr, this);
-	App->gui->AddText(75, 16, "EXIT", nullptr, { 152,30,30,255 }, 32, false, false, exitButton);
+	newGameButton = App->gui->AddButton((int)525.5f, 340, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, nullptr, this);
+	App->gui->AddText(15, 16, "NEW GAME", nullptr, { 236,178,0,255 }, 32, false, false, false, newGameButton);
+	continueButton = App->gui->AddButton((int)525.5f, 420, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, nullptr, this);
+	App->gui->AddText(20, 16, "CONTINUE", nullptr, { 65,175,94,255 }, 32, false, false, false, continueButton);
+	optionsButton = App->gui->AddButton((int)525.5f, 500, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, nullptr, this);
+	App->gui->AddText(32, 16, "OPTIONS", nullptr, { 16, 173, 171 }, 32, false, false, false, optionsButton);
+	exitButton = App->gui->AddButton((int)525.5f, 580, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, nullptr, this);
+	App->gui->AddText(75, 16, "EXIT", nullptr, { 152,30,30,255 }, 32, false, false, false, exitButton);
 
 }

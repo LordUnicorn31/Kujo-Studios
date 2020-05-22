@@ -157,7 +157,7 @@ void Building::LevelUp() {
 void Building::UiFunctionallity() {
 	switch (Btype) {
 	case BuildingType::Cuartel:
-		App->gui->AddText(18, 240, "Barracks", App->font->defaultFont, { 0,0,255,255 }, 32, false, false, App->entity->Panel);
+		App->gui->AddText(18, 240, "Barracks", App->font->defaultFont, { 0,0,255,255 }, 32, false, false, false, App->entity->Panel);
 		App->gui->AddEntityButton(20, 300, { 1344,84,39,39 }, { 1290,83,39,39 }, { 1397,83,39,39 },AviableEntities::redship, EntityType::TypeAi, true, false, false, App->entity->Panel, App->entity);
 		App->gui->AddEntityButton(60, 300, { 1345,28,39,39 }, { 1291,28,39,39 }, { 1397,28,39,39 }, AviableEntities::blueship, EntityType::TypeAi, true, false, false, App->entity->Panel, App->entity);
 		App->gui->AddEntityButton(100, 300, { 1344,199,39,39 }, { 1290,198,39,39 }, { 1397,198,39,39 }, AviableEntities::greenship, EntityType::TypeAi, true, false, false, App->entity->Panel, App->entity);

@@ -66,6 +66,9 @@
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="PathFinding.cpp" />
+    <ClCompile Include="QuestManager.cpp">
+      <Filter>Quests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -136,6 +139,9 @@
     <ClInclude Include="Module.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="PathFinding.h" />
+    <ClInclude Include="QuestManager.h">
+      <Filter>Quests</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Animation">
@@ -155,6 +161,9 @@
     </Filter>
     <Filter Include="Dialogs">
       <UniqueIdentifier>{09421dfa-ca03-4d00-858c-bb086b03ed64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quests">
+      <UniqueIdentifier>{5c5f2f70-f0a6-4291-b2c6-056860fe2a94}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

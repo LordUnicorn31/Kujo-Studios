@@ -228,6 +228,7 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClCompile Include="Particles.cpp" />
     <ClCompile Include="PathFinding.cpp" />
     <ClCompile Include="PerfTimer.cpp" />
+    <ClCompile Include="QuestManager.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="SceneLogo.cpp" />
@@ -282,6 +283,7 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClInclude Include="Particles.h" />
     <ClInclude Include="PathFinding.h" />
     <ClInclude Include="PerfTimer.h" />
+    <ClInclude Include="QuestManager.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="SceneLogo.h" />

@@ -89,7 +89,7 @@ public:
 	UiElement* AddButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable = true, bool draggeable = false, bool useCamera= false, UiElement* parent = nullptr, Module* elementmodule = nullptr);
 	UiElement* AddEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click,AviableEntities entity,EntityType etype, bool interactuable = true, bool draggeable = false, bool useCamera=false, UiElement* parent = nullptr, Module* elementmodule = nullptr);
 	UiElement* AddHUDBar(int x, int y, int MaxValue, float* valueptr, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementmodule);
-	//UiElement* AddSlider(int x, int y, bool active, bool draggable, bool useCamera, UiElement* parent, Module* elementmodul);
+	UiElement* AddSlider(int x, int y, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule);
 	void DraggUiElements(UiElement*parent, int dx, int dy);
 	UiElement* UiUnderMouse();
 	bool MouseClick();
@@ -175,8 +175,16 @@ public:
 	bool useCamera;
 };
 
-/*class UiSlider : public UiElement {
+class UiSlider : public UiElement {
 public:
-	UiSlider(x, y, bar.w, bar.h, interactuable, draggeable, UiTypes::HUDBar, parent, elementmodule);
-	UiImage* button;
-};*/
+	UiSlider(int x, int y, bool interactuable, bool draggeable,bool usecamera, UiElement* parent, Module* elementmodule);
+	~UiSlider();
+	void Draw(SDL_Texture* atlas)override;
+	void Update(int dx, int dy)override;
+	SDL_Rect bar;
+	SDL_Rect unhovered;
+	SDL_Rect hovered;
+	SDL_Rect clicked;
+	Button_state currentState;
+	iPoint BarPos;
+};

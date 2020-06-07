@@ -139,7 +139,7 @@ void SceneTitle::ui_callback(UiElement* element) {
 		backButton = App->gui->AddButton(430, 290, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, false, nullptr, this);
 		fullScreen = App->gui->AddButton(500, 500, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, nullptr, this);
 		about = App->gui->AddButton(500, 600, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false,false, nullptr, this);
-		//sliderbar = App->gui->AddSlider(100, 100, true, false, false, optionsMenu, this, 1000);
+		sliderbar = App->gui->AddSlider(100, 100, true, false, false, optionsMenu, this);
 		App->gui->AddText(55, 25, "FULLSCREEN", App->font->smallFont, { 255,255,255 }, 42, false, false, false, fullScreen);
 		App->gui->AddText(150, 35, "OPTIONS MENU", App->font->smallFont, { 236,178,0 }, 42, false, false, false, optionsMenu);
 		App->gui->AddText(70, 100, "FX", App->font->smallFont, { 236,178,0 }, 42, false, false, false, optionsMenu);

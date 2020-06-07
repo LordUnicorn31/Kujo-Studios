@@ -39,6 +39,8 @@ bool DialogTree::Start()
 	node0->dialogOptions.push_back(DialogOptions("Polla Pequeña", 0, node2));
 
 	dialogueNodes.push_back(node0);
+
+	return true;
 }
 
 bool DialogTree::Update(float dt)
@@ -57,5 +59,5 @@ bool DialogTree::Update(float dt)
 
 bool DialogTree::CleanUp()
 {
-
+	return true;
 }

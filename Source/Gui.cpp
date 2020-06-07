@@ -473,7 +473,12 @@ void UiSlider::Update(int dx,int dy) {
 		App->gui->focusedUi = nullptr;
 	}
 	if (currentState == Button_state::clicked) {
-		SetLocalPos(GetLocalPos().x+dx, GetLocalPos().y);
+		App->input->GetMousePosition(dx, dy);
+		if (parent == nullptr)
+			SetLocalPos(dx, GetLocalPos().y);
+		else
+			SetLocalPos((dx - parent->GetScreenPos().x), GetLocalPos().y);
+
 		if (GetScreenPos().x > (BarPos.x + bar.w - clicked.w)) {
 			if (parent == nullptr)
 				SetLocalPos(BarPos.x + bar.w - clicked.w, GetLocalPos().y);

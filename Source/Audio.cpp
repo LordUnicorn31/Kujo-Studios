@@ -192,8 +192,8 @@ void Audio::MusicVolume(float vol)
 	if (vol > MIX_MAX_VOLUME)
 		vol = MIX_MAX_VOLUME;
 
-	else if (vol < -MIX_MAX_VOLUME)
-		vol = -MIX_MAX_VOLUME;
+	else if (vol < 0)
+		vol = 0;
 
 	Mix_VolumeMusic(vol);
 	currentMusicVolume = vol;
@@ -203,6 +203,9 @@ void Audio::FxVolume(float vol)
 {
 	if (vol > MIX_MAX_VOLUME)
 		vol = MIX_MAX_VOLUME;
+
+	else if (vol < 0)
+		vol = 0;
 
 	eastl::list<Mix_Chunk*>::iterator it;
 	for (it = fx.begin(); it != fx.end(); ++it)

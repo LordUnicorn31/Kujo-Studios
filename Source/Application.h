@@ -29,7 +29,7 @@ class Collisions;
 class WinScene;
 class LoseScene;
 class Particles;
-//class DialogSystem;
+class DialogTree;
 class Fow;
 
 
@@ -120,7 +120,7 @@ public:
 	WinScene* winscene;
 	LoseScene* losescene;
 	Particles* particle;
-	//DialogSystem* dialog;
+	DialogTree* dialog;
 	Fow* fow;
 	
 	bool savedProgress;

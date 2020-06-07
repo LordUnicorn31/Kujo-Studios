@@ -25,6 +25,7 @@ public:
 
 class DialogTree : public Module
 {
+public:
 
 	DialogTree();
 

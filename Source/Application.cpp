@@ -24,7 +24,7 @@
 #include "WinScene.h"
 #include "LoseScene.h"
 #include "Particles.h"
-//#include "DialogSystem.h"
+#include "DialogSystem.h"
 #include "Fow.h"
 
 #include "SDL.h"
@@ -55,7 +55,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args), saveG
 	collisions = new Collisions();
 	winscene = new WinScene();
 	losescene = new LoseScene();
-	//dialog = new DialogSystem();
+	dialog = new DialogTree();
 	fow = new Fow();
 	
 
@@ -81,7 +81,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args), saveG
 	AddModule(gui);
 	AddModule(transition);
 	AddModule(particle);
-	//AddModule(dialog);
+	AddModule(dialog);
 	AddModule(fow);
 	
 

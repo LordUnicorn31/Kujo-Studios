@@ -159,6 +159,7 @@ bool Gui::MouseClick() {
 }
 
 void Gui::DraggUiElements(UiElement*parent, int dx, int dy) {
+	//crec k falta el dragg del propi primer element
 	eastl::list <UiElement*> ::iterator it;
 	for (it = UiElementList.begin(); it != UiElementList.end(); it++)
 	{
@@ -227,6 +228,12 @@ UiElement* Gui::AddHUDBar(int x, int y, int MaxValue, float* valueptr, SDL_Rect 
 	return HUD;
 }
 
+UiElement* Gui::AddSlider(int x, int y, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule) {
+	UiElement* Slider = new UiSlider(x, y, interactuable, draggeable, usecamera, parent, elementmodule);
+	UiElementList.push_back(Slider);
+	return Slider;
+}
+
 /*UiElement* Gui::AddSlider(int x, int y, bool active, bool draggable,bool useCamera, UiElement* parent, Module* elementmodule, int sliderposition) {
 	UiElement* Slider = new UiSlider(x, y, active, draggable, parent, elementmodule);
 	UiElementList.push_back(Slider);
@@ -270,7 +277,9 @@ void UiElement::SetLocalPos(int x, int y) {
 		uiRect.x = parent->GetScreenPos().x + x;
 		uiRect.y = parent->GetScreenPos().y + y;
 	}
-}bool UiElement::outofparent() {
+}
+
+bool UiElement::outofparent() {
 	return (GetScreenPos().x + GetScreenRect().w*0.5f<parent->GetScreenPos().x || GetScreenPos().x>parent->GetScreenPos().x + parent->GetScreenRect().w - GetScreenRect().w*0.5f || GetScreenPos().y + GetScreenRect().h*0.5f<parent->GetScreenPos().y || GetScreenPos().y>parent->GetScreenPos().y + parent->GetScreenRect().h - GetScreenRect().h*0.5f);
 }
 
@@ -444,6 +453,44 @@ void UiHUDBars::Draw(SDL_Texture* atlas) {
 	App->render->Blit(atlas, GetScreenPos().x+1, GetScreenPos().y+1, &currentBar, useCamera);
 }
 
-/*UiSlider::UiSlider():UiElement(x, y, bar.w, bar.h, interactuable, draggeable, UiTypes::Slider, parent, elementmodule) {
+UiSlider::UiSlider(int x, int y, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule) :UiElement(x, y, 168, 14, interactuable, draggeable, usecamera, UiTypes::Slider, parent, elementmodule), bar({ 1282, 560, 168, 14 }), unhovered({ 1282, 584, 20, 20 }), hovered({ 1282, 584, 20, 20 }), clicked({ 1282, 584, 20, 20 }),currentState(Button_state::unhovered),BarPos(GetScreenPos()) {
+}
 
-}*/
+UiSlider::~UiSlider() {
+}
+
+void UiSlider::Update(int dx,int dy) {
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && App->gui->UiUnderMouse()==this) {
+		currentState = Button_state::clicked;
+		App->gui->focusedUi == this;
+	}
+	else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
+		if (App->gui->UiUnderMouse() == this)
+			currentState = Button_state::hovered;
+		else
+			currentState = Button_state::unhovered;
+
+		App->gui->focusedUi = nullptr;
+	}
+	if (currentState == Button_state::clicked) {
+		SetLocalPos(GetLocalPos().x+dx, GetLocalPos().y);
+		if (GetScreenPos().x > (BarPos.x + bar.w - clicked.w)) {
+			if (parent == nullptr)
+				SetLocalPos(BarPos.x + bar.w - clicked.w, GetLocalPos().y);
+			else
+				SetLocalPos((BarPos.x - parent->GetScreenPos().x) + bar.w - clicked.w, GetLocalPos().y);
+		}
+		else if (GetScreenPos().x < BarPos.x) {
+			if(parent==nullptr)
+				SetLocalPos(BarPos.x, GetLocalPos().y);
+			else
+				SetLocalPos(BarPos.x - parent->GetScreenPos().x, GetLocalPos().y);
+		}
+		module->ui_callback(this);
+	}
+}
+
+void UiSlider::Draw(SDL_Texture* atlas) {
+	App->render->Blit(atlas, BarPos.x, BarPos.y, &bar, useCamera);
+	App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &unhovered, useCamera);
+}

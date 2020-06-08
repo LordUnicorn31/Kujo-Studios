@@ -6,6 +6,7 @@
 #include "Map.h"
 #include "Window.h"
 #include "Gui.h"
+#include "Audio.h"
 //#include "Collisions.h"
 
 Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), speed(0.0f),  DirectionAngle(270.0f), Damage(0), Range(0), IsMoving(false), OnDestination(true),Armed(false),Working(true),WorkingTime(0.0f),Building(true),BuildingTime(0.0f),TotalBuildingTime(0) {
@@ -143,6 +144,7 @@ void Ai::Draw(float dt) {
             App->render->Blit(sprite, EntityRect.x, EntityRect.y, &IdleAnimation.GetCurrentFrame(dt), true, App->render->renderer, (float)App->win->GetScale(), 1.0f, DirectionAngle);
         else
             App->render->Blit(sprite, EntityRect.x, EntityRect.y, &ArmedIdleAnimation.GetCurrentFrame(dt), true, App->render->renderer, (float)App->win->GetScale(), 1.0f, DirectionAngle);
+        
         if (selected) {
             App->render->DrawQuad(EntityRect, 0, 255, 0, 255, false);
         }
@@ -213,6 +215,7 @@ void Ai::DoMovement() {
     if (!MovementPerformed) {
         IsMoving = false;
     }
+    
 }
 
 void Ai::Move(int x, int y) {
@@ -261,6 +264,16 @@ void Ai::UpdateMovement()
             OnDestination = true;
         }
     }
+
+    if (IsMoving) {
+
+        App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/spaceshipmov.wav"));
+        App->audio->FxVolume(1);
+    }
+    
+       
+    
+        
 }
 
 void Ai::UiFunctionallity() {

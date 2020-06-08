@@ -63,6 +63,8 @@ bool SceneTutorial::Start()
 	girlFx = App->audio->LoadFx("Resources/audio/fx/girl.wav");
 	captainFx = App->audio->LoadFx("Resources/audio/fx/captain.wav");
 
+	App->audio->FxVolume(25);
+	App->audio->MusicVolume(25);
 	return true;
 }
 
@@ -77,9 +79,6 @@ bool SceneTutorial::PreUpdate()
 // Called each loop iteration
 bool SceneTutorial::Update(float dt)
 {
-	App->audio->FxVolume(5);
-	App->audio->MusicVolume(5);
-
 	bool ret = true;
 	
 	currentTime = SDL_GetTicks()/1000 - startTime;

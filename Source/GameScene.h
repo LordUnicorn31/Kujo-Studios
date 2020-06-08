@@ -61,6 +61,8 @@ private:
 	UiElement* optionsMenu;
 	UiElement* backButton;
 	UiElement* fullScreen;
+	UiElement* musSlider;
+	UiElement* fxSlider;
 
 	int buttonFx;
 

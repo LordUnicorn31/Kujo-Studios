@@ -209,7 +209,6 @@ void GameScene::ui_callback(UiElement* element) {
 		}
 	}
 	if (element == fullScreen) {
-
 		App->win->Fullscreen();
 	}
 	if (element == saveButton) {
@@ -218,17 +217,22 @@ void GameScene::ui_callback(UiElement* element) {
 	if (element == optionsButton) {
 		App->audio->PlayFx(buttonFx);
 		optionsMenu = App->gui->AddButton(400, 250, { 20,540,446,465 }, { 20,540,446,465 }, { 20,540,446,465 }, true, false, false, nullptr, this);
-		backButton = App->gui->AddButton(430, 270, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, false, nullptr, this);
-		fullScreen = App->gui->AddButton(500, 550, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, nullptr, this);
+		backButton = App->gui->AddButton(30, 20, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, false, optionsMenu, this);
+		fullScreen = App->gui->AddButton(100, 300, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, optionsMenu, this);
+		musSlider= App->gui->AddSlider(115, 200, App->audio->GetMusicVolume(), MIX_MAX_VOLUME, true, false, false, optionsMenu, this);
+		fxSlider= App->gui->AddSlider(115, 100, App->audio->GetFxVolume(), MIX_MAX_VOLUME, true, false, false, optionsMenu, this);
 		App->gui->AddText(55, 25, "FULLSCREEN", App->font->smallFont, { 255,255,255 }, 42, false, false, false, fullScreen);
 		App->gui->AddText(150, 20, "OPTIONS MENU", App->font->smallFont, { 236,178,0 }, 42, false, false, false, optionsMenu);
 		App->gui->AddText(70, 100, "FX", App->font->smallFont, { 236,178,0 }, 42, false, false, false, optionsMenu);
 		App->gui->AddText(50, 200, "MUSIC", App->font->smallFont, { 236,178,0 }, 42, false, false, false, optionsMenu);
 	}
-
 	else if (element == backButton) {
-		App->gui->RemoveUiElement(backButton);
 		App->gui->RemoveUiElement(optionsMenu);
-		App->gui->RemoveUiElement(fullScreen);
+	}
+	else if (element == musSlider) {
+		App->audio->MusicVolume(((UiSlider*)element)->value);
+	}
+	else if (element == fxSlider) {
+		App->audio->FxVolume(((UiSlider*)element)->value);
 	}
 }

@@ -1,0 +1,11 @@
+Tutorial:
+
+Abaix al centre, dialeg amb Alice: Welcome to planet.... (presentació). (potser no es necessari perque ja tenim dialog abans de començar el joc, així que com tu vegis). 
+1era missió: Go to your base and recruit a builder. Builder's job is to build all the buildings.
+2na missió: Build a gold mine and an ore mine to start collecting resources for your base. 
+3ra missió: build a barrack in order to recruit units that will help you defending yourself from the enemies. 4t
+4ta missió: Recruit all 3 types of units from the barracks
+
+End of dialog with Alice: Commander, now you are ready to start your adventure...(end of dialog).
+
+

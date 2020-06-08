@@ -270,6 +270,8 @@ void Ai::UpdateMovement()
         App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/spaceshipmov.wav"));
         App->audio->FxVolume(1);
     }
+
+    else App->audio->UnloadFx();
     
        
     

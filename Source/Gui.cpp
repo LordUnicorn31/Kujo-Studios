@@ -228,8 +228,12 @@ UiElement* Gui::AddHUDBar(int x, int y, int MaxValue, float* valueptr, SDL_Rect 
 	return HUD;
 }
 
-UiElement* Gui::AddSlider(int x, int y, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule) {
-	UiElement* Slider = new UiSlider(x, y, interactuable, draggeable, usecamera, parent, elementmodule);
+UiElement* Gui::AddSlider(int x, int y, int value, int maxvalue, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule) {
+	if (value > maxvalue)
+		value = maxvalue;
+	else if (value < 0)
+		value = 0;
+	UiElement* Slider = new UiSlider(x, y, value, maxvalue, interactuable, draggeable, usecamera, parent, elementmodule);
 	UiElementList.push_back(Slider);
 	return Slider;
 }
@@ -453,19 +457,29 @@ void UiHUDBars::Draw(SDL_Texture* atlas) {
 	App->render->Blit(atlas, GetScreenPos().x+1, GetScreenPos().y+1, &currentBar, useCamera);
 }
 
-UiSlider::UiSlider(int x, int y, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule) :UiElement(x, y, 168, 14, interactuable, draggeable, usecamera, UiTypes::Slider, parent, elementmodule), bar({ 1282, 560, 168, 14 }), unhovered({ 1282, 584, 20, 20 }), hovered({ 1282, 584, 20, 20 }), clicked({ 1282, 584, 20, 20 }),currentState(Button_state::unhovered),BarPos(GetScreenPos()) {
+UiSlider::UiSlider(int x, int y, int InitialValue,int maxvalue, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule) :UiElement(x, y, 168, 14, interactuable, draggeable, usecamera, UiTypes::Slider, parent, elementmodule), bar({ 1282, 560, 168, 14 }), unhovered({ 1282, 584, 20, 20 }), hovered({ 1282, 584, 20, 20 }), clicked({ 1282, 584, 20, 20 }),currentState(Button_state::unhovered),BarPos(GetScreenPos()),value(InitialValue),MaxValue(maxvalue) {
+	int InitialX = (int)(((float)value / (float)MaxValue) * (float)(bar.w - clicked.w));
+	if (parent == nullptr)
+		SetLocalPos(BarPos.x + InitialX, GetLocalPos().y);
+	else
+		SetLocalPos((BarPos.x + InitialX - parent->GetScreenPos().x), GetLocalPos().y);
 }
 
 UiSlider::~UiSlider() {
 }
 
 void UiSlider::Update(int dx,int dy) {
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && App->gui->UiUnderMouse()==this) {
+	App->input->GetMousePosition(dx, dy);
+	SDL_Rect SliderRect = { BarPos.x,BarPos.y, bar.w ,bar.h };
+	SDL_Rect MouseRect = { dx,dy,1,1 };
+	bool intersection = SDL_HasIntersection(&MouseRect, &SliderRect);
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && intersection) {
 		currentState = Button_state::clicked;
 		App->gui->focusedUi == this;
 	}
 	else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
-		if (App->gui->UiUnderMouse() == this)
+		if (intersection)
 			currentState = Button_state::hovered;
 		else
 			currentState = Button_state::unhovered;
@@ -473,7 +487,6 @@ void UiSlider::Update(int dx,int dy) {
 		App->gui->focusedUi = nullptr;
 	}
 	if (currentState == Button_state::clicked) {
-		App->input->GetMousePosition(dx, dy);
 		if (parent == nullptr)
 			SetLocalPos(dx, GetLocalPos().y);
 		else
@@ -491,7 +504,9 @@ void UiSlider::Update(int dx,int dy) {
 			else
 				SetLocalPos(BarPos.x - parent->GetScreenPos().x, GetLocalPos().y);
 		}
-		module->ui_callback(this);
+		value = (int)(((float)MaxValue / (float)(bar.w - clicked.w)) * (float)(GetScreenPos().x - BarPos.x));
+		if(module!=nullptr)
+			module->ui_callback(this);
 	}
 }
 

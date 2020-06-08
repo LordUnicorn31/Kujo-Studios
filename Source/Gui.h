@@ -89,7 +89,7 @@ public:
 	UiElement* AddButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable = true, bool draggeable = false, bool useCamera= false, UiElement* parent = nullptr, Module* elementmodule = nullptr);
 	UiElement* AddEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click,AviableEntities entity,EntityType etype, bool interactuable = true, bool draggeable = false, bool useCamera=false, UiElement* parent = nullptr, Module* elementmodule = nullptr);
 	UiElement* AddHUDBar(int x, int y, int MaxValue, float* valueptr, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementmodule);
-	UiElement* AddSlider(int x, int y, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule);
+	UiElement* AddSlider(int x, int y, int value, int maxvalue, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule);
 	void DraggUiElements(UiElement*parent, int dx, int dy);
 	UiElement* UiUnderMouse();
 	bool MouseClick();
@@ -177,7 +177,7 @@ public:
 
 class UiSlider : public UiElement {
 public:
-	UiSlider(int x, int y, bool interactuable, bool draggeable,bool usecamera, UiElement* parent, Module* elementmodule);
+	UiSlider(int x, int y, int InitialValue, int maxvalue,bool interactuable, bool draggeable,bool usecamera, UiElement* parent, Module* elementmodule);
 	~UiSlider();
 	void Draw(SDL_Texture* atlas)override;
 	void Update(int dx, int dy)override;
@@ -187,4 +187,6 @@ public:
 	SDL_Rect clicked;
 	Button_state currentState;
 	iPoint BarPos;
+	int value;
+	int MaxValue;
 };

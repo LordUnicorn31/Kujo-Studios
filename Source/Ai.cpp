@@ -265,13 +265,17 @@ void Ai::UpdateMovement()
         }
     }
 
-    if (IsMoving) {
+    /*if (IsMoving) {
 
-        App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/spaceshipmov.wav"));
+        
+        App->audio->PlayFx(App->audio->LoadFx("Resources/audio/fx/spaceshipmov.wav"), -1);
         App->audio->FxVolume(1);
+        
     }
 
-    else App->audio->UnloadFx();
+    else {
+        if (OnDestination == true) App->audio->UnloadFx();
+    }*/
     
        
     

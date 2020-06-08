@@ -136,10 +136,11 @@ void SceneTitle::ui_callback(UiElement* element) {
 		App->audio->PlayFx(buttonFx);
 
 		optionsMenu = App->gui->AddImage(400, 250, { 20,540,446,465 }, true, false,false, nullptr, this);
-		backButton = App->gui->AddButton(430, 290, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, false, nullptr, this);
-		fullScreen = App->gui->AddButton(500, 500, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, nullptr, this);
-		about = App->gui->AddButton(500, 600, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false,false, nullptr, this);
-		sliderbar = App->gui->AddSlider(100, 100, 64, 128,true, false, false, optionsMenu, this);
+		backButton = App->gui->AddButton(30, 40, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, true, false, false, optionsMenu, this);
+		fullScreen = App->gui->AddButton(100, 250, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, optionsMenu, this);
+		about = App->gui->AddButton(100, 350, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false,false, optionsMenu, this);
+		sliderbarFx = App->gui->AddSlider(115, 100, App->audio->GetFxVolume(), MIX_MAX_VOLUME,true, false, false, optionsMenu, this);
+		sliderbarMus = App->gui->AddSlider(115, 175, App->audio->GetMusicVolume(), MIX_MAX_VOLUME, true, false, false, optionsMenu, this);
 		App->gui->AddText(55, 25, "FULLSCREEN", App->font->smallFont, { 255,255,255 }, 42, false, false, false, fullScreen);
 		App->gui->AddText(150, 35, "OPTIONS MENU", App->font->smallFont, { 236,178,0 }, 42, false, false, false, optionsMenu);
 		App->gui->AddText(70, 100, "FX", App->font->smallFont, { 236,178,0 }, 42, false, false, false, optionsMenu);
@@ -148,12 +149,7 @@ void SceneTitle::ui_callback(UiElement* element) {
 
 	}
 	else if (element == backButton) {
-		App->gui->RemoveUiElement(backButton);
 		App->gui->RemoveUiElement(optionsMenu);
-		App->gui->RemoveUiElement(fullScreen);
-		App->gui->RemoveUiElement(fxBar);
-		App->gui->RemoveUiElement(soundBar);
-		App->gui->RemoveUiElement(about);
 	}
 	else if (element == fullScreen) {
 
@@ -162,6 +158,12 @@ void SceneTitle::ui_callback(UiElement* element) {
 	else if (element == about) {
 
 		ShellExecuteA(NULL, "open", "https://github.com/LordUnicorn31/Kujo-Studios", NULL, NULL, SW_SHOWNORMAL);
+	}
+	else if (element == sliderbarFx) {
+		App->audio->FxVolume(((UiSlider*)element)->value);
+	}
+	else if (element == sliderbarMus) {
+		App->audio->MusicVolume(((UiSlider*)element)->value);
 	}
 }
 

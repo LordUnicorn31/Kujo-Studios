@@ -38,13 +38,13 @@ public:
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
 	//Music Volume Control
-	void MusicVolume(float vol);
+	void MusicVolume(int vol);
 
 	//FX Volume Control
-	void FxVolume(float vol);
+	void FxVolume(int vol);
 
-	float GetMusicVolume();
-	float GetFxVolume();
+	int GetMusicVolume() const;
+	int GetFxVolume() const;
 
 	//Unload FX 
 	void UnloadFx();
@@ -57,8 +57,8 @@ private:
 	Mix_Music* music = NULL;
 	eastl::list<Mix_Chunk*>	fx;
 
-	float currentMusicVolume;
-	float currentFxVolume;
+	int currentMusicVolume;
+	int currentFxVolume;
 
 
 };

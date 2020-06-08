@@ -187,7 +187,7 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 	return ret;
 }
 
-void Audio::MusicVolume(float vol)
+void Audio::MusicVolume(int vol)
 {
 	if (vol > MIX_MAX_VOLUME)
 		vol = MIX_MAX_VOLUME;
@@ -199,7 +199,7 @@ void Audio::MusicVolume(float vol)
 	currentMusicVolume = vol;
 }
 
-void Audio::FxVolume(float vol)
+void Audio::FxVolume(int vol)
 {
 	if (vol > MIX_MAX_VOLUME)
 		vol = MIX_MAX_VOLUME;
@@ -215,12 +215,12 @@ void Audio::FxVolume(float vol)
 	currentFxVolume = vol;
 }
 
-float Audio::GetMusicVolume()
+int Audio::GetMusicVolume() const
 {
 	return currentMusicVolume;
 }
 
-float Audio::GetFxVolume()
+int Audio::GetFxVolume() const
 {
 	return currentFxVolume;
 }

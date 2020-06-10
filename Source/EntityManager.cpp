@@ -363,9 +363,9 @@ void EntityManager::HandleInput() {
 					if (EnoughResources(ToCreate)) {
 						PayCost(ToCreate);
 						App->gui->RemoveUiChilds(Panel);
-						CreateEntity(ToCreate, iPoint(x, y));
+						Building* NewBuilding = (Building*)CreateEntity(ToCreate, iPoint(x, y));
 						((Ai*)SelectedEntities.front())->Working = true;
-						((Ai*)SelectedEntities.front())->WorkingTime = ((Building*)entities.back())->ConstructionTime;
+						((Ai*)SelectedEntities.front())->WorkingTime = NewBuilding->ConstructionTime;
 						SelectedEntities.front()->selected = false;
 						App->pathfinding->CreatePath(((Ai*)SelectedEntities.front())->TilePos, Tile);
 						((Ai*)SelectedEntities.front())->path = *App->pathfinding->GetLastPath();
@@ -436,54 +436,45 @@ void EntityManager::HandleInput() {
 
 	case ActionMoving:
 		CurrentAction = ActionNone;
-		Entity* destination = nullptr;
 		int xTile, yTile;
 		App->input->GetMousePosition(xTile, yTile);
 		xTile -= App->render->camera.x;
 		yTile -= App->render->camera.y;
 		rect = { xTile, yTile, 1, 1 };
-		eastl::list<Entity*>::iterator iter;
-		for (iter = entities.begin(); iter != entities.end(); ++iter) {
-			if (SDL_HasIntersection(&rect, &(*iter)->EntityRect)) {
-				destination = (*iter);
+		iPoint MouseTile(App->map->WorldToMap(xTile, yTile));
+		eastl::list<Entity*>::iterator it;
+		eastl::list<Ai*> GroupAi;
+		for (it = entities.begin(); it != entities.end(); ++it) {
+			if ((*it)->etype == EntityType::TypeAi && (*it)->selected) {
+				GroupAi.push_back((Ai*)(*it));
 			}
 		}
-		if (destination == nullptr) {
-			iPoint MouseTile(App->map->WorldToMap(xTile, yTile));
-			eastl::list<Entity*>::iterator it;
-			eastl::list<Ai*> GroupAi;
-			for (it = entities.begin(); it != entities.end(); ++it) {
-				if ((*it)->etype == EntityType::TypeAi && (*it)->selected) {
-					GroupAi.push_back((Ai*)(*it));
-				}
-			}
-			//TODO: ARA CREAR LA FUNCIO AL MODUL PATHFINDING K REBI LA LLISTA I ENS CALCULI EL PATH PER TOTS
-			if (GroupAi.size() > 1) {
-				if (!App->pathfinding->CalculateGroupPath(GroupAi, MouseTile)) {
-					eastl::list<Ai*>::iterator i;
-					for (i = GroupAi.begin(); i != GroupAi.end(); ++i) {
-						if ((*i)->TilePos != MouseTile) {
-							if (App->pathfinding->CreatePath((*i)->TilePos, MouseTile) != -1) {
-								(*i)->path = *App->pathfinding->GetLastPath();
-								//FinalGoal.x = path.back().x;
-								//FinalGoal.y = path.back().y;
-								(*i)->path.erase((*i)->path.begin());
-								(*i)->OnDestination = false;
-							}
+		//TODO: ARA CREAR LA FUNCIO AL MODUL PATHFINDING K REBI LA LLISTA I ENS CALCULI EL PATH PER TOTS
+		if (GroupAi.size() > 1) {
+			if (!App->pathfinding->CalculateGroupPath(GroupAi, MouseTile)) {
+				eastl::list<Ai*>::iterator i;
+				for (i = GroupAi.begin(); i != GroupAi.end(); ++i) {
+					if ((*i)->TilePos != MouseTile) {
+						if (App->pathfinding->CreatePath((*i)->TilePos, MouseTile) != -1) {
+							(*i)->path = *App->pathfinding->GetLastPath();
+							//FinalGoal.x = path.back().x;
+							//FinalGoal.y = path.back().y;
+							(*i)->path.erase((*i)->path.begin());
+							(*i)->OnDestination = false;
 						}
 					}
 				}
 			}
-			else if (GroupAi.size() == 1) {
-				Ai* ai = (*GroupAi.begin());
-				if (ai->TilePos != MouseTile) {
-					if (App->pathfinding->CreatePath(ai->TilePos, MouseTile) != -1) {
-						ai->path = *App->pathfinding->GetLastPath();
-						//FinalGoal.x = path.back().x;
-						//FinalGoal.y = path.back().y;
-						ai->path.erase((*GroupAi.begin())->path.begin());
-						ai->OnDestination = false;
-					}
+		}
+		else if (GroupAi.size() == 1) {
+			Ai* ai = (*GroupAi.begin());
+			if (ai->TilePos != MouseTile) {
+				if (App->pathfinding->CreatePath(ai->TilePos, MouseTile) != -1) {
+					ai->path = *App->pathfinding->GetLastPath();
+					//FinalGoal.x = path.back().x;
+					//FinalGoal.y = path.back().y;
+					ai->path.erase((*GroupAi.begin())->path.begin());
+					ai->OnDestination = false;
 				}
 			}
 		}

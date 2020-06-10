@@ -178,7 +178,6 @@ void Building::UiFunctionallity() {
 	case BuildingType::Base:
 	    App->gui->AddText(56, 240, "Base", App->font->defaultFont, { 0,0,255,255 }, 32, false, false, false, App->entity->Panel);
 		App->gui->AddEntityButton(20, 300, { 1344,136,39,39 }, { 1291,135,39,39 }, { 1397,136,39,39 },AviableEntities::collector, EntityType::TypeAi, true, false, false, App->entity->Panel, App->entity);
-		App->gui->AddText(22, 340, "Collector", App->font->smallFont, { 0, 0, 255, 255 }, 32, false, false, false, App->entity->Panel);
 		if(!BuildingQueue.empty())
 			BuildHUD = App->gui->AddHUDBar(9,341, BuildingEntity->TotalBuildingTime, &BuildingEntity->BuildingTime, { 1279,431,61,5 }, { 1279,399,61,5 }, { 1278,382,64,8 }, false, false, false, App->entity->Panel, nullptr);
 

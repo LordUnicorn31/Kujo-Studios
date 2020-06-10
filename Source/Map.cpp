@@ -4,6 +4,7 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Map.h"
+#include "Fow.h"
 #include <math.h>
 
 Map::Map() : Module(), mapLoaded(false)
@@ -56,7 +57,37 @@ void Map::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
 
+					if (App->fow->GetVisibilityTileAt({ x,y }) != (const int8_t)FOW_TileState::UNVISITED)
+					{
+						App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+					}
+
 					App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+					
+
+					FOW_TileState state = (FOW_TileState)App->fow->GetVisibilityTileAt({ x,y });
+
+				}
+			}
+		}
+		for (int y = 0; y < data.height; ++y)
+		{
+			for (int x = 0; x < data.width; ++x)
+			{
+				int tile_id = layer->Get(x, y);
+				if (tile_id > 0)
+				{
+					TileSet* tileset = GetTilesetFromTileId(tile_id);
+					SDL_Rect r = tileset->GetTileRect(tile_id);
+					iPoint pos = MapToWorld(x, y);
+					FOW_TileState state = (FOW_TileState)App->fow->GetVisibilityTileAt({ x,y });
+
+					if (state == FOW_TileState::FOGGED)
+					{
+						r = App->fow->GetFOWMetaRect(state);
+						App->render->Blit(App->fow->fogtexture, pos.x, pos.y, &r);
+					}
+
 				}
 			}
 		}

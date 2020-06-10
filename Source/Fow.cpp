@@ -21,6 +21,12 @@ Fow::~Fow()
 	else if (visibility_debug_holder != nullptr)
 		delete[] visibility_debug_holder;
 
+	/*if (visibility_map != nullptr && visibility_map != debug_map)
+	{
+		delete[] visibility_map;
+		visibility_save_holder = nullptr;
+	}*/
+
 
 	if (debug_map != nullptr)
 		delete[] debug_map;
@@ -33,7 +39,7 @@ bool Fow::Awake()
 
 bool Fow::Start()
 {
-	fogtexture = App->tex->Load("maps/fow_texture.png");
+	fogtexture = App->tex->Load("maps/fog_tile.png");
 
 	return true;
 }

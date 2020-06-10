@@ -58,8 +58,9 @@ bool GameScene::Start()
 	App->collisions->Enable();
 	App->win->GetWindowSize(width, height);
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");
-	App->fow->SetVisibilityMap(App->map->data.width, App->map->data.height);
+	App->fow->SetVisibilityMap(App->map->data.width* App->map->data.tileWidth, App->map->data.height* App->map->data.tileHeight);
 	camSpeed = 2;
+	
 
 	return true;
 }
@@ -98,11 +99,11 @@ bool GameScene::Update(float dt)
 
 	cameramovement(dt);
 
-	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+	/*if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 		App->fow->ResetVisibilityMap();
 
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-		App->fow->scouting_trail = !App->fow->scouting_trail;
+		App->fow->scouting_trail = !App->fow->scouting_trail;*/
 
 	if (tutorialActive == true)
 	{

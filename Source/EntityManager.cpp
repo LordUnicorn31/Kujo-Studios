@@ -265,8 +265,8 @@ void EntityManager::HandleInput() {
 			if (rect.w == 0 && rect.h == 0) {
 				rect.w = 1;
 				rect.h = 1;
-				eastl::list<Entity*>::iterator it;
-				for (it = entities.begin(); it != entities.end(); ++it) {
+				eastl::list<Entity*>::reverse_iterator it;
+				for (it = entities.rbegin(); it != entities.rend(); ++it) {
 					if ((*it)->selectable && SDL_HasIntersection(&rect, &(*it)->EntityRect)) {
 						(*it)->selected = true;
 						SelectedEntities.push_back((*it));
@@ -276,11 +276,11 @@ void EntityManager::HandleInput() {
 				}
 			}
 			else {
-				eastl::list<Entity*>::iterator it;
+				eastl::list<Entity*>::reverse_iterator it;
 				int i = 0;
 				int x = -1;
 				int y = 1;
-				for (it = entities.begin(); it != entities.end() && i<MAXSELECTEDUNITS; ++it) {
+				for (it = entities.rbegin(); it != entities.rend() && i<MAXSELECTEDUNITS; ++it) {
 					if ((*it)->selectable && (*it)->etype == EntityType::TypeAi && SDL_HasIntersection(&rect, &(*it)->EntityRect)) {
 						(*it)->selected = true;
 						SelectedEntities.push_back((*it));

@@ -24,8 +24,8 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         IdleAnimation.PushBack({ 19,23,66,66 });
         IdleAnimation.PushBack({ 116,21,66,66 });
         IdleAnimation.speed = 2.5f;
-        ArmedIdleAnimation.PushBack({ 229,221,79,79 });
-        ArmedIdleAnimation.PushBack({ 369,221,79,79 });
+        ArmedIdleAnimation.PushBack({ 217,221,80,80 });
+        ArmedIdleAnimation.PushBack({ 357,221,80,80 });
         ArmedIdleAnimation.speed = 2.5f;
 		selectable = true;
 		EntityRect.w = 66;
@@ -48,8 +48,8 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         IdleAnimation.PushBack({ 236,28,61,61 });
         IdleAnimation.PushBack({ 371,20,61,61 });
         IdleAnimation.speed = 3.0f;
-        ArmedIdleAnimation.PushBack({ 237,110,77,77 });
-        ArmedIdleAnimation.PushBack({ 377,110,77,77 });
+        ArmedIdleAnimation.PushBack({ 222,110,80,80 });
+        ArmedIdleAnimation.PushBack({ 362,110,80,80 });
         ArmedIdleAnimation.speed = 3.0f;
         selectable = true;
         EntityRect.w = 61;
@@ -69,13 +69,13 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         UpgradedRange = 100;
 		speed = 3.0f;
         UpgradedSpeed = 4.0f;
-        IdleAnimation.PushBack({ 29,147,52,52 });
-        IdleAnimation.PushBack({ 131,147,52,52 });
+        IdleAnimation.PushBack({ 24,147,52,52 });
+        IdleAnimation.PushBack({ 126,147,52,52 });
         IdleAnimation.speed = 2.0f;
         ArmedIdleAnimation = IdleAnimation;
 		selectable = true;
-		EntityRect.w = 46;
-		EntityRect.h = 46;
+		EntityRect.w = 52;
+		EntityRect.h = 52;
         TilePos = App->map->WorldToMap(EntityRect.x, EntityRect.y);
         NextTile = TilePos;
         OnDestination = true;
@@ -91,15 +91,15 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         UpgradedRange = 120;
         UpgradedSpeed = 3.0f;
         speed = 2.0f;
-        IdleAnimation.PushBack({ 29,324,57,57 });
-        IdleAnimation.PushBack({ 131,324,57,57 });
+        IdleAnimation.PushBack({ 25,324,57,57 });
+        IdleAnimation.PushBack({ 127,324,57,57 });
         IdleAnimation.speed = 1.5f;
-        ArmedIdleAnimation.PushBack({ 233,332,80,80 });
-        ArmedIdleAnimation.PushBack({ 372,332,80,80 });
+        ArmedIdleAnimation.PushBack({ 218,332,80,80 });
+        ArmedIdleAnimation.PushBack({ 357,332,80,80 });
         ArmedIdleAnimation.speed = 1.5f;
         selectable = true;
-        EntityRect.w = 58;
-        EntityRect.h = 58;
+        EntityRect.w = 57;
+        EntityRect.h = 57;
         TilePos = App->map->WorldToMap(EntityRect.x, EntityRect.y);
         NextTile = TilePos;
         OnDestination = true;
@@ -307,4 +307,6 @@ void Ai::Upgrade() {
     Range = UpgradedRange;
     speed = UpgradedSpeed;
     Armed = true;
+    EntityRect.w = 80;
+    EntityRect.h = 80;
 }

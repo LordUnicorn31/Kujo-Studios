@@ -2,7 +2,7 @@
 #include "p2Log.h"
 #include "Application.h"
 #include "Window.h"
-#include "icon_126x126.c"
+#include "icon_64x64.c"
 
 #include "SDL.h"
 
@@ -69,11 +69,11 @@ bool Window::Awake(pugi::xml_node& config)
 		rmask = 0x000000ff;
 		gmask = 0x0000ff00;
 		bmask = 0x00ff0000;
-		amask = (icon_126x126.bytes_per_pixel == 3) ? 0 : 0xff000000;
+		amask = (icon_64x64.bytes_per_pixel == 3) ? 0 : 0xff000000;
 
-		SDL_Surface* icon = SDL_CreateRGBSurfaceFrom((void*)icon_126x126.pixel_data,
-			icon_126x126.width, icon_126x126.height, icon_126x126.bytes_per_pixel * 8,
-			icon_126x126.bytes_per_pixel * icon_126x126.width, rmask, gmask, bmask, amask);
+		SDL_Surface* icon = SDL_CreateRGBSurfaceFrom((void*)icon_64x64.pixel_data,
+			icon_64x64.width, icon_64x64.height, icon_64x64.bytes_per_pixel * 8,
+			icon_64x64.bytes_per_pixel * icon_64x64.width, rmask, gmask, bmask, amask);
 
 		SetIcon(icon);
 

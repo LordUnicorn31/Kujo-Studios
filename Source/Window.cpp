@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "Application.h"
 #include "Window.h"
+#include "icon_126x126.c"
 
 #include "SDL.h"
 
@@ -63,6 +64,20 @@ bool Window::Awake(pugi::xml_node& config)
 		}
 
 		window = SDL_CreateWindow(App->GetTitle(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+	
+		Uint32 rmask, gmask, bmask, amask;
+		rmask = 0x000000ff;
+		gmask = 0x0000ff00;
+		bmask = 0x00ff0000;
+		amask = (icon_126x126.bytes_per_pixel == 3) ? 0 : 0xff000000;
+
+		SDL_Surface* icon = SDL_CreateRGBSurfaceFrom((void*)icon_126x126.pixel_data,
+			icon_126x126.width, icon_126x126.height, icon_126x126.bytes_per_pixel * 8,
+			icon_126x126.bytes_per_pixel * icon_126x126.width, rmask, gmask, bmask, amask);
+
+		SetIcon(icon);
+
+		SDL_FreeSurface(icon);
 
 		if(window == NULL)
 		{
@@ -101,6 +116,11 @@ void Window::SetTitle(const char* new_title)
 {
 	//title.create(new_title);
 	SDL_SetWindowTitle(window, new_title);
+}
+
+void Window::SetIcon(SDL_Surface* new_icon)
+{
+	SDL_SetWindowIcon(window, new_icon);
 }
 
 void Window::GetWindowSize(uint& width, uint& height) const

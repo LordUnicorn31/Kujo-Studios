@@ -149,14 +149,15 @@ void SceneTitle::ui_callback(UiElement* element) {
 
 	}
 	else if (element == backButton) {
+		App->audio->PlayFx(buttonFx);
 		App->gui->RemoveUiElement(optionsMenu);
 	}
 	else if (element == fullScreen) {
-
+		App->audio->PlayFx(buttonFx);
 		App->win->Fullscreen();
 	}
 	else if (element == about) {
-
+		App->audio->PlayFx(buttonFx);
 		ShellExecuteA(NULL, "open", "https://github.com/LordUnicorn31/Kujo-Studios", NULL, NULL, SW_SHOWNORMAL);
 	}
 	else if (element == sliderbarFx) {

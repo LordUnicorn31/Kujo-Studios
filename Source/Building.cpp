@@ -23,7 +23,6 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		level = 1;
 		OnConstruction = true;
 		ConstructionTime = 0.0f;
-		CostCopperTitanium = {0,0 };
 		break;
 	case BuildingType::Mine:
 		EntityRect.w = 64;
@@ -46,7 +45,6 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		level = 1;
 		ConstructionTime = 10.0f;
 		OnConstruction = true;
-		CostCopperTitanium = { 1500,0 };
 		break;
 	case BuildingType::Cuartel:
 		EntityRect.w = 64;
@@ -63,7 +61,6 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		level = 1;
 		ConstructionTime = 10.0f;
 		OnConstruction = true;
-		CostCopperTitanium = { 1500,0 };
 		break;
 	case BuildingType::Spaceship_factory:
 		EntityRect.w = 64;
@@ -76,7 +73,6 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		level = 1;
 		ConstructionTime = 10.0f;
 		OnConstruction = true;
-		CostCopperTitanium = { 1500,0 };
 		break;
 	case BuildingType::PowerGenerator:
 		EntityRect.w = 64;
@@ -90,7 +86,6 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		level = 1;
 		ConstructionTime = 10.0f;
 		OnConstruction = true;
-		CostCopperTitanium = { 1500,0 };
 		break;
 	}
 	//App->collisions->AddCollider(EntityRect,COLLIDER_BUILDING,App->entity);
@@ -163,13 +158,13 @@ void Building::UiFunctionallity() {
 		App->gui->AddEntityButton(100, 300, { 1344,199,39,39 }, { 1290,198,39,39 }, { 1397,198,39,39 }, AviableEntities::greenship, EntityType::TypeAi, true, false, false, App->entity->Panel, App->entity);
 		if (!BuildingQueue.empty()) {
 			switch (BuildingEntity->Atype) {
-			case AiType::Basic_Unit:
+			case AiType::RedShip:
 				BuildHUD = App->gui->AddHUDBar(9, 341, BuildingEntity->TotalBuildingTime, &BuildingEntity->BuildingTime, { 1279,431,61,5 }, { 1279,399,61,5 }, { 1278,382,64,8 }, false, false, false, App->entity->Panel, nullptr);
 				break;
-			case AiType::Ranged_Unit:
+			case AiType::BlueShip:
 				BuildHUD = App->gui->AddHUDBar(49, 341, BuildingEntity->TotalBuildingTime, &BuildingEntity->BuildingTime, { 1279,431,61,5 }, { 1279,399,61,5 }, { 1278,382,64,8 }, false, false, false, App->entity->Panel, nullptr);
 				break;
-			case AiType::Special_Unit:
+			case AiType::GreenShip:
 				BuildHUD = App->gui->AddHUDBar(89, 341, BuildingEntity->TotalBuildingTime, &BuildingEntity->BuildingTime, { 1279,431,61,5 }, { 1279,399,61,5 }, { 1278,382,64,8 }, false, false, false, App->entity->Panel, nullptr);
 				break;
 			}
@@ -187,6 +182,9 @@ void Building::UiFunctionallity() {
 		break;
 	case BuildingType::Spaceship_factory:
 		App->gui->AddText(66, 240, "Lab", App->font->defaultFont, { 0,0,255,255 }, 32, false, false, false, App->entity->Panel);
+		App->gui->AddEntityButton(20, 300, { 1344,84,39,39 }, { 1290,83,39,39 }, { 1397,83,39,39 }, AviableEntities::upgradedredship, EntityType::TypeAi, true, false, false, App->entity->Panel, App->entity);
+		App->gui->AddEntityButton(60, 300, { 1345,28,39,39 }, { 1291,28,39,39 }, { 1397,28,39,39 }, AviableEntities::upgradedblueship, EntityType::TypeAi, true, false, false, App->entity->Panel, App->entity);
+		App->gui->AddEntityButton(100, 300, { 1344,199,39,39 }, { 1290,198,39,39 }, { 1397,198,39,39 }, AviableEntities::upgradedgreenship, EntityType::TypeAi, true, false, false, App->entity->Panel, App->entity);
 		break;
 	case BuildingType::PowerGenerator:
 		App->gui->AddText(16, 240, "Generator", App->font->defaultFont, { 0,0,255,255 }, 32, false, false, false, App->entity->Panel);
@@ -204,13 +202,13 @@ void Building::UpdateUiFunctionallity() {
 	case BuildingType::Cuartel:
 		if (!BuildingQueue.empty()) {
 			switch (BuildingEntity->Atype) {
-			case AiType::Basic_Unit:
+			case AiType::RedShip:
 				BuildHUD = App->gui->AddHUDBar(9, 341, BuildingEntity->TotalBuildingTime, &BuildingEntity->BuildingTime, { 1279,431,61,5 }, { 1279,399,61,5 }, { 1278,382,64,8 }, false, false, false, App->entity->Panel, nullptr);
 				break;
-			case AiType::Ranged_Unit:
+			case AiType::BlueShip:
 				BuildHUD = App->gui->AddHUDBar(49, 341, BuildingEntity->TotalBuildingTime, &BuildingEntity->BuildingTime, { 1279,431,61,5 }, { 1279,399,61,5 }, { 1278,382,64,8 }, false, false, false, App->entity->Panel, nullptr);
 				break;
-			case AiType::Special_Unit:
+			case AiType::GreenShip:
 				BuildHUD = App->gui->AddHUDBar(89, 341, BuildingEntity->TotalBuildingTime, &BuildingEntity->BuildingTime, { 1279,431,61,5 }, { 1279,399,61,5 }, { 1278,382,64,8 }, false, false, false, App->entity->Panel, nullptr);
 				break;
 			}

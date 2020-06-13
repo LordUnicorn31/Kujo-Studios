@@ -23,12 +23,7 @@ public:
 	SDL_Texture* sprite;
 	bool selected;
 	bool selectable;
-	eastl::array<int, 2> CostCopperTitanium;
 	//Collider* collider;
-	
-	//Collider* collider;
-
-	//eastl::array cost[3];
 	//SDL_Rect entity_rect;
 public:
 	virtual void Draw(float dt); 

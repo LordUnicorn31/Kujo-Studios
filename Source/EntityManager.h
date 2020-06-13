@@ -7,11 +7,12 @@
 #include "Animation.h"
 
 #define MAXSELECTEDUNITS 33
-#define MAXRESOURCES 10000
+#define MAXRESOURCES 9999
 
 class Entity;
 struct SDL_Texture;
 enum class EntityType : unsigned char;
+enum class AiType : unsigned char;
 class UiElement;
 class Ai;
 
@@ -21,6 +22,7 @@ enum InputActions {
 	ActionSelection,
 	ActionConstruction,
 	ActionTraining,
+	ActionUpgrading
 };
 
 enum class AviableEntities: unsigned char {
@@ -34,6 +36,9 @@ enum class AviableEntities: unsigned char {
 	blueship,
 	redship,
 	PowerGenerator,
+	upgradedredship,
+	upgradedblueship,
+	upgradedgreenship,
 	gold,
 	ore,
 
@@ -94,10 +99,11 @@ public:
 private:
 	bool newgame;
 	void GenerateResources(int n_gold, int n_ore);
-	bool EnoughResources(AviableEntities toBuild);
+	bool EnaughResources(AviableEntities toBuild);
 	void PayCost(AviableEntities toPay);
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&);
+	AiType AviableToAi(AviableEntities aviable);
 	eastl::list <Entity*>entities;
 	eastl::list<Entity*>SelectedEntities;
 	bool DoLogic;

@@ -122,6 +122,9 @@ EntityManager::EntityManager(): Module(),MineSprite(NULL),CuartelLab(NULL),BaseS
 	BuildCost[7] = { 150,200 };
 	BuildCost[8] = { 100,200 };
 	BuildCost[9] = { 200,0 };
+	BuildCost[10] = { 0,300 };
+	BuildCost[11] = { 0,400 };
+	BuildCost[12] = { 0,500 };
 }
 
 EntityManager::~EntityManager() {
@@ -291,13 +294,13 @@ void EntityManager::HandleInput() {
 						case AiType::Collector:
 							App->gui->AddImage(x * 66 + 2 + 11, (y - 1) * 46 + 200 + 7, { 1291,135,39,39 },false,false,false,Panel);
 							break;
-						case AiType::Basic_Unit:
+						case AiType::RedShip:
 							App->gui->AddImage(x * 66 + 2 + 11, (y - 1) * 46 + 200 + 7, { 1290,83,39,39 }, false, false, false, Panel);
 							break;
-						case AiType::Ranged_Unit:
+						case AiType::BlueShip:
 							App->gui->AddImage(x * 66 + 2 + 11, (y - 1) * 46 + 200 + 7, { 1291,28,39,39 }, false, false, false, Panel);
 							break;
-						case AiType::Special_Unit:
+						case AiType::GreenShip:
 							App->gui->AddImage(x * 66 + 2 + 11, (y - 1) * 46 + 200 + 7, { 1290,198,39,39 }, false, false, false, Panel);
 							break;
 						}
@@ -360,7 +363,7 @@ void EntityManager::HandleInput() {
 					}
 				}
 				if (build) {
-					if (EnoughResources(ToCreate)) {
+					if (EnaughResources(ToCreate)) {
 						PayCost(ToCreate);
 						App->gui->RemoveUiChilds(Panel);
 						Building* NewBuilding = (Building*)CreateEntity(ToCreate, iPoint(x, y));
@@ -403,8 +406,8 @@ void EntityManager::HandleInput() {
 				App->gui->RemoveUiChilds(Panel);
 				SelectedEntities.front()->selected = false;
 				SelectedEntities.clear();
-				CurrentAction = ActionNone;
 				ToCreate = AviableEntities::none;
+				CurrentAction = ActionNone;
 			}
 			else if (App->gui->UiUnderMouse() != BuildButton) {
 				App->gui->RemoveUiElement(BuildButton);
@@ -420,7 +423,7 @@ void EntityManager::HandleInput() {
 			}
 			else {
 				//fer una cola de entities per crear
-				if (EnoughResources(ToCreate)) {
+				if (EnaughResources(ToCreate)) {
 					PayCost(ToCreate);
 					((Building*)SelectedEntities.front())->BuildingQueue.push_back(ToCreate);
 					((Building*)SelectedEntities.front())->ToBuild = true;
@@ -430,6 +433,40 @@ void EntityManager::HandleInput() {
 						NotEnaughResourcesText = App->gui->AddText(20, 500, "Not enaugh resources", App->font->smallFont, { 0,0,255,0 }, 16, false, false, false, Panel);
 					}
 				}
+			}
+		}
+		break;
+
+	case ActionUpgrading:
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
+			if (App->gui->UiUnderMouse() == nullptr){
+				App->input->GetMousePosition(mouse.x, mouse.y);
+				rect = { mouse.x - App->render->camera.x, mouse.y - App->render->camera.y,1,1 };
+				eastl::list<Entity*>::iterator i;
+				for (i = entities.begin(); i != entities.end(); ++i) {
+					if ((*i)->etype == EntityType::TypeAi && SDL_HasIntersection(&rect, &(*i)->EntityRect)) {
+						if (((Ai*)(*i))->Atype == AviableToAi(ToCreate)) {
+							if (EnaughResources(ToCreate) && !((Ai*)(*i))->Armed) {
+								PayCost(ToCreate);
+								((Ai*)(*i))->Upgrade();
+								//ToCreate = AviableEntities::none;
+								//CurrentAction = ActionNone;
+							}
+							break;
+						}
+					}
+				}
+				App->gui->RemoveUiChilds(Panel);
+				SelectedEntities.front()->selected = false;
+				SelectedEntities.clear();
+				CurrentAction = ActionNone;
+				ToCreate = AviableEntities::none;
+			}
+			else {
+				App->gui->RemoveUiElement(CopperIcon);
+				App->gui->RemoveUiElement(TitaniumIcon);;
+				App->gui->RemoveUiElement(Coppernum);
+				App->gui->RemoveUiElement(Titaniumnum);
 			}
 		}
 		break;
@@ -594,17 +631,17 @@ Entity* EntityManager::CreateEntity(AviableEntities type,iPoint position) {
 		entities.push_front(ret);
 		break;
 	case AviableEntities::redship:
-		ret = new Ai(AiType::Basic_Unit,position);
+		ret = new Ai(AiType::RedShip,position);
 		ret->sprite = ShipsSprite;
 		entities.push_back(ret);
 		break;
 	case AviableEntities::blueship:
-		ret = new Ai(AiType::Ranged_Unit, position);
+		ret = new Ai(AiType::BlueShip, position);
 		ret->sprite = ShipsSprite;
 		entities.push_back(ret);
 		break;
 	case AviableEntities::greenship:
-		ret = new Ai(AiType::Special_Unit, position);
+		ret = new Ai(AiType::GreenShip, position);
 		ret->sprite = ShipsSprite;
 		entities.push_back(ret);
 		break;
@@ -645,16 +682,16 @@ bool EntityManager::Save(pugi::xml_node& managernode) {
 		switch ((*it)->etype) {
 		case EntityType::TypeAi:
 			switch (((Ai*)(*it))->Atype) {
-			case AiType::Basic_Unit:
+			case AiType::RedShip:
 				EntityNode.append_attribute("type").set_value((int)AviableEntities::redship);
 				break;
 			case AiType::Collector:
 				EntityNode.append_attribute("type").set_value((int)AviableEntities::collector);
 				break;
-			case AiType::Ranged_Unit:
+			case AiType::BlueShip:
 				EntityNode.append_attribute("type").set_value((int)AviableEntities::blueship);
 				break;
-			case AiType::Special_Unit:
+			case AiType::GreenShip:
 				EntityNode.append_attribute("type").set_value((int)AviableEntities::greenship);
 				break;
 			}
@@ -705,15 +742,26 @@ void EntityManager::ui_callback(UiElement* element) {
 			App->gui->RemoveUiElement(NotEnaughResourcesText);
 		}
 		else if (((UiEntityButton*)element)->entitytype == EntityType::TypeAi) {
-			CurrentAction = ActionTraining;
-			ToCreate = ((UiEntityButton*)element)->entity;
-			BuildButton= App->gui->AddButton(25, 550, { 1281,486,163,49 }, { 1450,486,163,49 }, { 1626,486,163,49 }, true, false, false, Panel, this);
-			App->gui->AddText(60, 16, "BUILD", App->font->smallFont, { 0, 255, 255 }, 42, false, false, false, BuildButton);
-			CopperIcon = App->gui->AddImage(20, 450, { 679,501,28,29 }, false, false, false, Panel, nullptr);
-			TitaniumIcon = App->gui->AddImage(110, 450, { 641,498,30,31 }, false, false, false, Panel, nullptr);
-			Coppernum = App->gui->AddText(55, 450, std::to_string(((int)GetCost(ToCreate)[0])).c_str(), App->font->resourcesPanelFont, { 0,0,255,255 }, 20, false, false, false, Panel, nullptr);
-			Titaniumnum = App->gui->AddText(145, 450, std::to_string(((int)GetCost(ToCreate)[1])).c_str(), App->font->resourcesPanelFont, { 0,0,255,255 }, 20, false, false, false, Panel, nullptr);
-			App->gui->RemoveUiElement(NotEnaughResourcesText);
+			if (((UiEntityButton*)element)->entity == AviableEntities::redship || ((UiEntityButton*)element)->entity == AviableEntities::blueship || ((UiEntityButton*)element)->entity == AviableEntities::greenship || ((UiEntityButton*)element)->entity == AviableEntities::collector) {
+				CurrentAction = ActionTraining;
+				ToCreate = ((UiEntityButton*)element)->entity;
+				BuildButton = App->gui->AddButton(25, 550, { 1281,486,163,49 }, { 1450,486,163,49 }, { 1626,486,163,49 }, true, false, false, Panel, this);
+				App->gui->AddText(60, 16, "BUILD", App->font->smallFont, { 0, 255, 255 }, 42, false, false, false, BuildButton);
+				CopperIcon = App->gui->AddImage(20, 450, { 679,501,28,29 }, false, false, false, Panel, nullptr);
+				TitaniumIcon = App->gui->AddImage(110, 450, { 641,498,30,31 }, false, false, false, Panel, nullptr);
+				Coppernum = App->gui->AddText(55, 450, std::to_string(((int)GetCost(ToCreate)[0])).c_str(), App->font->resourcesPanelFont, { 0,0,255,255 }, 20, false, false, false, Panel, nullptr);
+				Titaniumnum = App->gui->AddText(145, 450, std::to_string(((int)GetCost(ToCreate)[1])).c_str(), App->font->resourcesPanelFont, { 0,0,255,255 }, 20, false, false, false, Panel, nullptr);
+				App->gui->RemoveUiElement(NotEnaughResourcesText);
+			}
+			else {
+				CurrentAction = ActionUpgrading;
+				ToCreate = ((UiEntityButton*)element)->entity;
+				CopperIcon = App->gui->AddImage(20, 450, { 679,501,28,29 }, false, false, false, Panel, nullptr);
+				TitaniumIcon = App->gui->AddImage(110, 450, { 641,498,30,31 }, false, false, false, Panel, nullptr);
+				Coppernum = App->gui->AddText(55, 450, std::to_string(((int)GetCost(ToCreate)[0])).c_str(), App->font->resourcesPanelFont, { 0,0,255,255 }, 20, false, false, false, Panel, nullptr);
+				Titaniumnum = App->gui->AddText(145, 450, std::to_string(((int)GetCost(ToCreate)[1])).c_str(), App->font->resourcesPanelFont, { 0,0,255,255 }, 20, false, false, false, Panel, nullptr);
+				App->gui->RemoveUiElement(NotEnaughResourcesText);
+			}
 		}
 	}
 }
@@ -722,7 +770,7 @@ const eastl::list<Entity*>& EntityManager::GetEntities()const {
 	return entities;
 }
 
-bool EntityManager::EnoughResources(AviableEntities toBuild) {
+bool EntityManager::EnaughResources(AviableEntities toBuild) {
 	eastl::array<float,2>EntityCost= BuildCost[(uint)toBuild];
 	if (Resources[0] >= EntityCost[0] && Resources[1] >= EntityCost[1])
 		return true;
@@ -737,4 +785,24 @@ void EntityManager::PayCost(AviableEntities toPay) {
 
 const eastl::array<float, 2> EntityManager::GetCost(AviableEntities Entity)const {
 	return BuildCost[(uint)Entity];
+}
+
+AiType EntityManager::AviableToAi(AviableEntities aviable) {
+	switch (aviable) {
+	case AviableEntities::redship:
+		return AiType::RedShip;
+	case AviableEntities::blueship:
+		return AiType::BlueShip;
+	case AviableEntities::greenship:
+		return AiType::GreenShip;
+	case AviableEntities::upgradedredship:
+		return AiType::RedShip;
+	case AviableEntities::upgradedblueship:
+		return AiType::BlueShip;
+	case AviableEntities::upgradedgreenship:
+		return AiType::GreenShip;
+	case AviableEntities::collector:
+		return AiType::Collector;
+	}
+	return AiType::None;
 }

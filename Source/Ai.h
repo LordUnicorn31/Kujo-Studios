@@ -4,10 +4,11 @@
 #include "Animation.h"
 
 enum class AiType : unsigned char {
+	None,
 	Collector,
-	Basic_Unit,
-	Ranged_Unit,
-	Special_Unit
+	RedShip,
+	BlueShip,
+	GreenShip,
 };
 
 class Ai :public Entity {
@@ -20,6 +21,9 @@ public:
 	//iPoint Destination;
 	uint Damage;
 	uint Range;
+	uint UpgradedDamage;
+	uint UpgradedRange;
+	float UpgradedSpeed;
 	bool IsMoving;
 	bool OnDestination;
 	bool Armed;
@@ -44,4 +48,5 @@ public:
 	void UpdateMovement();
 	void UpdateLogic();
 	void UiFunctionallity();
+	void Upgrade();
 };

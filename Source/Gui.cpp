@@ -476,7 +476,7 @@ void UiSlider::Update(int dx,int dy) {
 
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && intersection) {
 		currentState = Button_state::clicked;
-		App->gui->focusedUi == this;
+		App->gui->focusedUi = this;
 	}
 	else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
 		if (intersection)

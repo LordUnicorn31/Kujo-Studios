@@ -1,4 +1,5 @@
 #include "Module.h"
+#include "p2Point.h"
 
 struct SDL_Texture;
 
@@ -34,6 +35,8 @@ public:
 
 	void Tutorial();
 
+	void LoadQuestUi();
+
 	void ui_callback(UiElement* element);
 
 	void cameramovement(float time);
@@ -63,6 +66,9 @@ private:
 	UiElement* fullScreen;
 	UiElement* musSlider;
 	UiElement* fxSlider;
+
+	//Quest panel
+	UiElement* questPanel;
 
 	int buttonFx;
 

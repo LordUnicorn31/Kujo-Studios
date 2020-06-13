@@ -80,7 +80,10 @@ bool SceneIntro::Update(float dt)
 	}
 	
 
-
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) && (s >= 255))
+	{
+		App->transition->FadeToBlack(App->sceneIntro, App->sceneTitle, 2.0f);
+	}
 
 	s++;
 

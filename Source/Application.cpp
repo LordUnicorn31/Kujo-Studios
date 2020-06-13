@@ -9,6 +9,7 @@
 #include "Map.h"
 #include "GameScene.h"
 #include "SceneLogo.h"
+#include "SceneIntro.h"
 #include "SceneTitle.h"
 #include "SceneTutorial.h"
 #include "Timer.h"
@@ -41,6 +42,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args), saveG
 	tex = new Textures();
 	particle = new Particles();
 	sceneLogo = new SceneLogo();
+	sceneIntro = new SceneIntro();
 	sceneTitle = new SceneTitle();
 	sceneTutorial = new SceneTutorial();
 	scene = new GameScene();
@@ -68,6 +70,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args), saveG
 	AddModule(tex);
 	AddModule(scene);
 	AddModule(sceneTitle);
+	AddModule(sceneIntro);
 	AddModule(sceneLogo);
 	AddModule(sceneTutorial);
 	AddModule(map);

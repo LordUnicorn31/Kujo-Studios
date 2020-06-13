@@ -13,6 +13,7 @@ class Render;
 class Textures;
 class GameScene;
 class SceneLogo;
+class SceneIntro;
 class SceneTitle;
 class SceneTutorial;
 class Map;
@@ -105,6 +106,7 @@ public:
 	Textures* tex;
 	GameScene* scene;
 	SceneLogo* sceneLogo;
+	SceneIntro* sceneIntro;
 	SceneTitle* sceneTitle;
 	SceneTutorial* sceneTutorial;
 	Input* input;

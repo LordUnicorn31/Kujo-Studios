@@ -5,6 +5,7 @@
 #include "Render.h"
 #include "Window.h"
 #include "SceneLogo.h"
+#include "SceneIntro.h"
 #include "SceneTitle.h"
 #include "Input.h"
 #include "Map.h"
@@ -94,7 +95,7 @@ bool SceneLogo::Update(float dt)
 	if (r == 255)
 	{
 		r--;
-		App->transition->FadeToBlack(App->sceneLogo, App->sceneTitle, 2.0f);
+		App->transition->FadeToBlack(App->sceneLogo, App->sceneIntro, 2.0f);
 	}
 
 	return ret;

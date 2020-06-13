@@ -66,23 +66,30 @@ bool SceneIntro::Update(float dt)
 
 	//App->render->DrawQuad(rect, 150, 150, 150, (Uint8)s);
 
-	if (s >= 500)
+	if (s >= 350)
 	{
 		App->render->Blit(img1, 0, 0, NULL, true, App->render->renderer, 1.0f);
-		if (s >= 1000)
+		if (s >= 900)
 		{
 			App->render->Blit(img2, 0, 0, NULL, true, App->render->renderer, 1.0f);
 			if (s >= 1500)
 			{
 				App->render->Blit(img3, 0, 0, NULL, true, App->render->renderer, 1.0f);
 			}
-		}
+		} 
 	}
 	
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) && (s >= 255))
+	if (App->input->GetKey(SDL_SCANCODE_SPACE))
 	{
-		App->transition->FadeToBlack(App->sceneIntro, App->sceneTitle, 2.0f);
+		if (s>255)
+		{
+			App->transition->FadeToBlack(App->sceneIntro, App->sceneTitle, 2.0f);
+		}
+		else
+		{
+			s = 255;
+		}
 	}
 
 	s++;

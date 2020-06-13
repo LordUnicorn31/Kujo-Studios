@@ -90,6 +90,13 @@ bool SceneLogo::Update(float dt)
 	App->render->Blit(studios,(int) (w*1.55f), (int)(h*3.10f), NULL, true, App->render->renderer, 0.2f);
 	App->render->Blit(hat, (int)(w*(2.95f)), (int)(h*(1.40) + ((9 - (r - 255) * (r - 255)) / 255)), NULL, true, App->render->renderer, 0.2f);
 
+
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE))
+	{
+		App->transition->FadeToBlack(App->sceneLogo, App->sceneIntro, 2.0f);
+	}
+
 	r++;
 
 	if (r == 255)

@@ -7,7 +7,7 @@
 #include "Animation.h"
 
 #define MAXSELECTEDUNITS 33
-#define MAXRESOURCES 10000
+#define MAXRESOURCES 9999
 
 class Entity;
 struct SDL_Texture;

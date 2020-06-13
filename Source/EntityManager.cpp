@@ -198,8 +198,8 @@ bool EntityManager::Start() {
 		PowerGeneratorSprite = App->tex->Load("Resources/entities/generator.png");
 		GenerateResources(15, 15);
 		CreateEntity(AviableEntities::base, iPoint(610, 300));
-		Resources[0] = 10000;
-		Resources[1] = 10000;
+		Resources[0] = 250;
+		Resources[1] = 250;
 	}
 	Panel = App->gui->AddImage(0, 0, { 1024,0,226,720 }, true, false, false, nullptr, this);
 	CopperString = App->gui->AddText(160, 20, (std::to_string(Resources[0]).c_str()), App->font->resourcesPanelFont, { 236,178,0,255 }, 20, false, false, false, App->scene->infoImage);

@@ -9,14 +9,17 @@
 #include "Audio.h"
 //#include "Collisions.h"
 
-Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), speed(0.0f),  DirectionAngle(270.0f), Damage(0), Range(0), IsMoving(false), OnDestination(true),Armed(false),Working(true),WorkingTime(0.0f),Building(true),BuildingTime(0.0f),TotalBuildingTime(0) {
+Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), speed(0.0f),  DirectionAngle(270.0f), Damage(0), Range(0), UpgradedDamage(0), UpgradedRange(0), UpgradedSpeed(0.0f), IsMoving(false), OnDestination(true),Armed(false),Working(true),WorkingTime(0.0f),Building(true),BuildingTime(0.0f),TotalBuildingTime(0) {
     switch (Atype) {
-	case AiType::Basic_Unit:
+	case AiType::RedShip:
         MaxHealth = 100;
 		health = (float)MaxHealth;
 		Damage = 40;
 		Range = 200;
+        UpgradedDamage = 50;
+        UpgradedRange = 250;
 		speed = 5.0f;
+        UpgradedSpeed = 6.0f;
 		//IdleAnimaiton = App->entity->Animations.AttackShip;
         IdleAnimation.PushBack({ 24,23,66,66 });
         IdleAnimation.PushBack({ 121,21,66,66 });
@@ -24,7 +27,6 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         ArmedIdleAnimation.PushBack({ 229,221,79,79 });
         ArmedIdleAnimation.PushBack({ 369,221,79,79 });
         ArmedIdleAnimation.speed = 2.5f;
-        CostCopperTitanium = { 50,0 };
 		selectable = true;
 		EntityRect.w = 54;
 		EntityRect.h = 51;
@@ -34,19 +36,21 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         TotalBuildingTime = 10;
         BuildingTime = 10.0f;
 		break;
-    case AiType::Ranged_Unit:
+    case AiType::BlueShip:
         MaxHealth = 60;
         health = (float)MaxHealth;
         Damage = 60;
         Range = 350;
+        UpgradedDamage = 75;
+        UpgradedRange = 400;
         speed = 6.0f;
+        UpgradedSpeed = 7.0f;
         IdleAnimation.PushBack({ 242,28,61,61 });
         IdleAnimation.PushBack({ 377,20,61,61 });
         IdleAnimation.speed = 3.0f;
-        ArmedIdleAnimation.PushBack({ 233,332,80,80 });
-        ArmedIdleAnimation.PushBack({ 372,332,80,80 });
+        ArmedIdleAnimation.PushBack({ 237,110,77,77 });
+        ArmedIdleAnimation.PushBack({ 377,110,77,77 });
         ArmedIdleAnimation.speed = 3.0f;
-        CostCopperTitanium = { 80,0 };
         selectable = true;
         EntityRect.w = 58;
         EntityRect.h = 58;
@@ -61,12 +65,14 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         health = (float)MaxHealth;
 		Damage = 0;
 		Range = 100;
+        UpgradedDamage = 0;
+        UpgradedRange = 100;
 		speed = 3.0f;
+        UpgradedSpeed = 4.0f;
         IdleAnimation.PushBack({ 29,147,52,52 });
         IdleAnimation.PushBack({ 131,147,52,52 });
         IdleAnimation.speed = 2.0f;
         ArmedIdleAnimation = IdleAnimation;
-        CostCopperTitanium = { 50,0 };
 		selectable = true;
 		EntityRect.w = 46;
 		EntityRect.h = 46;
@@ -76,19 +82,21 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         TotalBuildingTime = 10;
         BuildingTime = 10.0f;
 		break;
-    case AiType::Special_Unit:
+    case AiType::GreenShip:
         MaxHealth = 150;
         health = (float)MaxHealth;
         Damage = 100;
         Range = 100;
+        UpgradedDamage = 150;
+        UpgradedRange = 120;
+        UpgradedSpeed = 3.0f;
         speed = 2.0f;
         IdleAnimation.PushBack({ 29,324,57,57 });
         IdleAnimation.PushBack({ 131,324,57,57 });
         IdleAnimation.speed = 1.5f;
-        ArmedIdleAnimation.PushBack({ 237,110,77,77 });
-        ArmedIdleAnimation.PushBack({ 377,110,77,77 });
+        ArmedIdleAnimation.PushBack({ 233,332,80,80 });
+        ArmedIdleAnimation.PushBack({ 372,332,80,80 });
         ArmedIdleAnimation.speed = 1.5f;
-        CostCopperTitanium = { 150,10 };
         selectable = true;
         EntityRect.w = 58;
         EntityRect.h = 58;
@@ -292,4 +300,11 @@ void Ai::UiFunctionallity() {
         App->gui->AddEntityButton(140, 240, { 1645,250,39,39 }, { 1590,249,39,39 }, { 1698,250,39,39 }, AviableEntities::PowerGenerator, EntityType::TypeBuilding, true, false, false, App->entity->Panel, App->entity);
         break;
     }
+}
+
+void Ai::Upgrade() {
+    Damage = UpgradedDamage;
+    Range = UpgradedRange;
+    speed = UpgradedSpeed;
+    Armed = true;
 }

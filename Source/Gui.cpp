@@ -457,7 +457,7 @@ void UiHUDBars::Draw(SDL_Texture* atlas) {
 	App->render->Blit(atlas, GetScreenPos().x+1, GetScreenPos().y+1, &currentBar, useCamera);
 }
 
-UiSlider::UiSlider(int x, int y, int InitialValue,int maxvalue, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule) :UiElement(x, y, 168, 14, interactuable, draggeable, usecamera, UiTypes::Slider, parent, elementmodule), bar({ 1282, 560, 168, 14 }), unhovered({ 1282, 584, 20, 20 }), hovered({ 1282, 584, 20, 20 }), clicked({ 1282, 584, 20, 20 }),currentState(Button_state::unhovered),BarPos(GetScreenPos()),value(InitialValue),MaxValue(maxvalue) {
+UiSlider::UiSlider(int x, int y, int InitialValue,int maxvalue, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule) :UiElement(x, y, 168, 14, interactuable, draggeable, usecamera, UiTypes::Slider, parent, elementmodule), bar({ 1282, 560, 168, 14 }), unhovered({ 1282, 584, 20, 20 }), hovered({ 1282, 584, 20, 20 }), clicked({ 1307, 584, 20, 20 }),currentState(Button_state::unhovered),BarPos(GetScreenPos()),value(InitialValue),MaxValue(maxvalue) {
 	int InitialX = (int)(((float)value / (float)MaxValue) * (float)(bar.w - clicked.w));
 	if (parent == nullptr)
 		SetLocalPos(BarPos.x + InitialX, GetLocalPos().y);
@@ -512,5 +512,8 @@ void UiSlider::Update(int dx,int dy) {
 
 void UiSlider::Draw(SDL_Texture* atlas) {
 	App->render->Blit(atlas, BarPos.x, BarPos.y, &bar, useCamera);
-	App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &unhovered, useCamera);
+	if(currentState==Button_state::clicked)
+		App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &clicked, useCamera);
+	else
+		App->render->Blit(atlas, GetScreenPos().x, GetScreenPos().y, &unhovered, useCamera);
 }

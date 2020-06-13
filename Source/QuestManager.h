@@ -3,22 +3,25 @@
 
 #include "Module.h"
 #include "EASTL/vector.h"
+#include "Gui.h"
 
 class Quest
 {
 public:
 
-	Quest();
+	Quest(int id, bool trigger, int requisites, UiElement* text, UiElement* requisitesIni, UiElement* requisitesFinal);
 
 	~Quest();
 
-	int questNumber = 0;
-	bool questTrigger = 0;
+	int id;
+	bool trigger;
+	int requisites;
 
-	eastl::string questText;
-	eastl::string questDescription;
+	UiElement* requisitesIni;
+	UiElement* requisitesFinal;
+	UiElement* text;
 
-	bool questCompleted = false;
+	bool completed;
 };
 
 
@@ -35,11 +38,13 @@ public:
 
 	bool Start();
 
-	bool Update();
+	bool Update(float dt);
 
 	bool CleanUp();
 
-	void LoadQuests();
+	void CreateQuests();
+
+	void CheckQuests();
 
 	eastl::vector<Quest*> quests;
 

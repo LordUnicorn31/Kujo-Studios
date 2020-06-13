@@ -31,6 +31,7 @@ class WinScene;
 class LoseScene;
 class Particles;
 class DialogTree;
+class QuestManager;
 class Fow;
 
 
@@ -123,6 +124,7 @@ public:
 	LoseScene* losescene;
 	Particles* particle;
 	DialogTree* dialog;
+	QuestManager* quest;
 	Fow* fow;
 	
 	bool savedProgress;

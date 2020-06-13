@@ -26,6 +26,7 @@
 #include "LoseScene.h"
 #include "Particles.h"
 #include "DialogSystem.h"
+#include "QuestManager.h"
 #include "Fow.h"
 
 #include "SDL.h"
@@ -41,6 +42,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args), saveG
 	render = new Render();
 	tex = new Textures();
 	particle = new Particles();
+	quest = new QuestManager();
 	sceneLogo = new SceneLogo();
 	sceneIntro = new SceneIntro();
 	sceneTitle = new SceneTitle();
@@ -85,6 +87,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args), saveG
 	AddModule(transition);
 	AddModule(particle);
 	AddModule(dialog);
+	AddModule(quest);
 	AddModule(fow);
 	
 

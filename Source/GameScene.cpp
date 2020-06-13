@@ -18,10 +18,8 @@
 #include "LoseScene.h"
 #include "Collisions.h"
 #include "Fow.h"
+#include "QuestManager.h"
 //#include "Animation.h"
-
-
-
 
 GameScene::GameScene() : Module()
 {
@@ -61,7 +59,8 @@ bool GameScene::Start()
 	App->fow->SetVisibilityMap(App->map->data.width, App->map->data.height);
 	camSpeed = 2;
 
-	LoadQuestUi();
+	questPanel = App->gui->AddImage(361, 10, { 1256,859,240,127 }, false, false, false, nullptr, this);
+	App->gui->AddText(43, 10, "Tutorial Quests", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, App->scene->questPanel);
 
 	return true;
 }
@@ -240,12 +239,4 @@ void GameScene::ui_callback(UiElement* element) {
 	if (element == fxSlider) {
 		App->audio->FxVolume(((UiSlider*)element)->value);
 	}
-}
-
-void GameScene::LoadQuestUi()
-{
-	questPanel = App->gui->AddImage(361, 10, { 1256,859,240,127 }, false, false, false,nullptr,this );
-
-	App->gui->AddText(10, 10, "Recuit a builder", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel);
-
 }

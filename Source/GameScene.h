@@ -35,8 +35,6 @@ public:
 
 	void Tutorial();
 
-	void LoadQuestUi();
-
 	void ui_callback(UiElement* element);
 
 	void cameramovement(float time);
@@ -44,6 +42,9 @@ public:
 	bool tutorialActive;
 
 	UiElement* infoImage;
+
+	//Quest panel
+	UiElement* questPanel;
 
 private:
 
@@ -66,9 +67,6 @@ private:
 	UiElement* fullScreen;
 	UiElement* musSlider;
 	UiElement* fxSlider;
-
-	//Quest panel
-	UiElement* questPanel;
 
 	int buttonFx;
 

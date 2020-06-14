@@ -51,6 +51,7 @@ public:
 	SDL_Renderer*	renderer;
 	SDL_Texture* mousetext;   
 	SDL_Rect mouserect{ 0,0,19,19 };
+	SDL_Rect mouserect2{ 19,0,19,19 };
 	fPoint mousepos;
 	SDL_Rect		camera;
 	SDL_Rect		viewport;

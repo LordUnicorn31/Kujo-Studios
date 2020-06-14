@@ -260,8 +260,14 @@ bool Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uin
 
 void Render::Rendermouse()
 {
-	int x, y;
+	int x;
+	int y;
 	App->input->GetMousePosition(x, y);
+	if (App->input->GetMouseButtonDown(1))
+	{
+		Blit(mousetext, x, y, &mouserect2);
+	}
+	else
 	Blit(mousetext, x, y, &mouserect);
 	
 	

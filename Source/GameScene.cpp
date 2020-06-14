@@ -52,17 +52,17 @@ bool GameScene::Start()
 	peopleImage = App->gui->AddImage(30, 5, { 591,494,40,37 }, false, false, false, infoImage, nullptr);
 	copperImage = App->gui->AddImage(130, 12, { 679,501,28,29 }, false, false, false, infoImage, nullptr);
 	titaniumImage = App->gui->AddImage(230, 12, { 641,498,30,31 }, false, false, false, infoImage, nullptr);
+
 	App->minimap->Enable();
 	App->entity->Enable();
 	App->enemies->Enable();
 	App->collisions->Enable();
+	App->quest->Enable();
 	App->win->GetWindowSize(width, height);
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");
 	App->fow->SetVisibilityMap(App->map->data.width, App->map->data.height);
 	camSpeed = 2;
 
-	questPanel = App->gui->AddImage(361, 10, { 1256,859,240,127 }, false, false, false, nullptr, this);
-	App->gui->AddText(43, 10, "Tutorial Quests", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, App->scene->questPanel);
 	SDL_ShowCursor(SDL_ENABLE);
 	return true;
 }

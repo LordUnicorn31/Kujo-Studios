@@ -11,7 +11,7 @@ public:
 
 	Quest(int id, bool trigger, int requisites, UiElement* text, UiElement* requisitesIni, UiElement* requisitesFinal);
 
-	~Quest();
+	~Quest() {};
 
 	int id;
 	bool trigger;
@@ -42,11 +42,19 @@ public:
 
 	bool CleanUp();
 
-	void CreateQuests();
+	void CreateQuestsTutorial();
 
 	void CheckQuests();
 
+	void Init();
+	
+
 	eastl::vector<Quest*> quests;
+
+	//Quest
+	UiElement* questPanel;
+
+	int questFx;
 
 };
 

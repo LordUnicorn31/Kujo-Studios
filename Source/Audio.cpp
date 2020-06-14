@@ -237,7 +237,6 @@ void Audio::UnloadFx()
 
 void Audio::UnloadMusic()
 {
-	
 	Mix_FreeMusic(music);
 
 	music = NULL;

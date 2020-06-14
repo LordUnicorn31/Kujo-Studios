@@ -43,9 +43,6 @@ public:
 
 	UiElement* infoImage;
 
-	//Quest panel
-	UiElement* questPanel;
-
 private:
 
 	//Top Right

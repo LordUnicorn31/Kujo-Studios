@@ -41,6 +41,7 @@ public:
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true) const;
 	bool DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
 	bool DrawCircle(int x1, int y1, int redius, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
+	void Rendermouse();
 
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
@@ -48,6 +49,8 @@ public:
 public:
 
 	SDL_Renderer*	renderer;
+	SDL_Texture* mousetext;   
+	SDL_Rect mouserect{ 0,0,19,19 };
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;

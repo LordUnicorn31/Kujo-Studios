@@ -3,6 +3,8 @@
 #include "Application.h"
 #include "Window.h"
 #include "Render.h"
+#include "Input.h"
+#include "Textures.h"
 
 #define VSYNC true
 
@@ -252,4 +254,14 @@ bool Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uin
 	}
 
 	return ret;
+}
+
+void Render::Rendermouse()
+{
+	mousetext = App->tex->Load("Resources/gui/pointer.png");
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	SDL_ShowCursor(SDL_DISABLE);
+	Blit(mousetext, x, y, &mouserect);
+	
 }

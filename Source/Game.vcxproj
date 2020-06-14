@@ -212,6 +212,7 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="DialogSystem.cpp" />
+    <ClCompile Include="Enemies.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Fow.cpp" />
@@ -269,6 +270,7 @@ copy "$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zli
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="DialogSystem.h" />
+    <ClInclude Include="Enemies.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Fow.h" />

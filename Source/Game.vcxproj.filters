@@ -72,6 +72,7 @@
     <ClCompile Include="SceneIntro.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Enemies.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -148,6 +149,7 @@
     <ClInclude Include="SceneIntro.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Enemies.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Animation">

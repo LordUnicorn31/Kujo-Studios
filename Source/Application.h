@@ -33,6 +33,7 @@ class Particles;
 class DialogTree;
 class QuestManager;
 class Fow;
+class Enemies;
 
 
 
@@ -126,6 +127,7 @@ public:
 	DialogTree* dialog;
 	QuestManager* quest;
 	Fow* fow;
+	Enemies* enemies;
 	
 	bool savedProgress;
 

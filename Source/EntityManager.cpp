@@ -806,3 +806,12 @@ AiType EntityManager::AviableToAi(AviableEntities aviable) {
 	}
 	return AiType::None;
 }
+
+const Entity* EntityManager::GetBase() const {
+	eastl::list<Entity*>::const_iterator it;
+	for (it = entities.cbegin(); it != entities.cend(); ++it) {
+		if ((*it)->etype == EntityType::TypeBuilding)
+			if (((Building*)(*it))->Btype == BuildingType::Base)
+				return (*it);
+	}
+}

@@ -19,6 +19,7 @@
 #include "Collisions.h"
 #include "Fow.h"
 #include "QuestManager.h"
+#include "Enemies.h"
 //#include "Animation.h"
 
 GameScene::GameScene() : Module()
@@ -53,6 +54,7 @@ bool GameScene::Start()
 	titaniumImage = App->gui->AddImage(230, 12, { 641,498,30,31 }, false, false, false, infoImage, nullptr);
 	App->minimap->Enable();
 	App->entity->Enable();
+	App->enemies->Enable();
 	App->collisions->Enable();
 	App->win->GetWindowSize(width, height);
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");

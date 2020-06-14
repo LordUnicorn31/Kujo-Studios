@@ -18,12 +18,12 @@ Quest::Quest(int id, bool trigger, int requisites, UiElement* text, UiElement* r
 	this->requisitesIni = requisitesIni;
 	this->requisitesFinal = requisitesFinal;
 	this->text = text;
-	this->completed = false;
+
 }
 
 QuestManager::QuestManager()
 {
-
+	tutorialCompleted = false;
 }
 
 QuestManager::~QuestManager()
@@ -44,7 +44,9 @@ bool QuestManager::Awake(pugi::xml_node& config)
 bool QuestManager::Start()
 {
 	questFx = App->audio->LoadFx("Resources/audio/fx/quest.wav");
+	tutorialCompleteFx = App->audio->LoadFx("Resources/audio/fx/tutorialComplete.wav");
 
+	if (App->scene->tutorialActive)
 	CreateQuestsTutorial();
 
 	return true;
@@ -58,9 +60,9 @@ void QuestManager::Init()
 
 bool QuestManager::Update(float dt)
 {
+	if(App->scene->tutorialActive)
+		CheckQuests();
 	
-	CheckQuests();
-
 	return true;
 }
 
@@ -116,7 +118,6 @@ void QuestManager::CheckQuests()
 					if (((Ai*)(*iter))->Atype == AiType::Collector && !((Ai*)(*iter))->Building)
 					{
 						App->audio->PlayFx(questFx);
-						(*it)->completed = true;
 						App->gui->RemoveUiElement((*it)->requisitesIni);
 						(*it)->requisites = 1;
 						(*it)->requisitesIni = App->gui->AddText(185, 40, std::to_string((*it)->requisites).c_str(), App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel);
@@ -135,7 +136,6 @@ void QuestManager::CheckQuests()
 						continue;
 					if (((Building*)(*iter))->Btype == BuildingType::Mine && !((Building*)(*iter))->OnConstruction) {
 						App->audio->PlayFx(questFx);
-						(*it)->completed = true;
 						App->gui->RemoveUiElement((*it)->requisitesIni);
 						(*it)->requisites = 1;
 						(*it)->requisitesIni = App->gui->AddText(185, 60, std::to_string((*it)->requisites).c_str(), App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel);
@@ -153,7 +153,6 @@ void QuestManager::CheckQuests()
 						continue;
 					if (((Building*)(*iter))->Btype == BuildingType::Cuartel && !((Building*)(*iter))->OnConstruction) {
 						App->audio->PlayFx(questFx);
-						(*it)->completed = true;
 						App->gui->RemoveUiElement((*it)->requisitesIni);
 						(*it)->requisites = 1;
 						(*it)->requisitesIni = App->gui->AddText(185, 80, std::to_string((*it)->requisites).c_str(), App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel);
@@ -171,7 +170,6 @@ void QuestManager::CheckQuests()
 						continue;
 					if (((Ai*)(*iter))->Atype == AiType::RedShip && !((Ai*)(*iter))->Building) {
 						App->audio->PlayFx(questFx);
-						(*it)->completed = true;
 						App->gui->RemoveUiElement((*it)->requisitesIni);
 						(*it)->requisites = 1;
 						(*it)->requisitesIni = App->gui->AddText(185, 100, std::to_string((*it)->requisites).c_str(), App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel);
@@ -185,9 +183,15 @@ void QuestManager::CheckQuests()
 			}
 	}
 
-	if (quests.size() == 0)
+	if (quests.size() == 0 && tutorialCompleted == false)
 	{
+		tutorialCompleted = true;
 		App->gui->RemoveUiElement(questPanel);
+		questPanel = nullptr;
+		questPanel = App->gui->AddButton(288, 355, { 0,356,802,41 }, { 0,356,802,41 }, { 0,356,802,41 }, false, false, false, nullptr, this);
+		App->gui->AddText(200, 4, "TUTORIAL COMPLETED", nullptr, { 255,255,255,255 }, 12, false, false, false, questPanel);
+		App->audio->PlayFx(tutorialCompleteFx);
+		App->scene->tutorialActive = false;
 	}
 
 }

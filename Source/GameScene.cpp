@@ -73,11 +73,6 @@ bool GameScene::PreUpdate()
 	return true;
 }
 
-void GameScene::Tutorial()
-{
-
-}
-
 // Called each loop iteration
 bool GameScene::Update(float dt)
 {
@@ -107,14 +102,8 @@ bool GameScene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 		App->fow->scouting_trail = !App->fow->scouting_trail;
 
-	if (tutorialActive == true)
-	{
-		Tutorial();
-	}
-
 	App->map->Draw();
 	
-
 	return ret;
 }
 

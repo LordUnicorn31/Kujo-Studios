@@ -21,7 +21,6 @@ public:
 	UiElement* requisitesFinal;
 	UiElement* text;
 
-	bool completed;
 };
 
 
@@ -51,10 +50,13 @@ public:
 
 	eastl::vector<Quest*> quests;
 
+	bool tutorialCompleted;
+
 	//Quest
 	UiElement* questPanel;
 
 	int questFx;
+	int tutorialCompleteFx;
 
 };
 

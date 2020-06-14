@@ -130,7 +130,7 @@ void SceneTitle::ui_callback(UiElement* element) {
 			App->pathfinding->SetMap(w, h, data);
 		RELEASE_ARRAY(data);
 		App->transition->Slide(App->sceneTitle, App->scene, 2.0f);
-		App->scene->tutorialActive = true;
+		App->scene->tutorialActive = false;
 	}
 	else if (element == exitButton) {
 		App->audio->PlayFx(buttonFx);

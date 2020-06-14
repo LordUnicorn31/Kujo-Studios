@@ -18,7 +18,6 @@ Quest::Quest(int id, bool trigger, int requisites, UiElement* text, UiElement* r
 	this->requisitesIni = requisitesIni;
 	this->requisitesFinal = requisitesFinal;
 	this->text = text;
-
 }
 
 QuestManager::QuestManager()
@@ -60,8 +59,13 @@ void QuestManager::Init()
 
 bool QuestManager::Update(float dt)
 {
-	if(App->scene->tutorialActive)
+	if (App->scene->tutorialActive) {
 		CheckQuests();
+	}
+	else
+	{
+		App->gui->RemoveUiElement(questPanel);
+	}
 	
 	return true;
 }

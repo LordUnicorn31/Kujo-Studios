@@ -75,6 +75,8 @@ bool SceneTitle::Update(float dt)
 		ret = false;
 		Exit = false;
 	}
+
+	
 	
 	return ret;
 }
@@ -82,6 +84,7 @@ bool SceneTitle::Update(float dt)
 // Called each loop iteration
 bool SceneTitle::PostUpdate()
 {
+	App->render->Rendermouse();
 	bool ret = true;
 
 	return ret;

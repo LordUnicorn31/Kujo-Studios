@@ -84,6 +84,7 @@ bool LoseScene::Update(float dt)
 // Called each loop iteration
 bool LoseScene::PostUpdate()
 {
+	App->render->Rendermouse();
 	bool ret = true;
 
 	return ret;

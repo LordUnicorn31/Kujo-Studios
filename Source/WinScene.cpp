@@ -82,6 +82,7 @@ bool WinScene::Update(float dt)
 // Called each loop iteration
 bool WinScene::PostUpdate()
 {
+	App->render->Rendermouse();
 	bool ret = true;
 
 	return ret;

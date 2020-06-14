@@ -111,6 +111,7 @@ bool GameScene::Update(float dt)
 	}
 
 	App->map->Draw();
+	
 
 	return ret;
 }
@@ -137,6 +138,7 @@ void GameScene::cameramovement(float dt)
 // Called each loop iteration
 bool GameScene::PostUpdate()
 {
+	App->render->Rendermouse();
 	bool ret = true;
 
 	return ret;

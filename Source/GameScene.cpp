@@ -63,7 +63,7 @@ bool GameScene::Start()
 
 	questPanel = App->gui->AddImage(361, 10, { 1256,859,240,127 }, false, false, false, nullptr, this);
 	App->gui->AddText(43, 10, "Tutorial Quests", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, App->scene->questPanel);
-
+	SDL_ShowCursor(SDL_ENABLE);
 	return true;
 }
 
@@ -113,6 +113,7 @@ bool GameScene::Update(float dt)
 	}
 
 	App->map->Draw();
+	
 
 	return ret;
 }
@@ -139,6 +140,7 @@ void GameScene::cameramovement(float dt)
 // Called each loop iteration
 bool GameScene::PostUpdate()
 {
+	/*App->render->Rendermouse();*/
 	bool ret = true;
 
 	return ret;
@@ -201,6 +203,8 @@ void GameScene::ui_callback(UiElement* element) {
 	if (element == titleButton) {
 		//Create The Funtionality
 		App->audio->PlayFx(buttonFx);
+		/*App->transition->Slide(App->scene, App->losescene, 2.0f);*/
+		App->audio->UnloadMusic();
 	}
 	if (element == continueButton) {
 		App->audio->PlayMusic("Resources/audio/music/music_space.ogg", 0.0f);

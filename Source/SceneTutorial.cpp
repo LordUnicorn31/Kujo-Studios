@@ -130,6 +130,8 @@ bool SceneTutorial::Update(float dt)
 		}
 	}
 
+	
+
 	return ret;
 }
 
@@ -141,6 +143,7 @@ void SceneTutorial::CreateButtons()
 // Called each loop iteration
 bool SceneTutorial::PostUpdate()
 {
+	App->render->Rendermouse();
 	bool ret = true;
 
 	return ret;

@@ -100,6 +100,8 @@ bool SceneIntro::Update(float dt)
 		App->transition->FadeToBlack(App->sceneIntro, App->sceneTitle, 2.0f);
 	}
 
+	App->render->Rendermouse();
+
 	return ret;
 }
 

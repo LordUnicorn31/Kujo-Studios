@@ -15,6 +15,7 @@
 #include "Fonts.h"
 #include "Audio.h"
 #include "Particles.h"
+#include "Render.h"
 
 SceneLogo::SceneLogo() : Module()
 {
@@ -105,6 +106,7 @@ bool SceneLogo::Update(float dt)
 		App->transition->FadeToBlack(App->sceneLogo, App->sceneIntro, 2.0f);
 	}
 
+	App->render->Rendermouse();
 	return ret;
 }
 

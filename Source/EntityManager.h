@@ -90,6 +90,7 @@ public:
 	void DestroyEntity(Entity* entity);
 
 	const eastl::list<Entity*>& GetEntities()const;
+	const Entity* GetBase() const;
 
 	//EntitiesAnimations Animations;
 	UiElement* Panel;

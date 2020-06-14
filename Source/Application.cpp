@@ -28,6 +28,7 @@
 #include "DialogSystem.h"
 #include "QuestManager.h"
 #include "Fow.h"
+#include "Enemies.h"
 
 #include "SDL.h"
 
@@ -61,6 +62,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args), saveG
 	losescene = new LoseScene();
 	dialog = new DialogTree();
 	fow = new Fow();
+	enemies = new Enemies();
 	
 
 	// Ordered for awake / Start / Update
@@ -78,6 +80,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args), saveG
 	AddModule(map);
 	AddModule(pathfinding);
 	AddModule(entity);
+	AddModule(enemies);
 	AddModule(collisions);
 	AddModule(minimap);
 	AddModule(font);

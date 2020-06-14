@@ -381,7 +381,7 @@ void EntityManager::HandleInput() {
 						SelectedEntities.clear();
 					}
 					else {
-						NotEnaughResourcesText = App->gui->AddText(5, 600, "Not enaugh resources", App->font->smallFont, { 0,0,255,0 }, 16, false, false,false, Panel);
+						NotEnaughResourcesText = App->gui->AddText(5, 600, "Not enough resources", App->font->smallFont, { 255,0,0,0 }, 16, false, false,false, Panel);
 						build = false;
 						App->gui->RemoveUiElement(CopperIcon);
 						App->gui->RemoveUiElement(TitaniumIcon);;
@@ -436,7 +436,7 @@ void EntityManager::HandleInput() {
 				}
 				else {
 					if (NotEnaughResourcesText == nullptr) {
-						NotEnaughResourcesText = App->gui->AddText(5, 600, "Not enaugh resources", App->font->smallFont, { 255,0,0,0 }, 16, false, false, false, Panel);
+						NotEnaughResourcesText = App->gui->AddText(5, 600, "Not enough resources", App->font->smallFont, { 255,0,0,0 }, 16, false, false, false, Panel);
 					}
 				}
 			}
@@ -745,8 +745,8 @@ void EntityManager::ui_callback(UiElement* element) {
 			ToCreate = ((UiEntityButton*)element)->entity;
 			CopperIcon = App->gui->AddImage(20, 550, { 679,501,28,29 }, false, false, false, Panel, nullptr);
 			TitaniumIcon = App->gui->AddImage(110, 550, { 641,498,30,31 }, false, false, false, Panel, nullptr);
-			Coppernum = App->gui->AddText(55, 550, std::to_string(((int)GetCost(ToCreate)[0])).c_str(), App->font->resourcesPanelFont, { 0,0,255,255 }, 20, false, false, false, Panel, nullptr);
-			Titaniumnum = App->gui->AddText(145, 550, std::to_string(((int)GetCost(ToCreate)[1])).c_str(), App->font->resourcesPanelFont, { 0,0,255,255 }, 20, false, false, false, Panel, nullptr);
+			Coppernum = App->gui->AddText(55, 550, std::to_string(((int)GetCost(ToCreate)[0])).c_str(), App->font->resourcesPanelFont, { 16, 173, 171,255 }, 20, false, false, false, Panel, nullptr);
+			Titaniumnum = App->gui->AddText(145, 550, std::to_string(((int)GetCost(ToCreate)[1])).c_str(), App->font->resourcesPanelFont, { 16, 173, 171,255 }, 20, false, false, false, Panel, nullptr);
 			App->gui->RemoveUiElement(NotEnaughResourcesText);
 		}
 		else if (((UiEntityButton*)element)->entitytype == EntityType::TypeAi) {
@@ -754,11 +754,11 @@ void EntityManager::ui_callback(UiElement* element) {
 				CurrentAction = ActionTraining;
 				ToCreate = ((UiEntityButton*)element)->entity;
 				BuildButton = App->gui->AddButton(25, 625, { 1281,486,163,49 }, { 1450,486,163,49 }, { 1626,486,163,49 }, true, false, false, Panel, this);
-				App->gui->AddText(60, 16, "BUILD", App->font->smallFont, { 0, 255, 255 }, 42, false, false, false, BuildButton);
+				App->gui->AddText(55, 16, "BUILD", App->font->smallFont, { 65,175,94 }, 42, false, false, false, BuildButton);
 				CopperIcon = App->gui->AddImage(20, 550, { 679,501,28,29 }, false, false, false, Panel, nullptr);
 				TitaniumIcon = App->gui->AddImage(110, 550, { 641,498,30,31 }, false, false, false, Panel, nullptr);
-				Coppernum = App->gui->AddText(55, 550, std::to_string(((int)GetCost(ToCreate)[0])).c_str(), App->font->resourcesPanelFont, { 0,0,255,255 }, 20, false, false, false, Panel, nullptr);
-				Titaniumnum = App->gui->AddText(145, 550, std::to_string(((int)GetCost(ToCreate)[1])).c_str(), App->font->resourcesPanelFont, { 0,0,255,255 }, 20, false, false, false, Panel, nullptr);
+				Coppernum = App->gui->AddText(55, 550, std::to_string(((int)GetCost(ToCreate)[0])).c_str(), App->font->resourcesPanelFont, { 16, 173, 171,255 }, 20, false, false, false, Panel, nullptr);
+				Titaniumnum = App->gui->AddText(145, 550, std::to_string(((int)GetCost(ToCreate)[1])).c_str(), App->font->resourcesPanelFont, { 16, 173, 171,255 }, 20, false, false, false, Panel, nullptr);
 				App->gui->RemoveUiElement(NotEnaughResourcesText);
 			}
 			else {
@@ -766,8 +766,8 @@ void EntityManager::ui_callback(UiElement* element) {
 				ToCreate = ((UiEntityButton*)element)->entity;
 				CopperIcon = App->gui->AddImage(20, 550, { 679,501,28,29 }, false, false, false, Panel, nullptr);
 				TitaniumIcon = App->gui->AddImage(110, 550, { 641,498,30,31 }, false, false, false, Panel, nullptr);
-				Coppernum = App->gui->AddText(55, 550, std::to_string(((int)GetCost(ToCreate)[0])).c_str(), App->font->resourcesPanelFont, { 0,0,255,255 }, 20, false, false, false, Panel, nullptr);
-				Titaniumnum = App->gui->AddText(145, 550, std::to_string(((int)GetCost(ToCreate)[1])).c_str(), App->font->resourcesPanelFont, { 0,0,255,255 }, 20, false, false, false, Panel, nullptr);
+				Coppernum = App->gui->AddText(55, 550, std::to_string(((int)GetCost(ToCreate)[0])).c_str(), App->font->resourcesPanelFont, { 16, 173, 171,255 }, 20, false, false, false, Panel, nullptr);
+				Titaniumnum = App->gui->AddText(145, 550, std::to_string(((int)GetCost(ToCreate)[1])).c_str(), App->font->resourcesPanelFont, { 16, 173, 171,255 }, 20, false, false, false, Panel, nullptr);
 				App->gui->RemoveUiElement(NotEnaughResourcesText);
 			}
 		}
@@ -813,4 +813,13 @@ AiType EntityManager::AviableToAi(AviableEntities aviable) {
 		return AiType::Collector;
 	}
 	return AiType::None;
+}
+
+const Entity* EntityManager::GetBase() const {
+	eastl::list<Entity*>::const_iterator it;
+	for (it = entities.cbegin(); it != entities.cend(); ++it) {
+		if ((*it)->etype == EntityType::TypeBuilding)
+			if (((Building*)(*it))->Btype == BuildingType::Base)
+				return (*it);
+	}
 }

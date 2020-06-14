@@ -245,3 +245,4 @@ void GameScene::ui_callback(UiElement* element) {
 		App->audio->FxVolume(((UiSlider*)element)->value);
 	}
 }
+

@@ -4,6 +4,10 @@
 #include "Gui.h"
 #include "GameScene.h"
 #include "Fonts.h"
+#include "EntityManager.h"
+#include "Entity.h"
+#include "Ai.h"
+#include "Building.h"
 
 Quest::Quest(int id, bool trigger, int requisites, UiElement* text, UiElement* requisitesIni, UiElement* requisitesFinal)
 {
@@ -48,6 +52,10 @@ bool QuestManager::Update(float dt)
 
 		CreateQuests();
 	}
+	
+	if (App->scene->IsEneabled() == true) {
+		CheckQuests();
+	}
 
 	return true;
 }
@@ -84,19 +92,29 @@ void QuestManager::CreateQuests()
 void QuestManager::CheckQuests()
 {
 	
-	/*for (eastl::vector<Quest*>::iterator it = quests.begin(); it != quests.end(); it++)
+	for (eastl::vector<Quest*>::iterator it = quests.begin(); it != quests.end(); ++it)
 	{
 		int questsId = (*it)->id;
 
 		switch (questsId)
 		{
 		case 0:
-			if () {
-				(*it)->completed = true;
+			eastl::list<Entity*>::const_iterator iter;
+			for (iter = App->entity->GetEntities().begin(); iter != App->entity->GetEntities().end(); ++iter) {
+				if ((*iter)->etype != EntityType::TypeAi)
+					continue;
+				if(((Ai*)(*iter))->Atype == AiType::Collector && !((Ai*)(*iter))->Building)
+				{
+					(*it)->completed = true;
+					App->gui->RemoveUiElement((*it)->requisitesIni);
+					(*it)->requisites = 1;
+					(*it)->requisitesIni = App->gui->AddText(185, 40, std::to_string((*it)->requisites).c_str(), App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, App->scene->questPanel);
+					quests.erase(it);
+				}
 			}
 			break;
 
-		case 1:
+		/*case 1:
 			if () {
 				(*it)->completed = true;
 			}
@@ -112,7 +130,7 @@ void QuestManager::CheckQuests()
 			if () {
 				(*it)->completed = true;
 			}
-			break;
+			break;*/
 		}
-	}*/
+	}
 }

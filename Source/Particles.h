@@ -37,6 +37,7 @@ struct Particle
 	SDL_Color finalColor;			//Particle color final
 	uint fx = 0;					//Particle fx
 	bool fxPlayed = false;			//Particle fx active
+	int damage;
 
 	Particle();
 	Particle(const Particle& p);
@@ -55,7 +56,7 @@ public:
 	bool CleanUp();
 	//void OnCollision(Collider* c1, Collider* c2);
 
-	void AddParticle(const Particle& particle, int x, int y, uint delay = 0, COLLIDER_TYPE colliderType = COLLIDER_TYPE::COLLIDER_NONE, ParticleType type = ParticleType::NONE, double angle = 0.0f, uint life = 0);
+	void AddParticle(const Particle& particle, int x, int y, uint delay = 0, COLLIDER_TYPE colliderType = COLLIDER_TYPE::COLLIDER_NONE, ParticleType type = ParticleType::NONE, double angle = 0.0f, uint life = 0, int damage = 0);
 
 	
 	SDL_Texture* graphics = nullptr;

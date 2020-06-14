@@ -132,7 +132,7 @@ bool Particles::CleanUp()
 	return true;
 }
 
-void Particles::AddParticle(const Particle& particle, int x, int y, uint delay, COLLIDER_TYPE colliderType, ParticleType type, double angle, uint life)
+void Particles::AddParticle(const Particle& particle, int x, int y, uint delay, COLLIDER_TYPE colliderType, ParticleType type, double angle, uint life, int damage)
 {
 
 	for (int i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
@@ -161,6 +161,7 @@ void Particles::AddParticle(const Particle& particle, int x, int y, uint delay, 
 				p->type = type;
 				p->angle = angle;
 				p->life = life;
+				p->damage = damage;
 				if (colliderType != COLLIDER_TYPE::COLLIDER_NONE)
 				{
 					p->collider = App->collisions->AddCollider(p->anim.GetCurrentFrame(App->GetDT()), colliderType, this);

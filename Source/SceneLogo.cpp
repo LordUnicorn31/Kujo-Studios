@@ -63,10 +63,9 @@ bool SceneLogo::Update(float dt)
 	
 	bool ret = true;
 
-	if (App->input->GetKey(SDL_SCANCODE_A)) 
-	{
-		App->particle->AddParticle(App->particle->shot, 200, 200, 1, COLLIDER_TYPE::COLLIDER_PARTICLES, ParticleType::SHOT, 45, 10);
-	}
+
+	App->particle->AddParticle(App->particle->shot, 200, 200, 0, COLLIDER_TYPE::COLLIDER_PARTICLES, ParticleType::SHOT, 45, 10);
+	
 	if (App->input->GetKey(SDL_SCANCODE_LEFT)) {
 		App->render->camera.x += 5;
 	}

@@ -265,10 +265,10 @@ void Render::Rendermouse()
 	App->input->GetMousePosition(x, y);
 	if (App->input->GetMouseButtonDown(1))
 	{
-		Blit(mousetext, x, y, &mouserect2);
+		Blit(mousetext, x, y, &mouserect2, false);
 	}
 	else
-	Blit(mousetext, x, y, &mouserect);
+	Blit(mousetext, x, y, &mouserect, false);
 	
 	
 }

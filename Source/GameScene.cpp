@@ -63,7 +63,7 @@ bool GameScene::Start()
 	App->fow->SetVisibilityMap(App->map->data.width, App->map->data.height);
 	camSpeed = 2;
 
-	SDL_ShowCursor(SDL_ENABLE);
+	/*SDL_ShowCursor(SDL_ENABLE);*/
 	return true;
 }
 
@@ -129,7 +129,7 @@ void GameScene::cameramovement(float dt)
 // Called each loop iteration
 bool GameScene::PostUpdate()
 {
-	/*App->render->Rendermouse();*/
+	App->render->Rendermouse();
 	bool ret = true;
 
 	return ret;

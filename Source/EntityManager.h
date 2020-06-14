@@ -130,6 +130,9 @@ private:
 	eastl::array<eastl::array<float, 2>, (size_t)AviableEntities::numentities>BuildCost;
 	const eastl::array<float, 2> GetCost(AviableEntities Entity) const;
 	Entity* FirstBuilding;
+	int buildFx;
+	int upgradeFx;
+	int shipFx;
 	//max_resouces[]
 	//current_resouces[]
 };

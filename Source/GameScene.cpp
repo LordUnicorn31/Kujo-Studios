@@ -19,6 +19,7 @@
 #include "Collisions.h"
 #include "Fow.h"
 #include "QuestManager.h"
+
 //#include "Animation.h"
 
 GameScene::GameScene() : Module()
@@ -199,6 +200,8 @@ void GameScene::ui_callback(UiElement* element) {
 	if (element == titleButton) {
 		//Create The Funtionality
 		App->audio->PlayFx(buttonFx);
+		/*App->transition->Slide(App->scene, App->losescene, 2.0f);*/
+		App->audio->UnloadMusic();
 	}
 	if (element == continueButton) {
 		App->audio->PlayMusic("Resources/audio/music/music_space.ogg", 0.0f);

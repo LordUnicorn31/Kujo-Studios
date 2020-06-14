@@ -58,6 +58,8 @@ bool Render::Start()
 	LOG("render start");
 	// back background
 	SDL_RenderGetViewport(renderer, &viewport);
+	mousetext = App->tex->Load("Resources/gui/pointer.png");
+	SDL_ShowCursor(SDL_DISABLE);
 	return true;
 }
 
@@ -258,10 +260,9 @@ bool Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uin
 
 void Render::Rendermouse()
 {
-	mousetext = App->tex->Load("Resources/gui/pointer.png");
 	int x, y;
 	App->input->GetMousePosition(x, y);
-	SDL_ShowCursor(SDL_DISABLE);
 	Blit(mousetext, x, y, &mouserect);
+	
 	
 }

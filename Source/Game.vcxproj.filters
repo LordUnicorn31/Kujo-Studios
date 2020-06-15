@@ -150,6 +150,7 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Enemies.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Animation">
@@ -176,5 +177,11 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resources\config.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GameIcon.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\gui\icon_256x256.ico" />
   </ItemGroup>
 </Project>

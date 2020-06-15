@@ -6,12 +6,13 @@ Changelog
 - Upgrade functionality created with the lab
 - Quests Manager
 - Logo scene animation
-- New intro scene
+- New scene intro
 - New music and fx
 - UI Fx slider
 - UI Music slider
 - UI Cursor with 2 states
 - UI Text updated and corrected 
+- 2 Game logos implemented in the window and the executable
 
 Key Features:
 

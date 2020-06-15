@@ -59,6 +59,6 @@ private:
 
 	int buttonFx;
 	
-	bool Exit;
+	bool exitGame;
 
 };

@@ -39,7 +39,7 @@ bool SceneTitle::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool SceneTitle::Start()
 {
-	Exit = false;
+	exitGame = false;
 	background = App->tex->Load("Resources/gui/background.png");
 	titleLogo = App->tex->Load("Resources/gui/logo.png");	
 
@@ -72,13 +72,11 @@ bool SceneTitle::Update(float dt)
 		ButtonsAnimation();
 	}
 
-	if (Exit) {
+	if (exitGame) {
 		ret = false;
-		Exit = false;
+		exitGame = false;
 	}
 
-	
-	
 	return ret;
 }
 
@@ -134,7 +132,7 @@ void SceneTitle::ui_callback(UiElement* element) {
 	}
 	else if (element == exitButton) {
 		App->audio->PlayFx(buttonFx);
-		Exit = true;
+		exitGame = false;
 	}
 	else if (element == optionsButton) {
 		App->audio->PlayFx(buttonFx);
@@ -183,6 +181,6 @@ void SceneTitle::ButtonsAnimation()
 	optionsButton = App->gui->AddButton((int)525.5f, 500, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, nullptr, this);
 	App->gui->AddText(32, 16, "OPTIONS", nullptr, { 16, 173, 171 }, 32, false, false, false, optionsButton);
 	exitButton = App->gui->AddButton((int)525.5f, 580, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, nullptr, this);
-	App->gui->AddText(75, 16, "EXIT", nullptr, { 152,30,30,255 }, 32, false, false, false, exitButton);
+	App->gui->AddText(15, 16, "EXIT GAME", nullptr, { 152,30,30,255 }, 32, false, false, false, exitButton);
 
 }

@@ -41,14 +41,14 @@ bool Particles::Update(float dt)
 		if (p == nullptr)
 			continue;
 
-		if (p->Update() == false)
+		if (p->Update(dt) == false)
 		{
 			delete p;
 			active[i] = nullptr;
 		}
 		else
 		{
-			if (p->type == ParticleType::SHOT) 
+			if (p->type == ParticleType::SHOT && p->delay <=0) 
 			{
 				if (p->angle == 0 || p->angle == 360)
 				{
@@ -132,7 +132,7 @@ bool Particles::CleanUp()
 	return true;
 }
 
-void Particles::AddParticle(const Particle& particle, int x, int y, float size, uint delay, COLLIDER_TYPE colliderType, ParticleType type, double angle, uint life, int damage, float speed)
+void Particles::AddParticle(const Particle& particle, int x, int y, float size, float delay, COLLIDER_TYPE colliderType, ParticleType type, double angle, float life, int damage, float speed)
 {
 
 	for (int i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
@@ -147,7 +147,8 @@ void Particles::AddParticle(const Particle& particle, int x, int y, float size, 
 				p->type = type;
 				break;
 			case ParticleType::SHOT:
-				p->born = delay;
+				p->delay = delay;
+				p->life = life + delay;
 				p->size = size;
 				p->position.x = x;
 				p->position.y = y;
@@ -159,7 +160,6 @@ void Particles::AddParticle(const Particle& particle, int x, int y, float size, 
 				p->finalColor = { 0,255,255,255 };
 				p->type = type;
 				p->angle = angle;
-				p->life =  life - p->born;
 				p->speed = speed;
 				p->damage = damage;
 				if (colliderType != COLLIDER_TYPE::COLLIDER_NONE)
@@ -169,7 +169,6 @@ void Particles::AddParticle(const Particle& particle, int x, int y, float size, 
 				break;
 
 			case ParticleType::SMOKE:
-				p->born = delay;
 				p->anim = smoke.anim;
 				p->type = type;
 				break;
@@ -198,7 +197,6 @@ Particle::Particle(const Particle& p)
 	 this->type = p.type;
 	 this->speed = p.speed;
 	 this->size = p.size;
-	 this->born = p.born;
 	 this->life = p.life;
 	 this->angle = p.angle;
 	 this->initialColor = p.initialColor;
@@ -214,19 +212,19 @@ Particle::~Particle()
 		collider->toDelete = true;
 }
 
-bool Particle::Update()
+bool Particle::Update(float dt)
 {
 	//Update all the particle characteristics depending on the particle type
 	bool ret = true;
-
-	if (life > 0 && type == ParticleType::SHOT)
+	life -= dt;
+	if (delay >= 0)
+		delay -= dt;
+	if (life <= 0)
 	{
-		if ((SDL_GetTicks() / 1000 - born) > life)
 			ret = false;
 	}
-	else
-		if (anim.Finished())
-			ret = false;
+	else if (anim.Finished())
+		ret = false;
 
 	return ret;
 }

@@ -33,7 +33,7 @@ public:
 
 	void Init();
 
-	void Tutorial();
+	//void Tutorial();
 
 	void ui_callback(UiElement* element);
 
@@ -75,4 +75,6 @@ private:
 	//Timer
 	float startTime;
 	float currentTime;
+
+	bool exitGame = false;
 };

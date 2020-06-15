@@ -42,4 +42,6 @@ private:
 
 	UiElement* titleButton;
 	int buttonFx;
+
+	bool exitGame;
 };

@@ -1,3 +1,4 @@
+#include "Application.h"
 #include "Enemies.h"
 #include "EntityManager.h"
 #include "Map.h"
@@ -7,6 +8,8 @@
 #include "Collisions.h"
 #include "Particles.h"
 #include "Input.h"
+#include "GameScene.h"
+
 
 Enemies::Enemies() : Module(), UpdateMsCycle((1.0f / 60.0f)), AccumulatedTime(0.0f)
 {
@@ -50,6 +53,9 @@ bool Enemies::PreUpdate()
 // Called each loop iteration
 bool Enemies::Update(float dt)
 {
+    if(App->scene->tutorialActive)
+    {
+
     if (EndTime > 0) {
         NextSpawn -= dt;
         EndTime -= dt;
@@ -84,6 +90,7 @@ bool Enemies::Update(float dt)
     if (DoLogic == true) {
         AccumulatedTime = 0.0f;
         DoLogic = false;
+    }
     }
     return true;
 }

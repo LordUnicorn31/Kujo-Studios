@@ -22,6 +22,7 @@
 #include "Enemies.h"
 #include "Particles.h"
 //#include "Animation.h"
+#include "SceneTutorial.h"
 
 GameScene::GameScene() : Module()
 {
@@ -45,6 +46,8 @@ bool GameScene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool GameScene::Start()
 {
+	exitGame = false;
+
 	startTime = (float)SDL_GetTicks() / 1000;
 
 	App->audio->PlayMusic("Resources/audio/music/game.ogg");
@@ -112,6 +115,11 @@ bool GameScene::Update(float dt)
 
 	App->map->Draw();
 	
+	if (exitGame) {
+		ret = false;
+		exitGame = false;
+	}
+
 	return ret;
 }
 
@@ -184,7 +192,7 @@ void GameScene::ui_callback(UiElement* element) {
 				optionsButton = App->gui->AddButton(120, 280, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, pauseWindow, this);
 				App->gui->AddText(37, 15, "OPTIONS", NULL, { 16, 173, 171,255 }, 32, false, false, false, optionsButton);
 				titleButton = App->gui->AddButton(120, 370, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, pauseWindow, this);
-				App->gui->AddText(0, 16, "MAIN MENU", NULL, { 152,30,30,255 }, 32, false, false, false, titleButton);
+				App->gui->AddText(15, 16, "EXIT GAME", NULL, { 152,30,30,255 }, 32, false, false, false, titleButton);
 				App->freeze = true;				
 			
 			}
@@ -200,7 +208,7 @@ void GameScene::ui_callback(UiElement* element) {
 	if (element == titleButton) {
 		//Create The Funtionality
 		App->audio->PlayFx(buttonFx);
-		App->transition->FadeToBlack(App->scene, App->sceneTitle);
+		exitGame = true;
 
 	}
 	if (element == continueButton) {

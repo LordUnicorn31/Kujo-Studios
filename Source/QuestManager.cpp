@@ -81,19 +81,19 @@ void QuestManager::CreateQuestsTutorial()
 	questPanel = App->gui->AddImage(361, 10, { 1256,859,240,127 }, false, false, false, nullptr, this);
 	App->gui->AddText(43, 10, "Tutorial Quests", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel);
 
-	Quest* quest00 = new Quest(0, false, 0, App->gui->AddText(10, 40, "Recruit a Builder", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false,questPanel ), 
+	Quest* quest00 = new Quest(0, false, 0, App->gui->AddText(10, 40, "1. Recruit a Builder", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false,questPanel ), 
 		App->gui->AddText(180, 40, std::to_string(0).c_str(), App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel), 
 		App->gui->AddText(195, 40, "/1", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false,questPanel));
 
-	Quest* quest01 = new Quest(1, false, 0, App->gui->AddText(10, 60, "Build a Mine", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false,questPanel), 
+	Quest* quest01 = new Quest(1, false, 0, App->gui->AddText(10, 60, "2. Build a Mine", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false,questPanel), 
 		App->gui->AddText(180, 60, std::to_string(0).c_str(), App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel),
 		App->gui->AddText(195, 60, "/1", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel));
 
-	Quest* quest02 = new Quest(2, false, 0, App->gui->AddText(10, 80, "Build a Barrack", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel),
+	Quest* quest02 = new Quest(2, false, 0, App->gui->AddText(10, 80, "3. Build a Barrack", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel),
 		App->gui->AddText(180, 80, std::to_string(0).c_str(), App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel),
 		App->gui->AddText(195, 80, "/1", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel));
 
-	Quest* quest03 = new Quest(3, false, 0, App->gui->AddText(10, 100, "Recruit a Lazer", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel),
+	Quest* quest03 = new Quest(3, false, 0, App->gui->AddText(10, 100, "4. Recruit a Unit", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel),
 		App->gui->AddText(180, 100, std::to_string(0).c_str(), App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel),
 		App->gui->AddText(195, 100, "/1", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel));
 
@@ -172,7 +172,7 @@ void QuestManager::CheckQuests()
 				for (iter = App->entity->GetEntities().begin(); iter != App->entity->GetEntities().end(); ++iter) {
 					if ((*iter)->etype != EntityType::TypeAi)
 						continue;
-					if (((Ai*)(*iter))->Atype == AiType::RedShip && !((Ai*)(*iter))->Building) {
+					if ((((Ai*)(*iter))->Atype == AiType::RedShip || ((Ai*)(*iter))->Atype == AiType::BlueShip || ((Ai*)(*iter))->Atype == AiType::GreenShip) && !((Ai*)(*iter))->Building) {
 						App->audio->PlayFx(questFx);
 						App->gui->RemoveUiElement((*it)->requisitesIni);
 						(*it)->requisites = 1;

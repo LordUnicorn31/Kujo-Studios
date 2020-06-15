@@ -48,6 +48,7 @@ Key Features:
 		- Quest Menu
 		- Health Bars
 		- Recruting Bars
+		- Construction timer
 
 - Other Features:
 

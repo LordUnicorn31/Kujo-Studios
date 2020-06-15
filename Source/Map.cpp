@@ -66,7 +66,31 @@ void Map::Draw()
 				}
 			}
 		}
-		
+		/*for (int y = cam_pos.y; y <= cam_size.y; ++y)
+		{
+			if (y < 0 || y >= data.height)
+				continue;
+			for (int x = cam_pos.x; x <= cam_size.x; ++x)
+			{
+				if (x<0 || x>data.width)
+					continue;
+				int tile_id = layer->Get(x, y);
+				if (tile_id > 0)
+				{
+					TileSet* tileset = GetTilesetFromTileId(tile_id);
+
+					SDL_Rect r = tileset->GetTileRect(tile_id);
+					iPoint pos = MapToWorld(x, y);
+					FOW_TileState status = (FOW_TileState)App->fow->GetVisibilityTileAt({ x,y });
+					if (status == FOW_TileState::UNVISITED)
+					{
+						r = App->fow->GetFOWMetaRect(status);
+						App->render->Blit(App->fow->fogtexture, pos.x, pos.y, &r);
+					}
+					
+				}
+			}
+		}*/
 	}
 }
 

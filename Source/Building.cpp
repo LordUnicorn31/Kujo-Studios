@@ -8,8 +8,6 @@
 #include "Collisions.h"
 #include "Fonts.h"
 #include "Animation.h"
-#include "Fow.h"
-#include "Map.h"
 
 Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeBuilding, { Position.x,Position.y,0,0 }), Btype(type),ConstructionTime(0.0f),level(1),OnConstruction(true), ToBuild(false), BuildingEntity(nullptr), BuildHUD(nullptr) {
 	switch (type) {
@@ -25,7 +23,6 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		level = 1;
 		OnConstruction = true;
 		ConstructionTime = 0.0f;
-		App->fow->CreateFOWEntity(App->map->WorldToMap(Position.x, Position.y), true);
 		break;
 	case BuildingType::Mine:
 		EntityRect.w = 64;

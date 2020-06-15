@@ -77,7 +77,10 @@ bool GameScene::PreUpdate()
 // Called each loop iteration
 bool GameScene::Update(float dt)
 {
-	//App->particle->AddParticle(App->particle->shot, 400, 100, 50, 10, COLLIDER_TYPE::COLLIDER_ALLY_PARTICLE, ParticleType::SHOT, 45, 10, 0, 100);
+	int a, b;
+	App->input->GetMousePosition(a,b);
+	if(App->input->GetKey(SDL_SCANCODE_1)==KEY_UP)
+		App->particle->AddParticle(App->particle->shot, a, b, 50, 1, COLLIDER_TYPE::COLLIDER_ALLY_PARTICLE, ParticleType::SHOT, 180, 10, 0, 100);
 
 	bool ret = true;
 

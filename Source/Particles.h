@@ -29,8 +29,7 @@ struct Particle
 	ParticleType type;				//Particle type
 	float speed;					//Particle speed
 	float size;						//Particle size
-	uint born;
-	uint life;  					//Particle life
+	float life;  					//Particle life
 	double angle;					//Particle angle
 	fPoint position;					//Particle position
 	SDL_Color initialColor;			//Particle color inicial
@@ -38,11 +37,12 @@ struct Particle
 	uint fx = 0;					//Particle fx
 	bool fxPlayed = false;			//Particle fx active
 	int damage;
+	float delay;
 
 	Particle();
 	Particle(const Particle& p);
 	~Particle();
-	bool Update();
+	bool Update(float dt);
 };
 
 class Particles : public Module
@@ -56,7 +56,7 @@ public:
 	bool CleanUp();
 	//void OnCollision(Collider* c1, Collider* c2);
 
-	void AddParticle(const Particle& particle, int x, int y, float size, uint delay = 0, COLLIDER_TYPE colliderType = COLLIDER_TYPE::COLLIDER_NONE, ParticleType type = ParticleType::NONE, double angle = 0.0f, uint life = 0, int damage = 0, float speed = 0);
+	void AddParticle(const Particle& particle, int x, int y, float size, float delay = 0, COLLIDER_TYPE colliderType = COLLIDER_TYPE::COLLIDER_NONE, ParticleType type = ParticleType::NONE, double angle = 0.0f, float life = 0, int damage = 0, float speed = 0);
 
 	
 	SDL_Texture* graphics = nullptr;

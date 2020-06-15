@@ -13,7 +13,7 @@
 Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), speed(0.0f),  DirectionAngle(270.0f), Damage(0), Range(0), UpgradedDamage(0), UpgradedRange(0), UpgradedSpeed(0.0f), IsMoving(false), OnDestination(true),Armed(false),Working(true),WorkingTime(0.0f),Building(true),BuildingTime(0.0f),TotalBuildingTime(0),collider(nullptr),RangeCollider(nullptr),shooting(false){
     switch (Atype) {
 	case AiType::RedShip:
-        MaxHealth = 100;
+        MaxHealth = 430;
 		health = (float)MaxHealth;
 		Damage = 60;
 		Range = 100;
@@ -38,7 +38,7 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         BuildingTime = 0.0f;
 		break;
     case AiType::BlueShip:
-        MaxHealth = 60;
+        MaxHealth = 370;
         health = (float)MaxHealth;
         Damage = 40;
         Range = 200;
@@ -62,7 +62,7 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         BuildingTime = 10.0f;
         break;
 	case AiType::Collector:
-        MaxHealth = 50;
+        MaxHealth = 300;
         health = (float)MaxHealth;
 		Damage = 0;
 		Range = 100;
@@ -84,7 +84,7 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         BuildingTime = 0.0f;
 		break;
     case AiType::GreenShip:
-        MaxHealth = 200;
+        MaxHealth = 800;
         health = (float)MaxHealth;
         Damage = 120;
         Range = 80;

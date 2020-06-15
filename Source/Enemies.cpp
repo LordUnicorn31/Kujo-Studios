@@ -151,7 +151,7 @@ Enemy::Enemy(EnemyType type,iPoint Position):etype(type),todie(false),shooting(f
     switch (type) {
     case EnemyType::wraith:
         EnemyRect = { Position.x,Position.y,65,65 };
-        MaxHealth = 500;
+        MaxHealth = 400;
         health = MaxHealth;
         sprite = App->enemies->EnemySprite;
         speed = 2.0f;

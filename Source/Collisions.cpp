@@ -158,10 +158,10 @@ void Collisions::DebugDraw()
 			case COLLIDER_ENEMY_RANGE://yellow
 				App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 				break;
-			/*case END_COLLIDER://light blue
+				case COLLIDER_ENEMY_PARTICLE://light blue
 				App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
 				break;
-			case START_COLLIDER://purple
+			/*case START_COLLIDER://purple
 				App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
 				break;
 			case COLLIDER_ENEMY://black

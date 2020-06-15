@@ -547,7 +547,16 @@ void EntityManager::UpdateAll(float dt, bool DoLogic) {
 		if (DoLogic)
 			(*it)->UpdateLogic();
 		(*it)->Draw(dt);
-		//(*it)->Kill();
+	}
+	eastl::list<Entity*>::iterator i = entities.begin();
+	while (i != entities.end()) {
+		if ((*i)->todie) {
+			Entity* todestroy = (*i);
+			++i;
+			DestroyEntity(todestroy);
+		}
+		else
+			++i;
 	}
 	/*if (DoLogic) {
 		eastl::list<Entity*>::iterator it;
@@ -659,7 +668,11 @@ Entity* EntityManager::CreateEntity(AviableEntities type,iPoint position) {
 }
 
 void EntityManager::DestroyEntity(Entity* entity) {
-
+	eastl::list<Entity*>::iterator it = eastl::find(entities.begin(), entities.end(), entity);
+	if (it != entities.end()) {
+		delete (*it);
+		entities.erase(it);
+	}
 }
 
 bool EntityManager::Load(pugi::xml_node& entitynode) {

@@ -123,6 +123,11 @@ void Building::Update(float dt) {
 		}
 		//IF I DIE, KILL THE ENTITY IM BUILDING
 	}
+	if (health <= 0) {
+		if (collider != nullptr)
+			collider->toDelete = true;
+		todie = true;
+	}
 }
 
 void Building::Draw(float dt) {

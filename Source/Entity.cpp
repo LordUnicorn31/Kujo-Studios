@@ -1,6 +1,6 @@
 #include "Entity.h"
 
-Entity::Entity(EntityType type, SDL_Rect entityrect): etype(type), sprite(nullptr), EntityRect(entityrect),selectable (false) {}
+Entity::Entity(EntityType type, SDL_Rect entityrect): etype(type), sprite(nullptr), EntityRect(entityrect),selectable (false),todie(false) {}
 
 Entity::~Entity() {
 

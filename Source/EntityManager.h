@@ -85,6 +85,7 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 	void ui_callback(UiElement* element);
+	void OnCollision(Collider* c1, Collider* c2);
 
 	Entity* CreateEntity(AviableEntities type, iPoint position);
 	void DestroyEntity(Entity* entity);

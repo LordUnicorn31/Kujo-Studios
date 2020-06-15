@@ -2,18 +2,21 @@
 #ifndef __Collisions_H__
 #define __Collisions_H__
 
-#define MAX_COLLIDERS 100
+#define MAX_COLLIDERS 200
 
 #include "Module.h"
+class Entity;
+class Enemy;
 
 enum COLLIDER_TYPE
 {
 	COLLIDER_NONE = -1,
-	COLLIDER_BUILDING,
-	COLLIDER_AI,
-	COLLIDER_RESOURCE,
+	COLLIDER_ALLY,
 	COLLIDER_ENEMY,
-	COLLIDER_PARTICLES,
+	COLLIDER_ENEMY_PARTICLE,
+	COLLIDER_ALLY_PARTICLE,
+	COLLIDER_ENEMY_RANGE,
+	COLLIDER_ALLY_RANGE,
 
 	NUM_COLLIDER_TYPES
 };
@@ -25,12 +28,16 @@ struct Collider
 	bool active = true;
 	COLLIDER_TYPE type;
 	Module* callback = nullptr;
+	Entity* entity;
+	Enemy* enemy;
 	Collider();
 
-	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, Module* callback = nullptr) :
+	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, Module* callback = nullptr, Entity* entity = nullptr, Enemy* enemy = nullptr) :
 		rect(rectangle),
 		type(type),
-		callback(callback)
+		callback(callback),
+		entity(entity),
+		enemy(enemy)
 	{}
 
 	void SetPos(int x, int y)

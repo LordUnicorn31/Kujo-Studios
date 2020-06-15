@@ -6,6 +6,7 @@
 struct SDL_Texture;
 class Ai;
 class Animation;
+struct Collider;
 
 enum class BuildingType : unsigned char {
 	Mine,
@@ -38,4 +39,5 @@ public:
 	Ai* BuildingEntity;
 	bool ToBuild;
 	UiElement* BuildHUD;
+	Collider* collider;
 };

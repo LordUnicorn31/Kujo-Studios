@@ -8,16 +8,16 @@
 #include "Gui.h"
 #include "Audio.h"
 #include "Fonts.h"
-//#include "Collisions.h"
+#include "Collisions.h"
 
-Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), speed(0.0f),  DirectionAngle(270.0f), Damage(0), Range(0), UpgradedDamage(0), UpgradedRange(0), UpgradedSpeed(0.0f), IsMoving(false), OnDestination(true),Armed(false),Working(true),WorkingTime(0.0f),Building(true),BuildingTime(0.0f),TotalBuildingTime(0) {
+Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), speed(0.0f),  DirectionAngle(270.0f), Damage(0), Range(0), UpgradedDamage(0), UpgradedRange(0), UpgradedSpeed(0.0f), IsMoving(false), OnDestination(true),Armed(false),Working(true),WorkingTime(0.0f),Building(true),BuildingTime(0.0f),TotalBuildingTime(0),collider(nullptr),RangeCollider(nullptr){
     switch (Atype) {
 	case AiType::RedShip:
         MaxHealth = 100;
 		health = (float)MaxHealth;
 		Damage = 40;
 		Range = 200;
-        UpgradedDamage = 50;
+        UpgradedDamage = 250;
         UpgradedRange = 250;
 		speed = 5.0f;
         UpgradedSpeed = 6.0f;
@@ -41,8 +41,8 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         MaxHealth = 60;
         health = (float)MaxHealth;
         Damage = 60;
-        Range = 350;
-        UpgradedDamage = 75;
+        Range = 150;
+        UpgradedDamage = 200;
         UpgradedRange = 400;
         speed = 6.0f;
         UpgradedSpeed = 7.0f;
@@ -87,9 +87,9 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         MaxHealth = 150;
         health = (float)MaxHealth;
         Damage = 100;
-        Range = 100;
+        Range = 250;
         UpgradedDamage = 150;
-        UpgradedRange = 120;
+        UpgradedRange = 300;
         UpgradedSpeed = 3.0f;
         speed = 2.0f;
         IdleAnimation.PushBack({ 25,324,57,57 });
@@ -108,7 +108,6 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         BuildingTime = 10.0f;
         break;
 	}
-    //collider = App->collisions->AddCollider(EntityRect, COLLIDER_AI, App->entity);
 }
 
 Ai::~Ai() {
@@ -131,6 +130,9 @@ void Ai::Update(float dt) {
         if (BuildingTime <= 0) {
             Building = false;
             selectable = true;
+            collider = App->collisions->AddCollider(EntityRect, COLLIDER_ALLY, App->entity);
+            if(Atype!=AiType::Collector)
+                RangeCollider = App->collisions->AddCollider({ EntityRect.x + EntityRect.w / 2 - Range / 2, EntityRect.y + EntityRect.h / 2 - Range / 2, Range, Range }, COLLIDER_ALLY_RANGE, App->entity);
         }
     }
     
@@ -224,6 +226,12 @@ void Ai::DoMovement() {
     if (!MovementPerformed) {
         IsMoving = false;
     }
+    else {
+        if(collider!=nullptr)
+            collider->SetPos(EntityRect.x, EntityRect.y);
+        if(RangeCollider!=nullptr)
+            RangeCollider->SetPos(EntityRect.x + EntityRect.w / 2 - Range / 2, EntityRect.y + EntityRect.h / 2 - Range / 2);
+    }
     
 }
 
@@ -314,4 +322,8 @@ void Ai::Upgrade() {
     Armed = true;
     EntityRect.w = 80;
     EntityRect.h = 80;
+    collider->toDelete = true;
+    RangeCollider->toDelete = true;
+    collider = App->collisions->AddCollider(EntityRect, COLLIDER_ALLY, App->entity);
+    RangeCollider = App->collisions->AddCollider({ EntityRect.x + EntityRect.w / 2 - Range / 2, EntityRect.y + EntityRect.h / 2 - Range / 2, Range, Range }, COLLIDER_ALLY_RANGE, App->entity);
 }

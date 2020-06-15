@@ -4,6 +4,8 @@
 #include "Textures.h"
 #include "Pathfinding.h"
 #include "Entity.h"
+#include "Collisions.h"
+#include "p2Log.h"
 
 Enemies::Enemies() : Module(), UpdateMsCycle((1.0f / 60.0f)), AccumulatedTime(0.0f)
 {
@@ -128,6 +130,8 @@ Enemy::Enemy(EnemyType type,iPoint Position):etype(type){
         IdleAnimation.speed = 1.5f;
         App->pathfinding->CreatePath(App->map->WorldToMap(EnemyRect.x, EnemyRect.y), App->map->WorldToMap(App->entity->GetBase()->EntityRect.x, App->entity->GetBase()->EntityRect.y));
         path = *App->pathfinding->GetLastPath();
+        collider = App->collisions->AddCollider(EnemyRect, COLLIDER_ENEMY, App->enemies);
+        rangecollider = App->collisions->AddCollider({ EnemyRect.x + EnemyRect.w/2 - Range/2, EnemyRect.y + EnemyRect.h/2 - Range/2, Range, Range }, COLLIDER_ENEMY_RANGE, App->enemies);
         break;
     }
 }
@@ -218,6 +222,10 @@ void Enemy::DoMovement() {
     if (!MovementPerformed) {
         IsMoving = false;
     }
+    else {
+        collider->SetPos(EnemyRect.x, EnemyRect.y);
+        rangecollider->SetPos(EnemyRect.x + EnemyRect.w/2 - Range/2, EnemyRect.y + EnemyRect.h/2 - Range/2);
+    }
 }
 
 void Enemy::Move(int x, int y) {
@@ -266,4 +274,8 @@ void Enemy::UpdateMovement()
             OnDestination = true;
         }
     }
+}
+
+void Enemies::OnCollision(Collider* c1, Collider* c2) {
+    LOG("Collision!!");
 }

@@ -44,7 +44,7 @@ bool WinScene::Start()
 	App->audio->PlayMusic("Resources/audio/music/interstellar_odyssey.ogg");
 
 	titleButton = App->gui->AddButton(500, 600, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, nullptr, this);
-	App->gui->AddText(15, 25, "EXIT GAME", nullptr, { 255,255,255 }, 42, false, false, titleButton);
+	App->gui->AddText(15, 16, "EXIT GAME", nullptr, { 255,255,255 }, 42, false, false, false, titleButton);
 	return true;
 }
 
@@ -76,6 +76,11 @@ bool WinScene::Update(float dt)
 
 	App->render->Blit(background, 0, 0, NULL, true, App->render->renderer, 1.5);
 	App->render->Blit(winText, (int)(w * 1.55f), h, NULL, true, App->render->renderer, 0.2f);
+
+	if (exitGame) {
+		ret = false;
+		exitGame = false;
+	}
 
 	return ret;
 }

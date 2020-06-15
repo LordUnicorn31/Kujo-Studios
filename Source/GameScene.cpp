@@ -23,6 +23,7 @@
 #include "Particles.h"
 //#include "Animation.h"
 #include "SceneTutorial.h"
+#include "Building.h"
 
 GameScene::GameScene() : Module()
 {
@@ -120,6 +121,26 @@ bool GameScene::Update(float dt)
 		exitGame = false;
 	}
 
+	eastl::list<Entity*>::const_iterator iter;
+	for (iter = App->entity->GetEntities().begin(); iter != App->entity->GetEntities().end(); ++iter) {
+		if ((*iter)->etype != EntityType::TypeBuilding)
+			continue;
+		if (((Building*)(*iter))->Btype == BuildingType::Base && ((Building*)(*iter))->health == 0)
+		{
+			App->render->camera.x = 0;
+			App->render->camera.y = 0;
+			App->transition->FadeToBlack(App->scene, App->losescene);
+		}
+
+	}
+
+	if (App->enemies->AllSpawned && App->enemies->enemies.empty())
+	{
+		App->render->camera.x = 0;
+		App->render->camera.y = 0;
+		App->transition->FadeToBlack(App->scene, App->winscene);
+	}
+
 	return ret;
 }
 
@@ -166,6 +187,11 @@ bool GameScene::CleanUp()
 	peopleImage = nullptr;
 	copperImage = nullptr;
 	titaniumImage = nullptr;
+	App->minimap->Disable();
+	App->entity->Disable();
+	App->enemies->Disable();
+	App->collisions->Disable();
+	App->quest->Disable();
 
 	return true;
 }

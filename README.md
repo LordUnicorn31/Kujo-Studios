@@ -40,6 +40,8 @@ Explore an unfamiliar world, mine its resources and fly away with all you can in
 
 - M: Lose scene.
 
+- NUMBER_1: GodMode.
+
 ## Developers
 
  - [Victor Nisa](https://github.com/VictorNisa) - Team Lead / Design

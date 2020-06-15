@@ -34,8 +34,8 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         TilePos = App->map->WorldToMap(EntityRect.x, EntityRect.y);
         NextTile = TilePos;
         OnDestination = true;
-        TotalBuildingTime = 0;
-        BuildingTime = 0.0f;
+        TotalBuildingTime = 10;
+        BuildingTime = 10.0f;
 		break;
     case AiType::BlueShip:
         MaxHealth = 370;
@@ -80,8 +80,8 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         TilePos = App->map->WorldToMap(EntityRect.x, EntityRect.y);
         NextTile = TilePos;
         OnDestination = true;
-        TotalBuildingTime = 0;
-        BuildingTime = 0.0f;
+        TotalBuildingTime = 5;
+        BuildingTime = 5.0f;
 		break;
     case AiType::GreenShip:
         MaxHealth = 800;

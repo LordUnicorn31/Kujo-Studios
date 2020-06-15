@@ -181,7 +181,7 @@ void Enemy::Update(float dt) {
     if (!OnDestination)
         UpdateMovement();
 
-    /*if (App->input->GetKey(SDL_SCANCODE_1) == KEY_UP)
+    if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_UP)
         health = 0;
     if (health <= 0) {
         todie = true;
@@ -189,7 +189,7 @@ void Enemy::Update(float dt) {
             collider->toDelete = true;
         if (rangecollider != nullptr)
             rangecollider->toDelete = true;
-    }*/
+    }
 
     if (shooting) {
         currentcharge -= dt;

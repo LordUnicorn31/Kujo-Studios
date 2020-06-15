@@ -46,7 +46,7 @@ bool GameScene::Start()
 {
 	startTime = (float)SDL_GetTicks() / 1000;
 
-	App->audio->PlayMusic("Resources/audio/music/music_space.ogg");
+	App->audio->PlayMusic("Resources/audio/music/game.ogg");
 	pauseButton = App->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 871, 736, 39,39 }, { 755, 527, 39,39 }, true, false, false, nullptr, this);
 	infoImage = App->gui->AddImage(750, 10, { 494,640,332,52 }, true, false, false, nullptr, this);
 	peopleImage = App->gui->AddImage(30, 5, { 591,494,40,37 }, false, false, false, infoImage, nullptr);
@@ -184,7 +184,7 @@ void GameScene::ui_callback(UiElement* element) {
 				App->freeze = false;
 				App->gui->RemoveUiElement(pauseWindow);
 				pauseWindow = nullptr;
-				App->audio->PlayMusic("Resources/audio/music/music_space.ogg", 0.0f);
+				App->audio->PlayMusic("Resources/audio/music/game.ogg", 0.0f);
 
 			}
 		}
@@ -196,7 +196,7 @@ void GameScene::ui_callback(UiElement* element) {
 		App->audio->UnloadMusic();
 	}
 	if (element == continueButton) {
-		App->audio->PlayMusic("Resources/audio/music/music_space.ogg", 0.0f);
+		App->audio->PlayMusic("Resources/audio/music/game.ogg", 0.0f);
 		App->audio->PlayFx(buttonFx);
 		App->freeze = false;
 		if (pauseWindow != nullptr) {

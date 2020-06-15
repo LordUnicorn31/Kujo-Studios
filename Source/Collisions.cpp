@@ -15,25 +15,47 @@ Collisions::Collisions()
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
-	/*matrix[COLLIDER_AI][COLLIDER_AI] = false;
-	matrix[COLLIDER_AI][COLLIDER_RESOURCE] = false;
-	matrix[COLLIDER_AI][COLLIDER_ENEMY] = false;
-	matrix[COLLIDER_AI][COLLIDER_BUILDING] = false;
+	matrix[COLLIDER_ALLY][COLLIDER_ALLY] = false;
+	matrix[COLLIDER_ALLY][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_ALLY][COLLIDER_ENEMY_PARTICLE] = true;
+	matrix[COLLIDER_ALLY][COLLIDER_ALLY_PARTICLE] = false;
+	matrix[COLLIDER_ALLY][COLLIDER_ENEMY_RANGE] = false;
+	matrix[COLLIDER_ALLY][COLLIDER_ALLY_RANGE] = false;
 
-	matrix[COLLIDER_RESOURCE][COLLIDER_AI] = false;
-	matrix[COLLIDER_RESOURCE][COLLIDER_RESOURCE] = true;
-	matrix[COLLIDER_RESOURCE][COLLIDER_ENEMY] = false;
-	matrix[COLLIDER_RESOURCE][COLLIDER_BUILDING] = true;
-
-	matrix[COLLIDER_ENEMY][COLLIDER_AI] = false;
-	matrix[COLLIDER_ENEMY][COLLIDER_RESOURCE] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_ALLY] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
-	matrix[COLLIDER_ENEMY][COLLIDER_BUILDING] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY_PARTICLE] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_ALLY_PARTICLE] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY_RANGE] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_ALLY_RANGE] = false;
 
-	matrix[COLLIDER_BUILDING][COLLIDER_AI] = false;
-	matrix[COLLIDER_BUILDING][COLLIDER_RESOURCE] = false;
-	matrix[COLLIDER_BUILDING][COLLIDER_ENEMY] = false;
-	matrix[COLLIDER_BUILDING][COLLIDER_BUILDING] = false;*/
+	matrix[COLLIDER_ENEMY_PARTICLE][COLLIDER_ALLY] = true;
+	matrix[COLLIDER_ENEMY_PARTICLE][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_ENEMY_PARTICLE][COLLIDER_ENEMY_PARTICLE] = false;
+	matrix[COLLIDER_ENEMY_PARTICLE][COLLIDER_ALLY_PARTICLE] = false;
+	matrix[COLLIDER_ENEMY_PARTICLE][COLLIDER_ENEMY_RANGE] = false;
+	matrix[COLLIDER_ENEMY_PARTICLE][COLLIDER_ALLY_RANGE] = false;
+
+	matrix[COLLIDER_ALLY_PARTICLE][COLLIDER_ALLY] = false;
+	matrix[COLLIDER_ALLY_PARTICLE][COLLIDER_ENEMY] = true;
+	matrix[COLLIDER_ALLY_PARTICLE][COLLIDER_ENEMY_PARTICLE] = false;
+	matrix[COLLIDER_ALLY_PARTICLE][COLLIDER_ALLY_PARTICLE] = false;
+	matrix[COLLIDER_ALLY_PARTICLE][COLLIDER_ENEMY_RANGE] = false;
+	matrix[COLLIDER_ALLY_PARTICLE][COLLIDER_ALLY_RANGE] = false;
+
+	matrix[COLLIDER_ENEMY_RANGE][COLLIDER_ALLY] = true;
+	matrix[COLLIDER_ENEMY_RANGE][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_ENEMY_RANGE][COLLIDER_ENEMY_PARTICLE] = false;
+	matrix[COLLIDER_ENEMY_RANGE][COLLIDER_ALLY_PARTICLE] = false;
+	matrix[COLLIDER_ENEMY_RANGE][COLLIDER_ENEMY_RANGE] = false;
+	matrix[COLLIDER_ENEMY_RANGE][COLLIDER_ALLY_RANGE] = false;
+
+	matrix[COLLIDER_ALLY_RANGE][COLLIDER_ALLY] = false;
+	matrix[COLLIDER_ALLY_RANGE][COLLIDER_ENEMY] = true;
+	matrix[COLLIDER_ALLY_RANGE][COLLIDER_ENEMY_PARTICLE] = false;
+	matrix[COLLIDER_ALLY_RANGE][COLLIDER_ALLY_PARTICLE] = false;
+	matrix[COLLIDER_ALLY_RANGE][COLLIDER_ENEMY_RANGE] = false;
+	matrix[COLLIDER_ALLY_RANGE][COLLIDER_ALLY_RANGE] = false;
 }
 
 // Destructor
@@ -113,7 +135,7 @@ void Collisions::DebugDraw()
 		return;
 	}
 		
-	/*Uint8 alpha = 140;
+	Uint8 alpha = 140;
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
 		if (colliders[i] == nullptr)
@@ -124,16 +146,16 @@ void Collisions::DebugDraw()
 			case COLLIDER_NONE: // white
 				App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 				break;
-			case COLLIDER_RESOURCE: // blue
+			case COLLIDER_ALLY_RANGE: // blue
 				App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 				break;
-			case COLLIDER_AI: // green
+			case COLLIDER_ALLY: // green
 				App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 				break;
 			case COLLIDER_ENEMY: //red
 				App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
 				break;
-			case COLLIDER_BUILDING://yellow
+			case COLLIDER_ENEMY_RANGE://yellow
 				App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 				break;
 			/*case END_COLLIDER://light blue
@@ -145,9 +167,9 @@ void Collisions::DebugDraw()
 			case COLLIDER_ENEMY://black
 				App->render->DrawQuad(colliders[i]->rect, 0, 0, 0, alpha);
 				break;*/
-	/*		}
+			}
 		}
-	}*/
+	}
 }
 
 // Called before quitting
@@ -167,7 +189,7 @@ bool Collisions::CleanUp()
 	return true;
 }
 
-Collider* Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback)
+Collider* Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback,Entity*entity,Enemy*enemy)
 {
 	Collider* ret = nullptr;
 
@@ -175,7 +197,7 @@ Collider* Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* cal
 	{
 		if (colliders[i] == nullptr)
 		{
-			ret = colliders[i] = new Collider(rect, type, callback);
+			ret = colliders[i] = new Collider(rect, type, callback,entity,enemy);
 			break;
 		}
 	}

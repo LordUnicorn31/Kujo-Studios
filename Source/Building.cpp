@@ -88,7 +88,7 @@ Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeB
 		OnConstruction = true;
 		break;
 	}
-	//App->collisions->AddCollider(EntityRect,COLLIDER_BUILDING,App->entity);
+	collider = App->collisions->AddCollider(EntityRect,COLLIDER_ALLY,App->entity, (Entity*)this);
 }
 
 Building::~Building() {

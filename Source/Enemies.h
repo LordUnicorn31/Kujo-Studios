@@ -6,7 +6,7 @@
 #include "SDL_rect.h"
 #include "Animation.h"
 #define DURATION 0.0f
-#define GROUPSPAWNPRATIO 10.0f
+#define GROUPSPAWNPRATIO 60.0f
 
 enum class EnemyType {
 	none,
@@ -22,7 +22,8 @@ public:
 	float health;
 	int MaxHealth;
 	SDL_Texture* sprite;
-	//Collider* collider;
+	Collider* collider;
+	Collider* rangecollider;
 public:
 	//void Die();
 
@@ -30,7 +31,7 @@ public:
 	float DirectionAngle;
 	//iPoint Destination;
 	uint Damage;
-	uint Range;
+	int Range;
 	bool IsMoving;
 	bool OnDestination;
 	iPoint TilePos;
@@ -52,7 +53,7 @@ public:
 	Enemies();
 
 	// Destructor
-	virtual ~Enemies();
+	~Enemies();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& config);
@@ -73,6 +74,7 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
+	void OnCollision(Collider*c1, Collider*c2);
 
 	bool DoLogic;
 	float AccumulatedTime;

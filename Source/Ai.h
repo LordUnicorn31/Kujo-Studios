@@ -3,6 +3,7 @@
 #include "EASTL/vector.h"
 #include "Animation.h"
 
+struct Collider;
 enum class AiType : unsigned char {
 	None,
 	Collector,
@@ -20,7 +21,7 @@ public:
 	float DirectionAngle;
 	//iPoint Destination;
 	uint Damage;
-	uint Range;
+	int Range;
 	uint UpgradedDamage;
 	uint UpgradedRange;
 	float UpgradedSpeed;
@@ -39,6 +40,8 @@ public:
 	iPoint NextTile;
 	Animation IdleAnimation;
 	Animation ArmedIdleAnimation;
+	Collider* collider;
+	Collider* RangeCollider;
 	//TODO:Si pot ser que no cada entity guardi el seu path per tema de memoria (o com a minima k nomes guardin path per ajuntarse i surtir del grup i que no guardin el path compartit) //Podem donarlis una id per group i id 0 implica a cap grup
 	eastl::vector<iPoint> path;
 	void Update(float dt);

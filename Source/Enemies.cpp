@@ -128,7 +128,7 @@ void Enemies::OnCollision(Collider* c1, Collider* c2) {
     switch (c1->type) {
     case COLLIDER_ENEMY_RANGE:
         //disparar cap el ally
-        App->particle->AddParticle(App->particle->shot, c1->enemy->EnemyRect.x, c1->enemy->EnemyRect.y, 0, COLLIDER_ENEMY_PARTICLE, ParticleType::SHOT, c1->enemy->DirectionAngle, c1->enemy->Damage);
+        //App->particle->AddParticle(App->particle->shot, c1->enemy->EnemyRect.x, c1->enemy->EnemyRect.y, 0, COLLIDER_ENEMY_PARTICLE, ParticleType::SHOT, c1->enemy->DirectionAngle, c1->enemy->Damage);
         break;
     }
 }

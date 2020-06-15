@@ -53,44 +53,44 @@ bool Enemies::PreUpdate()
 // Called each loop iteration
 bool Enemies::Update(float dt)
 {
-    if(App->scene->tutorialActive)
+    if(!App->scene->tutorialActive)
     {
 
-    if (EndTime > 0) {
-        NextSpawn -= dt;
-        EndTime -= dt;
-        if (NextSpawn <= 0) {
-            SpawnEnemies();
-            NextSpawn = GROUPSPAWNPRATIO;
+        if (EndTime > 0) {
+            NextSpawn -= dt;
+            EndTime -= dt;
+            if (NextSpawn <= 0) {
+                SpawnEnemies();
+                NextSpawn = GROUPSPAWNPRATIO;
+            }
         }
-    }
-    else {
-        AllSpawned = true;
-    }
-    AccumulatedTime += (dt);
-    if (AccumulatedTime >= UpdateMsCycle)
-        DoLogic = true;
-    eastl::list<Enemy*>::iterator it;
-    for (it = enemies.begin(); it != enemies.end(); ++it) {
-        (*it)->Update(dt);
-        if (DoLogic)
-            (*it)->UpdateLogic();
-        (*it)->Draw(dt);
-    }
-    eastl::list<Enemy*>::iterator i = enemies.begin();
-    while (i != enemies.end()) {
-        if ((*i)->todie) {
-            Enemy* todestroy = (*i);
-            ++i;
-            DestroyEnemy(todestroy);
+        else {
+            AllSpawned = true;
         }
-        else
-            ++i;
-    }
-    if (DoLogic == true) {
-        AccumulatedTime = 0.0f;
-        DoLogic = false;
-    }
+        AccumulatedTime += (dt);
+        if (AccumulatedTime >= UpdateMsCycle)
+            DoLogic = true;
+        eastl::list<Enemy*>::iterator it;
+        for (it = enemies.begin(); it != enemies.end(); ++it) {
+            (*it)->Update(dt);
+            if (DoLogic)
+                (*it)->UpdateLogic();
+            (*it)->Draw(dt);
+        }
+        eastl::list<Enemy*>::iterator i = enemies.begin();
+        while (i != enemies.end()) {
+            if ((*i)->todie) {
+                Enemy* todestroy = (*i);
+                ++i;
+                DestroyEnemy(todestroy);
+            }
+            else
+                ++i;
+        }
+        if (DoLogic == true) {
+            AccumulatedTime = 0.0f;
+            DoLogic = false;
+        }
     }
     return true;
 }

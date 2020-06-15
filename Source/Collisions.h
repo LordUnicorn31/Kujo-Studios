@@ -61,7 +61,7 @@ public:
 	bool Update(float dt);
 	bool CleanUp() override;
 
-	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr);
+	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr,Entity*entity=nullptr,Enemy*enemy=nullptr);
 	void DebugDraw();
 
 private:

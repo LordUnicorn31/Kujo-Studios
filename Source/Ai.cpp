@@ -17,7 +17,7 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
 		health = (float)MaxHealth;
 		Damage = 40;
 		Range = 200;
-        UpgradedDamage = 250;
+        UpgradedDamage = 70;
         UpgradedRange = 250;
 		speed = 5.0f;
         UpgradedSpeed = 6.0f;
@@ -42,8 +42,8 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         health = (float)MaxHealth;
         Damage = 60;
         Range = 150;
-        UpgradedDamage = 200;
-        UpgradedRange = 400;
+        UpgradedDamage = 100;
+        UpgradedRange = 200;
         speed = 6.0f;
         UpgradedSpeed = 7.0f;
         IdleAnimation.PushBack({ 236,28,61,61 });
@@ -130,9 +130,9 @@ void Ai::Update(float dt) {
         if (BuildingTime <= 0) {
             Building = false;
             selectable = true;
-            collider = App->collisions->AddCollider(EntityRect, COLLIDER_ALLY, App->entity);
+            collider = App->collisions->AddCollider(EntityRect, COLLIDER_ALLY, App->entity,(Entity*)this);
             if(Atype!=AiType::Collector)
-                RangeCollider = App->collisions->AddCollider({ EntityRect.x + EntityRect.w / 2 - Range / 2, EntityRect.y + EntityRect.h / 2 - Range / 2, Range, Range }, COLLIDER_ALLY_RANGE, App->entity);
+                RangeCollider = App->collisions->AddCollider({ EntityRect.x + EntityRect.w / 2 - Range / 2, EntityRect.y + EntityRect.h / 2 - Range / 2, Range, Range }, COLLIDER_ALLY_RANGE, App->entity,(Entity*)this);
         }
     }
     
@@ -324,6 +324,6 @@ void Ai::Upgrade() {
     EntityRect.h = 80;
     collider->toDelete = true;
     RangeCollider->toDelete = true;
-    collider = App->collisions->AddCollider(EntityRect, COLLIDER_ALLY, App->entity);
-    RangeCollider = App->collisions->AddCollider({ EntityRect.x + EntityRect.w / 2 - Range / 2, EntityRect.y + EntityRect.h / 2 - Range / 2, Range, Range }, COLLIDER_ALLY_RANGE, App->entity);
+    collider = App->collisions->AddCollider(EntityRect, COLLIDER_ALLY, App->entity,(Entity*)this);
+    RangeCollider = App->collisions->AddCollider({ EntityRect.x + EntityRect.w / 2 - Range / 2, EntityRect.y + EntityRect.h / 2 - Range / 2, Range, Range }, COLLIDER_ALLY_RANGE, App->entity, (Entity*)this);
 }

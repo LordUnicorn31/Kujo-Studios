@@ -106,6 +106,13 @@ void Enemies::SpawnEnemies() {
     enemies.push_back(enemy);
 }
 
+void Enemies::OnCollision(Collider* c1, Collider* c2) {
+    switch (c1->type) {
+    case COLLIDER_ENEMY_RANGE:
+        //disparar cap el ally
+        break;
+    }
+}
 
 
 
@@ -130,8 +137,8 @@ Enemy::Enemy(EnemyType type,iPoint Position):etype(type){
         IdleAnimation.speed = 1.5f;
         App->pathfinding->CreatePath(App->map->WorldToMap(EnemyRect.x, EnemyRect.y), App->map->WorldToMap(App->entity->GetBase()->EntityRect.x, App->entity->GetBase()->EntityRect.y));
         path = *App->pathfinding->GetLastPath();
-        collider = App->collisions->AddCollider(EnemyRect, COLLIDER_ENEMY, App->enemies);
-        rangecollider = App->collisions->AddCollider({ EnemyRect.x + EnemyRect.w/2 - Range/2, EnemyRect.y + EnemyRect.h/2 - Range/2, Range, Range }, COLLIDER_ENEMY_RANGE, App->enemies);
+        collider = App->collisions->AddCollider(EnemyRect, COLLIDER_ENEMY, App->enemies,nullptr,this);
+        rangecollider = App->collisions->AddCollider({ EnemyRect.x + EnemyRect.w/2 - Range/2, EnemyRect.y + EnemyRect.h/2 - Range/2, Range, Range }, COLLIDER_ENEMY_RANGE, App->enemies,nullptr,this);
         break;
     }
 }
@@ -274,8 +281,4 @@ void Enemy::UpdateMovement()
             OnDestination = true;
         }
     }
-}
-
-void Enemies::OnCollision(Collider* c1, Collider* c2) {
-    LOG("Collision!!");
 }

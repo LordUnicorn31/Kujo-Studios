@@ -189,7 +189,7 @@ bool Collisions::CleanUp()
 	return true;
 }
 
-Collider* Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback)
+Collider* Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback,Entity*entity,Enemy*enemy)
 {
 	Collider* ret = nullptr;
 
@@ -197,7 +197,7 @@ Collider* Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* cal
 	{
 		if (colliders[i] == nullptr)
 		{
-			ret = colliders[i] = new Collider(rect, type, callback);
+			ret = colliders[i] = new Collider(rect, type, callback,entity,enemy);
 			break;
 		}
 	}

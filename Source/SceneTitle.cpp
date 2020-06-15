@@ -47,7 +47,7 @@ bool SceneTitle::Start()
 
 	buttonFx = App->audio->LoadFx("Resources/audio/fx/beep.wav");
 
-	App->audio->PlayMusic("Resources/audio/music/observing_star.ogg");
+	App->audio->PlayMusic("Resources/audio/music/title.ogg");
 	return true;
 }
 

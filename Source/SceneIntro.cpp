@@ -41,7 +41,7 @@ bool SceneIntro::Start()
 	rect = { 0,0,App->win->width, App->win->height };
 
 	s = 0;
-
+	App->audio->PlayMusic("Resources/audio/music/intro.ogg");
 	img1 = App->tex->Load("Resources/intro/intro_scene1.png");
 	img2 = App->tex->Load("Resources/intro/intro_scene2.png");
 	img3 = App->tex->Load("Resources/intro/intro_scene3.png");
@@ -130,6 +130,6 @@ bool SceneIntro::CleanUp()
 void SceneIntro::Init()
 {
 	enabled = true;
-
+	
 	active = true;
 }

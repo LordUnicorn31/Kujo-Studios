@@ -43,7 +43,7 @@ bool LoseScene::Start()
 	App->audio->PlayMusic("Resources/audio/music/epic_fall.ogg");
 
 	titleButton = App->gui->AddButton(500, 600, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, nullptr, this);
-	App->gui->AddText(15, 25, "EXIT GAME", nullptr, { 255,255,255 }, 42, false, false, false, titleButton);
+	App->gui->AddText(15, 16, "EXIT GAME", nullptr, { 255,255,255 }, 42, false, false, false, titleButton);
 
 	return true;
 }

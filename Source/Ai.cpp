@@ -15,10 +15,10 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
 	case AiType::RedShip:
         MaxHealth = 100;
 		health = (float)MaxHealth;
-		Damage = 40;
+		Damage = 60;
 		Range = 100;
-        UpgradedDamage = 70;
-        UpgradedRange = 250;
+        UpgradedDamage = 90;
+        UpgradedRange = 200;
 		speed = 4.0f;
         UpgradedSpeed = 5.0f;
 		//IdleAnimaiton = App->entity->Animations.AttackShip;
@@ -40,9 +40,9 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
     case AiType::BlueShip:
         MaxHealth = 60;
         health = (float)MaxHealth;
-        Damage = 60;
-        Range = 250;
-        UpgradedDamage = 90;
+        Damage = 40;
+        Range = 200;
+        UpgradedDamage = 80;
         UpgradedRange = 300;
         speed = 6.0f;
         UpgradedSpeed = 7.0f;
@@ -87,9 +87,9 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         MaxHealth = 200;
         health = (float)MaxHealth;
         Damage = 120;
-        Range = 150;
-        UpgradedDamage = 160;
-        UpgradedRange = 220;
+        Range = 80;
+        UpgradedDamage = 170;
+        UpgradedRange = 140;
         UpgradedSpeed = 3.0f;
         speed = 2.0f;
         IdleAnimation.PushBack({ 25,324,57,57 });

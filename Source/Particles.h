@@ -27,7 +27,7 @@ struct Particle
 	SDL_Rect rect;					//Particle rectangle
 	SDL_Texture* tex;				//Particle texture
 	ParticleType type;				//Particle type
-	fPoint speed;					//Particle speed
+	float speed;					//Particle speed
 	float size;						//Particle size
 	uint born;
 	uint life;  					//Particle life
@@ -56,7 +56,7 @@ public:
 	bool CleanUp();
 	//void OnCollision(Collider* c1, Collider* c2);
 
-	void AddParticle(const Particle& particle, int x, int y, uint delay = 0, COLLIDER_TYPE colliderType = COLLIDER_TYPE::COLLIDER_NONE, ParticleType type = ParticleType::NONE, double angle = 0.0f, uint life = 0, int damage = 0);
+	void AddParticle(const Particle& particle, int x, int y, float size, uint delay = 0, COLLIDER_TYPE colliderType = COLLIDER_TYPE::COLLIDER_NONE, ParticleType type = ParticleType::NONE, double angle = 0.0f, uint life = 0, int damage = 0, float speed = 0);
 
 	
 	SDL_Texture* graphics = nullptr;

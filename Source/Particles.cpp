@@ -46,49 +46,49 @@ bool Particles::Update(float dt)
 			delete p;
 			active[i] = nullptr;
 		}
-		else if (SDL_GetTicks()/1000 >= p->born)
+		else
 		{
 			if (p->type == ParticleType::SHOT) 
 			{
 				if (p->angle == 0 || p->angle == 360)
 				{
-					p->position.y -= 100 * dt;
+					p->position.y -= p->speed *dt;
 				}
 				else if (p->angle == 45)
 				{
-					p->position.y -= 50 * dt;
-					p->position.x += 50 * dt;
+					p->position.y -= (p->speed *0.5f) * dt;
+					p->position.x += (p->speed * 0.5f) * dt;
 				}
 				else if (p->angle == 90)
 				{
-					p->position.x += 100 * dt;
+					p->position.x += p->speed * dt;
 				}
 				else if (p->angle == 135)
 				{
-					p->position.y += 50 * dt;
-					p->position.x += 50 * dt;
+					p->position.y += (p->speed * 0.5f) * dt;
+					p->position.x += (p->speed * 0.5f) * dt;
 				}
 				else if (p->angle == 180)
 				{
-					p->position.y += 100 * dt;
+					p->position.y += p->speed * dt;
 				}
 				else if (p->angle == 225)
 				{
-					p->position.y += 50 * dt;
-					p->position.x -= 50 * dt;
+					p->position.y += (p->speed * 0.5f) * dt;
+					p->position.x -= (p->speed * 0.5f) * dt;
 				}
 				else if (p->angle == 270)
 				{
-					p->position.x -= 100 * dt;
+					p->position.x -= p->speed * dt;
 				}
 				else if (p->angle == 315)
 				{
-					p->position.y -= 50 * dt;
-					p->position.x -= 50 * dt;
+					p->position.y -= (p->speed * 0.5f) * dt;
+					p->position.x -= (p->speed * 0.5f) * dt;
 				}
 
-				App->render->Blit(graphics, (int)p->position.x, (int)p->position.y, &p->anim.GetCurrentFrame(dt), true, App->render->renderer, 3, 1, p->angle);
-				//LOG("life %u", p->life);
+				App->render->DrawQuad({ (int)p->position.x, (int)p->position.y, (int)p->size, (int)p->size }, p->initialColor.r, p->initialColor.g, p->initialColor.b, p->initialColor.a, false, true);
+				
 				if (p->fxPlayed == false)
 				{
 					p->fxPlayed = true;
@@ -96,7 +96,7 @@ bool Particles::Update(float dt)
 				}
 				if (p->collider != nullptr)
 				{
-					p->collider->SetPos(p->position.x - App->render->camera.x, p->position.y);
+					p->collider->SetPos(p->position.x, p->position.y);
 				}
 			}
 			else if (p->type == ParticleType::SMOKE)
@@ -132,12 +132,12 @@ bool Particles::CleanUp()
 	return true;
 }
 
-void Particles::AddParticle(const Particle& particle, int x, int y, uint delay, COLLIDER_TYPE colliderType, ParticleType type, double angle, uint life, int damage)
+void Particles::AddParticle(const Particle& particle, int x, int y, float size, uint delay, COLLIDER_TYPE colliderType, ParticleType type, double angle, uint life, int damage, float speed)
 {
 
 	for (int i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
-		if (active[i] == nullptr)
+		if (active[i] == NULL)
 		{
 			Particle* p = new Particle(particle);
 
@@ -147,36 +147,35 @@ void Particles::AddParticle(const Particle& particle, int x, int y, uint delay, 
 				p->type = type;
 				break;
 			case ParticleType::SHOT:
-				p->born = SDL_GetTicks()/1000 + delay;
-				p->anim = shot.anim;
-				p->size = 1;
+				p->born = delay;
+				p->size = size;
 				p->position.x = x;
 				p->position.y = y;
 				p->rect.x = (int)p->position.x;
 				p->rect.y = (int)p->position.y;
-				p->rect.w = 10 * p->size;
-				p->rect.h = 10 * p->size;
+				p->rect.w =  p->size;
+				p->rect.h =  p->size;
 				p->initialColor = { 255,255,0,255 };
 				p->finalColor = { 0,255,255,255 };
 				p->type = type;
 				p->angle = angle;
-				p->life = life;
+				p->life =  life - p->born;
+				p->speed = speed;
 				p->damage = damage;
 				if (colliderType != COLLIDER_TYPE::COLLIDER_NONE)
 				{
-					p->collider = App->collisions->AddCollider(p->anim.GetCurrentFrame(App->GetDT()), colliderType, this);
+					p->collider = App->collisions->AddCollider(p->rect, colliderType, this);
 				}
 				break;
 
 			case ParticleType::SMOKE:
-				p->born = SDL_GetTicks()/1000 + delay;
+				p->born = delay;
 				p->anim = smoke.anim;
 				p->type = type;
 				break;
 			}
 
 			active[i] = p;
-			LOG("particles %d", i);
 			break;
 		}
 	}
@@ -186,7 +185,7 @@ Particle::Particle()
 {
 	tex = nullptr;
 	type = ParticleType::NONE;
-	speed.SetToZero();
+	speed = 0.0f;
 	angle = 0.0f;
 	life = 0.0f;
 }
@@ -206,6 +205,7 @@ Particle::Particle(const Particle& p)
 	 this->finalColor = p.finalColor;
 	 this->fx = p.fx;
 	 this->fxPlayed = p.fxPlayed;
+	 this->damage = p.damage;
 }
 
 Particle::~Particle()
@@ -219,16 +219,14 @@ bool Particle::Update()
 	//Update all the particle characteristics depending on the particle type
 	bool ret = true;
 
-
 	if (life > 0 && type == ParticleType::SHOT)
 	{
-		if ((SDL_GetTicks()/1000 - born) > life)
+		if ((SDL_GetTicks() / 1000 - born) > life)
 			ret = false;
 	}
 	else
-		if(anim.Finished())
+		if (anim.Finished())
 			ret = false;
-	
 
 	return ret;
 }

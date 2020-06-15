@@ -20,6 +20,7 @@
 #include "Fow.h"
 #include "QuestManager.h"
 #include "Enemies.h"
+#include "Particles.h"
 //#include "Animation.h"
 
 GameScene::GameScene() : Module()
@@ -76,6 +77,8 @@ bool GameScene::PreUpdate()
 // Called each loop iteration
 bool GameScene::Update(float dt)
 {
+	//App->particle->AddParticle(App->particle->shot, 400, 100, 50, 10, COLLIDER_TYPE::COLLIDER_ALLY_PARTICLE, ParticleType::SHOT, 45, 10, 0, 100);
+
 	bool ret = true;
 
 	currentTime = SDL_GetTicks() / 1000 - startTime;
@@ -192,6 +195,8 @@ void GameScene::ui_callback(UiElement* element) {
 	if (element == titleButton) {
 		//Create The Funtionality
 		App->audio->PlayFx(buttonFx);
+		App->transition->FadeToBlack(App->scene, App->sceneTitle);
+
 	}
 	if (element == continueButton) {
 		App->audio->PlayMusic("Resources/audio/music/game.ogg", 0.0f);

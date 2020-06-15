@@ -14,7 +14,6 @@
 #include "Gui.h"
 #include "Fonts.h"
 #include "Audio.h"
-#include "Particles.h"
 #include "Render.h"
 
 SceneLogo::SceneLogo() : Module()
@@ -62,7 +61,7 @@ bool SceneLogo::Update(float dt)
 {
 	
 	bool ret = true;
-	
+
 	if (App->input->GetKey(SDL_SCANCODE_LEFT)) {
 		App->render->camera.x += 5;
 	}
@@ -76,8 +75,6 @@ bool SceneLogo::Update(float dt)
 		App->render->camera.y -= 5;
 	}
 
-
-
 	int w = App->win->GetWidth();
 	int h = App->win->GetHeight();
 
@@ -86,7 +83,6 @@ bool SceneLogo::Update(float dt)
 	App->render->Blit(kujo, (int)(w*1.55f),(int) (h*1.55), NULL, true, App->render->renderer, 0.2f);
 	App->render->Blit(studios,(int) (w*1.55f), (int)(h*3.10f), NULL, true, App->render->renderer, 0.2f);
 	App->render->Blit(hat, (int)(w*(2.95f)), (int)(h*(1.40) + ((9 - (r - 255) * (r - 255)) / 255)), NULL, true, App->render->renderer, 0.2f);
-
 
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE))

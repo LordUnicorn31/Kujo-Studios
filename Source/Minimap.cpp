@@ -80,12 +80,12 @@ bool Minimap::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 		Descale();
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+	/*if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		if (display == true)
 			display = false;
 		else
 			display = true;
-	}
+	}*/
 
 	if (display) {
 		App->render->Blit(minimapTex, position.x, position.y, NULL, false);

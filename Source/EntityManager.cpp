@@ -121,13 +121,13 @@ EntityManager::EntityManager(): Module(),MineSprite(NULL),CuartelLab(NULL),BaseS
 	BuildCost[3] = { 180,0 };
 	BuildCost[4] = { 300,0 };
 	BuildCost[5] = { 0,70 };
-	BuildCost[6] = { 300,300 };
-	BuildCost[7] = { 125,225 };
-	BuildCost[8] = { 50,200 };
+	BuildCost[6] = { 150,200 };
+	BuildCost[7] = { 100,125 };
+	BuildCost[8] = { 20,100 };
 	BuildCost[9] = { 200,0 };
-	BuildCost[10] = { 0,200 };
-	BuildCost[11] = { 0,200 };
-	BuildCost[12] = { 0,300 };
+	BuildCost[10] = { 0,100 };
+	BuildCost[11] = { 0,100 };
+	BuildCost[12] = { 0,200 };
 }
 
 EntityManager::~EntityManager() {

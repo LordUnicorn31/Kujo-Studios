@@ -16,7 +16,7 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         MaxHealth = 430;
 		health = (float)MaxHealth;
 		Damage = 60;
-		Range = 100;
+		Range = 200;
         UpgradedDamage = 90;
         UpgradedRange = 200;
 		speed = 4.0f;
@@ -87,9 +87,9 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         MaxHealth = 800;
         health = (float)MaxHealth;
         Damage = 120;
-        Range = 80;
+        Range = 200;
         UpgradedDamage = 170;
-        UpgradedRange = 140;
+        UpgradedRange = 200;
         UpgradedSpeed = 3.0f;
         speed = 2.0f;
         IdleAnimation.PushBack({ 25,324,57,57 });

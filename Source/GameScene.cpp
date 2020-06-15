@@ -192,8 +192,6 @@ void GameScene::ui_callback(UiElement* element) {
 	if (element == titleButton) {
 		//Create The Funtionality
 		App->audio->PlayFx(buttonFx);
-		/*App->transition->Slide(App->scene, App->losescene, 2.0f);*/
-		App->audio->UnloadMusic();
 	}
 	if (element == continueButton) {
 		App->audio->PlayMusic("Resources/audio/music/game.ogg", 0.0f);

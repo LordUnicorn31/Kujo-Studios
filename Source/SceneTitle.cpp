@@ -177,7 +177,7 @@ void SceneTitle::ButtonsAnimation()
 {
 
 	newGameButton = App->gui->AddButton((int)525.5f, 340, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, nullptr, this);
-	App->gui->AddText(15, 16, "NEW GAME", nullptr, { 236,178,0,255 }, 32, false, false, false, newGameButton);
+	App->gui->AddText(15, 16, "NEW GAME", nullptr, { 65,175,94,255 }, 32, false, false, false, newGameButton);
 	continueButton = App->gui->AddButton((int)525.5f, 420, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, nullptr, this);
 	App->gui->AddText(20, 16, "CONTINUE", nullptr, { 65,175,94,255 }, 32, false, false, false, continueButton);
 	optionsButton = App->gui->AddButton((int)525.5f, 500, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, true, false, false, nullptr, this);

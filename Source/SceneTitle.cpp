@@ -162,7 +162,7 @@ void SceneTitle::ui_callback(UiElement* element) {
 	}
 	else if (element == about) {
 		App->audio->PlayFx(buttonFx);
-		ShellExecuteA(NULL, "open", "https://github.com/LordUnicorn31/Kujo-Studios", NULL, NULL, SW_SHOWNORMAL);
+		ShellExecuteA(NULL, "open", "https://lordunicorn31.github.io/KujoStudios/WEBPAGE.html", NULL, NULL, SW_SHOWNORMAL);
 	}
 	else if (element == sliderbarFx) {
 		App->audio->FxVolume(((UiSlider*)element)->value);

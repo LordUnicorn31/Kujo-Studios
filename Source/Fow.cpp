@@ -33,51 +33,9 @@ bool Fow::Awake()
 
 bool Fow::Start()
 {
-	fogtexture = App->tex->Load("Resources/maps/fog_tile2.png");
+	fogtexture = App->tex->Load("maps/fow_texture.png");
 
 	return true;
-}
-
-void Fow::Draw()
-{
-	if (App->map->mapLoaded == false)
-		return;
-
-	iPoint cam_size(App->map->WorldToMap(-App->render->camera.x + App->render->camera.w, -App->render->camera.y + App->render->camera.h));
-	iPoint cam_pos = App->map->WorldToMap(-App->render->camera.x + 200, -App->render->camera.y);//el mes 200 es pk hi ha el panel k fa 200 i no volem dibuixar mapa per sota del panel
-	eastl::list<MapLayer*>::const_iterator item;
-	for (item = App->map->data.layers.cbegin(); item != App->map->data.layers.end(); item = next(item))
-	{
-		MapLayer* layer = *item;
-		if (layer->properties.Get("Navigation", 0) == 1)
-			continue;
-		for (int y = cam_pos.y; y <= cam_size.y; ++y)
-		{
-			if (y < 0 || y >= App->map->data.height)
-				continue;
-			for (int x = cam_pos.x; x <= cam_size.x; ++x)
-			{
-				if (x<0 || x>App->map->data.width)
-					continue;
-				int tile_id = layer->Get(x, y);
-				if (tile_id > 0)
-				{
-					TileSet* tileset = App->map->GetTilesetFromTileId(tile_id);
-
-					SDL_Rect r = tileset->GetTileRect(tile_id);
-					iPoint pos = App->map->MapToWorld(x, y);
-					FOW_TileState status = (FOW_TileState)App->fow->GetVisibilityTileAt({ x,y });
-					/*if (status == FOW_TileState::UNVISITED)
-					{
-						r = App->fow->GetFOWMetaRect(status);
-						App->render->Blit(App->fow->fogtexture, pos.x, pos.y, &r);
-					}*/
-					App->render->Blit(fogtexture, pos.x, pos.y, &r);
-
-				}
-			}
-		}
-	}
 }
 
 bool Fow::Update(float dt)

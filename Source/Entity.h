@@ -23,6 +23,7 @@ public:
 	SDL_Texture* sprite;
 	bool selected;
 	bool selectable;
+	bool todie;
 	//Collider* collider;
 	//SDL_Rect entity_rect;
 public:

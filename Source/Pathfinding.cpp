@@ -284,6 +284,7 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	// Use the Pathnode::parent and Flip() the path when you are finish
 		if (closed.list.back().pos == destination) {
 			lastPath.clear();
+			lastPath.shrink_to_fit();
 			const PathNode* path_node = &closed.list.back();
 			while (path_node) {
 				lastPath.push_back(path_node->pos);

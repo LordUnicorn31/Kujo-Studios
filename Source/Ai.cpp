@@ -139,6 +139,13 @@ void Ai::Update(float dt) {
     if (!OnDestination)
         UpdateMovement();
 
+    if (health <= 0) {
+        todie = true;
+        if(collider!=nullptr)
+            collider->toDelete = true;
+        if(RangeCollider!=nullptr)
+            RangeCollider->toDelete = true;
+    }
     /*if (health < 0)
         die*/
 }
@@ -271,6 +278,7 @@ void Ai::UpdateMovement()
 
             path.erase(path.begin());
             if (path.empty()) {
+                path.shrink_to_fit();
                 /*if (App->pathfinding->CreatePath(_goalX, _goalY) !=- 1)
                     path = App->pathfinding->GetLastPath();*/
                 //TODO: Arreglar aquest if i el que calgui de aquesta classe per el correcte funcionament del group movement

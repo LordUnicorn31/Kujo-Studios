@@ -4,7 +4,6 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Map.h"
-#include "Fow.h"
 #include <math.h>
 
 Map::Map() : Module(), mapLoaded(false)
@@ -57,16 +56,10 @@ void Map::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
 
-					/*if (App->fow->GetVisibilityTileAt({ x,y }) != (const int8_t)FOW_TileState::UNVISITED)
-					{
-						App->render->Blit(tileset->texture, pos.x, pos.y);
-					}*/
-					App->render->Blit(tileset->texture, pos.x, pos.y);
-					
+					App->render->Blit(tileset->texture, pos.x, pos.y, &r);
 				}
 			}
 		}
-		
 	}
 }
 

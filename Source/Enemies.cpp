@@ -5,7 +5,8 @@
 #include "Pathfinding.h"
 #include "Entity.h"
 #include "Collisions.h"
-#include "p2Log.h"
+#include "Particles.h"
+#include "Input.h"
 
 Enemies::Enemies() : Module(), UpdateMsCycle((1.0f / 60.0f)), AccumulatedTime(0.0f)
 {
@@ -69,13 +70,30 @@ bool Enemies::Update(float dt)
         if (DoLogic)
             (*it)->UpdateLogic();
         (*it)->Draw(dt);
-        //(*it)->Kill();
+    }
+    eastl::list<Enemy*>::iterator i = enemies.begin();
+    while (i != enemies.end()) {
+        if ((*i)->todie) {
+            Enemy* todestroy = (*i);
+            ++i;
+            DestroyEnemy(todestroy);
+        }
+        else
+            ++i;
     }
     if (DoLogic == true) {
         AccumulatedTime = 0.0f;
         DoLogic = false;
     }
     return true;
+}
+
+void Enemies::DestroyEnemy(Enemy*enemy) {
+    eastl::list<Enemy*>::iterator it = eastl::find(enemies.begin(), enemies.end(), enemy);
+    if (it != enemies.end()) {
+        delete (*it);
+        enemies.erase(it);
+    }
 }
 
 // Called each loop iteration
@@ -110,6 +128,7 @@ void Enemies::OnCollision(Collider* c1, Collider* c2) {
     switch (c1->type) {
     case COLLIDER_ENEMY_RANGE:
         //disparar cap el ally
+        //App->particle->AddParticle(App->particle->shot, c1->enemy->EnemyRect.x, c1->enemy->EnemyRect.y, 0, COLLIDER_ENEMY_PARTICLE, ParticleType::SHOT, c1->enemy->DirectionAngle, c1->enemy->Damage);
         break;
     }
 }
@@ -118,7 +137,7 @@ void Enemies::OnCollision(Collider* c1, Collider* c2) {
 
 
 
-Enemy::Enemy(EnemyType type,iPoint Position):etype(type){
+Enemy::Enemy(EnemyType type,iPoint Position):etype(type),todie(false){
     switch (type) {
     case EnemyType::wraith:
         EnemyRect = { Position.x,Position.y,65,65 };
@@ -150,8 +169,16 @@ void Enemy::Update(float dt) {
     if (!OnDestination)
         UpdateMovement();
 
-    /*if (health < 0)
-        die*/
+    if (App->input->GetKey(SDL_SCANCODE_1) == KEY_UP)
+        health = 0;
+    if (health <= 0) {
+        todie = true;
+        if (collider != nullptr)
+            collider->toDelete = true;
+        if (rangecollider != nullptr)
+            rangecollider->toDelete = true;
+    }
+        
 }
 
 void Enemy::UpdateLogic() {

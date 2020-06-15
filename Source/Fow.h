@@ -57,10 +57,6 @@ public: // Functions
 	bool Awake();
 	// Called before the first frame
 	bool Start();
-
-	// Draw the map
-	void Draw();
-
 	// Called each loop iteration
 	bool Update(float dt);
 	// Called before quitting

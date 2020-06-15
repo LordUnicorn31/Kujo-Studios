@@ -5,7 +5,7 @@
 #include "p2Point.h"
 #include "SDL_rect.h"
 #include "Animation.h"
-#define DURATION 0.0f
+#define DURATION 300.0f
 #define GROUPSPAWNPRATIO 60.0f
 
 enum class EnemyType {
@@ -24,6 +24,7 @@ public:
 	SDL_Texture* sprite;
 	Collider* collider;
 	Collider* rangecollider;
+	bool todie;
 public:
 	//void Die();
 
@@ -87,4 +88,5 @@ public:
 	SDL_Texture* EnemySprite;
 	eastl::list<Enemy*>enemies;
 	void SpawnEnemies();
+	void DestroyEnemy(Enemy* enemy);
 };

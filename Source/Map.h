@@ -140,12 +140,11 @@ private:
 public:
 
 	MapData data;
+
+private:
+
 	pugi::xml_document	mapFile;
 	eastl::string			folder;
 	bool				mapLoaded;
 
-
-private:
-
-	
 };

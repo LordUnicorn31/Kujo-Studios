@@ -45,6 +45,7 @@ bool SceneIntro::Start()
 	img1 = App->tex->Load("Resources/intro/intro_scene1.png");
 	img2 = App->tex->Load("Resources/intro/intro_scene2.png");
 	img3 = App->tex->Load("Resources/intro/intro_scene3.png");
+	skip = App->gui->AddText(545, 10, "PRESS SPACE TO SKIP", App->font->smallFont, { 255,255,255,255 }, 16, false, false);
 
 	return true;
 }
@@ -121,6 +122,7 @@ bool SceneIntro::CleanUp()
 	App->tex->UnLoad(img3);
 	App->tex->UnLoad(img2);
 	App->tex->UnLoad(img1);
+	App->gui->RemoveUiElement(skip);
 	img1 = nullptr;
 	img2 = nullptr;
 	img3 = nullptr;

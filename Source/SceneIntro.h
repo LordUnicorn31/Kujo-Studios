@@ -37,6 +37,6 @@ public:
 	SDL_Texture* img3;
 	float s = 0;
 	SDL_Rect rect;
-
+	UiElement* skip;
 	UiElement* mouseImage;
 };

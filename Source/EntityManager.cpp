@@ -115,13 +115,13 @@ EntityManager::EntityManager(): Module(),MineSprite(NULL),CuartelLab(NULL),BaseS
 	Animations.BuildPowerGenerator.PushBack({128,0,64,64});
 	*/
 	BuildCost[1] = { 0,0 };
-	BuildCost[2] = { 60,0 };
-	BuildCost[3] = { 200,0 };
+	BuildCost[2] = { 50,0 };
+	BuildCost[3] = { 180,0 };
 	BuildCost[4] = { 300,0 };
-	BuildCost[5] = { 0,60 };
+	BuildCost[5] = { 0,70 };
 	BuildCost[6] = { 250,500 };
-	BuildCost[7] = { 150,200 };
-	BuildCost[8] = { 100,200 };
+	BuildCost[7] = { 125,225 };
+	BuildCost[8] = { 50,200 };
 	BuildCost[9] = { 200,0 };
 	BuildCost[10] = { 0,300 };
 	BuildCost[11] = { 0,400 };

@@ -33,7 +33,7 @@ bool Fow::Awake()
 
 bool Fow::Start()
 {
-	fogtexture = App->tex->Load("Resources/maps/fog_tile.png");
+	fogtexture = App->tex->Load("maps/fow_texture.png");
 
 	return true;
 }

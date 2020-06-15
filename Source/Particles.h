@@ -54,9 +54,9 @@ public:
 	bool Start();
 	bool Update(float dt);
 	bool CleanUp();
-	//void OnCollision(Collider* c1, Collider* c2);
+	void OnCollision(Collider* c1, Collider* c2);
 
-	void AddParticle(const Particle& particle, int x, int y, float size, float delay = 0, COLLIDER_TYPE colliderType = COLLIDER_TYPE::COLLIDER_NONE, ParticleType type = ParticleType::NONE, double angle = 0.0f, float life = 0, int damage = 0, float speed = 0);
+	void AddParticle(const Particle& particle, int x, int y, int size, float delay = 0, COLLIDER_TYPE colliderType = COLLIDER_TYPE::COLLIDER_NONE, ParticleType type = ParticleType::NONE, double angle = 0.0f, float life = 0, int damage = 0, float speed = 0);
 
 	
 	SDL_Texture* graphics = nullptr;

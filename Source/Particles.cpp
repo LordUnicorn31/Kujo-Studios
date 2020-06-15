@@ -4,6 +4,8 @@
 #include "Textures.h"
 #include "Window.h"
 #include "Render.h"
+#include "Enemies.h"
+#include "Entity.h"
 
 Particles::Particles()
 {
@@ -43,6 +45,7 @@ bool Particles::Update(float dt)
 
 		if (p->Update(dt) == false)
 		{
+			p->collider->toDelete = true;
 			delete p;
 			active[i] = nullptr;
 		}
@@ -132,7 +135,7 @@ bool Particles::CleanUp()
 	return true;
 }
 
-void Particles::AddParticle(const Particle& particle, int x, int y, float size, float delay, COLLIDER_TYPE colliderType, ParticleType type, double angle, float life, int damage, float speed)
+void Particles::AddParticle(const Particle& particle, int x, int y, int size, float delay, COLLIDER_TYPE colliderType, ParticleType type, double angle, float life, int damage, float speed)
 {
 
 	for (int i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
@@ -164,7 +167,7 @@ void Particles::AddParticle(const Particle& particle, int x, int y, float size, 
 				p->damage = damage;
 				if (colliderType != COLLIDER_TYPE::COLLIDER_NONE)
 				{
-					p->collider = App->collisions->AddCollider(p->rect, colliderType, this);
+					p->collider = App->collisions->AddCollider(p->rect, colliderType, this,nullptr,nullptr,p);
 				}
 				break;
 
@@ -177,6 +180,17 @@ void Particles::AddParticle(const Particle& particle, int x, int y, float size, 
 			active[i] = p;
 			break;
 		}
+	}
+}
+
+void Particles::OnCollision(Collider* c1, Collider* c2) {
+	if (c1->type == COLLIDER_ALLY_PARTICLE && c2->type == COLLIDER_ENEMY) {
+		c2->enemy->health -= c1->particle->damage;
+		c1->particle->life = 0.0f;
+	}
+	if (c1->type == COLLIDER_ENEMY_PARTICLE && c2->type == COLLIDER_ALLY) {
+		c2->entity->health -= c1->particle->damage;
+		c1->particle->life = 0.0f;
 	}
 }
 

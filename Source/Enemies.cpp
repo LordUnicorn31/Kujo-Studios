@@ -128,7 +128,10 @@ void Enemies::OnCollision(Collider* c1, Collider* c2) {
     switch (c1->type) {
     case COLLIDER_ENEMY_RANGE:
         //disparar cap el ally
-        //App->particle->AddParticle(App->particle->shot, c1->enemy->EnemyRect.x, c1->enemy->EnemyRect.y, 0, COLLIDER_ENEMY_PARTICLE, ParticleType::SHOT, c1->enemy->DirectionAngle, c1->enemy->Damage);
+        if (!c1->enemy->shooting) {
+            App->particle->AddParticle(App->particle->shot, c1->enemy->EnemyRect.x, c1->enemy->EnemyRect.y, 10, 0, COLLIDER_ENEMY_PARTICLE, ParticleType::SHOT, c1->enemy->DirectionAngle, 1.0f,c1->enemy->Damage, 1000);
+            c1->enemy->shooting = true;
+        }
         break;
     }
 }
@@ -137,7 +140,7 @@ void Enemies::OnCollision(Collider* c1, Collider* c2) {
 
 
 
-Enemy::Enemy(EnemyType type,iPoint Position):etype(type),todie(false){
+Enemy::Enemy(EnemyType type,iPoint Position):etype(type),todie(false),shooting(false){
     switch (type) {
     case EnemyType::wraith:
         EnemyRect = { Position.x,Position.y,65,65 };
@@ -156,6 +159,8 @@ Enemy::Enemy(EnemyType type,iPoint Position):etype(type),todie(false){
         IdleAnimation.speed = 1.5f;
         App->pathfinding->CreatePath(App->map->WorldToMap(EnemyRect.x, EnemyRect.y), App->map->WorldToMap(App->entity->GetBase()->EntityRect.x, App->entity->GetBase()->EntityRect.y));
         path = *App->pathfinding->GetLastPath();
+        rechargetime = 1.0f;
+        currentcharge = rechargetime;
         collider = App->collisions->AddCollider(EnemyRect, COLLIDER_ENEMY, App->enemies,nullptr,this);
         rangecollider = App->collisions->AddCollider({ EnemyRect.x + EnemyRect.w/2 - Range/2, EnemyRect.y + EnemyRect.h/2 - Range/2, Range, Range }, COLLIDER_ENEMY_RANGE, App->enemies,nullptr,this);
         break;
@@ -178,11 +183,19 @@ void Enemy::Update(float dt) {
         if (rangecollider != nullptr)
             rangecollider->toDelete = true;
     }
+
+    if (shooting) {
+        currentcharge -= dt;
+        if (currentcharge <= 0) {
+            currentcharge = rechargetime;
+            shooting = false;
+        }
+    }
         
 }
 
 void Enemy::UpdateLogic() {
-    if (IsMoving)
+    if (IsMoving && !shooting)
         DoMovement();
 }
 

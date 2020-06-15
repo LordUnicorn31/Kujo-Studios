@@ -33,6 +33,9 @@ public:
 	bool Building;
 	float BuildingTime;
 	int TotalBuildingTime;
+	bool shooting;
+	float rechargetime;
+	float currentcharge;
 
 	//GunExtraDamage
 	iPoint TilePos;

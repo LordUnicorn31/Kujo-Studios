@@ -6,8 +6,8 @@
 #include "SDL_rect.h"
 #include "Animation.h"
 #define DURATION 300.0f
-#define GROUPSPAWNPRATIO 60.0f
-
+#define GROUPSPAWNPRATIO 10.0f
+struct Particles;
 enum class EnemyType {
 	none,
 	wraith
@@ -35,6 +35,9 @@ public:
 	int Range;
 	bool IsMoving;
 	bool OnDestination;
+	bool shooting;
+	float rechargetime;
+	float currentcharge;
 	iPoint TilePos;
 	iPoint NextTile;
 	Animation IdleAnimation;

@@ -17,6 +17,8 @@
 #include "GameScene.h"
 #include "EASTL/string.h"
 #include "Audio.h"
+#include "Collisions.h"
+#include "Particles.h"
 
 EntityManager::EntityManager(): Module(),MineSprite(NULL),CuartelLab(NULL),BaseSprite(NULL),ShipsSprite(NULL),UpdateMsCycle((1.0f / 60.0f)),AccumulatedTime(0.0f),newgame(true),BuildButton(nullptr) {
 	name = "EntityManager";
@@ -202,8 +204,8 @@ bool EntityManager::Start() {
 		shipFx = App->audio->LoadFx("Resources/audio/fx/shipBuild.wav");
 		GenerateResources(15, 15);
 		CreateEntity(AviableEntities::base, iPoint(610, 300));
-		Resources[0] = 250;
-		Resources[1] = 250;
+		Resources[0] = 9999;
+		Resources[1] = 9999;
 	}
 	Panel = App->gui->AddImage(0, 0, { 1024,0,226,720 }, true, false, false, nullptr, this);
 	CopperString = App->gui->AddText(160, 20, (std::to_string(Resources[0]).c_str()), App->font->resourcesPanelFont, { 236,178,0,255 }, 20, false, false, false, App->scene->infoImage);
@@ -838,5 +840,13 @@ const Entity* EntityManager::GetBase() const {
 }
 
 void EntityManager::OnCollision(Collider*c1,Collider*c2) {
-
+	switch (c1->type) {
+	case COLLIDER_ALLY_RANGE:
+		//disparar cap el ally
+		if (!((Ai*)c1->entity)->shooting) {
+			App->particle->AddParticle(App->particle->shot, c1->entity->EntityRect.x, c1->entity->EntityRect.y, 10, 0, COLLIDER_ENEMY_PARTICLE, ParticleType::SHOT, ((Ai*)c1->entity)->DirectionAngle, 1.0f, ((Ai*)c1->entity)->Damage, 1000);
+			((Ai*)c1->entity)->shooting = true;
+		}
+		break;
+	}
 }

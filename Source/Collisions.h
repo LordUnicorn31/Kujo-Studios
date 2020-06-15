@@ -7,6 +7,7 @@
 #include "Module.h"
 class Entity;
 class Enemy;
+struct Particle;
 
 enum COLLIDER_TYPE
 {
@@ -30,14 +31,16 @@ struct Collider
 	Module* callback = nullptr;
 	Entity* entity;
 	Enemy* enemy;
+	Particle* particle;
 	Collider();
 
-	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, Module* callback = nullptr, Entity* entity = nullptr, Enemy* enemy = nullptr) :
+	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, Module* callback = nullptr, Entity* entity = nullptr, Enemy* enemy = nullptr, Particle* particle = nullptr) :
 		rect(rectangle),
 		type(type),
 		callback(callback),
 		entity(entity),
-		enemy(enemy)
+		enemy(enemy),
+		particle(particle)
 	{}
 
 	void SetPos(int x, int y)
@@ -61,7 +64,7 @@ public:
 	bool Update(float dt);
 	bool CleanUp() override;
 
-	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr,Entity*entity=nullptr,Enemy*enemy=nullptr);
+	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr,Entity*entity=nullptr,Enemy*enemy=nullptr, Particle* particle = nullptr);
 	void DebugDraw();
 
 private:

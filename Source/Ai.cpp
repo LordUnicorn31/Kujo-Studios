@@ -10,7 +10,7 @@
 #include "Fonts.h"
 #include "Collisions.h"
 
-Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), speed(0.0f),  DirectionAngle(270.0f), Damage(0), Range(0), UpgradedDamage(0), UpgradedRange(0), UpgradedSpeed(0.0f), IsMoving(false), OnDestination(true),Armed(false),Working(true),WorkingTime(0.0f),Building(true),BuildingTime(0.0f),TotalBuildingTime(0),collider(nullptr),RangeCollider(nullptr){
+Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,Position.y,0,0 }), Atype(type), speed(0.0f),  DirectionAngle(270.0f), Damage(0), Range(0), UpgradedDamage(0), UpgradedRange(0), UpgradedSpeed(0.0f), IsMoving(false), OnDestination(true),Armed(false),Working(true),WorkingTime(0.0f),Building(true),BuildingTime(0.0f),TotalBuildingTime(0),collider(nullptr),RangeCollider(nullptr),shooting(false){
     switch (Atype) {
 	case AiType::RedShip:
         MaxHealth = 100;
@@ -34,8 +34,8 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         TilePos = App->map->WorldToMap(EntityRect.x, EntityRect.y);
         NextTile = TilePos;
         OnDestination = true;
-        TotalBuildingTime = 10;
-        BuildingTime = 10.0f;
+        TotalBuildingTime = 0;
+        BuildingTime = 0.0f;
 		break;
     case AiType::BlueShip:
         MaxHealth = 60;
@@ -80,8 +80,8 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         TilePos = App->map->WorldToMap(EntityRect.x, EntityRect.y);
         NextTile = TilePos;
         OnDestination = true;
-        TotalBuildingTime = 10;
-        BuildingTime = 10.0f;
+        TotalBuildingTime = 0;
+        BuildingTime = 0.0f;
 		break;
     case AiType::GreenShip:
         MaxHealth = 200;
@@ -108,6 +108,8 @@ Ai::Ai(AiType type, iPoint Position) : Entity(EntityType::TypeAi, { Position.x,P
         BuildingTime = 10.0f;
         break;
 	}
+    rechargetime = 1.0f;
+    currentcharge = rechargetime;
 }
 
 Ai::~Ai() {
@@ -139,6 +141,14 @@ void Ai::Update(float dt) {
     if (!OnDestination)
         UpdateMovement();
 
+    if (shooting) {
+        currentcharge -= dt;
+        if (currentcharge <= 0) {
+            currentcharge = rechargetime;
+            shooting = false;
+        }
+    }
+    
     if (health <= 0) {
         todie = true;
         if(collider!=nullptr)
@@ -151,7 +161,7 @@ void Ai::Update(float dt) {
 }
 
 void Ai::UpdateLogic() {
-    if (IsMoving)
+    if (IsMoving && !shooting)
         DoMovement();
 }
 

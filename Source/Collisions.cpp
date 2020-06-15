@@ -7,6 +7,7 @@
 #include "Entity.h"
 #include "GameScene.h"
 #include "Map.h"
+#include "Particles.h"
 
 Collisions::Collisions()
 {
@@ -189,7 +190,7 @@ bool Collisions::CleanUp()
 	return true;
 }
 
-Collider* Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback,Entity*entity,Enemy*enemy)
+Collider* Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback,Entity*entity,Enemy*enemy, Particle*particle)
 {
 	Collider* ret = nullptr;
 
@@ -197,7 +198,7 @@ Collider* Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* cal
 	{
 		if (colliders[i] == nullptr)
 		{
-			ret = colliders[i] = new Collider(rect, type, callback,entity,enemy);
+			ret = colliders[i] = new Collider(rect, type, callback,entity,enemy,particle);
 			break;
 		}
 	}

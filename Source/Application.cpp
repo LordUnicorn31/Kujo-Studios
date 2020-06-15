@@ -82,11 +82,11 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args), saveG
 	AddModule(entity);
 	AddModule(enemies);
 	AddModule(collisions);
+	AddModule(particle);
 	AddModule(minimap);
 	AddModule(font);
 	AddModule(winscene);
 	AddModule(losescene);
-	AddModule(particle);
 	AddModule(gui);
 	AddModule(transition);
 	AddModule(dialog);

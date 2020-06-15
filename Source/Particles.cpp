@@ -87,7 +87,7 @@ bool Particles::Update(float dt)
 					p->position.x -= (p->speed * 0.5f) * dt;
 				}
 
-				App->render->DrawQuad({ (int)p->position.x, (int)p->position.y, (int)p->size, (int)p->size }, p->initialColor.r, p->initialColor.g, p->initialColor.b, p->initialColor.a, false, true);
+				App->render->DrawQuad({ p->position.x, p->position.y, (int)p->size, (int)p->size }, p->initialColor.r, p->initialColor.g, p->initialColor.b, p->initialColor.a, true, true);
 				
 				if (p->fxPlayed == false)
 				{

@@ -28,10 +28,10 @@ struct Particle
 	SDL_Texture* tex;				//Particle texture
 	ParticleType type;				//Particle type
 	float speed;					//Particle speed
-	float size;						//Particle size
+	int size;						//Particle size
 	float life;  					//Particle life
 	double angle;					//Particle angle
-	fPoint position;					//Particle position
+	iPoint position;					//Particle position
 	SDL_Color initialColor;			//Particle color inicial
 	SDL_Color finalColor;			//Particle color final
 	uint fx = 0;					//Particle fx

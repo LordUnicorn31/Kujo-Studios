@@ -86,9 +86,9 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args), saveG
 	AddModule(font);
 	AddModule(winscene);
 	AddModule(losescene);
+	AddModule(particle);
 	AddModule(gui);
 	AddModule(transition);
-	AddModule(particle);
 	AddModule(dialog);
 	AddModule(quest);
 	AddModule(fow);

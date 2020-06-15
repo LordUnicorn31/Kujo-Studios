@@ -12,12 +12,13 @@
 Building::Building(BuildingType type, iPoint Position): Entity(EntityType::TypeBuilding, { Position.x,Position.y,0,0 }), Btype(type),ConstructionTime(0.0f),level(1),OnConstruction(true), ToBuild(false), BuildingEntity(nullptr), BuildHUD(nullptr) {
 	switch (type) {
 	case BuildingType::Base:
-		EntityRect.w = 64;
-		EntityRect.h = 64;
+		EntityRect.w = 96;
+		EntityRect.h = 96;
 		health = 5000;
 		selected = false;
-		IdleAnimation.PushBack({ 0,0,64,64 });
-		IdleAnimation.PushBack({ 64,0,64,64 });
+		IdleAnimation.PushBack({ 0,64,96,96 });
+		IdleAnimation.PushBack({ 96,64,96,96 });
+		IdleAnimation.PushBack({ 192,64,96,96 });
 		IdleAnimation.speed = 2.0f;
 		ConstructionAnimation = IdleAnimation;
 		level = 1;

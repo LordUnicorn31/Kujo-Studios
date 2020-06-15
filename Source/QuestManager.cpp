@@ -93,7 +93,7 @@ void QuestManager::CreateQuestsTutorial()
 		App->gui->AddText(180, 80, std::to_string(0).c_str(), App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel),
 		App->gui->AddText(195, 80, "/1", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel));
 
-	Quest* quest03 = new Quest(3, false, 0, App->gui->AddText(10, 100, "Recruit a Basic", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel),
+	Quest* quest03 = new Quest(3, false, 0, App->gui->AddText(10, 100, "Recruit a Lazer", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel),
 		App->gui->AddText(180, 100, std::to_string(0).c_str(), App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel),
 		App->gui->AddText(195, 100, "/1", App->font->smallFont, { 236,178,0,255 }, 1, false, false, false, questPanel));
 

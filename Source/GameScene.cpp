@@ -79,8 +79,10 @@ bool GameScene::Update(float dt)
 {
 	int a, b;
 	App->input->GetMousePosition(a,b);
+	a -= App->render->camera.x;
+	b -= App->render->camera.y;
 	if(App->input->GetKey(SDL_SCANCODE_1)==KEY_UP)
-		App->particle->AddParticle(App->particle->shot, a, b, 50, 1, COLLIDER_TYPE::COLLIDER_ALLY_PARTICLE, ParticleType::SHOT, 180, 10, 0, 100);
+		App->particle->AddParticle(App->particle->shot, a, b, 50, 0.1, COLLIDER_TYPE::COLLIDER_ALLY_PARTICLE, ParticleType::SHOT, 180, 10, 0, 100);
 
 	bool ret = true;
 

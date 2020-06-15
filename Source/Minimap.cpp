@@ -74,11 +74,11 @@ bool Minimap::Update(float dt)
 		position.x = 0;
 	}*/
 
-	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+	/*if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 		Scale();
 
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-		Descale();
+		Descale();*/
 
 	/*if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		if (display == true)

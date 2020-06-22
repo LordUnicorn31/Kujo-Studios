@@ -174,7 +174,7 @@ copy "$(SolutionDir)\bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\ex
 copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Image\external\libpng16.dll" "$(OutDir)"
 copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\external\libvorbis\libvorbis.dll" "$(OutDir)"
 copy "$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_Mixer\external\libvorbisfile\libvorbisfile-3.dll" "$(OutDir)"
-Xcopy /y $(SolutionDir)Source\Resources $(SolutionDir)bin\Game\$(Configuration)\$(PlatformShortName)\Resources\ /s
+Xcopy $(SolutionDir)Source\Resources $(SolutionDir)bin\Game\$(Configuration)\$(PlatformShortName)\Resources\ /s /y
 copy "$(SolutionDir)Docs\README.md" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
